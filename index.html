@@ -552,14 +552,6 @@
             
             <!-- Items Container Wrapper -->
             <div class="flex-1 overflow-y-auto relative flex flex-col">
-                <!-- Stripe Quick Toggle Banner inside Cart -->
-                <div class="bg-slate-900 text-slate-200 px-4 py-3 border-b border-slate-800 flex justify-between items-center text-xs">
-                    <div class="flex items-center gap-2">
-                        <i class="fa-brands fa-stripe text-lg text-blue-400"></i>
-                        <span id="cartStripeStatusText" class="font-medium text-slate-300">Checkout Mode: Simulated</span>
-                    </div>
-                    <button onclick="openStripeConfigModal()" class="text-blue-400 hover:text-blue-300 font-bold underline">Change Settings</button>
-                </div>
 
                 <div id="cartItems" class="p-6 space-y-4">
                     <!-- Cart items injected via JS -->
@@ -1083,7 +1075,7 @@
                 
                 // Fetch dynamic high-quality Unsplash image based on exact category keywords
                 const searchKeywords = encodeURIComponent(category.name.replace(/\s+/g, ',') + ',professional');
-                const imageUrl = `https://source.unsplash.com/random/600x400/?${searchKeywords}&sig=${category.id}-${i}`;
+                const imageUrl = `https://image.pollinations.ai/prompt/${searchKeywords}%20beautiful%20high%20quality%20ui%20design?width=600&height=400&nologo=true&seed=${category.id}-${i}`;
 
                 return {
                     id: `${category.id}-gen-${i}`,
@@ -1216,7 +1208,7 @@
 
                     const baseCategory = categories[Math.floor(Math.random() * categories.length)];
                     const searchKeywords = encodeURIComponent(baseCategory.name.replace(/\s+/g, ',') + ',professional');
-                    const imageUrl = `https://source.unsplash.com/random/600x400/?${searchKeywords}&sig=filter-${Math.random()}`;
+                    const imageUrl = `https://image.pollinations.ai/prompt/${searchKeywords}%20beautiful%20high%20quality%20ui%20design?width=600&height=400&nologo=true&seed=filter-${Math.random()}`;
 
                     return {
                         id: `filter-gen-${Math.random().toString(36).substr(2, 9)}`,
@@ -1815,20 +1807,7 @@
         };
 
         function updateStripeCheckoutBanner() {
-            const mode = localStorage.getItem('promptflow_checkout_mode') || 'simulated';
-            const bannerText = document.getElementById('cartStripeStatusText');
-            if (bannerText) {
-                if (mode === 'stripe') {
-                    const pubKey = localStorage.getItem('promptflow_stripe_publishable_key');
-                    if (pubKey) {
-                        bannerText.innerHTML = `Checkout Mode: <strong class="text-green-400">Live Stripe Redirect</strong>`;
-                    } else {
-                        bannerText.innerHTML = `Checkout Mode: <strong class="text-yellow-400">Stripe (Omitted Publishable Key)</strong>`;
-                    }
-                } else {
-                    bannerText.innerHTML = `Checkout Mode: <strong class="text-blue-450 font-semibold text-blue-400">Simulated Sandbox</strong>`;
-                }
-            }
+            // Cart banner removed for production
         }
 
         async function executeStripeRedirectCheckout() {
