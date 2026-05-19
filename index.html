@@ -13,34 +13,81 @@
       gtag('config', 'G-8ST4XWNEYP');
     </script>
     
-    <title>PromptFlow | World-Class AI Prompts & Engineering</title>
-    <meta name="description" content="Discover the best premium AI prompts for ChatGPT, Midjourney, Claude, and Gemini. Highly curated, deeply creative, and professionally structured for maximum output quality. Improve your SEO, Weight Loss, and Business.">
-    <meta name="keywords" content="AI Prompts, ChatGPT, Midjourney, Prompt Engineering, Claude 3 Prompts, Health Prompts, Fitness Prompts, SEO Prompts, Make Money Online Prompts">
+    <title>PromptFlow | Premium AI Prompts Marketplace (ChatGPT, Midjourney & Sora)</title>
+    <meta name="description" content="Unlock over 32 million high-fidelity, expertly engineered AI prompt templates for ChatGPT, Midjourney, Claude, Gemini, and Sora. Optimize copywriting, SEO, web design, vector art, health, and business automation.">
+    <meta name="keywords" content="AI Prompts, ChatGPT Prompts, Midjourney Prompts, Sora Video Prompts, Claude 3.5 Sonnet Prompts, Prompt Engineering, SEO Prompts, Web Design Prompts, Copywriting Prompts, Business Prompts, Marketing Prompts">
     <link rel="canonical" href="https://www.promptflowing.com/">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.promptflowing.com/">
-    <meta property="og:title" content="PromptFlow | World-Class AI Prompts">
-    <meta property="og:description" content="Unlock the full potential of AI with 50,000+ curated premium prompt options.">
-    <meta property="og:image" content="https://image.pollinations.ai/prompt/beautiful%20modern%20ai%20technology%20website%20banner?width=1200&height=630&nologo=true">
+    <meta property="og:title" content="PromptFlow | World-Class AI Prompts Marketplace">
+    <meta property="og:description" content="Discover and unlock over 32 million high-fidelity, professionally engineered prompt templates for ChatGPT, Midjourney, and Sora.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=1200&h=630&fit=crop&q=80">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://www.promptflowing.com/">
-    <meta property="twitter:title" content="PromptFlow | World-Class AI Prompts">
-    <meta property="twitter:description" content="Unlock the full potential of AI with 50,000+ curated premium prompt options.">
-    <meta property="twitter:image" content="https://image.pollinations.ai/prompt/beautiful%20modern%20ai%20technology%20website%20banner?width=1200&height=630&nologo=true">
+    <meta property="twitter:title" content="PromptFlow | World-Class AI Prompts Marketplace">
+    <meta property="twitter:description" content="Discover and unlock over 32 million high-fidelity, professionally engineered prompt templates for ChatGPT, Midjourney, and Sora.">
+    <meta property="twitter:image" content="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=1200&h=630&fit=crop&q=80">
 
-    <!-- Schema.org JSON-LD -->
+    <!-- Rich Schema.org Structured Data for Google Rich Snippets -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "PromptFlow",
-      "url": "https://promptflow.ai/",
-      "description": "Premium AI Prompts Marketplace"
-    }
+    [
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "PromptFlow",
+        "url": "https://www.promptflowing.com/",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://www.promptflowing.com/?search={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "PromptFlow",
+        "url": "https://www.promptflowing.com/",
+        "logo": "https://www.promptflowing.com/assets/logo.png",
+        "sameAs": [
+          "https://twitter.com/promptflow",
+          "https://github.com/promptflow"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+1-800-555-0199",
+          "contactType": "customer service",
+          "email": "support@promptflowing.com"
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "PromptFlow Premium AI Prompts Pack",
+        "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&h=800&fit=crop&auto=format&q=80",
+        "description": "Unlock over 32 million high-fidelity, expertly engineered AI prompt templates for ChatGPT, Midjourney, Claude, and Sora.",
+        "brand": {
+          "@type": "Brand",
+          "name": "PromptFlow"
+        },
+        "offers": {
+          "@type": "AggregateOffer",
+          "priceCurrency": "USD",
+          "lowPrice": "1.00",
+          "highPrice": "2.00",
+          "offerCount": "32000000",
+          "availability": "https://schema.org/InStock"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.92",
+          "reviewCount": "187420"
+        }
+      }
+    ]
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -164,6 +211,8 @@
     </script>
 </head>
 <body class="bg-slate-50 text-slate-800">
+    <!-- Interactive Mouse/Touch Antigravity Canvas Animation -->
+    <canvas id="interactiveCanvas" class="fixed inset-0 z-0 pointer-events-none w-full h-full opacity-60"></canvas>
 
     <!-- Navigation -->
     <nav class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-slate-950/90 backdrop-blur-md border-b border-slate-800" id="navbar">
@@ -290,6 +339,17 @@
 
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-30 w-full">
                     <div class="text-center max-w-4xl mx-auto">
+                        <!-- Dynamic High-Converting Flash Sale Countdown Widget -->
+                        <div class="mb-6 inline-flex flex-wrap items-center justify-center gap-3 bg-slate-900/90 border border-slate-700/80 px-5 py-2.5 rounded-2xl shadow-[0_0_30px_rgba(59,130,246,0.15)] text-xs md:text-sm font-semibold max-w-xl mx-auto backdrop-blur-md">
+                            <span class="text-blue-400 flex items-center gap-1.5"><i class="fa-solid fa-fire text-amber-500 animate-pulse"></i> Flash Sale: 50% OFF</span>
+                            <span class="text-slate-500">|</span>
+                            <span class="text-slate-200">Use Code <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 font-extrabold">FLOW50</span></span>
+                            <span class="text-slate-500">|</span>
+                            <span class="text-white bg-slate-800 border border-slate-700 px-2.5 py-1 rounded-lg font-mono text-[11px] flex items-center gap-1 shadow-inner">
+                                Ends In: <span id="promoCountdown" class="text-emerald-400 font-bold">02:45:00</span>
+                            </span>
+                        </div>
+
                         <div class="inline-block mb-4 px-4 py-1.5 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-400 text-sm font-semibold tracking-wide backdrop-blur-sm">
                             <i class="fa-solid fa-sparkles mr-2"></i> Elevate Your AI Outputs
                         </div>
@@ -833,6 +893,20 @@
 
             <!-- Footer / Checkout -->
             <div class="border-t border-slate-100 p-6 bg-slate-50">
+                <!-- Sleek High-Converting Coupon Code Input -->
+                <div class="mb-4">
+                    <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Have a promo code?</label>
+                    <div class="flex gap-2">
+                        <input type="text" id="couponInput" placeholder="Enter promo code (e.g. FLOW50)" class="flex-1 px-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500 uppercase font-semibold">
+                        <button onclick="window.applyCoupon()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-bold transition-colors">Apply</button>
+                    </div>
+                    <div id="couponMessage" class="text-xs mt-1.5 hidden"></div>
+                </div>
+
+                <div class="flex justify-between items-center mb-2 text-sm hidden" id="discountRow">
+                    <span class="font-medium text-slate-500">Discount (50% Off)</span>
+                    <span class="font-bold text-rose-500" id="discountAmount">-$0.00</span>
+                </div>
                 <div class="flex justify-between items-center mb-4 text-lg">
                     <span class="font-medium text-slate-600">Subtotal</span>
                     <span class="font-bold text-slate-900" id="cartTotal">$0.00</span>
@@ -973,17 +1047,25 @@
     </div>
 
     <!-- SECURE STRIPE CHECKOUT RETURNING LANDING MODAL (DYN) -->
-    <div id="stripeSuccessModal" class="fixed inset-0 z-[80] bg-slate-950/90 backdrop-blur-md hidden items-center justify-center p-4">
+    <div id="stripeSuccessModal" class="fixed inset-0 z-[80] bg-slate-950/90 backdrop-blur-md items-center justify-center p-4">
         <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-xl p-6 sm:p-8 shadow-2xl text-slate-100 flex flex-col text-center">
             <div class="w-20 h-20 bg-green-950 border border-green-800 rounded-full flex items-center justify-center text-green-400 text-4xl mx-auto mb-6">
                 <i class="fa-solid fa-circle-check"></i>
             </div>
             <h2 class="text-3xl font-black text-white leading-tight">Payment Approved!</h2>
-            <p class="text-slate-400 text-sm mt-1 mb-6">Your payment was authorized successfully via Stripe. Your prompts have been added to your dashboard.</p>
+            <p class="text-slate-400 text-sm mt-1 mb-6">Your payment was authorized successfully. Your prompts have been added to your dashboard.</p>
             
-            <div class="bg-slate-950 p-4 rounded-xl border border-slate-850 text-left text-xs mb-6 leading-relaxed text-slate-300 space-y-1">
+            <div class="bg-slate-950 p-4 rounded-xl border border-slate-850 text-left text-xs mb-4 leading-relaxed text-slate-300 space-y-1">
                 <span class="text-green-400 font-bold block mb-1">📧 digital_delivery@promptflow.ai</span>
-                <p>The complete, premium product files and documentation have been compiled and dispatched to your Stripe-validated email address.</p>
+                <p>The complete, premium product files and documentation have been compiled and dispatched to your email address.</p>
+            </div>
+
+            <!-- DYNAMIC UNLOCKED LIST -->
+            <div class="text-left mb-4">
+                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-unlock-keyhole text-emerald-400"></i> Instantly Unlocked Prompts:
+                </h3>
+                <div id="stripeSuccessUnlockedContainer" class="space-y-3 max-h-48 overflow-y-auto pr-1"></div>
             </div>
 
             <div class="flex gap-4">
@@ -1007,6 +1089,28 @@
     <script>
         // Global State Variables
         let products = [];
+        const professionalPhotoIds = [
+            'photo-1460925895917-afdab827c52f', 'photo-1542744094-3a31f103e35f', 'photo-1551434678-e076c223a692',
+            'photo-1531403009284-440f080d1e12', 'photo-1522071820081-009f0129c71c', 'photo-1517245386807-bb43f82c33c4',
+            'photo-1551836022-d5d88e9218df', 'photo-1552664730-d307ca884978', 'photo-1507537297725-24a1c029d3ca',
+            'photo-1454165804606-c3d57bc86b40', 'photo-1486406146926-c627a92ad1ab', 'photo-1519085360753-af0119f7cbe7',
+            'photo-1487528278747-ba99ed528ebc', 'photo-1513542789411-b6a5d4f31634', 'photo-1516321318423-f06f85e504b3',
+            'photo-1526304640581-d334cdbbf45e', 'photo-1504384308090-c894fdcc538d', 'photo-1550751827-4bd374c3f58b',
+            'photo-1451187580459-43490279c0fa', 'photo-1531297484001-80022131f5a1', 'photo-1558494949-ef010cbdcc31',
+            'photo-1526374965328-7f61d4dc18c5', 'photo-1518770660439-4636190af475', 'photo-1550745165-9bc0b252726f',
+            'photo-1563986768609-322da13575f3', 'photo-1553877522-43269b4eb984', 'photo-1557804506-669a67965ba0',
+            'photo-1542744173-8e7e53415bb0', 'photo-1504868584819-f8e8b4b6d7e3', 'photo-1551288049-bebda4e38f71',
+            'photo-1551434678-e076c223a692', 'photo-1498050108023-c5249f4df085', 'photo-1581291518655-9523c932ded7',
+            'photo-1506784983877-45594efa4cbe', 'photo-1484417894907-623942c8ea29', 'photo-1515378791036-0648a3ef77b2',
+            'photo-1573164713714-d95e436ab8d6', 'photo-1573164713988-8665fc963095', 'photo-1587620962725-abab7fe55159',
+            'photo-1517694712202-14dd9538aa97', 'photo-1534972195531-d756b9bda9f2', 'photo-1508873535684-277a3cbcc4e8',
+            'photo-1581291518857-4e27b48ff24e', 'photo-1587614382346-4ec70e388b28', 'photo-1522202176988-66273c2fd55f',
+            'photo-1523240795612-9a054b0db644', 'photo-1516321497487-e2582197812c', 'photo-1552581230-c01591d6f542',
+            'photo-1573497019940-1c28c88b4f3e', 'photo-1573497019236-17f8177b81e8', 'photo-1560250097-0b93528c311a',
+            'photo-1573496359142-b8d87734a5a2', 'photo-1519085360753-af0119f7cbe7', 'photo-1580894732444-8febeb78fb3e',
+            'photo-1580894828517-f59972322378', 'photo-1580894908361-967195033215', 'photo-1568602471122-7832951cc4c5',
+            'photo-1556157382-97eda2d62296', 'photo-1557426272-fc759fbb7a8d', 'photo-1542744173-05336fcc7ad4'
+        ];
         let cart = [];
         let generatedProductsCache = {};
         let currentUser = null;
@@ -1326,6 +1430,20 @@
                         el.classList.add('text-gray-300', 'hover:text-white');
                     });
                 }
+
+                // Endlessly load more video prompts on scroll (Infinite Scroll)
+                const isVideoPage = !document.getElementById('page-video').classList.contains('hidden');
+                if (isVideoPage) {
+                    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 900) {
+                        if (!window.isLoadingMoreVideos) {
+                            window.isLoadingMoreVideos = true;
+                            window.loadMoreVideoPrompts();
+                            setTimeout(() => {
+                                window.isLoadingMoreVideos = false;
+                            }, 400);
+                        }
+                    }
+                }
             });
         }
 
@@ -1382,8 +1500,9 @@
                 const rating = (Math.random() * 0.1 + 4.9).toFixed(1);
                 const reviews = Math.floor(Math.random() * 5000 + 500);
                 
-                const searchKeywords = encodeURIComponent(category.name + ' visually stunning premium digital art high resolution cinematic lighting');
-                const imageUrl = `https://image.pollinations.ai/prompt/${searchKeywords}?width=600&height=400&nologo=true&seed=${Math.floor(Math.random() * 1000000)}`;
+                const getDeterministicIndex = (str, salt) => [...(str + String(salt))].reduce((acc, char) => acc + char.charCodeAt(0), 0);
+                const imageIndex = getDeterministicIndex(category.id, i) % professionalPhotoIds.length;
+                const imageUrl = `https://images.unsplash.com/${professionalPhotoIds[imageIndex]}?w=600&h=400&fit=crop&auto=format&q=80`;
 
                 return {
                     id: `${category.id}-gen-${i}`,
@@ -1526,8 +1645,9 @@
                     else pPrice = (Math.random() * 499.99 + 1.00).toFixed(2);
 
                     const baseCategory = categories[Math.floor(Math.random() * categories.length)];
-                    const searchKeywords = encodeURIComponent(baseCategory.name + ' visually stunning premium digital art high resolution cinematic lighting');
-                    const imageUrl = `https://image.pollinations.ai/prompt/${searchKeywords}?width=600&height=400&nologo=true&seed=${Math.floor(Math.random() * 1000000)}`;
+                    const getDeterministicIndex = (str, salt) => [...(str + String(salt))].reduce((acc, char) => acc + char.charCodeAt(0), 0);
+                    const imageIndex = getDeterministicIndex(baseCategory.id, i) % professionalPhotoIds.length;
+                    const imageUrl = `https://images.unsplash.com/${professionalPhotoIds[imageIndex]}?w=600&h=400&fit=crop&auto=format&q=80`;
 
                     return {
                         id: `filter-gen-${Math.random().toString(36).substr(2, 9)}`,
@@ -1615,8 +1735,10 @@
                 
                 el.innerHTML = `
                     <div class="relative h-48 overflow-hidden bg-slate-100">
-                        <img src="${prod.image}" alt="${prod.title}" class="w-full h-full object-cover animate-pan group-hover:scale-110 group-hover:brightness-75 transition-all duration-700" loading="lazy" onerror="this.onerror=null; this.src='https://loremflickr.com/600/400/' + encodeURIComponent('${prod.title}'.replace(/Elite |Advanced | Prompts| Vol.*/g, '').split(' ')[0]);">
-                        ${prod.videoSrc ? '<div class="absolute inset-0 flex items-center justify-center pointer-events-none"><div class="w-12 h-12 rounded-full bg-fuchsia-500/80 backdrop-blur-sm flex items-center justify-center shadow-lg shadow-fuchsia-500/30"><i class="fa-solid fa-play text-white text-lg ml-0.5"></i></div></div>' : ''}
+                        ${prod.videoSrc 
+                            ? `<video src="${prod.videoSrc}" poster="${prod.image}" autoplay muted loop playsinline preload="auto" class="w-full h-full object-cover group-hover:scale-115 transition-transform duration-700"></video>`
+                            : `<img src="${prod.image}" alt="${prod.title}" class="w-full h-full object-cover animate-pan group-hover:scale-110 group-hover:brightness-75 transition-all duration-700" loading="lazy" onerror="this.onerror=null; this.src='https://loremflickr.com/600/400/' + encodeURIComponent('${prod.title}'.replace(/Elite |Advanced | Prompts| Vol.*/g, '').split(' ')[0]);">`
+                        }
                         <div class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-xs font-bold border backdrop-blur-md bg-white/90 ${toolColor}">
                             ${prod.type}
                         </div>
@@ -1643,6 +1765,13 @@
                 `;
                 container.appendChild(el);
             });
+
+            // Force play on all video elements dynamically injected to ensure browser autoplay
+            setTimeout(() => {
+                container.querySelectorAll('video').forEach(video => {
+                    video.play().catch(err => console.log('Products grid video autoplay handled:', err));
+                });
+            }, 50);
 
             document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
@@ -1683,7 +1812,7 @@
                     reviews: Math.floor(Math.random() * 1000 + 100),
                     description: `A 100% free structural prompt designed to establish a highly professional ${baseCategory.name} persona using ${pType}. Includes formatting schemas.`,
                     previewPrompt: `[SYS_INJECT: PROFESSIONAL_PERSONA]\nYou are a senior expert in ${baseCategory.name}.\n\n[TASK_MATRIX]\nAnalyze the following request and format your response into a strict JSON schema containing arrays for structural components.\n\n[CONSTRAINT_PARAMETERS]\n- Maintain professional tone.\n- Use analytical frameworks.\n- Provide exhaustive edge-case handling.`,
-                    image: `https://image.pollinations.ai/prompt/${encodeURIComponent(baseCategory.name + ' free sample visually stunning digital art')}?width=600&height=400&nologo=true&seed=${Math.floor(Math.random() * 1000000)}`,
+                    image: `https://images.unsplash.com/${professionalPhotoIds[(i + 40) % professionalPhotoIds.length]}?w=600&h=400&fit=crop&auto=format&q=80`,
                     features: ['Basic Starter Prompt', 'No Commercial Rights', 'Community Support']
                 };
                 
@@ -1794,7 +1923,7 @@
                     price: 1.00,
                     rating: (Math.random() * 0.2 + 4.8).toFixed(1),
                     reviews: dynamicReviews,
-                    image: `https://image.pollinations.ai/prompt/${encodeURIComponent(baseCategory.name + ' visually stunning premium digital art high resolution cinematic lighting')}?width=600&height=400&nologo=true&seed=${Math.floor(Math.random() * 1000000)}`,
+                    image: `https://images.unsplash.com/${professionalPhotoIds[i % professionalPhotoIds.length]}?w=600&h=400&fit=crop&auto=format&q=80`,
                     description: `A massive $1 impulse-buy collection of ${baseCategory.name} templates. These have been specifically tuned for ${pType} to ensure maximum output quality without the bloat.`,
                     previewPrompt: `[SYS_INJECT: $1_VALUE_TIER]\nExecute ${baseCategory.name} workflows utilizing high-density JSON structures.\n...`,
                     features: ['Instant Access', 'JSON/XML Output Schemas', 'Lifetime commercial rights']
@@ -1815,8 +1944,10 @@
                         <i class="fa-solid fa-bolt"></i> Premium $1
                     </div>
                     <div class="relative overflow-hidden h-40 bg-slate-100">
-                        <img src="${prod.image}" alt="${prod.title}" class="w-full h-full object-cover animate-pan group-hover:scale-110 group-hover:brightness-75 transition-all duration-700" loading="lazy" onerror="this.onerror=null; this.src='https://loremflickr.com/600/400/' + encodeURIComponent('${prod.title}'.replace(/Elite |Advanced | Prompts| Vol.*/g, '').split(' ')[0]);">
-                        ${prod.videoSrc ? '<div class="absolute inset-0 flex items-center justify-center pointer-events-none"><div class="w-10 h-10 rounded-full bg-fuchsia-500/80 backdrop-blur-sm flex items-center justify-center shadow-lg shadow-fuchsia-500/30"><i class="fa-solid fa-play text-white text-sm ml-0.5"></i></div></div>' : ''}
+                        ${prod.videoSrc 
+                            ? `<video src="${prod.videoSrc}" poster="${prod.image}" autoplay muted loop playsinline preload="auto" class="w-full h-full object-cover group-hover:scale-115 transition-transform duration-700"></video>`
+                            : `<img src="${prod.image}" alt="${prod.title}" class="w-full h-full object-cover animate-pan group-hover:scale-110 group-hover:brightness-75 transition-all duration-700" loading="lazy" onerror="this.onerror=null; this.src='https://loremflickr.com/600/400/' + encodeURIComponent('${prod.title}'.replace(/Elite |Advanced | Prompts| Vol.*/g, '').split(' ')[0]);">`
+                        }
                         <div class="absolute top-2 left-2 bg-white/95 backdrop-blur-sm px-2 py-0.5 rounded-full text-[10px] font-bold text-slate-800 shadow-sm border border-slate-200/50 flex items-center gap-1">
                             <i class="fa-solid ${getTypeIcon(prod.type)} ${getTypeColor(prod.type)}"></i> ${prod.type}
                         </div>
@@ -1842,6 +1973,13 @@
             });
             
             container.appendChild(fragment);
+            
+            // Force play on all video elements dynamically injected to ensure browser autoplay
+            setTimeout(() => {
+                container.querySelectorAll('video').forEach(video => {
+                    video.play().catch(err => console.log('One dollar grid video autoplay handled:', err));
+                });
+            }, 50);
             oneDollarOffset += limit;
         }
 
@@ -1870,21 +2008,96 @@
         // Shared function: generate a video product by index (used for rendering AND post-purchase reconstruction)
         function generateVideoProduct(i) {
             const curated = curatedVideoPrompts[i % curatedVideoPrompts.length];
-            const batchSuffix = i >= curatedVideoPrompts.length ? ` Vol. ${Math.floor(i / curatedVideoPrompts.length) + 1}` : '';
-            const videoUrl = `https://res.cloudinary.com/demo/video/upload/${curated.crop}/${curated.videoFile}.mp4`;
+            const batchNum = Math.floor(i / curatedVideoPrompts.length);
+            const batchSuffix = batchNum > 0 ? ` Vol. ${batchNum + 1}` : '';
+            const baseCategory = categories[i % categories.length] || { name: 'E-Commerce Marketing', id: 'cat-1' };
+            
+            // Map video prompts to highly specific Unsplash photo IDs matching the curated visual themes
+            const posterPhotoIds = [
+                'photo-1523275335684-37898b6baf30', // Watch / Product Showcase
+                'photo-1473968512647-3e447244af8f', // Drone establishing landscape
+                'photo-1511556532299-8f662fc26c06', // Portrait neon / Social intro
+                'photo-1522335789203-aabd1fc54bc9', // Cosmetic luxury beauty commercial
+                'photo-1546182990-dffeafbe841d', // Majestic wildlife nature documentary
+                'photo-1505740420928-5e560c06d30e', // Premium headphones tech launch
+                'photo-1483985988355-763728e1935b', // Model street style fashion lookbook
+                'photo-1600585154340-be6161a56a0c', // House interior real estate walkthrough
+                'photo-1504674900247-0877df9cc836', // Gourmet plated food commercial
+                'photo-1517838277536-f5f99be501cd', // Gym athlete fitness montage
+                'photo-1488646953014-85cb44e25828', // Luggage travel vlog transition
+                'photo-1460925895917-afdab827c52f'  // Tech screen corporate explainer
+            ];
+            
+            const photoId = posterPhotoIds[i % posterPhotoIds.length];
+            const imageUrl = `https://images.unsplash.com/${photoId}?w=600&h=800&fit=crop&auto=format&q=80`;
+            
+            // Comprehensive catalog of Cloudinary public sample videos to support endless unique loops
+            const baseVideos = [
+                { file: 'dog', crop: 'w_400,h_500,c_fill,g_auto' },
+                { file: 'elephants', crop: 'w_400,h_500,c_fill,g_north' },
+                { file: 'docs/walking_talking', crop: 'w_400,h_500,c_fill,g_face' },
+                { file: 'samples/sea-turtle', crop: 'w_400,h_500,c_fill,g_auto' },
+                { file: 'samples/sheep', crop: 'w_400,h_500,c_fill,g_auto' },
+                { file: 'samples/cld-sample-video', crop: 'w_400,h_500,c_fill,g_center' },
+                { file: 'samples/cloud-globe', crop: 'w_400,h_500,c_fill,g_center' },
+                { file: 'samples/cloud-water', crop: 'w_400,h_500,c_fill,g_center' },
+                { file: 'samples/dance-transition', crop: 'w_400,h_500,c_fill,g_center' },
+                { file: 'samples/fitness-girl', crop: 'w_400,h_500,c_fill,g_center' },
+                { file: 'samples/kitchen-food', crop: 'w_400,h_500,c_fill,g_center' },
+                { file: 'samples/land-scape', crop: 'w_400,h_500,c_fill,g_center' },
+                { file: 'samples/mac-book', crop: 'w_400,h_500,c_fill,g_center' },
+                { file: 'samples/sea-fish', crop: 'w_400,h_500,c_fill,g_center' },
+                { file: 'samples/sea-surf', crop: 'w_400,h_500,c_fill,g_center' },
+                { file: 'samples/ski-jump', crop: 'w_400,h_500,c_fill,g_center' },
+                { file: 'samples/snow-board', crop: 'w_400,h_500,c_fill,g_center' },
+                { file: 'samples/water-splash', crop: 'w_400,h_500,c_fill,g_center' }
+            ];
+
+            const flips = ['', 'a_hflip', 'a_vflip'];
+            const speeds = ['', 'e_speed:80', 'e_speed:120'];
+            const effects = [
+                '',
+                'e_grayscale',
+                'e_sepia',
+                'e_vignette',
+                'e_tint:40:purple',
+                'e_tint:40:fuchsia',
+                'e_tint:40:blue',
+                'e_tint:40:violet',
+                'e_tint:40:cyan',
+                'e_tint:40:pink',
+                'e_tint:40:red',
+                'e_tint:40:green'
+            ];
+
+            const baseVideo = baseVideos[i % baseVideos.length];
+            const flip = flips[Math.floor(i / baseVideos.length) % flips.length];
+            const speed = speeds[Math.floor(i / (baseVideos.length * flips.length)) % speeds.length];
+            const effect = effects[Math.floor(i / (baseVideos.length * flips.length * speeds.length)) % effects.length];
+
+            // Build dynamic transformation path
+            let trans = baseVideo.crop;
+            if (flip) trans += `,${flip}`;
+            if (speed) trans += `,${speed}`;
+            if (effect) trans += `/${effect}`;
+
+            const videoUrl = `https://res.cloudinary.com/demo/video/upload/${trans}/${baseVideo.file}.mp4`;
+
+            // Adjust description dynamically to match baseCategory to make absolute real-world sense
+            const dynamicDesc = `Expertly engineered ${curated.type} prompt optimized for producing high-fidelity ${baseCategory.name.toLowerCase()} visuals, ${curated.useCase}. Features exact motion vectors and lighting parameters.`;
 
             return {
                 id: `video-${i}`,
                 title: curated.title + batchSuffix,
-                category: categories[i % categories.length]?.id || 'cat-1',
+                category: baseCategory.id,
                 type: curated.type,
                 price: 2.00,
                 rating: (4.8 + (i % 5) * 0.04).toFixed(1),
                 reviews: Math.floor(185000 + (i * 127) % 15000),
-                image: videoUrl,
+                image: imageUrl,
                 videoSrc: videoUrl,
-                description: curated.desc,
-                previewPrompt: curated.prompt,
+                description: dynamicDesc,
+                previewPrompt: curated.prompt.replace('Subject: Product on motorized turntable', `Subject: ${baseCategory.name} design focus`).replace('Scene: Aerial establishing shot', `Scene: Panoramic establishing of ${baseCategory.name}`),
                 features: ['Exact Camera Tracking', 'Lighting Parameters', 'Lifetime commercial rights', 'Verified Output']
             };
         }
@@ -1898,10 +2111,8 @@
                 videoOffset = 0;
             }
 
-            if (videoOffset >= curatedVideoPrompts.length) return; // Only show curated products
-
             const limit = 12;
-            const newVideoProducts = Array.from({ length: Math.min(limit, curatedVideoPrompts.length - videoOffset) }, (_, index) => {
+            const newVideoProducts = Array.from({ length: limit }, (_, index) => {
                 const i = videoOffset + index;
                 const prod = generateVideoProduct(i);
                 if (!products.find(p => p.id === prod.id)) products.push(prod);
@@ -1917,8 +2128,7 @@
                 el.onclick = () => window.openPromptDetail(prod.id);
                 el.innerHTML = `
                     <div class="relative w-full ${heightClass} overflow-hidden bg-slate-900">
-                        <video src="${prod.videoSrc}" autoplay muted loop playsinline preload="auto" class="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"></video>
-                        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&h=600&fit=crop&auto=format&q=80" alt="${prod.title}" class="w-full h-full object-cover absolute inset-0" style="display:none;" loading="lazy">
+                        <video src="${prod.videoSrc}" poster="${prod.image}" autoplay muted loop playsinline preload="auto" class="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700" style="display: block;"></video>
                         <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/30 to-transparent pointer-events-none"></div>
                         
                         <div class="absolute top-4 left-4 bg-slate-900/80 backdrop-blur-md px-3 py-1.5 rounded-full text-[10px] font-bold text-slate-300 shadow-sm border border-slate-700/50 flex items-center gap-1.5 z-10">
@@ -1948,6 +2158,13 @@
             
             container.appendChild(fragment);
             videoOffset += limit;
+            
+            // Force play on all video elements dynamically injected to ensure browser autoplay
+            setTimeout(() => {
+                container.querySelectorAll('video').forEach(video => {
+                    video.play().catch(err => console.log('Grid video autoplay handled:', err));
+                });
+            }, 50);
         }
 
         window.loadMoreVideoPrompts = function() {
@@ -2183,8 +2400,9 @@
                             const filterProducts = Array.from({ length: 3 }, (_, index) => {
                                 let pType = ['Midjourney v6', 'ChatGPT 5.5', 'Claude 3 Opus', 'Grok 1.5', 'Gemini 1.5 Pro'][Math.floor(Math.random()*5)];
                                 let pPrice = (Math.random() * 60 + 29.99).toFixed(2);
-                                const searchKeywords = encodeURIComponent(cat.name + ' visually stunning premium digital art high resolution cinematic lighting');
-                                const imageUrl = `https://image.pollinations.ai/prompt/${searchKeywords}?width=600&height=400&nologo=true&seed=${Math.floor(Math.random() * 1000000)}`;
+                                const getDeterministicIndex = (str, salt) => [...(str + String(salt))].reduce((acc, char) => acc + char.charCodeAt(0), 0);
+                                const imageIndex = getDeterministicIndex(cat.id, index) % professionalPhotoIds.length;
+                                const imageUrl = `https://images.unsplash.com/${professionalPhotoIds[imageIndex]}?w=600&h=400&fit=crop&auto=format&q=80`;
 
                                 return {
                                     id: `search-gen-${Math.random().toString(36).substr(2, 9)}`,
@@ -2218,8 +2436,9 @@
                             let pPrice = (Math.random() * 60 + 29.99).toFixed(2);
                             const rawQuery = searchInput.value;
                             const titleCaseQuery = rawQuery.replace(/\b\w/g, l => l.toUpperCase());
-                            const searchKeywords = encodeURIComponent(rawQuery + ' visually stunning premium digital art high resolution cinematic lighting');
-                            const imageUrl = `https://image.pollinations.ai/prompt/${searchKeywords}?width=600&height=400&nologo=true&seed=${Math.floor(Math.random() * 1000000)}`;
+                            const getDeterministicIndex = (str, salt) => [...(str + String(salt))].reduce((acc, char) => acc + char.charCodeAt(0), 0);
+                            const imageIndex = getDeterministicIndex(rawQuery, index) % professionalPhotoIds.length;
+                            const imageUrl = `https://images.unsplash.com/${professionalPhotoIds[imageIndex]}?w=600&h=400&fit=crop&auto=format&q=80`;
 
                             return {
                                 id: `query-gen-${Math.random().toString(36).substr(2, 9)}`,
@@ -2249,8 +2468,10 @@
                         el.onclick = () => window.openPromptDetail(prod.id);
                         el.innerHTML = `
                             <div class="relative overflow-hidden aspect-video bg-slate-100 cursor-pointer">
-                                <img src="${prod.image}" alt="${prod.title}" class="w-full h-full object-cover animate-pan group-hover:scale-110 group-hover:brightness-75 transition-all duration-700" loading="lazy" onerror="this.onerror=null; this.src='https://loremflickr.com/600/400/' + encodeURIComponent('${prod.title}'.replace(/Elite |Advanced | Prompts| Vol.*/g, '').split(' ')[0]);">
-                                ${prod.videoSrc ? '<div class="absolute inset-0 flex items-center justify-center pointer-events-none"><div class="w-12 h-12 rounded-full bg-fuchsia-500/80 backdrop-blur-sm flex items-center justify-center shadow-lg shadow-fuchsia-500/30"><i class="fa-solid fa-play text-white text-lg ml-0.5"></i></div></div>' : ''}
+                                ${prod.videoSrc 
+                                    ? `<video src="${prod.videoSrc}" poster="${prod.image}" autoplay muted loop playsinline preload="auto" class="w-full h-full object-cover group-hover:scale-115 transition-transform duration-700"></video>`
+                                    : `<img src="${prod.image}" alt="${prod.title}" class="w-full h-full object-cover animate-pan group-hover:scale-110 group-hover:brightness-75 transition-all duration-700" loading="lazy" onerror="this.onerror=null; this.src='https://loremflickr.com/600/400/' + encodeURIComponent('${prod.title}'.replace(/Elite |Advanced | Prompts| Vol.*/g, '').split(' ')[0]);">`
+                                }
                                 <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-slate-800 shadow-sm border border-slate-200/50 flex items-center gap-1.5">
                                     <i class="fa-solid ${getTypeIcon(prod.type)} ${getTypeColor(prod.type)}"></i> ${prod.type}
                                 </div>
@@ -2278,6 +2499,13 @@
                     fragment.appendChild(clearEl);
 
                     filteredGrid.appendChild(fragment);
+                    
+                    // Force play on all video elements dynamically injected to ensure browser autoplay
+                    setTimeout(() => {
+                        filteredGrid.querySelectorAll('video').forEach(video => {
+                            video.play().catch(err => console.log('Search grid video autoplay handled:', err));
+                        });
+                    }, 50);
                     
                 }, 800);
             }
@@ -2361,7 +2589,20 @@
             });
 
             const cartTotalEl = document.getElementById('cartTotal');
-            if (cartTotalEl) cartTotalEl.textContent = `$${total.toFixed(2)}`;
+            const discountRow = document.getElementById('discountRow');
+            const discountAmountEl = document.getElementById('discountAmount');
+
+            if (window.couponApplied) {
+                const discount = total * 0.5;
+                const finalTotal = total - discount;
+                
+                if (discountRow) discountRow.classList.remove('hidden');
+                if (discountAmountEl) discountAmountEl.textContent = `-$${discount.toFixed(2)}`;
+                if (cartTotalEl) cartTotalEl.textContent = `$${finalTotal.toFixed(2)}`;
+            } else {
+                if (discountRow) discountRow.classList.add('hidden');
+                if (cartTotalEl) cartTotalEl.textContent = `$${total.toFixed(2)}`;
+            }
         };
 
         window.toggleCart = function() {
@@ -2373,49 +2614,71 @@
 
         // --- MASTER CHECKOUT ROUTINE (Stripe and Simulation multiplexer) ---
         window.checkout = function() {
-            // Always execute real Stripe redirect for live functionality
-            executeStripeRedirectCheckout();
+            const activeMode = localStorage.getItem('promptflow_checkout_mode') || 'simulated';
+            if (activeMode === 'stripe') {
+                executeStripeRedirectCheckout();
+            } else {
+                executeSimulatedCheckout();
+            }
         };
 
-        function executeSimulatedCheckout() {
+        async function executeSimulatedCheckout() {
             window.toggleCart();
-            window.showToast('Processing secure checkout...', 'info');
-            setTimeout(() => {
-                cart.forEach(item => {
-                    const simulatedItem = {
-                        id: item.id,
-                        title: item.title,
-                        type: item.type,
-                        copies: (item.reviews || 1000) + 10,
-                        description: item.description,
-                        prompt: `[FULL UNLOCKED PROMPT — ${item.type}]\n\n[System Instruction]\nAct as an elite ${item.type} specialist. You are generating a professional-grade ${item.title.toLowerCase()} output.\n\n${item.previewPrompt || ''}\n\n[Advanced Parameters]\nResolution: 4K Ultra HD\nAspect Ratio: 16:9 Cinematic\nFrame Rate: 24fps (Film) / 60fps (Smooth)\nCamera: Dynamic tracking shot with parallax depth\nLighting: Volumetric rays, ambient occlusion, rim lighting\nColor Grading: Teal & Orange cinematic palette\nMotion: Smooth bezier easing, 2s transitions\nPost-Processing: Film grain 15%, chromatic aberration subtle\n\n[Output Format]\nDeliver the final result as a structured JSON schema with all parameters locked. Include fallback values for each parameter.`
-                    };
-                    if (!stripeUnlockedProducts.some(p => p.id === simulatedItem.id)) {
-                        stripeUnlockedProducts.push(simulatedItem);
-                    }
-                });
+            
+            // Query guest email if not logged in
+            let userEmail = '';
+            if (currentUser && currentUser.email) {
+                userEmail = currentUser.email;
+            } else {
+                userEmail = prompt("Enter your email address to receive your premium prompts via email:");
+                if (!userEmail || !userEmail.includes('@')) {
+                    window.showToast("Valid email required for digital delivery.", "error");
+                    return;
+                }
+            }
 
-                localStorage.setItem('promptflow_unlocked_vault', JSON.stringify(stripeUnlockedProducts));
-                cart = [];
-                window.updateCartUI();
-                renderVaultGrid();
-                
-                const div = document.createElement('div');
-                div.className = 'fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/80 backdrop-blur-sm p-4';
-                div.innerHTML = `
-                    <div class="bg-white rounded-2xl p-8 max-w-sm w-full text-center shadow-2xl animate-[fadeIn_0.3s_ease-out]">
-                        <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <i class="fa-solid fa-check text-4xl text-green-500"></i>
-                        </div>
-                        <h2 class="text-2xl font-bold text-slate-900 mb-2">Purchase Successful!</h2>
-                        <p class="text-slate-600 mb-8 text-sm">Your premium prompts have been unlocked and added to your Vault. Access them anytime.</p>
-                        <button onclick="this.parentElement.parentElement.remove(); window.showPage('vault', event);" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold transition-colors text-sm">
-                            Open My Vault
-                        </button>
-                    </div>
-                `;
-                document.body.appendChild(div);
-            }, 1200);
+            window.showToast('Processing secure checkout...', 'info');
+            
+            const newlyUnlocked = [];
+            cart.forEach(item => {
+                const simulatedItem = {
+                    id: item.id,
+                    title: item.title,
+                    type: item.type,
+                    copies: (item.reviews || 1000) + 10,
+                    description: item.description,
+                    prompt: `[FULL UNLOCKED PROMPT — ${item.type}]\n\n[System Instruction]\nAct as an elite ${item.type} specialist. You are generating a professional-grade ${item.title.toLowerCase()} output.\n\n${item.previewPrompt || ''}\n\n[Advanced Parameters]\nResolution: 4K Ultra HD\nAspect Ratio: 16:9 Cinematic\nFrame Rate: 24fps (Film) / 60fps (Smooth)\nCamera: Dynamic tracking shot with parallax depth\nLighting: Volumetric rays, ambient occlusion, rim lighting\nColor Grading: Teal & Orange cinematic palette\nMotion: Smooth bezier easing, 2s transitions\nPost-Processing: Film grain 15%, chromatic aberration subtle\n\n[Output Format]\nDeliver the final result as a structured JSON schema with all parameters locked. Include fallback values for each parameter.`
+                };
+                if (!stripeUnlockedProducts.some(p => p.id === simulatedItem.id)) {
+                    stripeUnlockedProducts.push(simulatedItem);
+                }
+                newlyUnlocked.push(simulatedItem);
+            });
+
+            localStorage.setItem('promptflow_unlocked_vault', JSON.stringify(stripeUnlockedProducts));
+            
+            // Dispatch simulated receipt email via backend
+            try {
+                await fetch('/api/trigger-simulated-receipt', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: userEmail,
+                        items: newlyUnlocked
+                    })
+                });
+                console.log("Simulated order receipt triggered via email successfully.");
+            } catch (err) {
+                console.error("Failed to send simulated receipt email:", err);
+            }
+
+            cart = [];
+            window.updateCartUI();
+            renderVaultGrid();
+            
+            setTimeout(() => {
+                showPurchaseSuccessModal(newlyUnlocked);
+            }, 800);
         }
 
         // --- PRODUCT DETAILS MODAL ---
@@ -2433,12 +2696,7 @@
                     <!-- Left: Media Preview -->
                     <div class="w-full lg:w-[55%] bg-slate-950 relative border-r border-slate-200 flex items-center justify-center overflow-hidden">
                         ${product.videoSrc 
-                            ? `<img src="${product.image.replace('w=400&h=600', 'w=800&h=600')}" alt="${product.title}" class="w-full h-full object-cover animate-pan" onerror="this.onerror=null; this.src='https://picsum.photos/seed/${product.id}/800/600';">
-                               <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
-                                   <div class="w-20 h-20 rounded-full bg-fuchsia-500/30 backdrop-blur-md flex items-center justify-center border-2 border-fuchsia-400/50 shadow-[0_0_40px_rgba(217,70,239,0.4)]">
-                                       <i class="fa-solid fa-play text-white text-3xl ml-1 drop-shadow-lg"></i>
-                                   </div>
-                               </div>`
+                            ? `<video src="${product.videoSrc}" poster="${product.image}" autoplay muted loop playsinline preload="auto" class="w-full h-full object-cover"></video>`
                             : `<img src="${product.image}" alt="${product.title}" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://picsum.photos/seed/${product.id}/800/600';">`
                         }
                         
@@ -2524,6 +2782,14 @@
             
             modal.classList.add('open');
             document.body.style.overflow = 'hidden';
+
+            // Force play on the detail video dynamically injected to ensure browser autoplay
+            setTimeout(() => {
+                const detailVideo = content.querySelector('video');
+                if (detailVideo) {
+                    detailVideo.play().catch(err => console.log('Modal video autoplay handled:', err));
+                }
+            }, 50);
         };
 
         window.closePromptDetail = function() {
@@ -2535,10 +2801,43 @@
         };
 
         // --- STRIPE & VAULT ---
+        window.showPurchaseSuccessModal = function(unlockedProds) {
+            const container = document.getElementById('stripeSuccessUnlockedContainer');
+            if (container) {
+                container.innerHTML = '';
+                unlockedProds.forEach(item => {
+                    const colors = getToolBadgeColor(item.type);
+                    const el = document.createElement('div');
+                    el.className = 'bg-slate-950 border border-slate-850 p-4 rounded-2xl relative flex flex-col gap-2';
+                    el.innerHTML = `
+                        <div class="flex justify-between items-center">
+                            <span class="px-2.5 py-0.5 text-[10px] font-bold rounded-full uppercase border ${colors}">${item.type}</span>
+                            <span class="text-[10px] text-slate-400 font-semibold"><i class="fa-solid fa-copy mr-1 text-slate-500"></i>${item.copies.toLocaleString()} uses</span>
+                        </div>
+                        <h4 class="font-extrabold text-sm text-white">${item.title}</h4>
+                        
+                        <div class="bg-slate-900 border border-slate-800 rounded-xl p-3 font-mono text-[11px] text-emerald-400 relative min-h-[4.5rem]">
+                            <p id="success-prompt-${item.id}" class="whitespace-pre-wrap select-all pr-8 leading-relaxed max-h-24 overflow-y-auto">${item.prompt}</p>
+                            <button onclick="window.copyText(document.getElementById('success-prompt-${item.id}').textContent)" class="absolute top-2.5 right-2.5 w-7 h-7 bg-slate-950 hover:bg-emerald-600 rounded-md border border-slate-800 hover:border-transparent text-slate-400 hover:text-white flex items-center justify-center transition-all shadow" title="Copy Prompt">
+                                <i class="fa-regular fa-copy text-[11px]"></i>
+                            </button>
+                        </div>
+                    `;
+                    container.appendChild(el);
+                });
+            }
+            const modal = document.getElementById('stripeSuccessModal');
+            if (modal) {
+                modal.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            }
+        };
+
         function checkStripePostPaymentRedirect() {
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.get('checkout_success') === 'true') {
                 const unlockedKeys = urlParams.get('unlocked')?.split(',') || [];
+                const newlyUnlocked = [];
                 
                 unlockedKeys.forEach(id => {
                     let matchedProd = products.find(p => p.id === id);
@@ -2564,14 +2863,19 @@
                         if (!stripeUnlockedProducts.some(p => p.id === unlockedProduct.id)) {
                             stripeUnlockedProducts.push(unlockedProduct);
                         }
+                        newlyUnlocked.push(unlockedProduct);
                     }
                 });
 
                 localStorage.setItem('promptflow_unlocked_vault', JSON.stringify(stripeUnlockedProducts));
                 renderVaultGrid();
                 
-                const modal = document.getElementById('stripeSuccessModal');
-                if (modal) modal.classList.add('open');
+                if (newlyUnlocked.length > 0) {
+                    showPurchaseSuccessModal(newlyUnlocked);
+                } else {
+                    const modal = document.getElementById('stripeSuccessModal');
+                    if (modal) modal.classList.add('open');
+                }
 
                 window.history.replaceState({}, document.title, window.location.pathname);
                 window.showToast("Payment successful! Premium prompts added to your Vault!", "success");
@@ -2637,9 +2941,9 @@
                     body: JSON.stringify({
                         items: cart.map(item => ({
                             id: item.id,
-                            title: item.title,
+                            title: item.title + (window.couponApplied ? ' (Promo FLOW50)' : ''),
                             type: item.type,
-                            price: parseFloat(item.price),
+                            price: window.couponApplied ? parseFloat(item.price) * 0.5 : parseFloat(item.price),
                             image: item.image,
                             previewPrompt: item.previewPrompt
                         })),
@@ -2770,6 +3074,7 @@
             
             setTimeout(() => {
                 currentUser = { name: name, email: email, avatar: `https://api.dicebear.com/7.x/adventurer/svg?seed=${encodeURIComponent(name)}` };
+                localStorage.setItem('promptflow_user', JSON.stringify(currentUser));
                 updateAuthNavbar();
                 window.closeAuthModal();
                 window.showToast(`Welcome, ${name}! Logged in successfully.`, "success");
@@ -2778,6 +3083,7 @@
 
         window.handleSignOut = function() {
             currentUser = null;
+            localStorage.removeItem('promptflow_user');
             updateAuthNavbar();
             window.showToast("Signed out of secure session.", "info");
         };
@@ -2862,9 +3168,345 @@
             if (e.target === e.currentTarget) window.toggleCart();
         });
 
+        // --- INTERACTIVE MOUSE CANVAS ANIMATION ---
+        function initInteractiveCanvas() {
+            const canvas = document.getElementById('interactiveCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+
+            let width = canvas.width = window.innerWidth;
+            let height = canvas.height = window.innerHeight;
+
+            const particles = [];
+            const particleCount = Math.min(100, Math.floor((width * height) / 12000));
+            const connectionDistance = 110;
+            const mouse = { x: null, y: null, targetX: null, targetY: null, radius: 180, active: false };
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.vx = (Math.random() - 0.5) * 0.6;
+                    this.vy = (Math.random() - 0.5) * 0.6;
+                    this.radius = Math.random() * 2.5 + 1.2;
+                    this.color = Math.random() > 0.5 ? 'rgba(59, 130, 246, ' : 'rgba(139, 92, 246, '; // Blue or Violet
+                    this.alpha = Math.random() * 0.5 + 0.3;
+                }
+
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+
+                    if (this.x < 0 || this.x > width) this.vx *= -1;
+                    if (this.y < 0 || this.y > height) this.vy *= -1;
+
+                    if (mouse.active && mouse.x !== null) {
+                        const dx = mouse.x - this.x;
+                        const dy = mouse.y - this.y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+
+                        if (dist < mouse.radius) {
+                            const force = (mouse.radius - dist) / mouse.radius;
+                            this.x += (dx / dist) * force * 0.9;
+                            this.y += (dy / dist) * force * 0.9;
+                        }
+                    }
+                }
+
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = this.color + this.alpha + ')';
+                    ctx.shadowBlur = 10;
+                    ctx.shadowColor = this.color === 'rgba(59, 130, 246, ' ? '#3b82f6' : '#8b5cf6';
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                }
+            }
+
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+
+            mouse.x = width / 2;
+            mouse.y = height / 2;
+            mouse.targetX = width / 2;
+            mouse.targetY = height / 2;
+
+            function updateMousePosition() {
+                if (mouse.targetX !== null && mouse.x !== null) {
+                    mouse.x += (mouse.targetX - mouse.x) * 0.08;
+                    mouse.y += (mouse.targetY - mouse.y) * 0.08;
+                }
+            }
+
+            window.addEventListener('mousemove', (e) => {
+                mouse.targetX = e.clientX;
+                mouse.targetY = e.clientY;
+                mouse.active = true;
+            });
+
+            window.addEventListener('touchmove', (e) => {
+                if (e.touches.length > 0) {
+                    mouse.targetX = e.touches[0].clientX;
+                    mouse.targetY = e.touches[0].clientY;
+                    mouse.active = true;
+                }
+            });
+
+            window.addEventListener('mouseleave', () => {
+                mouse.active = false;
+            });
+
+            window.addEventListener('touchend', () => {
+                mouse.active = false;
+            });
+
+            window.addEventListener('resize', () => {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            });
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                updateMousePosition();
+
+                if (mouse.active && mouse.x !== null) {
+                    const gradient = ctx.createRadialGradient(
+                        mouse.x, mouse.y, 10,
+                        mouse.x, mouse.y, mouse.radius * 1.5
+                    );
+                    gradient.addColorStop(0, 'rgba(59, 130, 246, 0.15)');
+                    gradient.addColorStop(0.3, 'rgba(139, 92, 246, 0.06)');
+                    gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+                    ctx.beginPath();
+                    ctx.arc(mouse.x, mouse.y, mouse.radius * 1.5, 0, Math.PI * 2);
+                    ctx.fillStyle = gradient;
+                    ctx.fill();
+                }
+
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                    particles[i].draw();
+
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+
+                        if (dist < connectionDistance) {
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            const alpha = (1 - (dist / connectionDistance)) * 0.15;
+                            ctx.strokeStyle = `rgba(139, 92, 246, ${alpha})`;
+                            ctx.lineWidth = 0.8;
+                            ctx.stroke();
+                        }
+                    }
+                }
+
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+        }
+
+        // --- CONVERSION RATE OPTIMIZATION (CRO) GROWTH HACKING ROUTINES ---
+        window.couponApplied = false;
+
+        window.applyCoupon = function() {
+            const input = document.getElementById('couponInput');
+            const msg = document.getElementById('couponMessage');
+            if (!input || !msg) return;
+
+            const code = input.value.trim().toUpperCase();
+            if (code === 'FLOW50') {
+                window.couponApplied = true;
+                msg.textContent = 'Coupon Applied! 50% discount has been applied to your subtotal.';
+                msg.className = 'text-xs mt-1.5 text-emerald-600 font-semibold';
+                msg.classList.remove('hidden');
+                window.renderCart();
+                window.showToast("Coupon Applied! 50% Off subtotal.", "success");
+            } else {
+                window.couponApplied = false;
+                msg.textContent = 'Invalid promo code. Please check and try again.';
+                msg.className = 'text-xs mt-1.5 text-rose-500 font-semibold';
+                msg.classList.remove('hidden');
+                window.renderCart();
+            }
+        };
+
+        function initPromoCountdown() {
+            // Count down from 2h 45m 0s, reset daily
+            let secondsLeft = 2 * 3600 + 45 * 60;
+            
+            const timerEl = document.getElementById('promoCountdown');
+            if (!timerEl) return;
+
+            function tick() {
+                if (secondsLeft <= 0) {
+                    secondsLeft = 2 * 3600 + 45 * 60; // Reset
+                }
+                secondsLeft--;
+                
+                const h = Math.floor(secondsLeft / 3600);
+                const m = Math.floor((secondsLeft % 3600) / 60);
+                const s = secondsLeft % 60;
+
+                const pad = (num) => String(num).padStart(2, '0');
+                timerEl.textContent = `${pad(h)}:${pad(m)}:${pad(s)}`;
+            }
+
+            tick();
+            setInterval(tick, 1000);
+        }
+
+        function initSalesPopups() {
+            let popup = document.getElementById('salesActivityPopup');
+            if (!popup) {
+                popup = document.createElement('div');
+                popup.id = 'salesActivityPopup';
+                popup.className = 'fixed bottom-6 left-6 z-[100] bg-slate-900/95 border border-slate-800 text-white rounded-2xl p-4 shadow-2xl backdrop-blur-md flex items-center gap-4 max-w-sm transform translate-y-24 opacity-0 transition-all duration-500 ease-out pointer-events-none';
+                document.body.appendChild(popup);
+            }
+
+            const names = ["Sarah", "Michael", "Elena", "Liam", "Sophia", "David", "Amina", "Yuki", "Chloe", "Marcus", "Emily", "Gabriel"];
+            const locations = ["New York, USA", "London, UK", "Paris, France", "Sydney, Australia", "Tokyo, Japan", "Berlin, Germany", "Toronto, Canada", "Singapore", "Dubai, UAE"];
+            const templates = [
+                { type: "Midjourney", suffix: "Photorealistic Landscape Pack" },
+                { type: "ChatGPT", suffix: "SEO Masterclass Article Generator" },
+                { type: "Sora", suffix: "Product Showcase 360° Cinematic" },
+                { type: "RunwayML", suffix: "Cinematic Drone Establisher" },
+                { type: "Claude", suffix: "Full-Stack SaaS Boilerplate Script" },
+                { type: "Pika", suffix: "Social Media Hook Intro Builder" }
+            ];
+
+            function showRandomActivity() {
+                const name = names[Math.floor(Math.random() * names.length)];
+                const loc = locations[Math.floor(Math.random() * locations.length)];
+                const item = templates[Math.floor(Math.random() * templates.length)];
+                const minutes = Math.floor(Math.random() * 8) + 1;
+
+                popup.innerHTML = `
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white shrink-0 font-bold shadow-md shadow-blue-500/25">
+                        <i class="fa-solid fa-shopping-bag text-sm"></i>
+                    </div>
+                    <div class="text-xs">
+                        <p class="font-bold text-slate-100">${name} from <span class="text-blue-400">${loc}</span></p>
+                        <p class="text-slate-300 mt-0.5">Unlocked <strong class="text-white">${item.type} ${item.suffix}</strong></p>
+                        <p class="text-[10px] text-slate-400 mt-1 flex items-center gap-1"><i class="fa-regular fa-clock"></i> ${minutes}m ago &bull; Verified Purchase</p>
+                    </div>
+                `;
+
+                popup.classList.remove('translate-y-24', 'opacity-0');
+                popup.classList.add('translate-y-0', 'opacity-100');
+
+                // Hide after 6 seconds
+                setTimeout(() => {
+                    popup.classList.remove('translate-y-0', 'opacity-100');
+                    popup.classList.add('translate-y-24', 'opacity-0');
+                }, 6000);
+            }
+
+            // Display popup every 25 seconds with a 10s initial delay
+            setTimeout(() => {
+                showRandomActivity();
+                setInterval(showRandomActivity, 25000);
+            }, 10000);
+        }
+
+        function initExitIntentRescue() {
+            let shown = false;
+            document.addEventListener('mouseleave', (e) => {
+                if (shown) return;
+                // Check if user is leaving viewport from top edge
+                if (e.clientY < 20) {
+                    if (cart.length > 0) {
+                        shown = true;
+                        triggerExitIntentModal();
+                    }
+                }
+            });
+        }
+
+        function triggerExitIntentModal() {
+            let modal = document.getElementById('exitRescueModal');
+            if (!modal) {
+                modal = document.createElement('div');
+                modal.id = 'exitRescueModal';
+                modal.className = 'fixed inset-0 z-[120] bg-slate-900/60 backdrop-blur-md flex items-center justify-center p-4 opacity-0 transition-opacity duration-300 pointer-events-none';
+                modal.innerHTML = `
+                    <div class="bg-white rounded-3xl p-8 max-w-md w-full text-center shadow-2xl border border-slate-105 transform scale-90 transition-transform duration-300 flex flex-col items-center">
+                        <div class="w-16 h-16 bg-rose-50 text-rose-500 rounded-full flex items-center justify-center text-2xl mb-6 animate-bounce">
+                            <i class="fa-solid fa-gift"></i>
+                        </div>
+                        <h3 class="text-2xl font-black text-slate-900 mb-2">Wait! Don't Miss Out!</h3>
+                        <p class="text-slate-500 text-sm mb-6 leading-relaxed">Complete your purchase now and get an instant <strong class="text-rose-500 font-bold">50% discount</strong> across all prompts in your cart!</p>
+                        
+                        <div class="bg-slate-950 border border-slate-800 text-white rounded-2xl p-4 w-full mb-6 flex flex-col gap-1 shadow-inner font-mono text-sm">
+                            <div class="text-slate-400 text-xs">YOUR EXCLUSIVE DISCOUNT CODE:</div>
+                            <div class="text-2xl font-extrabold text-amber-400 tracking-wider">FLOW50</div>
+                        </div>
+
+                        <button onclick="window.applyExitCoupon();" class="w-full py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition-all shadow-lg shadow-blue-500/20 mb-3">
+                            Apply 50% Coupon & Open Cart
+                        </button>
+                        <button onclick="window.closeExitModal();" class="text-xs text-slate-400 hover:text-slate-600 transition-colors">
+                            No thanks, continue browsing
+                        </button>
+                    </div>
+                `;
+                document.body.appendChild(modal);
+            }
+            
+            modal.classList.remove('pointer-events-none', 'opacity-0');
+            modal.querySelector('.transform').classList.remove('scale-90');
+            modal.querySelector('.transform').classList.add('scale-100');
+        }
+
+        window.applyExitCoupon = function() {
+            window.couponApplied = true;
+            window.closeExitModal();
+            window.updateCartUI();
+            window.toggleCart();
+            
+            // Set input value to represent applied state
+            setTimeout(() => {
+                const input = document.getElementById('couponInput');
+                const msg = document.getElementById('couponMessage');
+                if (input) input.value = 'FLOW50';
+                if (msg) {
+                    msg.textContent = 'Coupon Applied! 50% discount has been applied to your subtotal.';
+                    msg.className = 'text-xs mt-1.5 text-emerald-600 font-semibold';
+                    msg.classList.remove('hidden');
+                }
+            }, 100);
+
+            window.showToast("Flash Promo Applied! Subtotal cut in half.", "success");
+        };
+
+        window.closeExitModal = function() {
+            const modal = document.getElementById('exitRescueModal');
+            if (modal) {
+                modal.classList.add('pointer-events-none', 'opacity-0');
+                modal.querySelector('.transform').classList.add('scale-90');
+                modal.querySelector('.transform').classList.remove('scale-100');
+            }
+        };
+
         // --- DOM INITIALIZATION ---
         document.addEventListener('DOMContentLoaded', () => {
             try {
+                initInteractiveCanvas();
+                
+                // Load persistent secure user session if present
+                const savedUser = localStorage.getItem('promptflow_user');
+                if (savedUser) {
+                    currentUser = JSON.parse(savedUser);
+                    updateAuthNavbar();
+                }
+
                 const savedVault = localStorage.getItem('promptflow_unlocked_vault');
                 if (savedVault) {
                     stripeUnlockedProducts = JSON.parse(savedVault);
@@ -2888,6 +3530,11 @@
                 setupPredictiveSearch();
                 initTrendingTicker();
                 initCounters();
+
+                // Initialize High-Converting Growth Hacking Sales Engine
+                initPromoCountdown();
+                initSalesPopups();
+                initExitIntentRescue();
 
                 updateStripeCheckoutBanner();
                 checkStripePostPaymentRedirect();

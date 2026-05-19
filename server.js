@@ -123,6 +123,20 @@ app.post('/api/signup', async (req, res) => {
     }
 });
 
+app.post('/api/trigger-simulated-receipt', async (req, res) => {
+    const { email, items } = req.body;
+    if (!email) return res.status(400).json({ error: "Email required" });
+    
+    try {
+        console.log(`Triggering simulated receipt email for ${email}...`);
+        await sendReceiptEmail(email, items || []);
+        res.json({ success: true });
+    } catch (err) {
+        console.error("Failed to send simulated receipt email:", err);
+        res.status(500).json({ error: "Failed to send email." });
+    }
+});
+
 app.post('/api/create-checkout-session', async (req, res) => {
     try {
         if (!process.env.STRIPE_SECRET_KEY || process.env.STRIPE_SECRET_KEY === 'your_stripe_secret_key_here') {
@@ -247,6 +261,50 @@ Deliver the final result as a structured JSON schema with all parameters locked.
         console.error("Failed to send receipt email:", err);
     }
 }
+
+// Dynamic Sitemap for SEO crawling
+app.get('/sitemap.xml', (req, res) => {
+    res.header('Content-Type', 'application/xml');
+    
+    // Standard site sitemap template
+    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://www.promptflowing.com/</loc>
+        <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
+    <url>
+        <loc>https://www.promptflowing.com/#page-video</loc>
+        <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://www.promptflowing.com/#page-free</loc>
+        <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://www.promptflowing.com/#page-contact</loc>
+        <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+</urlset>`;
+    
+    res.send(sitemap);
+});
+
+// Dynamic robots.txt
+app.get('/robots.txt', (req, res) => {
+    res.header('Content-Type', 'text/plain');
+    res.send(`User-agent: *
+Allow: /
+Sitemap: https://www.promptflowing.com/sitemap.xml`);
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
