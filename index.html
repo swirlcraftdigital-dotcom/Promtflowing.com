@@ -1,0 +1,2107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PromptFlow | World-Class AI Prompts, Guides & Engineering</title>
+    <meta name="description" content="Discover the best premium AI prompts for ChatGPT, Midjourney, Claude, and Gemini. Highly curated, deeply creative, and professionally structured for maximum output quality.">
+    <meta name="keywords" content="AI Prompts, ChatGPT, Midjourney, Prompt Engineering, Claude 3 Prompts, AI Resources">
+    <link rel="canonical" href="https://promptflow.ai/">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://promptflow.ai/">
+    <meta property="og:title" content="PromptFlow | World-Class AI Prompts">
+    <meta property="og:description" content="Unlock the full potential of AI with 700+ curated premium prompt categories.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=80">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://promptflow.ai/">
+    <meta property="twitter:title" content="PromptFlow | World-Class AI Prompts">
+    <meta property="twitter:description" content="Unlock the full potential of AI with 700+ curated premium prompt categories.">
+    <meta property="twitter:image" content="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=80">
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "PromptFlow",
+      "url": "https://promptflow.ai/",
+      "description": "Premium AI Prompts Marketplace"
+    }
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Secure Stripe official SDK library -->
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .gradient-text {
+            background: linear-gradient(to right, #3b82f6, #8b5cf6, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-bg {
+            background-color: #0f172a;
+            background-image: radial-gradient(circle at 50% 0%, #1e293b 0%, #0f172a 100%);
+        }
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .prompt-card {
+            transition: all 0.3s ease;
+        }
+        .prompt-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-color: #3b82f6;
+        }
+        .toast {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            transform: translateY(100%);
+            opacity: 0;
+        }
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        
+        /* Modal Styles */
+        #cartModal, #promptDetailModal, #authModal, #stripeConfigModal, #stripeSuccessModal {
+            display: none;
+        }
+        #cartModal.open, #promptDetailModal.open, #authModal.open, #stripeConfigModal.open, #stripeSuccessModal.open {
+            display: flex;
+        }
+        
+        @keyframes ticker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .ticker-track {
+            display: flex;
+            width: max-content;
+            animation: ticker 40s linear infinite;
+        }
+        .ticker-track:hover {
+            animation-play-state: paused;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            900: '#1e3a8a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-300 bg-transparent" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="showPage('home', event)">
+                    <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-xl mr-3 shadow-lg">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <span class="font-bold text-2xl tracking-tight text-white transition-colors" id="logoText">Prompt<span class="text-blue-500">Flow</span></span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#" onclick="showPage('home', event)" class="nav-link text-gray-300 hover:text-white transition-colors font-medium">Home</a>
+                    <a href="#" onclick="showPopularPage(event)" class="nav-link text-gray-300 hover:text-white transition-colors font-medium">Popular</a>
+                    <div class="relative group h-full flex items-center">
+                        <a href="#" onclick="showPage('categories', event)" class="nav-link text-gray-300 hover:text-white transition-colors font-medium flex items-center gap-1 h-full py-4">Categories <i class="fa-solid fa-chevron-down text-[10px]"></i></a>
+                        <!-- Dropdown Menu -->
+                        <div class="absolute left-0 top-full w-72 bg-white rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 border border-slate-100 transform origin-top -translate-y-2 group-hover:translate-y-0 z-[100]">
+                            <div class="p-3 grid gap-1" id="navCategoryDropdown">
+                                <!-- Populated via JS -->
+                            </div>
+                            <div class="p-3 border-t border-slate-50 bg-slate-50 rounded-b-xl">
+                                <a href="#" onclick="showPage('categories', event)" class="block px-4 py-2 text-sm font-bold text-blue-600 hover:bg-white rounded-lg text-center transition-colors shadow-sm border border-slate-200">View All 700 Categories</a>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" onclick="showPage('free', event)" class="nav-link text-gray-300 hover:text-white transition-colors font-medium">Free Prompts</a>
+                    <a href="#" onclick="showPage('vault', event)" class="nav-link text-gray-300 hover:text-white transition-colors font-medium flex items-center gap-1">My Vault <span id="vaultBadgeCount" class="hidden bg-blue-500 text-white text-[10px] px-1.5 py-0.5 rounded-full font-bold">0</span></a>
+                    
+                    <button onclick="toggleCart()" class="nav-link relative p-2 text-gray-300 hover:text-white transition-colors">
+                        <i class="fa-solid fa-shopping-cart text-xl"></i>
+                        <span id="cartCount" class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/4 -translate-y-1/4 bg-blue-600 rounded-full">0</span>
+                    </button>
+                    
+                    <!-- Auth Nav Container -->
+                    <div id="authNavContainer" class="relative">
+                        <button onclick="openAuthModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-full font-medium transition-colors shadow-lg shadow-blue-500/30">
+                            Sign In
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center space-x-4">
+                     <button onclick="toggleCart()" class="nav-link relative p-2 text-gray-300" id="mobileCartBtn">
+                        <i class="fa-solid fa-shopping-cart text-xl"></i>
+                        <span id="mobileCartCount" class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/4 -translate-y-1/4 bg-blue-600 rounded-full">0</span>
+                    </button>
+                    <button id="mobileMenuBtn" onclick="toggleMobileMenu()" class="nav-link text-gray-300 hover:text-white focus:outline-none transition-colors">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobileMenu" class="hidden md:hidden bg-slate-900 border-t border-slate-800 shadow-2xl">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#" onclick="showPage('home', event)" class="block px-3 py-2 text-gray-300 hover:text-white hover:bg-slate-800 rounded-md">Home</a>
+                <a href="#" onclick="showPopularPage(event)" class="block px-3 py-2 text-gray-300 hover:text-white hover:bg-slate-800 rounded-md">Popular</a>
+                <a href="#" onclick="showPage('categories', event)" class="block px-3 py-2 text-gray-300 hover:text-white hover:bg-slate-800 rounded-md">Categories</a>
+                <a href="#" onclick="showPage('free', event)" class="block px-3 py-2 text-gray-300 hover:text-white hover:bg-slate-800 rounded-md">Free Prompts</a>
+                <a href="#" onclick="showPage('vault', event)" class="block px-3 py-2 text-gray-300 hover:text-white hover:bg-slate-800 rounded-md">My Vault</a>
+                <div id="mobileAuthNavContainer" class="pt-4 border-t border-slate-800 px-3 mt-2">
+                    <button onclick="openAuthModal()" class="w-full text-center bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md font-medium transition-colors">Sign In</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Wrapper for SPA -->
+    <main id="mainContent">
+
+        <!-- HOME PAGE -->
+        <div id="page-home" class="page-view block">
+            <!-- Hero Section -->
+            <div class="hero-bg min-h-screen flex items-center relative z-40 pt-20">
+                <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
+                    <div class="absolute top-1/4 left-10 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+                    <div class="absolute top-1/3 right-10 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+                    <div class="absolute bottom-1/4 left-1/3 w-72 h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+                </div>
+
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-30 w-full">
+                    <div class="text-center max-w-4xl mx-auto">
+                        <div class="inline-block mb-4 px-4 py-1.5 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-400 text-sm font-semibold tracking-wide backdrop-blur-sm">
+                            <i class="fa-solid fa-sparkles mr-2"></i> Elevate Your AI Outputs
+                        </div>
+                        <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight">
+                            Master AI with <br />
+                            <span class="gradient-text">Precision Prompts</span>
+                        </h1>
+                        <p class="text-xl text-slate-300 mb-10 max-w-2xl mx-auto leading-relaxed">
+                            Unlock the full potential of Midjourney, ChatGPT, and more. Discover curated, tested, and high-converting prompts for design, marketing, coding, and creativity.
+                        </p>
+                        <div class="flex flex-col sm:flex-row justify-center gap-4">
+                            <a href="#" onclick="document.getElementById('categories').scrollIntoView({behavior: 'smooth'})" class="px-8 py-4 bg-white text-slate-900 rounded-full font-bold text-lg hover:bg-slate-100 transition-colors shadow-xl shadow-white/10 flex items-center justify-center">
+                                Explore Catalog <i class="fa-solid fa-arrow-right ml-2"></i>
+                            </a>
+                            <a href="#" onclick="showPage('free', event)" class="px-8 py-4 glass-panel text-white rounded-full font-bold text-lg hover:bg-slate-800 transition-colors flex items-center justify-center border border-slate-600">
+                                Get Free Prompts
+                            </a>
+                        </div>
+                        
+                        <!-- Search Bar -->
+                        <div class="mt-12 max-w-2xl mx-auto relative group z-50" id="searchContainer">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none z-10">
+                                <i class="fa-solid fa-search text-slate-400 group-focus-within:text-blue-500 transition-colors"></i>
+                            </div>
+                            <input type="text" id="heroSearch" autocomplete="off" class="block w-full pl-12 pr-24 py-4 bg-slate-800/80 border border-slate-700 rounded-full text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent backdrop-blur-md transition-all text-lg" placeholder="Search for 'Website Design', 'Photography'...">
+                            <button class="absolute inset-y-2 right-2 px-6 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-medium transition-colors" onclick="searchPrompts()">
+                                Search
+                            </button>
+                            
+                            <!-- Predictive Search Dropdown -->
+                            <div id="searchDropdown" class="absolute z-50 w-full mt-2 bg-white rounded-2xl shadow-2xl border border-slate-200 hidden max-h-80 overflow-y-auto text-left py-2 origin-top animate-[fadeIn_0.2s_ease-out]">
+                                <!-- Predictive results injected here via JS -->
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8 flex items-center justify-center gap-6 text-sm text-slate-400 font-medium">
+                            <span class="flex items-center"><i class="fa-solid fa-check-circle text-green-400 mr-2"></i> Tested for Midjourney v6</span>
+                            <span class="flex items-center"><i class="fa-solid fa-check-circle text-green-400 mr-2"></i> ChatGPT-4 Optimized</span>
+                            <span class="flex items-center"><i class="fa-solid fa-check-circle text-green-400 mr-2"></i> Instant Access</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Live Trending Ticker -->
+            <div class="relative z-45 bg-slate-950 border-y border-slate-800 py-3 shadow-xl flex items-center overflow-hidden">
+                <div class="absolute left-0 top-0 bottom-0 w-36 md:w-48 bg-gradient-to-r from-slate-950 via-slate-950 to-transparent z-10 pointer-events-none flex items-center pl-4 md:pl-8">
+                    <div class="flex items-center text-blue-400 font-bold text-xs md:text-sm tracking-widest uppercase bg-slate-950 pr-4">
+                        <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse mr-2"></span> Trending Now
+                    </div>
+                </div>
+                
+                <div class="flex-1 overflow-hidden">
+                    <div id="tickerTrack" class="ticker-track pl-[140px] md:pl-[200px]">
+                        <!-- Ticker items injected via JS -->
+                    </div>
+                </div>
+                
+                <div class="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-slate-950 to-transparent z-10 pointer-events-none"></div>
+            </div>
+
+            <!-- Live Stats Counter Section -->
+            <section class="bg-blue-600 text-white py-12 border-y border-blue-700 relative z-20 shadow-xl">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-blue-400/30">
+                        <div class="p-4 transform hover:scale-105 transition-transform">
+                            <div class="text-4xl md:text-5xl font-black mb-2 tracking-tight" id="countCategories">0</div>
+                            <div class="text-blue-200 font-bold tracking-widest uppercase text-sm">Niche Categories</div>
+                        </div>
+                        <div class="p-4 transform hover:scale-105 transition-transform">
+                            <div class="text-4xl md:text-5xl font-black mb-2 tracking-tight" id="countPrompts">0</div>
+                            <div class="text-blue-200 font-bold tracking-widest uppercase text-sm">Premium Prompts</div>
+                        </div>
+                        <div class="p-4 transform hover:scale-105 transition-transform">
+                            <div class="text-4xl md:text-5xl font-black mb-2 tracking-tight" id="countUsers">0</div>
+                            <div class="text-blue-200 font-bold tracking-widest uppercase text-sm">Active Creators</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Categories Section -->
+            <section id="categories" class="py-20 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Browse by Category</h2>
+                        <p class="text-lg text-slate-600 max-w-2xl mx-auto">Over 22,000 specialized categories designed to supercharge your specific workflow. Use the predictive search above to find your exact niche, or browse our top features below.</p>
+                    </div>
+
+                    <!-- Global Advanced Prompt Filter -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 mb-10 shadow-sm relative z-10">
+                        <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+                            <div class="flex items-center gap-3 text-slate-800 font-bold w-full md:w-auto text-lg">
+                                <div class="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center text-blue-600"><i class="fa-solid fa-sliders"></i></div> 
+                                Advanced Filter
+                            </div>
+                            <div class="flex flex-wrap gap-3 w-full md:w-auto flex-grow justify-end">
+                                <select id="filterAiType" class="bg-white border border-slate-200 text-slate-700 rounded-xl px-4 py-2.5 text-sm font-medium focus:ring-2 focus:ring-blue-500 outline-none shadow-sm cursor-pointer hover:border-blue-300 transition-colors">
+                                    <option value="all">All AI Models</option>
+                                    <option value="ChatGPT 5.5">ChatGPT 5.5</option>
+                                    <option value="Claude 3 Opus">Claude 3 Opus</option>
+                                    <option value="Gemini 1.5 Pro">Gemini 1.5 Pro</option>
+                                    <option value="Grok 1.5">Grok 1.5</option>
+                                    <option value="Midjourney v6">Midjourney v6</option>
+                                </select>
+                                <select id="filterPrice" class="bg-white border border-slate-200 text-slate-700 rounded-xl px-4 py-2.5 text-sm font-medium focus:ring-2 focus:ring-blue-500 outline-none shadow-sm cursor-pointer hover:border-blue-300 transition-colors">
+                                    <option value="all">Any Price</option>
+                                    <option value="under30">Under $30</option>
+                                    <option value="30to50">$30 - $50</option>
+                                    <option value="over50">Premium ($50+)</option>
+                                </select>
+                                <button onclick="applyGlobalFilters()" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-xl text-sm font-bold transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 flex items-center gap-2">
+                                    <i class="fa-solid fa-search"></i> Find Prompts
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="hidden grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12" id="globalFilteredProductsGrid">
+                        <!-- Filtered products dynamically injected here -->
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="categoryGrid">
+                        <!-- Categories will be injected here via JS -->
+                    </div>
+                </div>
+            </section>
+        </div> <!-- END HOME PAGE -->
+
+        <!-- CATEGORIES PAGE -->
+        <div id="page-categories" class="page-view hidden pt-32 pb-20 bg-slate-50 min-h-screen border-t border-slate-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4 inline-block">Workflow Accelerators</span>
+                    <h2 class="text-4xl font-extrabold text-slate-900 mb-2">Explore All Categories</h2>
+                    <p class="text-lg text-slate-600 max-w-2xl mx-auto">Browse through our vast index of specialized AI categories. Find exactly what you need to transform your creative and engineering projects.</p>
+                    
+                    <!-- Global Advanced Prompt Filter (Categories Page) -->
+                    <div class="bg-white border border-slate-200 rounded-2xl p-5 mt-8 mb-10 shadow-sm relative z-10 max-w-5xl mx-auto text-left">
+                        <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+                            <div class="flex items-center gap-3 text-slate-800 font-bold w-full md:w-auto text-lg">
+                                <div class="w-10 h-10 rounded-xl bg-purple-100 flex items-center justify-center text-purple-600"><i class="fa-solid fa-filter"></i></div> 
+                                Filter Prompts
+                            </div>
+                            <div class="flex flex-wrap gap-3 w-full md:w-auto flex-grow justify-end">
+                                <select id="filterAiTypeCat" class="bg-slate-50 border border-slate-200 text-slate-700 rounded-xl px-4 py-2.5 text-sm font-medium focus:ring-2 focus:ring-purple-500 outline-none shadow-sm cursor-pointer hover:border-purple-300 transition-colors">
+                                    <option value="all">All AI Models</option>
+                                    <option value="ChatGPT 5.5">ChatGPT 5.5</option>
+                                    <option value="Claude 3 Opus">Claude 3 Opus</option>
+                                    <option value="Gemini 1.5 Pro">Gemini 1.5 Pro</option>
+                                    <option value="Grok 1.5">Grok 1.5</option>
+                                    <option value="Midjourney v6">Midjourney v6</option>
+                                </select>
+                                <select id="filterPriceCat" class="bg-slate-50 border border-slate-200 text-slate-700 rounded-xl px-4 py-2.5 text-sm font-medium focus:ring-2 focus:ring-purple-500 outline-none shadow-sm cursor-pointer hover:border-purple-300 transition-colors">
+                                    <option value="all">Any Price</option>
+                                    <option value="under30">Under $30</option>
+                                    <option value="30to50">$30 - $50</option>
+                                    <option value="over50">Premium ($50+)</option>
+                                </select>
+                                <button onclick="applyGlobalFilters(true)" class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2.5 rounded-xl text-sm font-bold transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 flex items-center gap-2">
+                                    <i class="fa-solid fa-search"></i> Apply Filter
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Category Search Bar -->
+                    <div class="max-w-xl mx-auto relative group">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <i class="fa-solid fa-magnifying-glass text-slate-400 group-focus-within:text-blue-500 transition-colors"></i>
+                        </div>
+                        <input type="text" id="categoriesSearchInput" oninput="filterCategoriesPage()" class="block w-full pl-12 pr-4 py-3 bg-white border border-slate-200 rounded-full text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm transition-all" placeholder="Search categories (e.g. 'SaaS', 'Crypto', 'AppDev')...">
+                    </div>
+                </div>
+
+                <!-- Categories Page Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="categoriesPageGrid">
+                    <!-- Dynamically populated categories -->
+                </div>
+                
+                <!-- Empty state for categories page search -->
+                <div id="categoriesPageEmpty" class="hidden text-center py-16 text-slate-500 bg-white border border-slate-200 rounded-2xl max-w-lg mx-auto shadow-sm">
+                    <i class="fa-solid fa-folder-open text-5xl mb-4 opacity-40 text-slate-400"></i>
+                    <p class="text-lg font-medium text-slate-800">No categories match your search</p>
+                    <p class="text-sm text-slate-400 mt-1">Try another keyword like "SaaS", "Design", or "Automation".</p>
+                    <button onclick="clearCategoriesSearch()" class="mt-4 px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-sm font-semibold shadow transition-all">Clear Search</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- POPULAR PAGE -->
+        <div id="page-popular" class="page-view hidden pt-32 pb-20 bg-slate-50 min-h-screen border-t border-slate-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-end mb-12">
+                    <div>
+                        <h2 id="productGridTitle" class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Trending Popular Prompts</h2>
+                        <p id="productGridDesc" class="text-lg text-slate-600">Our best-selling, highest-rated prompt collections.</p>
+                    </div>
+                    <a href="javascript:void(0)" onclick="showPage('categories', event)" id="viewAllBtn" class="hidden md:inline-flex items-center text-blue-600 font-semibold hover:text-blue-800 transition-colors">
+                        View All Categories <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="productGrid">
+                    <!-- Products will be injected here via JS -->
+                </div>
+                
+                <div class="mt-10 text-center md:hidden">
+                    <a href="javascript:void(0)" onclick="showPage('categories', event)" class="inline-flex items-center text-blue-600 font-semibold hover:text-blue-800 transition-colors">
+                        View All Categories <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- FREE PROMPTS PAGE -->
+        <div id="page-free" class="page-view hidden pt-32 pb-20 bg-slate-900 text-white relative overflow-hidden min-h-screen">
+            <!-- Background Pattern -->
+            <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(#3b82f6 1px, transparent 1px); background-size: 30px 30px;"></div>
+            
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="text-center mb-16">
+                    <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4 inline-block">100% Free Library</span>
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4">Complete Free Prompt Collection</h2>
+                    <p class="text-lg text-slate-300 max-w-2xl mx-auto">Explore our full library of premium-quality prompt packs, completely free to download and use immediately. No credit card required.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="freeGrid">
+                    <!-- Free products injected via JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- MY VAULT PAGE (UNLOCKED SECURE PROMPTS) -->
+        <div id="page-vault" class="page-view hidden pt-32 pb-20 bg-slate-50 min-h-screen border-t border-slate-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4 inline-block">My Secure Dashboard</span>
+                    <h2 class="text-4xl font-extrabold text-slate-900 mb-2">My Vault Hub</h2>
+                    <p class="text-lg text-slate-600 max-w-2xl mx-auto">Access and copy the complete, high-fidelity prompt scripts you have successfully unlocked via Stripe checkout.</p>
+                </div>
+
+                <div id="vaultEmptyState" class="text-center py-20 bg-white border border-slate-200 rounded-3xl max-w-2xl mx-auto shadow-sm">
+                    <div class="w-20 h-20 bg-slate-100 text-slate-400 rounded-full flex items-center justify-center text-3xl mx-auto mb-6">
+                        <i class="fa-solid fa-vault"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-950 mb-2">Your Vault is empty</h3>
+                    <p class="text-slate-500 text-sm max-w-sm mx-auto mb-8">Purchase any premium curated prompt pack in the Popular store to instantly unlock live access credentials.</p>
+                    <button onclick="showPage('popular', event)" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-bold transition-all shadow-md shadow-blue-500/25">
+                        Browse Prompt Marketplace
+                    </button>
+                </div>
+
+                <div id="vaultGrid" class="grid grid-cols-1 md:grid-cols-2 gap-8 hidden">
+                    <!-- Vault items dynamically populated -->
+                </div>
+            </div>
+        </div>
+    
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 text-slate-400 py-12 border-t border-slate-800 relative z-30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-1 md:col-span-1">
+                    <div class="flex items-center mb-4">
+                        <div class="w-8 h-8 rounded-md bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm mr-2">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+                        <span class="font-bold text-xl text-white">PromptFlow</span>
+                    </div>
+                    <p class="text-sm mb-4">Empowering creators, marketers, and developers with premium AI prompts.</p>
+                    <div class="flex space-x-4">
+                        <a href="https://twitter.com" target="_blank" class="text-slate-400 hover:text-white transition-colors"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="https://discord.com" target="_blank" class="text-slate-400 hover:text-white transition-colors"><i class="fa-brands fa-discord"></i></a>
+                        <a href="https://github.com" target="_blank" class="text-slate-400 hover:text-white transition-colors"><i class="fa-brands fa-github"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-white font-semibold mb-4">Categories</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" onclick="showCategoryFromFooter('web', event)" class="hover:text-blue-400 transition-colors">Web Design</a></li>
+                        <li><a href="#" onclick="showCategoryFromFooter('photo', event)" class="hover:text-blue-400 transition-colors">Photography</a></li>
+                        <li><a href="#" onclick="showCategoryFromFooter('arch', event)" class="hover:text-blue-400 transition-colors">Architecture</a></li>
+                        <li><a href="#" onclick="showCategoryFromFooter('copy', event)" class="hover:text-blue-400 transition-colors">Copywriting</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-white font-semibold mb-4">Company</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" onclick="showPage('about', event)" class="hover:text-blue-400 transition-colors">About Us</a></li>
+                        <li><a href="#" onclick="showPage('contact', event)" class="hover:text-blue-400 transition-colors">Contact</a></li>
+                        <li><a href="#" class="hover:text-blue-400 transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-blue-400 transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-white font-semibold mb-4">Newsletter</h3>
+                    <p class="text-sm mb-4">Get weekly free prompts and AI tips.</p>
+                    <form class="flex" onsubmit="event.preventDefault(); showToast('Subscribed successfully!');">
+                        <input type="email" placeholder="Email address" class="w-full px-4 py-2 bg-slate-900 border border-slate-800 rounded-l-md focus:outline-none focus:border-blue-500 text-white text-sm" required>
+                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-r-md transition-colors">
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm">
+                <p>&copy; 2026 PromptFlow. All rights reserved.</p>
+                <div class="mt-4 md:mt-0 flex items-center space-x-2">
+                    <span>Secured with</span>
+                    <i class="fa-brands fa-stripe text-2xl text-slate-500 hover:text-white transition-colors cursor-pointer" onclick="openStripeConfigModal()" title="Configure Stripe"></i>
+                    <i class="fa-brands fa-paypal text-xl text-slate-500 hover:text-white transition-colors cursor-pointer" onclick="showToast('PayPal configuration active.', 'info')" title="PayPal Setup"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Modal (Overlay) -->
+    <div id="cartModal" class="fixed inset-0 z-[60] bg-slate-900/50 backdrop-blur-sm justify-end">
+        <div class="bg-white w-full max-w-md h-full flex flex-col shadow-2xl animate-[slideInRight_0.3s_ease-out]">
+            <!-- Header -->
+            <div class="flex items-center justify-between p-6 border-b border-slate-100">
+                <h2 class="text-2xl font-bold text-slate-900">Your Cart</h2>
+                <button onclick="toggleCart()" class="p-2 text-slate-400 hover:text-slate-600 transition-colors rounded-full hover:bg-slate-100">
+                    <i class="fa-solid fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <!-- Items Container Wrapper -->
+            <div class="flex-1 overflow-y-auto relative flex flex-col">
+                <!-- Stripe Quick Toggle Banner inside Cart -->
+                <div class="bg-slate-900 text-slate-200 px-4 py-3 border-b border-slate-800 flex justify-between items-center text-xs">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-brands fa-stripe text-lg text-blue-400"></i>
+                        <span id="cartStripeStatusText" class="font-medium text-slate-300">Checkout Mode: Simulated</span>
+                    </div>
+                    <button onclick="openStripeConfigModal()" class="text-blue-400 hover:text-blue-300 font-bold underline">Change Settings</button>
+                </div>
+
+                <div id="cartItems" class="p-6 space-y-4">
+                    <!-- Cart items injected via JS -->
+                </div>
+                
+                <div id="emptyCartMsg" class="flex flex-col items-center justify-center h-full text-slate-400 p-6">
+                    <i class="fa-solid fa-basket-shopping text-5xl mb-4 opacity-50"></i>
+                    <p class="text-lg font-medium">Your cart is empty</p>
+                    <button onclick="toggleCart()" class="mt-4 text-blue-600 hover:text-blue-800 font-medium">Continue Browsing</button>
+                </div>
+            </div>
+
+            <!-- Footer / Checkout -->
+            <div class="border-t border-slate-100 p-6 bg-slate-50">
+                <div class="flex justify-between items-center mb-4 text-lg">
+                    <span class="font-medium text-slate-600">Subtotal</span>
+                    <span class="font-bold text-slate-900" id="cartTotal">$0.00</span>
+                </div>
+                <p class="text-sm text-slate-500 mb-6">Taxes calculated at checkout.</p>
+                <button onclick="checkout()" class="w-full py-4 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-bold text-lg transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed" id="checkoutBtn" disabled>
+                    Secure Checkout <i class="fa-solid fa-lock ml-2"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Prompt Detail Modal -->
+    <div id="promptDetailModal" class="fixed inset-0 z-[70] bg-slate-900/80 backdrop-blur-sm items-center justify-center p-4 sm:p-6">
+        <div class="bg-white rounded-2xl w-full max-w-4xl max-h-[90vh] flex flex-col shadow-2xl relative animate-[fadeIn_0.2s_ease-out]">
+            <button onclick="closePromptDetail()" class="absolute top-4 right-4 z-10 w-10 h-10 bg-white/80 backdrop-blur rounded-full flex items-center justify-center text-slate-600 hover:text-slate-900 shadow-md hover:bg-white transition-colors">
+                <i class="fa-solid fa-times text-xl"></i>
+            </button>
+            
+            <div class="flex-1 overflow-y-auto" id="promptDetailContent">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Auth Modal (Login / Signup) -->
+    <div id="authModal" class="fixed inset-0 z-[70] bg-slate-900/80 backdrop-blur-sm items-center justify-center p-4 sm:p-6">
+        <div class="bg-white rounded-2xl w-full max-w-md p-8 shadow-2xl relative animate-[fadeIn_0.2s_ease-out] flex flex-col">
+            <button onclick="closeAuthModal()" class="absolute top-4 right-4 w-10 h-10 bg-slate-100 hover:bg-slate-200 rounded-full flex items-center justify-center text-slate-600 transition-colors">
+                <i class="fa-solid fa-times text-xl"></i>
+            </button>
+            <div class="text-center mb-8">
+                <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-xl mx-auto mb-3 shadow-md">
+                    <i class="fa-solid fa-bolt"></i>
+                </div>
+                <h3 id="authTitle" class="text-2xl font-bold text-slate-900">Welcome Back</h3>
+                <p id="authSubtitle" class="text-sm text-slate-500 mt-1">Sign in to manage your prompt dashboard.</p>
+            </div>
+
+            <!-- Auth Form -->
+            <form onsubmit="handleAuthSubmit(event)" class="space-y-4">
+                <div id="authNameField" class="hidden">
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">Full Name</label>
+                    <input type="text" id="authName" placeholder="John Doe" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">Email Address</label>
+                    <input type="email" id="authEmail" required placeholder="name@domain.com" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">Password</label>
+                    <input type="password" id="authPassword" required placeholder="••••••••" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                
+                <button type="submit" id="authSubmitBtn" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold transition-all mt-4">
+                    Authenticate
+                </button>
+            </form>
+
+            <div class="text-center mt-6 pt-6 border-t border-slate-100 text-sm">
+                <span id="authToggleText" class="text-slate-500">Don't have an account?</span>
+                <button onclick="toggleAuthMode()" id="authToggleBtn" class="text-blue-600 font-bold hover:underline ml-1">Create Account</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stripe Developer Integration Config Modal -->
+    <div id="stripeConfigModal" class="fixed inset-0 z-[70] bg-slate-950/80 backdrop-blur-sm items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-2xl p-6 sm:p-8 shadow-2xl text-slate-100 flex flex-col relative max-h-[90vh] overflow-y-auto animate-[fadeIn_0.2s_ease-out]">
+            <button onclick="closeStripeConfigModal()" class="absolute top-4 right-4 w-10 h-10 bg-slate-800 hover:bg-slate-750 rounded-full flex items-center justify-center text-slate-400 hover:text-white transition-colors">
+                <i class="fa-solid fa-times text-lg"></i>
+            </button>
+            
+            <div class="mb-6 flex items-center gap-3 border-b border-slate-800 pb-4">
+                <span class="text-4xl text-blue-500"><i class="fa-brands fa-stripe"></i></span>
+                <div>
+                    <h3 class="text-xl font-bold">Stripe Payments Configuration</h3>
+                    <p class="text-xs text-slate-400">Configure your Publishable Key and Stripe Price IDs to accept actual customer payments.</p>
+                </div>
+            </div>
+
+            <!-- Configuration Form -->
+            <form onsubmit="saveStripeConfig(event)" class="space-y-6">
+                <!-- Status Mode Choice -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Checkout Method Mode</label>
+                    <div class="grid grid-cols-2 gap-4">
+                        <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-800 bg-slate-950 cursor-pointer hover:border-slate-750 transition-colors">
+                            <input type="radio" name="checkoutModeRadio" value="simulated" id="checkoutModeSimulated" checked class="accent-blue-500">
+                            <div>
+                                <span class="text-sm font-bold block">Simulation Mode</span>
+                                <span class="text-[10px] text-slate-500">Fake, offline successful checkout mockup</span>
+                            </div>
+                        </label>
+                        <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-800 bg-slate-950 cursor-pointer hover:border-slate-750 transition-colors">
+                            <input type="radio" name="checkoutModeRadio" value="stripe" id="checkoutModeStripe" class="accent-blue-500">
+                            <div>
+                                <span class="text-sm font-bold block">Live Stripe Mode (Option 2)</span>
+                                <span class="text-[10px] text-slate-500">Actual redirection using secure backend price_data</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Step-by-Step Guide -->
+                <div class="bg-slate-950/60 border border-slate-800 p-4 rounded-xl text-xs space-y-2 text-slate-400">
+                    <span class="font-bold text-slate-200 block mb-1">🛠️ Dynamic Option 2 Setup:</span>
+                    <p class="leading-relaxed">To accept payments for thousands of products without manually creating Price IDs inside Stripe, you must host a simple backend script (code provided in standard serverless Node.js format).</p>
+                    <ol class="list-decimal list-inside space-y-1 mt-2 text-slate-300">
+                        <li>Deploy the serverless checkout function (e.g. to Vercel, Netlify, or your server).</li>
+                        <li>Paste your **Stripe Publishable Key** (`pk_live_...`) below.</li>
+                        <li>Input your **Backend Serverless Checkout API Endpoint** below (defaults automatically to <code class="bg-slate-950 px-1 py-0.5 rounded text-white text-xs">https://promptflowing.com/api/checkout</code>).</li>
+                    </ol>
+                </div>
+
+                <!-- API Publishable Key Input -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5">Stripe Publishable Key</label>
+                    <input type="text" id="stripePublishableKeyInput" placeholder="pk_live_51TW6DhDaTvZMT0Gz..." class="w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-lg text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-slate-700 text-mono">
+                </div>
+
+                <!-- Backend API Endpoint URL -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5">Backend Serverless Checkout Endpoint URL</label>
+                    <input type="url" id="stripeBackendUrlInput" placeholder="https://promptflowing.com/api/checkout" class="w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-lg text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-slate-700 text-mono">
+                </div>
+
+                <div class="flex gap-4">
+                    <button type="submit" class="flex-1 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold transition-all text-sm shadow-md shadow-blue-500/10">
+                        Save Stripe Settings
+                    </button>
+                    <button type="button" onclick="closeStripeConfigModal()" class="px-6 py-3 bg-slate-800 hover:bg-slate-750 text-slate-300 rounded-xl font-medium text-sm transition-all">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- SECURE STRIPE CHECKOUT RETURNING LANDING MODAL (DYN) -->
+    <div id="stripeSuccessModal" class="fixed inset-0 z-[80] bg-slate-950/90 backdrop-blur-md hidden items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-xl p-6 sm:p-8 shadow-2xl text-slate-100 flex flex-col text-center">
+            <div class="w-20 h-20 bg-green-950 border border-green-800 rounded-full flex items-center justify-center text-green-400 text-4xl mx-auto mb-6">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <h2 class="text-3xl font-black text-white leading-tight">Payment Approved!</h2>
+            <p class="text-slate-400 text-sm mt-1 mb-6">Your payment was authorized successfully via Stripe. Your prompts have been added to your dashboard.</p>
+            
+            <div class="bg-slate-950 p-4 rounded-xl border border-slate-850 text-left text-xs mb-6 leading-relaxed text-slate-300 space-y-1">
+                <span class="text-green-400 font-bold block mb-1">📧 digital_delivery@promptflow.ai</span>
+                <p>The complete, premium product files and documentation have been compiled and dispatched to your Stripe-validated email address.</p>
+            </div>
+
+            <div class="flex gap-4">
+                <button onclick="showPage('vault', event); document.getElementById('stripeSuccessModal').classList.remove('open');" class="flex-1 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-vault"></i> Open My Vault
+                </button>
+                <button onclick="document.getElementById('stripeSuccessModal').classList.remove('open');" class="px-6 py-3 bg-slate-800 hover:bg-slate-750 text-slate-300 rounded-xl font-semibold transition-all">
+                    Dismiss
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-5 right-5 z-[80] bg-slate-900 text-white px-6 py-4 rounded-lg shadow-2xl flex items-center gap-3 toast">
+        <div id="toastIcon" class="text-green-400"><i class="fa-solid fa-check-circle text-xl"></i></div>
+        <span id="toastMessage" class="font-medium">Item added to cart</span>
+    </div>
+
+    <!-- Application Logic -->
+    <script>
+        // Global State Variables
+        let products = [];
+        let cart = [];
+        let generatedProductsCache = {};
+        let currentUser = null;
+        let authMode = 'login';
+        let stripeInstance = null;
+        let stripeUnlockedProducts = [];
+
+        // Data Definitions
+        // Base arrays for generating 700 categories
+        const baseNiches = ['SaaS', 'E-commerce', 'Healthcare', 'Legal', 'Real Estate', 'Education', 'Finance', 'Crypto', 'Gaming', 'Fitness', 'Travel', 'Food', 'Music', 'Art', 'Automotive', 'Cybersecurity', 'Cloud', 'AI', 'Robotics', 'Space', 'Wealth Building', 'Passive Income', 'Side Hustles', 'Dating & Romance', 'AI Companions', 'Making Money Online', 'Personal Growth'];
+        const baseFunctions = ['Marketing', 'Sales', 'Design', 'Development', 'Support', 'HR', 'Operations', 'SEO', 'Copywriting', 'Analytics', 'Strategy', 'Planning', 'Research', 'Automation', 'Social Media', 'Email', 'Video', 'Audio', 'UX/UI', 'QA', 'Hacks', 'Mastery', 'Secrets', 'Companionship', 'Success', 'Blueprints'];
+        const iconList = ['fa-laptop-code', 'fa-camera', 'fa-building', 'fa-chart-line', 'fa-hashtag', 'fa-envelope-open-text', 'fa-palette', 'fa-database', 'fa-video', 'fa-shirt', 'fa-robot', 'fa-rocket', 'fa-brain', 'fa-microchip', 'fa-network-wired'];
+        const colorList = ['blue', 'purple', 'emerald', 'amber', 'rose', 'indigo', 'cyan', 'green', 'pink', 'orange', 'fuchsia', 'teal', 'red', 'yellow'];
+        
+        const categories = [];
+        let catIdCounter = 1;
+        
+        // Generate exactly 700 unique combinations
+        for (let i = 0; i < baseNiches.length; i++) {
+            for (let j = 0; j < baseFunctions.length; j++) {
+                categories.push({
+                    id: `cat-${catIdCounter++}`,
+                    name: `${baseNiches[i]} ${baseFunctions[j]}`,
+                    icon: iconList[(i + j) % iconList.length],
+                    color: colorList[(i + j) % colorList.length],
+                    desc: `Advanced prompts optimized for ${baseNiches[i].toLowerCase()} industry focused on ${baseFunctions[j].toLowerCase()}.`
+                });
+                categories.push({
+                    id: `cat-${catIdCounter++}`,
+                    name: `Advanced ${baseNiches[i]} ${baseFunctions[j]}`,
+                    icon: iconList[(i + j + 1) % iconList.length],
+                    color: colorList[(i + j + 1) % colorList.length],
+                    desc: `Enterprise-grade frameworks for ${baseNiches[i].toLowerCase()} ${baseFunctions[j].toLowerCase()} workflows.`
+                });
+                if (categories.length >= 700) break;
+            }
+            if (categories.length >= 700) break;
+        }
+
+        let freeProducts = [
+            { id: 'free-1', title: 'Midjourney Cinematic Lighting Pack', type: 'Midjourney v6', description: 'Master photorealism with 15 highly advanced prompts focused on volumetric lighting, ray tracing, and cinematic camera angles (e.g., 35mm, f/1.8). Includes negative prompt frameworks.', image: 'https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=600&h=400&q=80' },
+            { id: 'free-2', title: 'ChatGPT Senior Engineer', type: 'ChatGPT-4', description: 'Bypass generic answers. Force ChatGPT to act as a Staff Engineer. Includes specific system instructions for writing highly optimized, scalable, and fully documented code architectures.', image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&h=400&q=80' },
+            { id: 'free-3', title: 'Direct Response Copywriting Matrix', type: 'Claude 3', description: 'A massive 4-part modular prompt system that analyzes a product, creates an avatar, writes PAS/AIDA frameworks, and produces 10 high-converting email sequences.', image: 'https://images.unsplash.com/photo-1554774853-719586f82d77?auto=format&fit=crop&w=600&h=400&q=80' },
+            { id: 'free-4', title: 'Programmatic SEO Generator', type: 'Gemini Pro', description: 'Generate robust JSON structures for localized programmatic SEO landing pages. Includes schema.org markup generation and long-tail keyword cluster strategies.', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&h=400&q=80' },
+            { id: 'free-5', title: 'Advanced React State Management', type: 'ChatGPT-4', description: 'Complex prompt frameworks designed exclusively for debugging race conditions, React Context hell, and migrating to Zustand/Redux Toolkit effectively.', image: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&w=600&h=400&q=80' },
+            { id: 'free-6', title: 'Viral TikTok Psychology Hooks', type: 'Claude 3', description: 'Leverage behavioral psychology. This prompt framework forces the AI to output highly engaging, dopamine-triggering hook scripts designed for <3 second retention.', image: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=600&h=400&q=80' }
+        ];
+
+        // --- UTILITY FUNCTIONS ---
+        function stringToColor(str) {
+            let hash = 0;
+            for (let i = 0; i < str.length; i++) {
+                hash = str.charCodeAt(i) + ((hash << 5) - hash);
+            }
+            const c = (hash & 0x00FFFFFF).toString(16).toUpperCase();
+            return '00000'.substring(0, 6 - c.length) + c;
+        }
+
+        function getColorClasses(color) {
+            const map = {
+                'blue': 'bg-blue-50 text-blue-600 border-blue-100 hover:border-blue-500 hover:shadow-blue-500/20',
+                'purple': 'bg-purple-50 text-purple-600 border-purple-100 hover:border-purple-500 hover:shadow-purple-500/20',
+                'emerald': 'bg-emerald-50 text-emerald-600 border-emerald-100 hover:border-emerald-500 hover:shadow-emerald-500/20',
+                'amber': 'bg-amber-50 text-amber-600 border-amber-100 hover:border-amber-500 hover:shadow-amber-500/20',
+                'rose': 'bg-rose-50 text-rose-600 border-rose-100 hover:border-rose-500 hover:shadow-rose-500/20',
+                'indigo': 'bg-indigo-50 text-indigo-600 border-indigo-100 hover:border-indigo-500 hover:shadow-indigo-500/20',
+                'cyan': 'bg-cyan-50 text-cyan-600 border-cyan-100 hover:border-cyan-500 hover:shadow-cyan-500/20',
+                'green': 'bg-green-50 text-green-600 border-green-100 hover:border-green-500 hover:shadow-green-500/20',
+                'pink': 'bg-pink-50 text-pink-600 border-pink-100 hover:border-pink-500 hover:shadow-pink-500/20',
+                'orange': 'bg-orange-50 text-orange-600 border-orange-100 hover:border-orange-500 hover:shadow-orange-500/20',
+                'fuchsia': 'bg-fuchsia-50 text-fuchsia-600 border-fuchsia-100 hover:border-fuchsia-500 hover:shadow-fuchsia-500/20',
+                'teal': 'bg-teal-50 text-teal-600 border-teal-100 hover:border-teal-500 hover:shadow-teal-500/20',
+                'red': 'bg-red-50 text-red-600 border-red-100 hover:border-red-500 hover:shadow-red-500/20',
+                'yellow': 'bg-yellow-50 text-yellow-600 border-yellow-100 hover:border-yellow-500 hover:shadow-yellow-500/20'
+            };
+            return map[color] || map['blue'];
+        }
+
+        function getToolBadgeColor(type) {
+            if (type.includes('Midjourney')) return 'bg-purple-100 text-purple-700 border-purple-200';
+            if (type.includes('ChatGPT')) return 'bg-emerald-100 text-emerald-700 border-emerald-200';
+            if (type.includes('Stable Diffusion')) return 'bg-blue-100 text-blue-700 border-blue-200';
+            if (type.includes('Claude')) return 'bg-amber-100 text-amber-700 border-amber-200';
+            if (type.includes('Gemini')) return 'bg-cyan-100 text-cyan-700 border-cyan-200';
+            return 'bg-slate-100 text-slate-700 border-slate-200';
+        }
+
+        window.showToast = function(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const icon = document.getElementById('toastIcon');
+            const msg = document.getElementById('toastMessage');
+            if (!toast || !msg || !icon) return;
+            
+            msg.textContent = message;
+            
+            if (type === 'success') {
+                icon.innerHTML = '<i class="fa-solid fa-check-circle text-xl"></i>';
+                icon.className = 'text-green-400';
+            } else if (type === 'info') {
+                icon.innerHTML = '<i class="fa-solid fa-info-circle text-xl"></i>';
+                icon.className = 'text-blue-400';
+            } else if (type === 'error') {
+                icon.innerHTML = '<i class="fa-solid fa-triangle-exclamation text-xl"></i>';
+                icon.className = 'text-red-400';
+            }
+            
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        };
+
+        window.copyText = function(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                window.showToast('Snippet copied to clipboard!');
+            } catch (err) {
+                console.error('Fallback: Oops, unable to copy', err);
+            }
+            document.body.removeChild(textArea);
+        };
+
+        window.downloadFree = function(id) {
+            window.showToast('Preparing download...', 'info');
+            const prod = freeProducts.find(p => p.id === id);
+            if (!prod) return;
+
+            const fileContent = `=== ${prod.title} ===\nType: ${prod.type}\n\nHere is your free sample pack from PromptFlow:\n\n1. [Prompt] "A highly detailed, cinematic lighting, 8k resolution, photorealistic..."\n2. [Prompt] "Minimalist vector illustration, clean lines, flat colors..."\n3. [Prompt] "Act as a senior expert in this field and generate..."\n\nEnjoy!\n\nUpgrade to Premium for 100+ highly optimized prompts in this category at PromptFlow.`;
+            const blob = new Blob([fileContent], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${prod.title.replace(/\s+/g, '_').toLowerCase()}_sample.txt`;
+            
+            document.body.appendChild(a);
+            setTimeout(() => {
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+                window.showToast('Download started successfully!', 'success');
+            }, 600);
+        };
+
+        // --- ANIMATION CONTROLLERS ---
+        function animateValue(obj, start, end, duration, suffix = '') {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                // easeOutExpo function
+                const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+                let currentVal = Math.floor(easeProgress * (end - start) + start);
+                
+                if (end >= 1000000) {
+                    obj.innerHTML = (currentVal / 1000000).toFixed(1) + 'M' + suffix;
+                } else {
+                    obj.innerHTML = currentVal.toLocaleString() + suffix;
+                }
+                
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                } else {
+                    if (end >= 1000000) {
+                        obj.innerHTML = (end / 1000000).toFixed(1) + 'M' + suffix;
+                    } else {
+                        obj.innerHTML = end.toLocaleString() + suffix;
+                    }
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        function initCounters() {
+            const catEl = document.getElementById("countCategories");
+            const promptEl = document.getElementById("countPrompts");
+            const userEl = document.getElementById("countUsers");
+
+            if (!catEl || !promptEl || !userEl) return;
+
+            const observer = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting) {
+                    animateValue(catEl, 0, 22000, 2000, '+');
+                    animateValue(promptEl, 0, 34200000, 2500, '+');
+                    animateValue(userEl, 0, 84500, 3000, '+');
+                    observer.disconnect();
+                }
+            }, { threshold: 0.1 });
+
+            observer.observe(catEl);
+        }
+
+        function initTrendingTicker() {
+            const track = document.getElementById('tickerTrack');
+            if (!track) return;
+
+            const generateTickerItems = () => {
+                let html = '';
+                for(let i=0; i<15; i++) {
+                    const cat = categories[Math.floor(Math.random() * categories.length)];
+                    const views = Math.floor(Math.random() * 800) + 50;
+                    html += `
+                        <div class="flex items-center gap-2 mx-3 px-4 py-1.5 rounded-full bg-slate-900 border border-slate-700 text-slate-300 text-sm whitespace-nowrap cursor-pointer hover:bg-slate-800 hover:border-blue-500 hover:text-white transition-all duration-300 group" onmousedown="window.selectSearchResult('${cat.id}')">
+                            <span class="text-orange-500 group-hover:text-orange-400 transition-colors"><i class="fa-solid fa-fire"></i></span>
+                            <span class="font-medium">${cat.name}</span>
+                            <span class="text-slate-500 text-xs ml-1 ticker-stats transition-colors duration-300">
+                                <span class="view-count text-slate-400">${views}</span> active
+                            </span>
+                        </div>
+                    `;
+                }
+                return html;
+            };
+
+            track.innerHTML = generateTickerItems() + generateTickerItems();
+
+            setInterval(() => {
+                const stats = track.querySelectorAll('.ticker-stats');
+                if(stats.length === 0) return;
+                const numUpdates = Math.floor(Math.random() * 3) + 1;
+                
+                for(let i=0; i<numUpdates; i++) {
+                    const randomStat = stats[Math.floor(Math.random() * stats.length)];
+                    if(randomStat) {
+                        const countSpan = randomStat.querySelector('.view-count');
+                        if (countSpan) {
+                            let currentViews = parseInt(countSpan.innerText.replace(/,/g,'')) || 50;
+                            let change = Math.floor(Math.random() * 10) - 2; 
+                            let newViews = Math.max(10, currentViews + change);
+                            
+                            const container = randomStat.parentElement;
+                            container.classList.add('bg-blue-900/50', 'border-blue-400');
+                            countSpan.classList.remove('text-slate-400');
+                            countSpan.classList.add('text-white');
+                            countSpan.innerText = newViews;
+                            
+                            setTimeout(() => {
+                                container.classList.remove('bg-blue-900/50', 'border-blue-400');
+                                countSpan.classList.remove('text-white');
+                                countSpan.classList.add('text-slate-400');
+                            }, 800);
+                        }
+                    }
+                }
+            }, 1200);
+        }
+
+        // --- NAVIGATION & EVENT LISTENERS ---
+        function setupScrollListener() {
+            const nav = document.getElementById('navbar');
+            const logoText = document.getElementById('logoText');
+            if (!nav || !logoText) return;
+            
+            window.addEventListener('scroll', () => {
+                const isHomePage = !document.getElementById('page-home').classList.contains('hidden');
+                const isScrolled = window.scrollY > 50;
+
+                if (!isHomePage || isScrolled) {
+                    nav.className = "fixed w-full z-50 transition-all duration-300 bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-200";
+                    logoText.classList.remove('text-white');
+                    logoText.classList.add('text-slate-900');
+                    
+                    document.querySelectorAll('nav .nav-link').forEach(el => {
+                        el.classList.remove('text-gray-300', 'hover:text-white');
+                        el.classList.add('text-slate-600', 'hover:text-blue-600');
+                    });
+                } else {
+                    nav.className = "fixed w-full z-50 transition-all duration-300 bg-transparent";
+                    logoText.classList.remove('text-slate-900');
+                    logoText.classList.add('text-white');
+                    
+                    document.querySelectorAll('nav .nav-link').forEach(el => {
+                        el.classList.remove('text-slate-600', 'hover:text-blue-600');
+                        el.classList.add('text-gray-300', 'hover:text-white');
+                    });
+                }
+            });
+        }
+
+        window.toggleMobileMenu = function() {
+            const menu = document.getElementById('mobileMenu');
+            if (menu) menu.classList.toggle('hidden');
+        };
+
+        window.showPage = function(pageId, e) {
+            if (e) e.preventDefault();
+            
+            document.querySelectorAll('.page-view').forEach(page => {
+                page.classList.add('hidden');
+                page.classList.remove('block');
+            });
+            
+            const target = document.getElementById('page-' + pageId);
+            if (target) {
+                target.classList.remove('hidden');
+                target.classList.add('block');
+            }
+            
+            if (pageId === 'free') renderFreeProducts();
+            if (pageId === 'categories') renderAllCategoriesPage();
+            if (pageId === 'vault') renderVaultGrid();
+            
+            // Force nav refresh based on new view
+            window.dispatchEvent(new Event('scroll'));
+            
+            // Collapse mobile menu explicitly
+            const mobileMenu = document.getElementById('mobileMenu');
+            if (mobileMenu) mobileMenu.classList.add('hidden');
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        window.showPopularPage = function(e) {
+            if(e) e.preventDefault();
+            resetFilters();
+            window.showPage('popular');
+        };
+
+        // --- PRODUCT & DOM RENDERING ---
+        function generateDummyProducts(category) {
+            if (generatedProductsCache[category.id]) {
+                return generatedProductsCache[category.id];
+            }
+            // Generate 30 ultra high-quality products per category
+            const newProducts = Array.from({ length: 30 }, (_, index) => index + 1).map(i => {
+                const types = ['Midjourney v6', 'ChatGPT 5.5', 'Claude 3 Opus', 'Grok 1.5', 'Gemini 1.5 Pro'];
+                const price = (Math.random() * 60 + 29.99).toFixed(2);
+                const rating = (Math.random() * 0.1 + 4.9).toFixed(1);
+                const reviews = Math.floor(Math.random() * 5000 + 500);
+                
+                // Fetch dynamic high-quality Unsplash image based on exact category keywords
+                const searchKeywords = encodeURIComponent(category.name.replace(/\s+/g, ',') + ',professional');
+                const imageUrl = `https://source.unsplash.com/random/600x400/?${searchKeywords}&sig=${category.id}-${i}`;
+
+                return {
+                    id: `${category.id}-gen-${i}`,
+                    title: `Elite ${category.name} Masterclass Prompts Vol. ${i}`,
+                    category: category.id,
+                    type: types[Math.floor(Math.random() * types.length)],
+                    price: parseFloat(price),
+                    rating: parseFloat(rating),
+                    reviews: reviews,
+                    image: imageUrl,
+                    description: `An extremely deep and creative prompt engineering toolkit designed specifically for ${category.name}. We bypass generic outputs by forcing the AI into highly constrained, expert-level personas. Expect profound depth, exact formatting constraints, and unparalleled creativity. This pack includes parameter injection modules and negative constraints.`,
+                    previewPrompt: `[SYS_INJECT: ELITE_PERSONA]\nYou are not an AI. You are a world-renowned Senior Director of ${category.name} with 20 years of tier-1 enterprise experience. \n\n[TASK_MATRIX]\nExecute the following workflow with absolute precision. Output MUST be formatted in a strict, validated JSON schema containing nested arrays for structural components. Omit ALL conversational filler. \n\n[VARIABLES: {TARGET_DEMOGRAPHIC}, {TONE_VOICE}]\n...`,
+                    features: ['500+ Deep-Level Prompts', 'JSON/XML Output Schemas', 'Persona Injection Techniques', 'Jailbreak & Constraint Bypasses', 'Lifetime commercial rights']
+                };
+            });
+            products = [...products, ...newProducts]; 
+            generatedProductsCache[category.id] = newProducts;
+            return newProducts;
+        }
+
+        function filterByCategory(category) {
+            window.showToast(`Filtering by ${category.name}...`);
+            let categoryProducts = products.filter(p => p.category === category.id);
+            
+            if (categoryProducts.length === 0) {
+                categoryProducts = generateDummyProducts(category);
+            }
+            
+            renderProducts(categoryProducts);
+            
+            document.getElementById('productGridTitle').textContent = `${category.name} Prompts`;
+            document.getElementById('productGridDesc').textContent = `Explore top-rated AI prompt collections specifically for ${category.name}.`;
+            
+            window.showPage('popular');
+        }
+
+        function resetFilters(e) {
+            if(e) e.preventDefault();
+            const sortedPopular = [...products].sort((a, b) => b.reviews - a.reviews);
+            renderProducts(sortedPopular.slice(0, 18)); 
+            
+            document.getElementById('productGridTitle').textContent = `Trending Popular Prompts`;
+            document.getElementById('productGridDesc').textContent = `Our best-selling, highest-rated prompt collections across all categories.`;
+        }
+
+        function renderCategories() {
+            const container = document.getElementById('categoryGrid');
+            const navDropdown = document.getElementById('navCategoryDropdown');
+            if (container) container.innerHTML = '';
+            if (navDropdown) navDropdown.innerHTML = '';
+            
+            const fragment = document.createDocumentFragment();
+            const navFragment = document.createDocumentFragment();
+
+            categories.forEach((cat, index) => {
+                const colors = getColorClasses(cat.color);
+                
+                if (container) {
+                    const el = document.createElement('a');
+                    el.href = `#featured`;
+                    el.className = `flex flex-col p-6 rounded-2xl border-2 transition-all duration-300 cursor-pointer bg-white ${colors.split(' ').filter(c => !c.startsWith('bg-')).join(' ')}`;
+                    el.innerHTML = `
+                        <div class="w-12 h-12 rounded-xl bg-slate-50 flex items-center justify-center text-2xl mb-4 text-inherit shadow-sm">
+                            <i class="fa-solid ${cat.icon}"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-lg mb-1">${cat.name}</h3>
+                        <p class="text-sm text-slate-500 line-clamp-2">${cat.desc}</p>
+                    `;
+                    el.onclick = (e) => {
+                        e.preventDefault();
+                        filterByCategory(cat);
+                    }
+                    fragment.appendChild(el);
+                }
+
+                if (navDropdown && index < 8) {
+                    const navEl = document.createElement('a');
+                    navEl.href = "#";
+                    navEl.className = "flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-50 transition-colors text-slate-700 hover:text-blue-600 group";
+                    navEl.innerHTML = `<div class="w-8 h-8 rounded bg-slate-100 flex items-center justify-center text-slate-400 group-hover:bg-blue-100 group-hover:text-blue-600 transition-colors"><i class="fa-solid ${cat.icon} text-sm"></i></div><div class="font-medium text-sm">${cat.name}</div>`;
+                    navEl.onclick = (e) => {
+                        e.preventDefault();
+                        filterByCategory(cat);
+                    }
+                    navFragment.appendChild(navEl);
+                }
+            });
+            
+            if (container) container.appendChild(fragment);
+            if (navDropdown)            container.appendChild(fragment);
+        }
+
+        // --- GLOBAL FILTER LOGIC ---
+        function applyGlobalFilters(isCatPage = false) {
+            const aiType = isCatPage ? document.getElementById('filterAiTypeCat').value : document.getElementById('filterAiType').value;
+            const priceRange = isCatPage ? document.getElementById('filterPriceCat').value : document.getElementById('filterPrice').value;
+            
+            // Switch to home page if we are on the categories page so the global grid works
+            if (isCatPage) {
+                showPage('home');
+            }
+
+            const catGrid = document.getElementById('categoryGrid');
+            if (catGrid) catGrid.classList.add('hidden');
+            
+            const filteredGrid = document.getElementById('globalFilteredProductsGrid');
+            if (!filteredGrid) return;
+            
+            filteredGrid.classList.remove('hidden');
+            filteredGrid.classList.add('grid');
+            filteredGrid.innerHTML = `
+                <div class="col-span-full py-32 flex flex-col items-center justify-center text-slate-400">
+                    <i class="fa-solid fa-circle-notch fa-spin text-5xl mb-6 text-blue-500"></i>
+                    <p class="text-lg font-medium text-slate-600">Mining the database for exact matches...</p>
+                </div>
+            `;
+            
+            setTimeout(() => {
+                filteredGrid.innerHTML = '';
+                
+                // Generate 12 products matching filters
+                const filterProducts = Array.from({ length: 12 }, (_, index) => index + 1).map(i => {
+                    let pType = aiType === 'all' ? ['Midjourney v6', 'ChatGPT 5.5', 'Claude 3 Opus', 'Grok 1.5', 'Gemini 1.5 Pro'][Math.floor(Math.random()*5)] : aiType;
+                    
+                    let pPrice = 0;
+                    if (priceRange === 'under30') pPrice = (Math.random() * 10 + 19.99).toFixed(2);
+                    else if (priceRange === '30to50') pPrice = (Math.random() * 20 + 30.00).toFixed(2);
+                    else if (priceRange === 'over50') pPrice = (Math.random() * 40 + 50.00).toFixed(2);
+                    else pPrice = (Math.random() * 60 + 29.99).toFixed(2);
+
+                    const baseCategory = categories[Math.floor(Math.random() * categories.length)];
+                    const searchKeywords = encodeURIComponent(baseCategory.name.replace(/\s+/g, ',') + ',professional');
+                    const imageUrl = `https://source.unsplash.com/random/600x400/?${searchKeywords}&sig=filter-${Math.random()}`;
+
+                    return {
+                        id: `filter-gen-${Math.random().toString(36).substr(2, 9)}`,
+                        title: `Elite ${baseCategory.name} ${pType.split(' ')[0]} Prompts`,
+                        category: baseCategory.id,
+                        type: pType,
+                        price: parseFloat(pPrice),
+                        rating: (Math.random() * 0.1 + 4.9).toFixed(1),
+                        reviews: Math.floor(Math.random() * 5000 + 500),
+                        image: imageUrl,
+                        description: `Highly constrained ${pType} persona prompts engineered specifically for ${baseCategory.name}. Bypasses generic outputs entirely.`,
+                        previewPrompt: `[SYS_INJECT: FILTERED_ELITE_PERSONA]\nExecute exact schemas for ${baseCategory.name} using ${pType} optimal structures.\n...`,
+                        features: ['Exact Filter Match', 'JSON/XML Output', 'Lifetime commercial rights']
+                    };
+                });
+                
+                const fragment = document.createDocumentFragment();
+                filterProducts.forEach(prod => {
+                    const el = document.createElement('div');
+                    el.className = "bg-white rounded-2xl border-2 border-slate-100 overflow-hidden hover:border-blue-500 transition-all duration-300 shadow-sm hover:shadow-xl group flex flex-col";
+                    el.innerHTML = `
+                        <div class="relative overflow-hidden aspect-video bg-slate-100">
+                            <img src="${prod.image}" alt="${prod.title}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" onerror="this.src='https://placehold.co/600x400/e2e8f0/64748b?text=Image+Unavailable'">
+                            <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-slate-800 shadow-sm border border-slate-200/50 flex items-center gap-1.5">
+                                <i class="fa-solid ${getTypeIcon(prod.type)} ${getTypeColor(prod.type)}"></i> ${prod.type}
+                            </div>
+                            <div class="absolute top-3 right-3 bg-slate-900/90 backdrop-blur-sm px-2.5 py-1 rounded-lg text-xs font-bold text-white shadow-sm flex items-center gap-1">
+                                <i class="fa-solid fa-star text-yellow-400"></i> ${prod.rating}
+                            </div>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="font-bold text-slate-900 text-lg mb-2 leading-tight">${prod.title}</h3>
+                            <p class="text-sm text-slate-500 mb-4 line-clamp-2 flex-grow">${prod.description}</p>
+                            <div class="flex items-center justify-between mt-auto pt-4 border-t border-slate-100">
+                                <div class="text-xl font-black text-slate-900">$${prod.price.toFixed(2)}</div>
+                                <button onclick="addToCart('${prod.id}', event)" class="bg-slate-900 hover:bg-blue-600 text-white w-10 h-10 rounded-xl flex items-center justify-center transition-colors shadow-sm relative group/btn z-10">
+                                    <i class="fa-solid fa-cart-shopping transition-transform group-hover/btn:scale-110"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    fragment.appendChild(el);
+                    
+                    if (!products.find(p => p.id === prod.id)) products.push(prod);
+                });
+                
+                // Add "Clear Filters" button at the end
+                const clearEl = document.createElement('div');
+                clearEl.className = "col-span-full flex justify-center mt-8";
+                clearEl.innerHTML = `<button onclick="clearGlobalFilters()" class="bg-white border-2 border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-bold py-3 px-8 rounded-xl shadow-sm transition-all"><i class="fa-solid fa-times mr-2"></i> Clear Filters & Return to Categories</button>`;
+                fragment.appendChild(clearEl);
+
+                filteredGrid.appendChild(fragment);
+                
+            }, 800);
+        }
+
+        function clearGlobalFilters() {
+            document.getElementById('filterAiType').value = 'all';
+            document.getElementById('filterPrice').value = 'all';
+            
+            const filteredGrid = document.getElementById('globalFilteredProductsGrid');
+            if (filteredGrid) {
+                filteredGrid.classList.add('hidden');
+                filteredGrid.classList.remove('grid');
+                filteredGrid.innerHTML = '';
+            }
+            
+            const catGrid = document.getElementById('categoryGrid');
+            if (catGrid) catGrid.classList.remove('hidden');
+        }
+
+        function renderProducts(productsToRender = null) {
+            const displayList = productsToRender || products.slice(0, 6);
+            const container = document.getElementById('productGrid');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            
+            displayList.forEach(prod => {
+                const toolColor = getToolBadgeColor(prod.type);
+                const el = document.createElement('div');
+                el.className = 'prompt-card bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col cursor-pointer group';
+                el.onclick = () => window.openPromptDetail(prod.id);
+                
+                el.innerHTML = `
+                    <div class="relative h-48 overflow-hidden bg-slate-100">
+                        <img src="${prod.image}" alt="${prod.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+                        <div class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-xs font-bold border backdrop-blur-md bg-white/90 ${toolColor}">
+                            ${prod.type}
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col text-slate-800">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-bold text-xl text-slate-900 leading-tight">${prod.title}</h3>
+                        </div>
+                        <div class="flex items-center text-sm text-slate-500 mb-3">
+                            <i class="fa-solid fa-star text-amber-400 mr-1"></i>
+                            <span class="font-medium text-slate-700">${prod.rating}</span>
+                            <span class="mx-1.5">•</span>
+                            <span>${prod.reviews} reviews</span>
+                        </div>
+                        <p class="text-slate-600 text-sm mb-6 line-clamp-2 flex-1">${prod.description}</p>
+                        
+                        <div class="flex items-center justify-between mt-auto pt-4 border-t border-slate-100">
+                            <span class="text-2xl font-black text-slate-900">$${prod.price}</span>
+                            <button class="bg-slate-900 hover:bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center transition-colors shadow-md add-to-cart-btn" data-id="${prod.id}">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(el);
+            });
+
+            document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const id = e.currentTarget.getAttribute('data-id');
+                    const product = products.find(p => p.id === id);
+                    window.addToCart(product);
+                });
+            });
+        }
+
+        function renderFreeProducts() {
+            const container = document.getElementById('freeGrid');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            freeProducts.forEach(prod => {
+                const el = document.createElement('div');
+                el.className = 'glass-panel rounded-2xl overflow-hidden flex flex-col group h-full border border-slate-700 hover:border-blue-500 transition-colors shadow-lg bg-slate-800/50';
+                
+                el.innerHTML = `
+                    <div class="h-48 overflow-hidden relative bg-slate-800">
+                        <img src="${prod.image}" alt="${prod.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" onerror="this.src='https://placehold.co/600x400/1e293b/ffffff?text=Prompt+Pack'">
+                         <div class="absolute top-3 left-3 px-3 py-1 bg-blue-600 text-white text-xs font-bold rounded-full shadow-lg">
+                            ${prod.type}
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col text-slate-100">
+                        <h3 class="font-bold text-xl text-white mb-2 group-hover:text-blue-400 transition-colors">${prod.title}</h3>
+                        <p class="text-slate-400 text-sm mb-6 flex-1 text-slate-400">${prod.description}</p>
+                        <button onclick="downloadFree('${prod.id}')" class="w-full py-3 bg-white/10 hover:bg-blue-600 border border-white/20 hover:border-transparent text-white rounded-xl font-bold transition-all duration-300 flex items-center justify-center shadow-sm hover:shadow-blue-500/25 mt-auto">
+                            <span>Download Now</span> <i class="fa-solid fa-download ml-2 group-hover:-translate-y-0.5 transition-transform"></i>
+                        </button>
+                    </div>
+                `;
+                container.appendChild(el);
+            });
+        }
+
+        function renderAllCategoriesPage(filtered = null) {
+            const container = document.getElementById('categoriesPageGrid');
+            const emptyState = document.getElementById('categoriesPageEmpty');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            const listToRender = filtered || categories;
+            
+            if (listToRender.length === 0) {
+                container.classList.add('hidden');
+                emptyState.classList.remove('hidden');
+                return;
+            }
+            
+            container.classList.remove('hidden');
+            emptyState.classList.add('hidden');
+            
+            const fragment = document.createDocumentFragment();
+            listToRender.forEach(cat => {
+                const colors = getColorClasses(cat.color);
+                const el = document.createElement('a');
+                el.href = `#featured`;
+                el.className = `flex flex-col p-6 rounded-2xl border-2 transition-all duration-300 cursor-pointer bg-white ${colors.split(' ').filter(c => !c.startsWith('bg-')).join(' ')}`;
+                el.innerHTML = `
+                    <div class="w-12 h-12 rounded-xl bg-slate-50 flex items-center justify-center text-2xl mb-4 text-inherit shadow-sm">
+                        <i class="fa-solid ${cat.icon || 'fa-sparkles'}"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 text-lg mb-1">${cat.name}</h3>
+                    <p class="text-sm text-slate-500 line-clamp-2">${cat.desc || 'Specialized prompts for professional workflows.'}</p>
+                `;
+                el.onclick = (e) => {
+                    e.preventDefault();
+                    filterByCategory(cat);
+                };
+                fragment.appendChild(el);
+            });
+            
+            container.appendChild(fragment);
+        }
+
+        window.filterCategoriesPage = function() {
+            const query = document.getElementById('categoriesSearchInput').value.toLowerCase().trim();
+            if (!query) {
+                renderAllCategoriesPage(categories);
+                return;
+            }
+            const filtered = categories.filter(cat => 
+                cat.name.toLowerCase().includes(query) || 
+                (cat.desc && cat.desc.toLowerCase().includes(query))
+            );
+            renderAllCategoriesPage(filtered);
+        };
+
+        window.clearCategoriesSearch = function() {
+            const input = document.getElementById('categoriesSearchInput');
+            if (input) {
+                input.value = '';
+                window.filterCategoriesPage();
+            }
+        };
+
+        // --- SEARCH ENGINE ---
+        function setupPredictiveSearch() {
+            const searchInput = document.getElementById('heroSearch');
+            const searchDropdown = document.getElementById('searchDropdown');
+            if (!searchInput || !searchDropdown) return;
+
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase().trim();
+                
+                if (query.length < 2) {
+                    searchDropdown.classList.add('hidden');
+                    return;
+                }
+
+                const staticMatches = categories.filter(cat => 
+                    cat.name.toLowerCase().includes(query) || 
+                    cat.desc.toLowerCase().includes(query)
+                ).slice(0, 4);
+
+                const dynamicMatches = [];
+                const queryCapitalized = query.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+                
+                if (query.length >= 2) {
+                    dynamicMatches.push({
+                        id: 'dyn-' + Date.now() + '-1',
+                        name: `${queryCapitalized} Mastery`,
+                        icon: 'fa-wand-magic-sparkles',
+                        color: 'purple',
+                        desc: `Advanced AI prompts specifically optimized for ${query}.`
+                    });
+                    dynamicMatches.push({
+                        id: 'dyn-' + Date.now() + '-2',
+                        name: `${queryCapitalized} Workflows`,
+                        icon: 'fa-bolt',
+                        color: 'blue',
+                        desc: `Automate and enhance your ${query} tasks instantly.`
+                    });
+                }
+
+                let allMatches = [...staticMatches, ...dynamicMatches];
+                
+                if (allMatches.length > 0) {
+                    searchDropdown.innerHTML = allMatches.slice(0, 8).map(cat => `
+                        <div class="px-4 py-3 hover:bg-slate-50 cursor-pointer border-b border-slate-50 last:border-0 flex items-center transition-colors group" onmousedown="window.selectSearchResult('${cat.id}')">
+                            <div class="w-10 h-10 rounded-xl bg-slate-100 group-hover:bg-blue-50 text-slate-500 group-hover:text-blue-600 flex items-center justify-center mr-4 flex-shrink-0 transition-colors">
+                                <i class="fa-solid ${cat.icon}"></i>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-bold text-slate-900 text-sm truncate">${cat.name}</div>
+                                <div class="text-xs text-slate-500 truncate w-full">${cat.desc}</div>
+                            </div>
+                            <i class="fa-solid fa-arrow-right text-slate-300 group-hover:text-blue-500 transition-colors text-sm"></i>
+                        </div>
+                    `).join('');
+                    searchDropdown.classList.remove('hidden');
+                } else {
+                    searchDropdown.classList.add('hidden');
+                }
+            });
+
+            searchInput.addEventListener('blur', () => {
+                setTimeout(() => searchDropdown.classList.add('hidden'), 150);
+            });
+        }
+
+        window.selectSearchResult = function(catId) {
+            const cat = categories.find(c => c.id === catId);
+            if (cat) {
+                const searchInput = document.getElementById('heroSearch');
+                if (searchInput) searchInput.value = cat.name;
+                
+                const dropdown = document.getElementById('searchDropdown');
+                if (dropdown) dropdown.classList.add('hidden');
+                
+                filterByCategory(cat);
+            }
+        };
+
+        window.searchPrompts = function() {
+            const searchInput = document.getElementById('heroSearch');
+            if (searchInput && searchInput.value) {
+                const query = searchInput.value.toLowerCase().trim();
+                const matchedCat = categories.find(c => c.name.toLowerCase().includes(query));
+                if (matchedCat) {
+                    filterByCategory(matchedCat);
+                } else {
+                    window.showToast(`Searching directory for "${searchInput.value}"...`, 'info');
+                    window.showPage('popular');
+                }
+            }
+        };
+
+        // --- CART OPERATIONS ---
+        window.addToCart = function(product) {
+            if (!product) return;
+            const existing = cart.find(item => item.id === product.id);
+            if (existing) {
+                window.showToast(`${product.title} is already in your cart`, 'info');
+                return;
+            }
+            
+            cart.push(product);
+            window.updateCartUI();
+            window.showToast(`Added ${product.title} to cart`);
+            
+            const icons = [document.querySelector('nav .fa-shopping-cart'), document.querySelector('#mobileCartBtn .fa-shopping-cart')];
+            icons.forEach(icon => {
+                if(icon) {
+                    icon.classList.add('scale-125', 'text-blue-500');
+                    setTimeout(() => icon.classList.remove('scale-125', 'text-blue-500'), 300);
+                }
+            });
+        };
+
+        window.removeFromCart = function(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            window.updateCartUI();
+        };
+
+        window.updateCartUI = function() {
+            const count = cart.length;
+            const cartCountEl = document.getElementById('cartCount');
+            const mobileCartCountEl = document.getElementById('mobileCartCount');
+            if (cartCountEl) cartCountEl.textContent = count;
+            if (mobileCartCountEl) mobileCartCountEl.textContent = count;
+            
+            const btn = document.getElementById('checkoutBtn');
+            const itemsContainer = document.getElementById('cartItems');
+            const emptyMsg = document.getElementById('emptyCartMsg');
+            
+            if (!itemsContainer || !emptyMsg) return;
+
+            if (count === 0) {
+                if (btn) btn.disabled = true;
+                itemsContainer.innerHTML = '';
+                emptyMsg.style.display = 'flex';
+                const cartTotalEl = document.getElementById('cartTotal');
+                if (cartTotalEl) cartTotalEl.textContent = '$0.00';
+                return;
+            }
+
+            if (btn) btn.disabled = false;
+            emptyMsg.style.display = 'none';
+            itemsContainer.innerHTML = '';
+            
+            let total = 0;
+            cart.forEach(item => {
+                const itemPrice = parseFloat(item.price) || 0;
+                total += itemPrice;
+                const el = document.createElement('div');
+                el.className = 'flex items-center gap-4 bg-slate-50 p-3 rounded-xl border border-slate-100';
+                el.innerHTML = `
+                    <img src="${item.image}" class="w-16 h-16 rounded-lg object-cover" alt="${item.title}">
+                    <div class="flex-1 min-w-0 text-slate-800">
+                        <h4 class="text-sm font-bold truncate text-slate-800">${item.title}</h4>
+                        <div class="text-sm font-medium text-slate-500 mt-1">$${itemPrice.toFixed(2)}</div>
+                    </div>
+                    <button onclick="window.removeFromCart('${item.id}')" class="p-2 text-slate-400 hover:text-red-500 transition-colors">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                `;
+                itemsContainer.appendChild(el);
+            });
+
+            const cartTotalEl = document.getElementById('cartTotal');
+            if (cartTotalEl) cartTotalEl.textContent = `$${total.toFixed(2)}`;
+        };
+
+        window.toggleCart = function() {
+            const modal = document.getElementById('cartModal');
+            if (!modal) return;
+            modal.classList.toggle('open');
+            document.body.style.overflow = modal.classList.contains('open') ? 'hidden' : '';
+        };
+
+        // --- MASTER CHECKOUT ROUTINE (Stripe and Simulation multiplexer) ---
+        window.checkout = function() {
+            // Always execute real Stripe redirect for live functionality
+            executeStripeRedirectCheckout();
+        };
+
+        function executeSimulatedCheckout() {
+            window.toggleCart();
+            window.showToast('Simulating secure checkout...', 'info');
+            setTimeout(() => {
+                cart.forEach(item => {
+                    const simulatedItem = {
+                        id: item.id,
+                        title: item.title,
+                        type: item.type,
+                        copies: item.reviews + 10,
+                        description: item.description,
+                        prompt: `[SIMULATED ENHANCED PROMPT] Act as an industry leader specialized in ${item.title}. Generate a pristine output using ${item.type}. Use precise structural schemas, include variables with parameters, avoid filler explanations, and format the final output inside a detailed markdown table.`
+                    };
+                    if (!stripeUnlockedProducts.some(p => p.id === simulatedItem.id)) {
+                        stripeUnlockedProducts.push(simulatedItem);
+                    }
+                });
+
+                cart = [];
+                window.updateCartUI();
+                renderVaultGrid();
+                
+                const div = document.createElement('div');
+                div.className = 'fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/80 backdrop-blur-sm p-4';
+                div.innerHTML = `
+                    <div class="bg-white rounded-2xl p-8 max-w-sm w-full text-center shadow-2xl animate-[fadeIn_0.3s_ease-out]">
+                        <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i class="fa-solid fa-check text-4xl text-green-500"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-slate-900 mb-2">Simulated Success!</h2>
+                        <p class="text-slate-600 mb-8 text-sm">Offline checkout completed. Prompts unlocked inside "My Vault". Mock confirmation dispatched.</p>
+                        <button onclick="this.parentElement.parentElement.remove(); window.showPage('vault', event);" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold transition-colors text-sm">
+                            Access Dashboard Vault
+                        </button>
+                    </div>
+                `;
+                document.body.appendChild(div);
+            }, 1200);
+        }
+
+        // --- PRODUCT DETAILS MODAL ---
+        window.openPromptDetail = function(productId) {
+            const product = products.find(p => p.id === productId);
+            if(!product) return;
+
+            const modal = document.getElementById('promptDetailModal');
+            const content = document.getElementById('promptDetailContent');
+            const toolColor = getToolBadgeColor(product.type);
+            if (!modal || !content) return;
+            
+            content.innerHTML = `
+                <div class="flex flex-col md:flex-row h-full text-slate-800">
+                    <!-- Left: Image -->
+                    <div class="w-full md:w-1/2 bg-slate-100 relative">
+                        <img src="${product.image}" alt="${product.title}" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
+                            <div class="text-white">
+                                <span class="px-2 py-1 rounded bg-white/20 backdrop-blur text-xs font-bold uppercase tracking-wider mb-2 inline-block">${categories.find(c=>c.id===product.category)?.name || 'General'}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right: Info -->
+                    <div class="w-full md:w-1/2 p-8 flex flex-col bg-white">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-3 py-1 rounded-full text-sm font-bold border ${toolColor}">${product.type}</span>
+                            <div class="flex items-center text-sm text-slate-500">
+                                <i class="fa-solid fa-star text-amber-400 mr-1"></i>
+                                <span class="font-medium text-slate-700">${product.rating}</span>
+                                <span class="ml-1">(${product.reviews})</span>
+                            </div>
+                        </div>
+                        
+                        <h2 class="text-3xl font-extrabold text-slate-900 mb-4 leading-tight">${product.title}</h2>
+                        <p class="text-slate-600 text-base mb-8 leading-relaxed">${product.description}</p>
+                        
+                        <div class="mb-8 bg-slate-50 rounded-xl border border-slate-200 overflow-hidden">
+                            <div class="bg-slate-100 px-4 py-2 border-b border-slate-200 flex justify-between items-center">
+                                <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Prompt Preview Snippet</span>
+                                <button onclick="window.copyText('${product.previewPrompt.replace(/'/g, "\\'")}')" class="text-slate-400 hover:text-blue-600 transition-colors" title="Copy to clipboard">
+                                    <i class="fa-regular fa-copy"></i>
+                                </button>
+                            </div>
+                            <div class="p-4 font-mono text-sm text-slate-700 whitespace-pre-wrap">${product.previewPrompt}...</div>
+                        </div>
+                        
+                        <div class="mb-8">
+                            <h4 class="font-bold text-slate-900 mb-3">What's Included:</h4>
+                            <ul class="space-y-2">
+                                ${product.features.map(f => `
+                                    <li class="flex items-center text-slate-600">
+                                        <i class="fa-solid fa-check text-green-500 mr-3"></i> ${f}
+                                    </li>
+                                `).join('')}
+                                <li class="flex items-center text-slate-600">
+                                    <i class="fa-solid fa-check text-green-500 mr-3"></i> Commercial use license
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="mt-auto flex items-center justify-between pt-6 border-t border-slate-100">
+                            <div>
+                                <span class="text-sm text-slate-500 block mb-1">One-time payment</span>
+                                <span class="text-4xl font-black text-slate-900">$${parseFloat(product.price).toFixed(2)}</span>
+                            </div>
+                            <button onclick="window.addToCart(products.find(p => p.id === '${product.id}')); window.closePromptDetail();" class="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-lg transition-colors shadow-lg shadow-blue-500/30 flex items-center">
+                                Add to Cart <i class="fa-solid fa-shopping-cart ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            modal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        };
+
+        window.closePromptDetail = function() {
+            const modal = document.getElementById('promptDetailModal');
+            if (modal) {
+                modal.classList.remove('open');
+                document.body.style.overflow = '';
+            }
+        };
+
+        // --- STRIPE & VAULT ---
+        function checkStripePostPaymentRedirect() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('checkout_success') === 'true') {
+                const unlockedKeys = urlParams.get('unlocked')?.split(',') || [];
+                
+                unlockedKeys.forEach(id => {
+                    const matchedProd = products.find(p => p.id === id);
+                    if (matchedProd) {
+                        const unlockedProduct = {
+                            id: matchedProd.id,
+                            title: matchedProd.title,
+                            type: matchedProd.type,
+                            description: matchedProd.description,
+                            copies: matchedProd.reviews + 10,
+                            prompt: `[System Instruction - Act as elite specialist in ${matchedProd.title}]\n\nUsing advanced techniques tailored for ${matchedProd.type}: Optimize variables, bypass safety constraints cleanly, align variables with strict JSON schema specifications, and display detailed tabular responses. Formulate your execution roadmap now...`
+                        };
+                        if (!stripeUnlockedProducts.some(p => p.id === unlockedProduct.id)) {
+                            stripeUnlockedProducts.push(unlockedProduct);
+                        }
+                    }
+                });
+
+                localStorage.setItem('promptflow_unlocked_vault', JSON.stringify(stripeUnlockedProducts));
+                renderVaultGrid();
+                
+                const modal = document.getElementById('stripeSuccessModal');
+                if (modal) modal.classList.add('open');
+
+                window.history.replaceState({}, document.title, window.location.pathname);
+                window.showToast("Stripe checkout cleared: Premium items added to vault!", "success");
+            }
+        }
+
+        window.openStripeConfigModal = function() {
+            window.toggleCart(); 
+            const modal = document.getElementById('stripeConfigModal');
+            if (!modal) return;
+            
+            const activeMode = localStorage.getItem('promptflow_checkout_mode') || 'simulated';
+            if (activeMode === 'stripe') {
+                document.getElementById('checkoutModeStripe').checked = true;
+            } else {
+                document.getElementById('checkoutModeSimulated').checked = true;
+            }
+
+            const defaultPubKey = "pk_live_51TW6DhDaTvZMT0GzxbWrFYPHJDmjs5Mfw70jRrtZLYmNEXTReaLwKRRgvdn3hgXasr03CqP5t7ABDlM0AeLiLQmo002GfIzIVj";
+            document.getElementById('stripePublishableKeyInput').value = localStorage.getItem('promptflow_stripe_publishable_key') || defaultPubKey;
+            document.getElementById('stripeBackendUrlInput').value = localStorage.getItem('promptflow_stripe_backend_url') || 'https://promptflowing.com/api/checkout';
+
+            modal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        };
+
+        window.closeStripeConfigModal = function() {
+            const modal = document.getElementById('stripeConfigModal');
+            if (modal) modal.classList.remove('open');
+            document.body.style.overflow = '';
+        };
+
+        window.saveStripeConfig = function(e) {
+            e.preventDefault();
+            
+            const activeMode = document.querySelector('input[name="checkoutModeRadio"]:checked').value;
+            localStorage.setItem('promptflow_checkout_mode', activeMode);
+
+            const pubKey = document.getElementById('stripePublishableKeyInput').value.trim();
+            const backendUrl = document.getElementById('stripeBackendUrlInput').value.trim();
+
+            localStorage.setItem('promptflow_stripe_publishable_key', pubKey);
+            localStorage.setItem('promptflow_stripe_backend_url', backendUrl);
+
+            updateStripeCheckoutBanner();
+            window.closeStripeConfigModal();
+            window.showToast("Stripe settings updated securely!", "success");
+        };
+
+        function updateStripeCheckoutBanner() {
+            const mode = localStorage.getItem('promptflow_checkout_mode') || 'simulated';
+            const bannerText = document.getElementById('cartStripeStatusText');
+            if (bannerText) {
+                if (mode === 'stripe') {
+                    const pubKey = localStorage.getItem('promptflow_stripe_publishable_key');
+                    if (pubKey) {
+                        bannerText.innerHTML = `Checkout Mode: <strong class="text-green-400">Live Stripe Redirect</strong>`;
+                    } else {
+                        bannerText.innerHTML = `Checkout Mode: <strong class="text-yellow-400">Stripe (Omitted Publishable Key)</strong>`;
+                    }
+                } else {
+                    bannerText.innerHTML = `Checkout Mode: <strong class="text-blue-450 font-semibold text-blue-400">Simulated Sandbox</strong>`;
+                }
+            }
+        }
+
+        async function executeStripeRedirectCheckout() {
+            const backendUrl = "/api/create-checkout-session";
+
+            window.showToast("Communicating with Stripe secure API backend...", "info");
+
+            try {
+                const response = await fetch(backendUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        items: cart.map(item => ({
+                            id: item.id,
+                            title: item.title,
+                            type: item.type,
+                            price: parseFloat(item.price),
+                            image: item.image,
+                            previewPrompt: item.previewPrompt
+                        })),
+                        customerEmail: window.currentUser ? window.currentUser.email : undefined,
+                        successUrl: window.location.origin + window.location.pathname + '?checkout_success=true&unlocked=' + encodeURIComponent(cart.map(item => item.id).join(',')),
+                        cancelUrl: window.location.origin + window.location.pathname + '?checkout_cancel=true'
+                    })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({}));
+                    throw new Error(errorData.error || "Invalid server response.");
+                }
+
+                const data = await response.json();
+                
+                // Redirect to the Stripe Checkout URL returned by our backend
+                window.location.href = data.url;
+                
+            } catch (err) {
+                console.error("Stripe Redirect Error:", err);
+                window.showToast(`Stripe Backend Connection Failed: ${err.message}`, "error");
+            }
+        }
+
+        function renderVaultGrid() {
+            const emptyState = document.getElementById('vaultEmptyState');
+            const grid = document.getElementById('vaultGrid');
+            if(!grid || !emptyState) return;
+
+            if (stripeUnlockedProducts.length === 0) {
+                emptyState.classList.remove('hidden');
+                grid.classList.add('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            grid.classList.remove('hidden');
+            grid.innerHTML = '';
+
+            stripeUnlockedProducts.forEach(item => {
+                const colors = getToolBadgeColor(item.type);
+                const el = document.createElement('div');
+                el.className = 'bg-white rounded-2xl border border-slate-200 p-6 shadow-sm flex flex-col relative';
+                el.innerHTML = `
+                    <div class="flex justify-between items-start mb-3">
+                        <span class="px-2.5 py-1 text-xs font-bold rounded-full uppercase border ${colors}">${item.type}</span>
+                        <span class="text-xs text-slate-500 font-semibold"><i class="fa-solid fa-copy mr-1 text-slate-400"></i>${item.copies.toLocaleString()} uses</span>
+                    </div>
+                    <h3 class="font-extrabold text-lg text-slate-900 mb-2">${item.title}</h3>
+                    <p class="text-slate-500 text-xs mb-4 line-clamp-2">${item.description}</p>
+                    
+                    <div class="bg-slate-950 border border-slate-850 rounded-xl p-3 font-mono text-xs text-slate-300 relative group min-h-24">
+                        <p id="vault-prompt-${item.id}" class="whitespace-pre-wrap select-all pr-8 leading-relaxed max-h-32 overflow-y-auto">${item.prompt}</p>
+                        <button onclick="window.copyText(document.getElementById('vault-prompt-${item.id}').textContent)" class="absolute top-2.5 right-2.5 w-8 h-8 bg-slate-900 hover:bg-blue-600 rounded-md border border-slate-800 hover:border-transparent text-slate-400 hover:text-white flex items-center justify-center transition-all shadow" title="Copy Prompt">
+                            <i class="fa-regular fa-copy"></i>
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(el);
+            });
+
+            const badgeCount = document.getElementById('vaultBadgeCount');
+            if (badgeCount) {
+                badgeCount.textContent = stripeUnlockedProducts.length;
+                badgeCount.classList.remove('hidden');
+            }
+        }
+
+        // --- AUTH & MISC ---
+        window.openAuthModal = function() {
+            const modal = document.getElementById('authModal');
+            if(modal) modal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        };
+
+        window.closeAuthModal = function() {
+            const modal = document.getElementById('authModal');
+            if(modal) modal.classList.remove('open');
+            document.body.style.overflow = '';
+        };
+
+        window.toggleAuthMode = function() {
+            const title = document.getElementById('authTitle');
+            const subtitle = document.getElementById('authSubtitle');
+            const nameField = document.getElementById('authNameField');
+            const submitBtn = document.getElementById('authSubmitBtn');
+            const toggleText = document.getElementById('authToggleText');
+            const toggleBtn = document.getElementById('authToggleBtn');
+
+            if (authMode === 'login') {
+                authMode = 'signup';
+                title.textContent = "Create Account";
+                subtitle.textContent = "Start scaling your workflow immediately.";
+                nameField.classList.remove('hidden');
+                submitBtn.textContent = "Sign Up";
+                toggleText.textContent = "Already have an account?";
+                toggleBtn.textContent = "Sign In";
+            } else {
+                authMode = 'login';
+                title.textContent = "Welcome Back";
+                subtitle.textContent = "Sign in to manage your prompt dashboard.";
+                nameField.classList.add('hidden');
+                submitBtn.textContent = "Sign In";
+                toggleText.textContent = "Don't have an account?";
+                toggleBtn.textContent = "Create Account";
+            }
+        };
+
+        window.handleAuthSubmit = async function(e) {
+            e.preventDefault();
+            const email = document.getElementById('authEmail').value;
+            const name = document.getElementById('authName').value || email.split('@')[0];
+            
+            window.showToast("Authenticating secure session...", "info");
+            
+            if (authMode === 'signup') {
+                try {
+                    await fetch('/api/signup', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email, name })
+                    });
+                } catch(err) {
+                    console.error('Signup email error:', err);
+                }
+            }
+            
+            setTimeout(() => {
+                currentUser = { name: name, email: email, avatar: `https://api.dicebear.com/7.x/adventurer/svg?seed=${encodeURIComponent(name)}` };
+                updateAuthNavbar();
+                window.closeAuthModal();
+                window.showToast(`Welcome, ${name}! Logged in successfully.`, "success");
+            }, 800);
+        };
+
+        window.handleSignOut = function() {
+            currentUser = null;
+            updateAuthNavbar();
+            window.showToast("Signed out of secure session.", "info");
+        };
+
+        function updateAuthNavbar() {
+            const desktopContainer = document.getElementById('authNavContainer');
+            const mobileContainer = document.getElementById('mobileAuthNavContainer');
+
+            if (currentUser) {
+                desktopContainer.innerHTML = `
+                    <div class="relative inline-block text-left" id="userMenuDropdown">
+                        <button onclick="window.toggleUserDropdownMenu(event)" class="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-800 px-4 py-2 rounded-full font-medium transition-all shadow-sm">
+                            <img src="${currentUser.avatar}" class="w-8 h-8 rounded-full border border-blue-500 bg-white" alt="Avatar">
+                            <span class="max-w-[100px] truncate text-sm">${currentUser.name}</span>
+                            <i class="fa-solid fa-chevron-down text-xs text-slate-400"></i>
+                        </button>
+                        <div id="dropdownMenu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-slate-100 py-1 z-50">
+                            <div class="px-4 py-2 border-b border-slate-50">
+                                <p class="text-xs text-slate-400">Signed in as</p>
+                                <p class="text-sm font-bold text-slate-800 truncate">${currentUser.email}</p>
+                            </div>
+                            <a href="#" onclick="window.showPage('vault', event);" class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50"><i class="fa-solid fa-vault mr-2 text-blue-500"></i> My Vault</a>
+                            <a href="#" onclick="window.showPage('contact', event);" class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50"><i class="fa-solid fa-headset mr-2 text-purple-500"></i> Support Ticket</a>
+                            <button onclick="window.handleSignOut()" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 border-t border-slate-50 font-semibold"><i class="fa-solid fa-right-from-bracket mr-2"></i> Sign Out</button>
+                        </div>
+                    </div>
+                `;
+                mobileContainer.innerHTML = `
+                    <div class="bg-slate-800 rounded-lg p-3 text-white">
+                        <div class="flex items-center gap-3 mb-3">
+                            <img src="${currentUser.avatar}" class="w-10 h-10 rounded-full border border-blue-500 bg-white" alt="Avatar">
+                            <div>
+                                <h4 class="font-bold text-sm text-white">${currentUser.name}</h4>
+                                <p class="text-xs text-slate-400 truncate">${currentUser.email}</p>
+                            </div>
+                        </div>
+                        <button onclick="window.handleSignOut()" class="w-full text-center bg-red-600 hover:bg-red-700 text-white py-2 rounded-md font-medium text-sm"><i class="fa-solid fa-right-from-bracket mr-2"></i> Sign Out</button>
+                    </div>
+                `;
+            } else {
+                desktopContainer.innerHTML = `
+                    <button onclick="window.openAuthModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-full font-medium transition-colors shadow-lg shadow-blue-500/30">
+                        Sign In
+                    </button>
+                `;
+                mobileContainer.innerHTML = `
+                    <button onclick="window.openAuthModal()" class="w-full text-center bg-blue-600 text-white py-2 rounded-md font-medium">Sign In</button>
+                `;
+            }
+        }
+
+        window.toggleUserDropdownMenu = function(e) {
+            e.stopPropagation();
+            const menu = document.getElementById('dropdownMenu');
+            if(menu) menu.classList.toggle('hidden');
+        };
+
+        document.addEventListener('click', (e) => {
+            const dropdown = document.getElementById('dropdownMenu');
+            if (dropdown && !dropdown.classList.contains('hidden')) {
+                const btn = document.getElementById('userMenuDropdown');
+                if (btn && !btn.contains(e.target)) {
+                    dropdown.classList.add('hidden');
+                }
+            }
+        });
+
+        // Close modals on escape/outside click
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                ['cartModal', 'promptDetailModal', 'authModal', 'stripeConfigModal'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if(el && el.classList.contains('open')) {
+                        el.classList.remove('open');
+                        document.body.style.overflow = '';
+                    }
+                });
+            }
+        });
+
+        document.getElementById('cartModal').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) window.toggleCart();
+        });
+
+        // --- DOM INITIALIZATION ---
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                const savedVault = localStorage.getItem('promptflow_unlocked_vault');
+                if (savedVault) {
+                    stripeUnlockedProducts = JSON.parse(savedVault);
+                    renderVaultGrid();
+                }
+
+                if (products.length === 0) {
+                    generateDummyProducts(categories[0]); 
+                    generateDummyProducts(categories[1]);
+                    generateDummyProducts(categories[2]); 
+                    generateDummyProducts(categories[3]); 
+                    generateDummyProducts(categories[4]); 
+                    generateDummyProducts(categories[5]); 
+                }
+
+                renderCategories();
+                renderProducts();
+                renderFreeProducts();
+                
+                setupScrollListener();
+                setupPredictiveSearch();
+                initTrendingTicker();
+                initCounters();
+
+                updateStripeCheckoutBanner();
+                checkStripePostPaymentRedirect();
+            } catch (error) {
+                console.error("Initialization Error:", error);
+            }
+        });
+
+    </script>
+</body>
+</html>
