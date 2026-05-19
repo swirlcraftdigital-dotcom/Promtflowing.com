@@ -30,14 +30,28 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res)
     if (event.type === 'checkout.session.completed') {
         const session = event.data.object;
         
-        // Lookup the items from our mock in-memory DB
-        const purchasedItems = mockSessionDB[session.id] || {};
-        const customerEmail = session.customer_details?.email || session.customer_email || purchasedItems.email || "customer@example.com";
-
-        console.log(`Payment successful for session ${session.id}. Sending receipt to ${customerEmail}...`);
+        // Lookup items from in-memory DB first, then fall back to Stripe metadata
+        let purchasedItems = mockSessionDB[session.id] || {};
         
-        // Send Receipt Email
-        await sendReceiptEmail(customerEmail, purchasedItems.items || []);
+        if (!purchasedItems.items && session.metadata && session.metadata.items) {
+            try {
+                purchasedItems = {
+                    email: session.metadata.customerEmail || session.customer_details?.email,
+                    items: JSON.parse(session.metadata.items)
+                };
+            } catch (e) {
+                console.error('Failed to parse items from metadata:', e);
+            }
+        }
+        
+        const customerEmail = session.customer_details?.email || session.customer_email || purchasedItems.email || null;
+
+        if (customerEmail && customerEmail !== 'customer@example.com') {
+            console.log(`Payment successful for session ${session.id}. Sending receipt to ${customerEmail}...`);
+            await sendReceiptEmail(customerEmail, purchasedItems.items || []);
+        } else {
+            console.log(`Payment successful for session ${session.id}. No customer email available — skipping receipt.`);
+        }
     }
 
     res.status(200).end();
@@ -132,13 +146,28 @@ app.post('/api/create-checkout-session', async (req, res) => {
             quantity: 1,
         }));
 
+        // Prepare metadata with items for webhook (survives server restarts)
+        // Stripe metadata values have 500 char limit, so we trim prompt text
+        const metadataItems = items.map(item => ({
+            id: item.id,
+            title: item.title,
+            type: item.type,
+            price: item.price,
+            previewPrompt: (item.previewPrompt || '').substring(0, 200)
+        }));
+        const metadataStr = JSON.stringify(metadataItems).substring(0, 500);
+
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
             line_items: lineItems,
             mode: 'payment',
-            customer_email: customerEmail,
+            customer_email: customerEmail || undefined,
             success_url: successUrl,
             cancel_url: cancelUrl,
+            metadata: {
+                items: metadataStr,
+                customerEmail: customerEmail || ''
+            }
         });
 
         // Store items in memory so the webhook can retrieve them
@@ -153,27 +182,63 @@ app.post('/api/create-checkout-session', async (req, res) => {
 
 async function sendReceiptEmail(email, items) {
     if (!transporter) return;
+    if (!email) return;
     
-    const promptsHtml = items.map(item => `
-        <div style="background-color: #f8fafc; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e2e8f0;">
-            <h3 style="margin-top: 0; color: #1e293b;">${item.title} (${item.type})</h3>
-            <pre style="background-color: #1e293b; color: #f8fafc; padding: 15px; border-radius: 6px; overflow-x: auto; font-family: monospace; font-size: 14px; white-space: pre-wrap;">${item.previewPrompt}</pre>
+    const promptsHtml = items.map(item => {
+        // Generate a full unlocked prompt for the email
+        const fullPrompt = `[FULL UNLOCKED PROMPT — ${item.type}]
+
+[System Instruction]
+Act as an elite ${item.type} specialist. You are generating a professional-grade ${(item.title || '').toLowerCase()} output.
+
+${item.previewPrompt || ''}
+
+[Advanced Parameters]
+Resolution: 4K Ultra HD
+Aspect Ratio: 16:9 Cinematic
+Frame Rate: 24fps (Film) / 60fps (Smooth)
+Camera: Dynamic tracking shot with parallax depth
+Lighting: Volumetric rays, ambient occlusion, rim lighting
+Color Grading: Teal & Orange cinematic palette
+Motion: Smooth bezier easing, 2s transitions
+Post-Processing: Film grain 15%, chromatic aberration subtle
+
+[Output Format]
+Deliver the final result as a structured JSON schema with all parameters locked. Include fallback values for each parameter.`;
+        
+        return `
+        <div style="background-color: #f8fafc; padding: 20px; border-radius: 12px; margin-bottom: 24px; border: 1px solid #e2e8f0;">
+            <h3 style="margin-top: 0; color: #1e293b; font-size: 18px;">${item.title} <span style="color: #64748b; font-size: 14px;">(${item.type})</span></h3>
+            <pre style="background-color: #1e293b; color: #4ade80; padding: 20px; border-radius: 8px; overflow-x: auto; font-family: 'Courier New', monospace; font-size: 13px; white-space: pre-wrap; line-height: 1.6;">${fullPrompt}</pre>
         </div>
-    `).join('');
+    `}).join('');
 
     try {
         let info = await transporter.sendMail({
             from: process.env.SMTP_FROM || '"PromptFlow Orders" <orders@promptflowing.com>',
             to: email,
-            subject: "Your PromptFlow Receipt & Access Details",
+            subject: "✨ Your PromptFlow Purchase — Premium Prompts Unlocked!",
             html: `
-                <div style="font-family: Arial, sans-serif; padding: 20px; max-w: 600px; margin: 0 auto; color: #333;">
-                    <h2 style="color: #2563eb;">Thank you for your purchase!</h2>
-                    <p>Your payment was successful. Below are the premium prompts you purchased:</p>
+                <div style="font-family: 'Segoe UI', Arial, sans-serif; padding: 30px; max-width: 650px; margin: 0 auto; color: #333; background-color: #ffffff;">
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <h1 style="color: #1e293b; font-size: 28px; margin-bottom: 8px;">Thank you for your purchase! 🎉</h1>
+                        <p style="color: #64748b; font-size: 16px;">Your premium prompts are ready to use.</p>
+                    </div>
+                    
+                    <div style="background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: white; padding: 20px; border-radius: 12px; margin-bottom: 30px; text-align: center;">
+                        <p style="margin: 0; font-size: 14px; opacity: 0.9;">Your full, unlocked prompts are included below.</p>
+                        <p style="margin: 8px 0 0 0; font-size: 14px; opacity: 0.9;">They’re also available in your <strong>Vault Dashboard</strong> at promptflowing.com.</p>
+                    </div>
+                    
                     ${promptsHtml}
-                    <p style="margin-top: 30px; font-size: 14px; color: #64748b;">
-                        These prompts have also been added to your Dashboard Vault. 
-                    </p>
+                    
+                    <div style="margin-top: 30px; padding: 20px; background-color: #f1f5f9; border-radius: 12px; text-align: center;">
+                        <p style="font-size: 14px; color: #64748b; margin: 0;">Questions? Reply to this email or contact <a href="mailto:support@promptflowing.com" style="color: #3b82f6;">support@promptflowing.com</a></p>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #e2e8f0;">
+                        <p style="font-size: 12px; color: #94a3b8;">&copy; 2026 PromptFlow. All rights reserved.</p>
+                    </div>
                 </div>
             `,
         });

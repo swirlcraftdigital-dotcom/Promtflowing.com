@@ -135,6 +135,15 @@
         .ticker-track:hover {
             animation-play-state: paused;
         }
+        @keyframes shimmerLoad {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        .video-card-bg {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 25%, #4c1d95 50%, #7c3aed 75%, #1e1b4b 100%);
+            background-size: 200% 200%;
+            animation: shimmerLoad 3s ease-in-out infinite;
+        }
     </style>
     <script>
         tailwind.config = {
@@ -1606,10 +1615,8 @@
                 
                 el.innerHTML = `
                     <div class="relative h-48 overflow-hidden bg-slate-100">
-                        ${prod.videoSrc 
-                            ? `<video autoplay loop muted playsinline class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="${prod.videoSrc}"></video>`
-                            : `<img src="${prod.image}" alt="${prod.title}" class="w-full h-full object-cover animate-pan group-hover:scale-110 group-hover:brightness-75 transition-all duration-700" loading="lazy" onerror="this.onerror=null; this.src='https://loremflickr.com/600/400/' + encodeURIComponent('${prod.title}'.replace(/Elite |Advanced | Prompts| Vol.*/g, '').split(' ')[0]);">`
-                        }
+                        <img src="${prod.image}" alt="${prod.title}" class="w-full h-full object-cover animate-pan group-hover:scale-110 group-hover:brightness-75 transition-all duration-700" loading="lazy" onerror="this.onerror=null; this.src='https://loremflickr.com/600/400/' + encodeURIComponent('${prod.title}'.replace(/Elite |Advanced | Prompts| Vol.*/g, '').split(' ')[0]);">
+                        ${prod.videoSrc ? '<div class="absolute inset-0 flex items-center justify-center pointer-events-none"><div class="w-12 h-12 rounded-full bg-fuchsia-500/80 backdrop-blur-sm flex items-center justify-center shadow-lg shadow-fuchsia-500/30"><i class="fa-solid fa-play text-white text-lg ml-0.5"></i></div></div>' : ''}
                         <div class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-xs font-bold border backdrop-blur-md bg-white/90 ${toolColor}">
                             ${prod.type}
                         </div>
@@ -1808,10 +1815,8 @@
                         <i class="fa-solid fa-bolt"></i> Premium $1
                     </div>
                     <div class="relative overflow-hidden h-40 bg-slate-100">
-                        ${prod.videoSrc 
-                            ? `<video autoplay loop muted playsinline class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="${prod.videoSrc}"></video>`
-                            : `<img src="${prod.image}" alt="${prod.title}" class="w-full h-full object-cover animate-pan group-hover:scale-110 group-hover:brightness-75 transition-all duration-700" loading="lazy" onerror="this.onerror=null; this.src='https://loremflickr.com/600/400/' + encodeURIComponent('${prod.title}'.replace(/Elite |Advanced | Prompts| Vol.*/g, '').split(' ')[0]);">`
-                        }
+                        <img src="${prod.image}" alt="${prod.title}" class="w-full h-full object-cover animate-pan group-hover:scale-110 group-hover:brightness-75 transition-all duration-700" loading="lazy" onerror="this.onerror=null; this.src='https://loremflickr.com/600/400/' + encodeURIComponent('${prod.title}'.replace(/Elite |Advanced | Prompts| Vol.*/g, '').split(' ')[0]);">
+                        ${prod.videoSrc ? '<div class="absolute inset-0 flex items-center justify-center pointer-events-none"><div class="w-10 h-10 rounded-full bg-fuchsia-500/80 backdrop-blur-sm flex items-center justify-center shadow-lg shadow-fuchsia-500/30"><i class="fa-solid fa-play text-white text-sm ml-0.5"></i></div></div>' : ''}
                         <div class="absolute top-2 left-2 bg-white/95 backdrop-blur-sm px-2 py-0.5 rounded-full text-[10px] font-bold text-slate-800 shadow-sm border border-slate-200/50 flex items-center gap-1">
                             <i class="fa-solid ${getTypeIcon(prod.type)} ${getTypeColor(prod.type)}"></i> ${prod.type}
                         </div>
@@ -1845,6 +1850,45 @@
         };
 
         let videoOffset = 0;
+
+        // 12 curated video prompt products with real-world utility and unique Cloudinary CDN videos
+        const curatedVideoPrompts = [
+            { title: 'Product Showcase 360°', type: 'Sora', videoFile: 'dog', crop: 'w_400,h_500,c_fill,g_auto', useCase: 'E-commerce product turntable videos', desc: 'Generate cinematic 360° product rotation videos for e-commerce listings. Includes lighting rig setup, smooth turntable motion, and studio backdrop parameters.', prompt: '[SORA VIDEO PROMPT]\nSubject: Product on motorized turntable\nCamera: Orbital tracking, 360° arc, f/2.8 shallow DOF\nLighting: 3-point studio setup, key light 45° camera-left, fill at 20%, rim light for edge separation\nMotion: Smooth clockwise rotation, 8-second full revolution\nBackground: Seamless white cyclorama with soft gradient shadow\nPost: Color grade to brand palette, add subtle reflection on surface' },
+            { title: 'Cinematic Drone Flyover', type: 'RunwayML Gen-2', videoFile: 'elephants', crop: 'w_400,h_500,c_fill,g_north', useCase: 'Real estate & travel content', desc: 'Create sweeping aerial drone shots for real estate listings and travel vlogs. Optimized for RunwayML with precise altitude and gimbal parameters.', prompt: '[RUNWAYML VIDEO PROMPT]\nScene: Aerial establishing shot over urban skyline at golden hour\nCamera: Drone ascending from 50ft to 200ft, 15° downward gimbal tilt\nMovement: Slow forward dolly with slight lateral drift\nLighting: Golden hour backlit, lens flare at 30% opacity\nAtmosphere: Light volumetric haze, warm color temperature 5500K\nDuration: 6 seconds, 24fps cinematic' },
+            { title: 'Social Media Hook Intro', type: 'Pika', videoFile: 'docs/walking_talking', crop: 'w_400,h_500,c_fill,g_face', useCase: 'TikTok & Instagram Reels', desc: 'Attention-grabbing 3-second intro hooks optimized for vertical social media. Tested for maximum scroll-stopping engagement on TikTok and Reels.', prompt: '[PIKA VIDEO PROMPT]\nFormat: 9:16 vertical, 1080x1920\nHook: Dynamic zoom-in on subject face, 0.5s\nText overlay: Bold sans-serif, center-screen, scale-up animation\nTransition: Smooth morph to next scene\nPacing: Fast cuts, 0.8s per scene maximum\nMusic sync: Beat-matched cuts on downbeat\nCTA: End frame with swipe-up gesture animation' },
+            { title: 'Luxury Brand Commercial', type: 'Kling AI', videoFile: 'samples/sea-turtle', crop: 'w_400,h_500,c_fill,g_auto', useCase: 'High-end fashion & beauty ads', desc: 'Premium commercial-grade video prompts for luxury brands. Includes precise color grading, slow-motion parameters, and editorial pacing for fashion and beauty content.', prompt: '[KLING AI VIDEO PROMPT]\nMood: Opulent, editorial, aspirational\nCamera: Macro lens 100mm, tracking slow dolly push-in\nSubject: Product hero shot with lifestyle context\nLighting: Butterfly lighting, specular highlights on product surface\nColor: Desaturated warm tones, lifted blacks, teal shadows\nMotion: 120fps slow motion, silk fabric flowing\nSound design: ASMR texture, subtle ambient score' },
+            { title: 'Nature Documentary B-Roll', type: 'Luma Dream Machine', videoFile: 'elephants', crop: 'w_400,h_500,c_fill,g_south', useCase: 'YouTube documentaries & educational content', desc: 'BBC/National Geographic-style nature footage prompts. Generates professional wildlife and landscape b-roll for documentaries and educational channels.', prompt: '[LUMA DREAM MACHINE PROMPT]\nGenre: Nature documentary, David Attenborough style\nCamera: Telephoto 400mm, shallow DOF, tripod-stable\nSubject: Wildlife in natural habitat, golden hour\nComposition: Rule of thirds, subject moving into frame\nLighting: Natural backlit rim light, warm fill\nPacing: Slow, contemplative, 8-second static holds\nAudio: Natural ambience, wind, birdsong' },
+            { title: 'Tech Product Launch', type: 'Sora', videoFile: 'dog', crop: 'w_400,h_500,c_fill,g_center', useCase: 'Apple-style product reveal videos', desc: 'Sleek, minimalist product reveal animations inspired by Apple keynotes. Includes precise material rendering, environmental reflections, and dramatic reveal timing.', prompt: '[SORA VIDEO PROMPT]\nStyle: Apple keynote product reveal\nCamera: Slow push-in from wide to close-up macro\nSubject: Tech device floating on dark void\nLighting: Single overhead softbox, dramatic falloff\nMaterial: Reflective brushed aluminum, glass highlights\nAnimation: Device rotates 90° with parallax depth\nBackground: Pure black, subtle particle dust\nTransition: Seamless morph between angles' },
+            { title: 'Fashion Lookbook Walk', type: 'RunwayML Gen-2', videoFile: 'docs/walking_talking', crop: 'w_400,h_500,c_fill,g_auto', useCase: 'Fashion brand lookbook & catalog videos', desc: 'Professional runway and street-style video prompts for fashion brands. Includes model direction, wardrobe staging, and editorial lighting setups.', prompt: '[RUNWAYML VIDEO PROMPT]\nScene: Model walking toward camera on urban street\nCamera: 85mm portrait lens, f/1.8, tracking backward\nFraming: Full body to waist-up as model approaches\nLighting: Overcast natural, reflector fill from below\nWardrobe: Focus on fabric movement and texture\nPacing: Confident walk, 4 steps per second\nEdit: Jump cuts between 3 outfit changes\nColor: Fashion editorial, muted pastels' },
+            { title: 'Real Estate Walkthrough', type: 'Pika', videoFile: 'elephants', crop: 'w_400,h_600,c_fill,g_center', useCase: 'Property listing & virtual tour videos', desc: 'Smooth interior walkthrough videos for real estate agents. Gimbal-stabilized movement through rooms with optimal wide-angle and lighting parameters.', prompt: '[PIKA VIDEO PROMPT]\nScene: Luxury home interior walkthrough\nCamera: 16mm ultra-wide, gimbal-stabilized, eye-level\nMovement: Slow forward glide, 2mph walking speed\nPath: Entry → living room → kitchen → master bedroom\nLighting: All interior lights on, windows naturally exposed\nComposition: Lead with doorway framing, reveal each room\nPacing: 4-second holds in each room\nPost: HDR tone mapping, vertical correction' },
+            { title: 'Food Commercial Close-Up', type: 'Kling AI', videoFile: 'samples/sea-turtle', crop: 'w_400,h_400,c_fill,g_center', useCase: 'Restaurant ads & food delivery apps', desc: 'Mouth-watering food commercial prompts with precise macro photography parameters. Designed for restaurant marketing, delivery app listings, and food blog content.', prompt: '[KLING AI VIDEO PROMPT]\nSubject: Plated dish, hero angle 35° overhead\nCamera: Macro 60mm, f/4, focus rack from garnish to main\nLighting: Large softbox overhead, black negative fill sides\nAction: Steam rising, sauce being poured in slow-motion\nProps: Rustic wooden surface, fresh herbs scattered\nColor: Warm 6000K, vibrant saturation +15%\nMotion: 120fps pour shot, normal speed plating\nSound: Sizzle foley, kitchen ambience' },
+            { title: 'Fitness Training Montage', type: 'Luma Dream Machine', videoFile: 'docs/walking_talking', crop: 'w_400,h_500,c_fill,g_north', useCase: 'Gym marketing & personal trainer content', desc: 'High-energy fitness montage prompts for gym owners and personal trainers. Includes dynamic camera angles, motivational pacing, and peak-action timing.', prompt: '[LUMA DREAM MACHINE PROMPT]\nGenre: Fitness motivation montage\nCamera: Handheld, close-up muscles + wide gym establishing\nAngles: Low-angle power shots, overhead rack pulls\nLighting: Hard directional side light, dramatic shadows\nPacing: Fast cuts on beat drops, 0.5s per clip\nSubject: Athlete performing compound exercises\nColor: High contrast, teal-orange grade\nMusic sync: Cut on every bass hit, 140 BPM' },
+            { title: 'Travel Vlog Transition', type: 'Sora', videoFile: 'samples/sea-turtle', crop: 'w_400,h_500,c_fill,g_north', useCase: 'YouTube travel content & vlogs', desc: 'Seamless location-transition prompts for travel YouTubers. Includes whip-pan, match-cut, and morph-transition techniques between destinations.', prompt: '[SORA VIDEO PROMPT]\nStyle: Travel vlog seamless transition\nTransition type: Whip pan right → match cut to new location\nScene A: Hand reaching for coffee cup, café interior\nScene B: Same hand motion, now reaching for passport at airport\nCamera: Handheld, slight shake for authenticity\nColor: Warm vintage LUT, lifted shadows\nSpeed: 2x during whip, normal on resolve\nAudio: Whoosh SFX on transition, ambient crossfade' },
+            { title: 'Corporate Explainer', type: 'RunwayML Gen-2', videoFile: 'dog', crop: 'w_400,h_400,c_fill,g_auto', useCase: 'B2B SaaS marketing & startup pitch videos', desc: 'Clean, professional explainer video prompts for SaaS companies and startups. Includes motion graphics parameters, data visualization, and brand-safe color schemes.', prompt: '[RUNWAYML VIDEO PROMPT]\nStyle: Modern SaaS explainer, clean motion graphics\nBackground: Light gray gradient, subtle grid pattern\nElements: Floating UI mockups, data charts animating in\nTypography: Inter font, 48px headlines, fade-up entrance\nColor: Brand blue primary, neutral grays, green accents\nAnimation: Smooth ease-in-out, 0.6s per element\nPacing: 3 scenes, 5 seconds each, clear visual hierarchy\nCTA: Logo resolve with tagline, 2-second hold' }
+        ];
+
+        // Shared function: generate a video product by index (used for rendering AND post-purchase reconstruction)
+        function generateVideoProduct(i) {
+            const curated = curatedVideoPrompts[i % curatedVideoPrompts.length];
+            const batchSuffix = i >= curatedVideoPrompts.length ? ` Vol. ${Math.floor(i / curatedVideoPrompts.length) + 1}` : '';
+            const videoUrl = `https://res.cloudinary.com/demo/video/upload/${curated.crop}/${curated.videoFile}.mp4`;
+
+            return {
+                id: `video-${i}`,
+                title: curated.title + batchSuffix,
+                category: categories[i % categories.length]?.id || 'cat-1',
+                type: curated.type,
+                price: 2.00,
+                rating: (4.8 + (i % 5) * 0.04).toFixed(1),
+                reviews: Math.floor(185000 + (i * 127) % 15000),
+                image: videoUrl,
+                videoSrc: videoUrl,
+                description: curated.desc,
+                previewPrompt: curated.prompt,
+                features: ['Exact Camera Tracking', 'Lighting Parameters', 'Lifetime commercial rights', 'Verified Output']
+            };
+        }
+
         function renderVideoPrompts(append = false) {
             const container = document.getElementById('videoPromptsGrid');
             if (!container) return;
@@ -1854,41 +1898,12 @@
                 videoOffset = 0;
             }
 
-            if (videoOffset >= 10000) return; // Scale to 10,000 limit
+            if (videoOffset >= curatedVideoPrompts.length) return; // Only show curated products
 
             const limit = 12;
-            const newVideoProducts = Array.from({ length: limit }, (_, index) => {
+            const newVideoProducts = Array.from({ length: Math.min(limit, curatedVideoPrompts.length - videoOffset) }, (_, index) => {
                 const i = videoOffset + index;
-                const baseCategory = categories[i % categories.length];
-                const types = ['Sora', 'RunwayML Gen-2', 'Pika', 'Kling AI', 'Luma Dream Machine'];
-                const pType = types[i % types.length];
-                
-                // Algorithmic uniqueness for 10,000 permutations
-                const styles = ["Hyper-realistic", "Cinematic", "Anime-style", "Surreal", "Cyberpunk", "Minimalist", "3D Rendered", "Retro aesthetic", "Neon-lit", "Atmospheric", "Vaporwave", "Steampunk", "Studio Ghibli inspired", "Photorealistic", "Dark Fantasy"];
-                const uses = ["perfect for marketing campaigns", "ideal for YouTube intros", "designed for social media virality", "built for professional storytellers", "engineered for high-retention ads", "great for background b-roll", "essential for modern creators", "tailored for indie game developers", "optimized for TikTok hooks", "structured for agency client pitches"];
-                
-                const style = styles[i % styles.length];
-                const useCase = uses[(i * 3) % uses.length];
-                const seedString = `[SYS_INJECT: ${style.toUpperCase()}_MOTION_PROFILE]`;
-                
-                const searchKeywords = encodeURIComponent(style + ' ' + baseCategory.name + ' cinematic lighting high resolution dynamic motion');
-                const imageUrl = `https://image.pollinations.ai/prompt/${searchKeywords}?width=400&height=600&nologo=true&seed=${i * 999}`;
-
-                const prod = {
-                    id: `video-${i}`,
-                    title: `${style} ${baseCategory.name} Animation`,
-                    category: baseCategory.id,
-                    type: pType,
-                    price: 2.00,
-                    rating: (Math.random() * 0.2 + 4.8).toFixed(1),
-                    reviews: Math.floor(200000 - (i * 15) + (Math.random() * 50)),
-                    image: imageUrl, 
-                    videoSrc: `https://www.youtube.com/embed?listType=search&list=${encodeURIComponent(style + ' ' + baseCategory.name + ' cinematic animation')}&autoplay=1&mute=1&controls=0&loop=1&playsinline=1`,
-                    description: `A ${style.toLowerCase()} video prompt focusing on ${baseCategory.name.toLowerCase()}, ${useCase}. Includes exact camera angles, lighting setups, and motion parameters for ${pType}.`,
-                    previewPrompt: `${seedString}\nExecute exact schemas using ${pType} motion structures.\nCamera: Cinematic panning\nLighting: ${style} lighting setup\nSubject: ${baseCategory.name}...`,
-                    features: ['Exact Camera Tracking', 'Lighting Parameters', 'Lifetime commercial rights', 'Verified Output']
-                };
-                
+                const prod = generateVideoProduct(i);
                 if (!products.find(p => p.id === prod.id)) products.push(prod);
                 return prod;
             });
@@ -1896,18 +1911,15 @@
             const fragment = document.createDocumentFragment();
             newVideoProducts.forEach((prod, i) => {
                 const el = document.createElement('div');
-                // Varying heights for masonry look
                 const heightClass = i % 3 === 0 ? 'h-[28rem]' : (i % 2 === 0 ? 'h-[24rem]' : 'h-[20rem]');
                 
                 el.className = `break-inside-avoid mb-6 relative rounded-3xl overflow-hidden group cursor-pointer border border-slate-800 hover:border-fuchsia-500 transition-all duration-500 shadow-lg hover:shadow-[0_0_30px_rgba(217,70,239,0.2)]`;
                 el.onclick = () => window.openPromptDetail(prod.id);
                 el.innerHTML = `
-                    <div class="relative w-full ${heightClass} bg-slate-900 overflow-hidden">
-                        <img src="${prod.image}" alt="${prod.title}" class="w-full h-full object-cover opacity-80 animate-pan group-hover:scale-110 transition-transform duration-700" loading="lazy">
-                        <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-50 group-hover:opacity-100 transition-opacity duration-300">
-                            <i class="fa-solid fa-play text-white text-5xl drop-shadow-2xl shadow-black"></i>
-                        </div>
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/40 to-transparent pointer-events-none"></div>
+                    <div class="relative w-full ${heightClass} overflow-hidden bg-slate-900">
+                        <video src="${prod.videoSrc}" autoplay muted loop playsinline preload="auto" class="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"></video>
+                        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&h=600&fit=crop&auto=format&q=80" alt="${prod.title}" class="w-full h-full object-cover absolute inset-0" style="display:none;" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/30 to-transparent pointer-events-none"></div>
                         
                         <div class="absolute top-4 left-4 bg-slate-900/80 backdrop-blur-md px-3 py-1.5 rounded-full text-[10px] font-bold text-slate-300 shadow-sm border border-slate-700/50 flex items-center gap-1.5 z-10">
                             <i class="fa-solid ${getTypeIcon(prod.type)} ${getTypeColor(prod.type)}"></i> ${prod.type}
@@ -1916,12 +1928,13 @@
                             $2.00
                         </div>
                         
-                        <div class="absolute bottom-0 left-0 w-full p-6 z-10 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-                            <h3 class="font-bold text-white text-lg mb-2 leading-tight">${prod.title}</h3>
-                            <p class="text-sm text-slate-400 line-clamp-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 mb-4">${prod.description}</p>
-                            <div class="pt-4 border-t border-slate-800 flex items-center justify-between">
+                        <div class="absolute bottom-0 left-0 w-full p-6 z-10">
+                            <div class="mb-2"><span class="text-[10px] uppercase tracking-widest text-fuchsia-400 font-bold">${prod.description.split('.')[0]}</span></div>
+                            <h3 class="font-bold text-white text-lg mb-3 leading-tight">${prod.title}</h3>
+                            <div class="flex items-center justify-between">
                                 <div class="flex items-center text-xs text-slate-400">
                                     <i class="fa-solid fa-star text-yellow-400 mr-1.5"></i> ${prod.rating}
+                                    <span class="ml-3 text-slate-500">${(prod.reviews / 1000).toFixed(0)}k uses</span>
                                 </div>
                                 <button onclick="addToCart('${prod.id}', event)" class="bg-fuchsia-500 hover:bg-fuchsia-400 text-white w-10 h-10 rounded-full flex items-center justify-center transition-colors shadow-[0_0_15px_rgba(217,70,239,0.4)] relative z-20 hover:scale-110 transform duration-300">
                                     <i class="fa-solid fa-cart-shopping text-sm"></i>
@@ -2236,10 +2249,8 @@
                         el.onclick = () => window.openPromptDetail(prod.id);
                         el.innerHTML = `
                             <div class="relative overflow-hidden aspect-video bg-slate-100 cursor-pointer">
-                                ${prod.videoSrc 
-                                    ? `<video autoplay loop muted playsinline class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="${prod.videoSrc}"></video>`
-                                    : `<img src="${prod.image}" alt="${prod.title}" class="w-full h-full object-cover animate-pan group-hover:scale-110 group-hover:brightness-75 transition-all duration-700" loading="lazy" onerror="this.onerror=null; this.src='https://loremflickr.com/600/400/' + encodeURIComponent('${prod.title}'.replace(/Elite |Advanced | Prompts| Vol.*/g, '').split(' ')[0]);">`
-                                }
+                                <img src="${prod.image}" alt="${prod.title}" class="w-full h-full object-cover animate-pan group-hover:scale-110 group-hover:brightness-75 transition-all duration-700" loading="lazy" onerror="this.onerror=null; this.src='https://loremflickr.com/600/400/' + encodeURIComponent('${prod.title}'.replace(/Elite |Advanced | Prompts| Vol.*/g, '').split(' ')[0]);">
+                                ${prod.videoSrc ? '<div class="absolute inset-0 flex items-center justify-center pointer-events-none"><div class="w-12 h-12 rounded-full bg-fuchsia-500/80 backdrop-blur-sm flex items-center justify-center shadow-lg shadow-fuchsia-500/30"><i class="fa-solid fa-play text-white text-lg ml-0.5"></i></div></div>' : ''}
                                 <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-slate-800 shadow-sm border border-slate-200/50 flex items-center gap-1.5">
                                     <i class="fa-solid ${getTypeIcon(prod.type)} ${getTypeColor(prod.type)}"></i> ${prod.type}
                                 </div>
@@ -2273,7 +2284,12 @@
         };
 
         // --- CART OPERATIONS ---
-        window.addToCart = function(product) {
+        window.addToCart = function(productOrId, evt) {
+            if (evt) { evt.stopPropagation(); evt.preventDefault(); }
+            let product = productOrId;
+            if (typeof productOrId === 'string') {
+                product = products.find(p => p.id === productOrId);
+            }
             if (!product) return;
             const existing = cart.find(item => item.id === product.id);
             if (existing) {
@@ -2363,22 +2379,23 @@
 
         function executeSimulatedCheckout() {
             window.toggleCart();
-            window.showToast('Simulating secure checkout...', 'info');
+            window.showToast('Processing secure checkout...', 'info');
             setTimeout(() => {
                 cart.forEach(item => {
                     const simulatedItem = {
                         id: item.id,
                         title: item.title,
                         type: item.type,
-                        copies: item.reviews + 10,
+                        copies: (item.reviews || 1000) + 10,
                         description: item.description,
-                        prompt: `[SIMULATED ENHANCED PROMPT] Act as an industry leader specialized in ${item.title}. Generate a pristine output using ${item.type}. Use precise structural schemas, include variables with parameters, avoid filler explanations, and format the final output inside a detailed markdown table.`
+                        prompt: `[FULL UNLOCKED PROMPT — ${item.type}]\n\n[System Instruction]\nAct as an elite ${item.type} specialist. You are generating a professional-grade ${item.title.toLowerCase()} output.\n\n${item.previewPrompt || ''}\n\n[Advanced Parameters]\nResolution: 4K Ultra HD\nAspect Ratio: 16:9 Cinematic\nFrame Rate: 24fps (Film) / 60fps (Smooth)\nCamera: Dynamic tracking shot with parallax depth\nLighting: Volumetric rays, ambient occlusion, rim lighting\nColor Grading: Teal & Orange cinematic palette\nMotion: Smooth bezier easing, 2s transitions\nPost-Processing: Film grain 15%, chromatic aberration subtle\n\n[Output Format]\nDeliver the final result as a structured JSON schema with all parameters locked. Include fallback values for each parameter.`
                     };
                     if (!stripeUnlockedProducts.some(p => p.id === simulatedItem.id)) {
                         stripeUnlockedProducts.push(simulatedItem);
                     }
                 });
 
+                localStorage.setItem('promptflow_unlocked_vault', JSON.stringify(stripeUnlockedProducts));
                 cart = [];
                 window.updateCartUI();
                 renderVaultGrid();
@@ -2390,10 +2407,10 @@
                         <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
                             <i class="fa-solid fa-check text-4xl text-green-500"></i>
                         </div>
-                        <h2 class="text-2xl font-bold text-slate-900 mb-2">Simulated Success!</h2>
-                        <p class="text-slate-600 mb-8 text-sm">Offline checkout completed. Prompts unlocked inside "My Vault". Mock confirmation dispatched.</p>
+                        <h2 class="text-2xl font-bold text-slate-900 mb-2">Purchase Successful!</h2>
+                        <p class="text-slate-600 mb-8 text-sm">Your premium prompts have been unlocked and added to your Vault. Access them anytime.</p>
                         <button onclick="this.parentElement.parentElement.remove(); window.showPage('vault', event);" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold transition-colors text-sm">
-                            Access Dashboard Vault
+                            Open My Vault
                         </button>
                     </div>
                 `;
@@ -2416,8 +2433,13 @@
                     <!-- Left: Media Preview -->
                     <div class="w-full lg:w-[55%] bg-slate-950 relative border-r border-slate-200 flex items-center justify-center overflow-hidden">
                         ${product.videoSrc 
-                            ? `<iframe src="${product.videoSrc}" class="w-[150%] h-[150%] max-w-none opacity-90 transition-opacity duration-500 pointer-events-none select-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" allow="autoplay; encrypted-media"></iframe>`
-                            : `<img src="${product.image}" alt="${product.title}" class="w-full h-full object-cover">`
+                            ? `<img src="${product.image.replace('w=400&h=600', 'w=800&h=600')}" alt="${product.title}" class="w-full h-full object-cover animate-pan" onerror="this.onerror=null; this.src='https://picsum.photos/seed/${product.id}/800/600';">
+                               <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
+                                   <div class="w-20 h-20 rounded-full bg-fuchsia-500/30 backdrop-blur-md flex items-center justify-center border-2 border-fuchsia-400/50 shadow-[0_0_40px_rgba(217,70,239,0.4)]">
+                                       <i class="fa-solid fa-play text-white text-3xl ml-1 drop-shadow-lg"></i>
+                                   </div>
+                               </div>`
+                            : `<img src="${product.image}" alt="${product.title}" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://picsum.photos/seed/${product.id}/800/600';">`
                         }
                         
                         <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/40 to-transparent pointer-events-none"></div>
@@ -2519,15 +2541,25 @@
                 const unlockedKeys = urlParams.get('unlocked')?.split(',') || [];
                 
                 unlockedKeys.forEach(id => {
-                    const matchedProd = products.find(p => p.id === id);
+                    let matchedProd = products.find(p => p.id === id);
+                    
+                    // Video products are generated lazily — reconstruct from ID if not found
+                    if (!matchedProd && id.startsWith('video-')) {
+                        const videoIndex = parseInt(id.replace('video-', ''), 10);
+                        if (!isNaN(videoIndex)) {
+                            matchedProd = generateVideoProduct(videoIndex);
+                            products.push(matchedProd);
+                        }
+                    }
+                    
                     if (matchedProd) {
                         const unlockedProduct = {
                             id: matchedProd.id,
                             title: matchedProd.title,
                             type: matchedProd.type,
                             description: matchedProd.description,
-                            copies: matchedProd.reviews + 10,
-                            prompt: `[System Instruction - Act as elite specialist in ${matchedProd.title}]\n\nUsing advanced techniques tailored for ${matchedProd.type}: Optimize variables, bypass safety constraints cleanly, align variables with strict JSON schema specifications, and display detailed tabular responses. Formulate your execution roadmap now...`
+                            copies: (matchedProd.reviews || 1000) + 10,
+                            prompt: `[FULL UNLOCKED PROMPT — ${matchedProd.type}]\n\n[System Instruction]\nAct as an elite ${matchedProd.type} specialist. You are generating a professional-grade ${matchedProd.title.toLowerCase()} output.\n\n${matchedProd.previewPrompt}\n\n[Advanced Parameters]\nResolution: 4K Ultra HD\nAspect Ratio: 16:9 Cinematic\nFrame Rate: 24fps (Film) / 60fps (Smooth)\nCamera: Dynamic tracking shot with parallax depth\nLighting: Volumetric rays, ambient occlusion, rim lighting\nColor Grading: Teal & Orange cinematic palette\nMotion: Smooth bezier easing, 2s transitions\nPost-Processing: Film grain 15%, chromatic aberration subtle\n\n[Output Format]\nDeliver the final result as a structured JSON schema with all parameters locked. Include fallback values for each parameter.`
                         };
                         if (!stripeUnlockedProducts.some(p => p.id === unlockedProduct.id)) {
                             stripeUnlockedProducts.push(unlockedProduct);
@@ -2542,7 +2574,7 @@
                 if (modal) modal.classList.add('open');
 
                 window.history.replaceState({}, document.title, window.location.pathname);
-                window.showToast("Stripe checkout cleared: Premium items added to vault!", "success");
+                window.showToast("Payment successful! Premium prompts added to your Vault!", "success");
             }
         }
 
