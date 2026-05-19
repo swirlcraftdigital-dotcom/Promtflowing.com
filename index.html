@@ -102,6 +102,23 @@
         #cartModal, #promptDetailModal, #authModal, #stripeConfigModal, #stripeSuccessModal {
             display: none;
         }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        @keyframes cinematicPan {
+            0% { transform: scale(1.0) translate(0, 0); }
+            50% { transform: scale(1.15) translate(-2%, 2%); }
+            100% { transform: scale(1.05) translate(2%, -2%); }
+        }
+        .animate-pan {
+            animation: cinematicPan 25s infinite alternate ease-in-out;
+        }
+        
         #cartModal.open, #promptDetailModal.open, #authModal.open, #stripeConfigModal.open, #stripeSuccessModal.open {
             display: flex;
         }
@@ -140,7 +157,7 @@
 <body class="bg-slate-50 text-slate-800">
 
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 transition-all duration-300 bg-transparent" id="navbar">
+    <nav class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-slate-950/90 backdrop-blur-md border-b border-slate-800" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <!-- Logo -->
@@ -218,26 +235,44 @@
     <!-- Main Content Wrapper for SPA -->
     <main id="mainContent">
 
-        <!-- HOME PAGE -->
-        <div id="page-home" class="page-view block">
-            <!-- Live Trending Ticker -->
-            <div class="relative z-45 bg-slate-950 border-b border-slate-800 py-3 shadow-xl flex items-center overflow-hidden pt-[76px]">
-                <div class="absolute left-0 top-[76px] bottom-0 w-36 md:w-48 bg-gradient-to-r from-slate-950 via-slate-950 to-transparent z-10 pointer-events-none flex items-center pl-4 md:pl-8">
-                    <div class="flex items-center text-blue-400 font-bold text-xs md:text-sm tracking-widest uppercase bg-slate-950 pr-4">
-                        <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse mr-2"></span> Trending Now
-                    </div>
+        <!-- Global Search Bar -->
+        <div class="bg-slate-900 border-b border-slate-800 py-4 sm:py-6 px-4 relative z-40 mt-[76px]">
+            <div class="max-w-4xl mx-auto relative group" id="searchContainer">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none z-10">
+                    <i class="fa-solid fa-search text-slate-400 group-focus-within:text-blue-500 transition-colors"></i>
                 </div>
+                <input type="text" id="heroSearch" autocomplete="off" class="block w-full pl-12 pr-24 py-3 sm:py-4 bg-slate-800/80 border border-slate-700 rounded-full text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent backdrop-blur-md transition-all text-base sm:text-lg shadow-inner" placeholder="Search for 'Website Design', 'Photography'..." onkeydown="if(event.key === 'Enter') searchPrompts()">
+                <button class="absolute inset-y-1.5 sm:inset-y-2 right-1.5 sm:right-2 px-4 sm:px-6 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-medium transition-colors text-sm sm:text-base shadow-md" onclick="searchPrompts()">
+                    Search
+                </button>
                 
-                <div class="flex-1 overflow-hidden">
-                    <div id="tickerTrack" class="ticker-track pl-[140px] md:pl-[200px]">
-                        <!-- Ticker items injected via JS -->
-                    </div>
+                <!-- Predictive Search Dropdown -->
+                <div id="searchDropdown" class="absolute z-50 w-full mt-2 bg-white rounded-2xl shadow-2xl border border-slate-200 hidden max-h-80 overflow-y-auto text-left py-2 origin-top animate-[fadeIn_0.2s_ease-out]">
                 </div>
-                
-                <div class="absolute right-0 top-[76px] bottom-0 w-16 bg-gradient-to-l from-slate-950 to-transparent z-10 pointer-events-none"></div>
             </div>
+        </div>
+
+        <!-- Live Trending Ticker -->
+        <div class="relative z-45 bg-slate-950 border-b border-slate-800 py-2 sm:py-3 shadow-xl flex items-center overflow-hidden">
+            <div class="absolute left-0 top-0 bottom-0 w-24 sm:w-36 md:w-48 bg-gradient-to-r from-slate-950 via-slate-950 to-transparent z-10 pointer-events-none flex items-center pl-2 sm:pl-4 md:pl-8">
+                <div class="flex items-center text-blue-400 font-bold text-[10px] sm:text-xs md:text-sm tracking-wider sm:tracking-widest uppercase bg-slate-950 pr-2 sm:pr-4">
+                    <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-blue-500 animate-pulse mr-1 sm:mr-2"></span> Trending
+                </div>
+            </div>
+            
+            <div class="flex-1 overflow-hidden">
+                <div id="tickerTrack" class="ticker-track pl-[90px] sm:pl-[140px] md:pl-[200px]">
+                    <!-- Ticker items injected via JS -->
+                </div>
+            </div>
+            
+            <div class="absolute right-0 top-0 bottom-0 w-8 sm:w-16 bg-gradient-to-l from-slate-950 to-transparent z-10 pointer-events-none"></div>
+        </div>
+
+        <!-- HOME PAGE -->
+        <div id="page-home" class="page-view block relative z-30">
             <!-- Hero Section -->
-            <div class="hero-bg min-h-screen flex items-center relative z-40 pt-20">
+            <div class="hero-bg min-h-screen flex items-center relative z-20 pt-20">
                 <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
                     <div class="absolute top-1/4 left-10 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
                     <div class="absolute top-1/3 right-10 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
@@ -265,22 +300,7 @@
                             </a>
                         </div>
                         
-                        <!-- Search Bar -->
-                        <div class="mt-12 max-w-2xl mx-auto relative group z-50" id="searchContainer">
-                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none z-10">
-                                <i class="fa-solid fa-search text-slate-400 group-focus-within:text-blue-500 transition-colors"></i>
-                            </div>
-                            <input type="text" id="heroSearch" autocomplete="off" class="block w-full pl-12 pr-24 py-4 bg-slate-800/80 border border-slate-700 rounded-full text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent backdrop-blur-md transition-all text-lg" placeholder="Search for 'Website Design', 'Photography'..." onkeydown="if(event.key === 'Enter') searchPrompts()">
-                            <button class="absolute inset-y-2 right-2 px-6 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-medium transition-colors" onclick="searchPrompts()">
-                                Search
-                            </button>
-                            
-                            <!-- Predictive Search Dropdown -->
-                            <div id="searchDropdown" class="absolute z-50 w-full mt-2 bg-white rounded-2xl shadow-2xl border border-slate-200 hidden max-h-80 overflow-y-auto text-left py-2 origin-top animate-[fadeIn_0.2s_ease-out]">
-                            </div>
-                        </div>
-
-                        <div class="mt-8 flex items-center justify-center gap-6 text-sm text-slate-400 font-medium">
+                        <div class="mt-8 flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-sm text-slate-400 font-medium">
                             <span class="flex items-center"><i class="fa-solid fa-check-circle text-green-400 mr-2"></i> Tested for Midjourney v6</span>
                             <span class="flex items-center"><i class="fa-solid fa-check-circle text-green-400 mr-2"></i> ChatGPT-4 Optimized</span>
                             <span class="flex items-center"><i class="fa-solid fa-check-circle text-green-400 mr-2"></i> Instant Access</span>
@@ -1263,13 +1283,23 @@
             const nav = document.getElementById('navbar');
             const logoText = document.getElementById('logoText');
             if (!nav || !logoText) return;
-            
+            let lastScrollY = window.scrollY;
+
             window.addEventListener('scroll', () => {
+                const currentScrollY = window.scrollY;
                 const isHomePage = !document.getElementById('page-home').classList.contains('hidden');
-                const isScrolled = window.scrollY > 50;
+                const isScrolled = currentScrollY > 50;
+
+                // Smart navigation hide on scroll down
+                if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                    nav.style.transform = 'translateY(-100%)';
+                } else {
+                    nav.style.transform = 'translateY(0)';
+                }
+                lastScrollY = currentScrollY;
 
                 if (!isHomePage || isScrolled) {
-                    nav.className = "fixed w-full z-50 transition-all duration-300 bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-200";
+                    nav.className = "fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-200";
                     logoText.classList.remove('text-white');
                     logoText.classList.add('text-slate-900');
                     
@@ -1278,7 +1308,7 @@
                         el.classList.add('text-slate-600', 'hover:text-blue-600');
                     });
                 } else {
-                    nav.className = "fixed w-full z-50 transition-all duration-300 bg-transparent";
+                    nav.className = "fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-slate-950/90 backdrop-blur-md border-b border-slate-800";
                     logoText.classList.remove('text-slate-900');
                     logoText.classList.add('text-white');
                     
@@ -1343,7 +1373,6 @@
                 const rating = (Math.random() * 0.1 + 4.9).toFixed(1);
                 const reviews = Math.floor(Math.random() * 5000 + 500);
                 
-                // Fetch dynamic high-quality Unsplash image based on exact category keywords
                 const searchKeywords = encodeURIComponent(category.name + ' visually stunning premium digital art high resolution cinematic lighting');
                 const imageUrl = `https://image.pollinations.ai/prompt/${searchKeywords}?width=600&height=400&nologo=true&seed=${Math.floor(Math.random() * 1000000)}`;
 
@@ -1577,7 +1606,10 @@
                 
                 el.innerHTML = `
                     <div class="relative h-48 overflow-hidden bg-slate-100">
-                        <img src="${prod.image}" alt="${prod.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" onerror="this.onerror=null; this.src='https://loremflickr.com/600/400/' + encodeURIComponent('${prod.title}'.replace(/Elite |Advanced | Prompts| Vol.*/g, '').split(' ')[0]);">
+                        ${prod.videoSrc 
+                            ? `<video autoplay loop muted playsinline class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="${prod.videoSrc}"></video>`
+                            : `<img src="${prod.image}" alt="${prod.title}" class="w-full h-full object-cover animate-pan group-hover:scale-110 group-hover:brightness-75 transition-all duration-700" loading="lazy" onerror="this.onerror=null; this.src='https://loremflickr.com/600/400/' + encodeURIComponent('${prod.title}'.replace(/Elite |Advanced | Prompts| Vol.*/g, '').split(' ')[0]);">`
+                        }
                         <div class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-xs font-bold border backdrop-blur-md bg-white/90 ${toolColor}">
                             ${prod.type}
                         </div>
@@ -1639,9 +1671,13 @@
                     title: `${baseCategory.name} Starter Framework`,
                     category: baseCategory.id,
                     type: pType,
+                    price: 0,
+                    rating: (Math.random() * 0.2 + 4.7).toFixed(1),
+                    reviews: Math.floor(Math.random() * 1000 + 100),
                     description: `A 100% free structural prompt designed to establish a highly professional ${baseCategory.name} persona using ${pType}. Includes formatting schemas.`,
                     previewPrompt: `[SYS_INJECT: PROFESSIONAL_PERSONA]\nYou are a senior expert in ${baseCategory.name}.\n\n[TASK_MATRIX]\nAnalyze the following request and format your response into a strict JSON schema containing arrays for structural components.\n\n[CONSTRAINT_PARAMETERS]\n- Maintain professional tone.\n- Use analytical frameworks.\n- Provide exhaustive edge-case handling.`,
-                    image: `https://image.pollinations.ai/prompt/abstract%20digital%20art%20technology%20blue%20purple%20premium%20cinematic?width=600&height=400&nologo=true&seed=${Math.floor(Math.random() * 1000000)}`
+                    image: `https://image.pollinations.ai/prompt/${encodeURIComponent(baseCategory.name + ' free sample visually stunning digital art')}?width=600&height=400&nologo=true&seed=${Math.floor(Math.random() * 1000000)}`,
+                    features: ['Basic Starter Prompt', 'No Commercial Rights', 'Community Support']
                 };
                 
                 freeProducts.push(prod);
@@ -1752,7 +1788,9 @@
                     rating: (Math.random() * 0.2 + 4.8).toFixed(1),
                     reviews: dynamicReviews,
                     image: `https://image.pollinations.ai/prompt/${encodeURIComponent(baseCategory.name + ' visually stunning premium digital art high resolution cinematic lighting')}?width=600&height=400&nologo=true&seed=${Math.floor(Math.random() * 1000000)}`,
-                    description: `An instantly accessible, premium $1 engineered prompt designed to master ${baseCategory.name} using ${pType}.`
+                    description: `A massive $1 impulse-buy collection of ${baseCategory.name} templates. These have been specifically tuned for ${pType} to ensure maximum output quality without the bloat.`,
+                    previewPrompt: `[SYS_INJECT: $1_VALUE_TIER]\nExecute ${baseCategory.name} workflows utilizing high-density JSON structures.\n...`,
+                    features: ['Instant Access', 'JSON/XML Output Schemas', 'Lifetime commercial rights']
                 };
                 
                 // Add to global so cart works
@@ -1770,7 +1808,10 @@
                         <i class="fa-solid fa-bolt"></i> Premium $1
                     </div>
                     <div class="relative overflow-hidden h-40 bg-slate-100">
-                        <img src="${prod.image}" alt="${prod.title}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" onerror="this.onerror=null; this.src='https://loremflickr.com/600/400/' + encodeURIComponent('${prod.title}'.replace(/Elite |Advanced | Prompts| Vol.*/g, '').split(' ')[0]);">
+                        ${prod.videoSrc 
+                            ? `<video autoplay loop muted playsinline class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="${prod.videoSrc}"></video>`
+                            : `<img src="${prod.image}" alt="${prod.title}" class="w-full h-full object-cover animate-pan group-hover:scale-110 group-hover:brightness-75 transition-all duration-700" loading="lazy" onerror="this.onerror=null; this.src='https://loremflickr.com/600/400/' + encodeURIComponent('${prod.title}'.replace(/Elite |Advanced | Prompts| Vol.*/g, '').split(' ')[0]);">`
+                        }
                         <div class="absolute top-2 left-2 bg-white/95 backdrop-blur-sm px-2 py-0.5 rounded-full text-[10px] font-bold text-slate-800 shadow-sm border border-slate-200/50 flex items-center gap-1">
                             <i class="fa-solid ${getTypeIcon(prod.type)} ${getTypeColor(prod.type)}"></i> ${prod.type}
                         </div>
@@ -1803,16 +1844,6 @@
             renderOneDollarPrompts(true);
         };
 
-        const videoSources = [
-            'https://assets.mixkit.co/videos/preview/mixkit-abstract-technology-connection-lines-loop-31294-large.mp4',
-            'https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-a-sphere-31122-large.mp4',
-            'https://assets.mixkit.co/videos/preview/mixkit-stars-in-space-1610-large.mp4',
-            'https://assets.mixkit.co/videos/preview/mixkit-galaxy-with-stars-in-the-universe-31761-large.mp4',
-            'https://assets.mixkit.co/videos/preview/mixkit-futuristic-robotic-arm-moving-4966-large.mp4',
-            'https://assets.mixkit.co/videos/preview/mixkit-virtual-reality-abstract-tunnel-with-neon-lights-31845-large.mp4',
-            'https://assets.mixkit.co/videos/preview/mixkit-colorful-abstract-background-with-moving-lines-29834-large.mp4'
-        ];
-
         let videoOffset = 0;
         function renderVideoPrompts(append = false) {
             const container = document.getElementById('videoPromptsGrid');
@@ -1823,25 +1854,39 @@
                 videoOffset = 0;
             }
 
+            if (videoOffset >= 10000) return; // Scale to 10,000 limit
+
             const limit = 12;
             const newVideoProducts = Array.from({ length: limit }, (_, index) => {
                 const i = videoOffset + index;
                 const baseCategory = categories[i % categories.length];
-                const types = ['Sora', 'RunwayML Gen-2', 'Pika', 'Kling AI'];
+                const types = ['Sora', 'RunwayML Gen-2', 'Pika', 'Kling AI', 'Luma Dream Machine'];
                 const pType = types[i % types.length];
-                const videoSrc = videoSources[i % videoSources.length];
                 
+                // Algorithmic uniqueness for 10,000 permutations
+                const styles = ["Hyper-realistic", "Cinematic", "Anime-style", "Surreal", "Cyberpunk", "Minimalist", "3D Rendered", "Retro aesthetic", "Neon-lit", "Atmospheric", "Vaporwave", "Steampunk", "Studio Ghibli inspired", "Photorealistic", "Dark Fantasy"];
+                const uses = ["perfect for marketing campaigns", "ideal for YouTube intros", "designed for social media virality", "built for professional storytellers", "engineered for high-retention ads", "great for background b-roll", "essential for modern creators", "tailored for indie game developers", "optimized for TikTok hooks", "structured for agency client pitches"];
+                
+                const style = styles[i % styles.length];
+                const useCase = uses[(i * 3) % uses.length];
+                const seedString = `[SYS_INJECT: ${style.toUpperCase()}_MOTION_PROFILE]`;
+                
+                const searchKeywords = encodeURIComponent(style + ' ' + baseCategory.name + ' cinematic lighting high resolution dynamic motion');
+                const imageUrl = `https://image.pollinations.ai/prompt/${searchKeywords}?width=400&height=600&nologo=true&seed=${i * 999}`;
+
                 const prod = {
                     id: `video-${i}`,
-                    title: `Cinematic ${baseCategory.name} Animation`,
+                    title: `${style} ${baseCategory.name} Animation`,
                     category: baseCategory.id,
                     type: pType,
                     price: 2.00,
                     rating: (Math.random() * 0.2 + 4.8).toFixed(1),
-                    reviews: Math.floor(200000 - (i * 100) + (Math.random() * 50)),
-                    image: '', // Handled by video in template
-                    videoSrc: videoSrc,
-                    description: `A hyper-realistic $2 video generation prompt engineered specifically for ${baseCategory.name} utilizing the ${pType} engine.`
+                    reviews: Math.floor(200000 - (i * 15) + (Math.random() * 50)),
+                    image: imageUrl, 
+                    videoSrc: `https://www.youtube.com/embed?listType=search&list=${encodeURIComponent(style + ' ' + baseCategory.name + ' cinematic animation')}&autoplay=1&mute=1&controls=0&loop=1&playsinline=1`,
+                    description: `A ${style.toLowerCase()} video prompt focusing on ${baseCategory.name.toLowerCase()}, ${useCase}. Includes exact camera angles, lighting setups, and motion parameters for ${pType}.`,
+                    previewPrompt: `${seedString}\nExecute exact schemas using ${pType} motion structures.\nCamera: Cinematic panning\nLighting: ${style} lighting setup\nSubject: ${baseCategory.name}...`,
+                    features: ['Exact Camera Tracking', 'Lighting Parameters', 'Lifetime commercial rights', 'Verified Output']
                 };
                 
                 if (!products.find(p => p.id === prod.id)) products.push(prod);
@@ -1857,9 +1902,12 @@
                 el.className = `break-inside-avoid mb-6 relative rounded-3xl overflow-hidden group cursor-pointer border border-slate-800 hover:border-fuchsia-500 transition-all duration-500 shadow-lg hover:shadow-[0_0_30px_rgba(217,70,239,0.2)]`;
                 el.onclick = () => window.openPromptDetail(prod.id);
                 el.innerHTML = `
-                    <div class="relative w-full ${heightClass} bg-slate-900">
-                        <video autoplay loop muted playsinline class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-700 group-hover:scale-105" src="${prod.videoSrc}"></video>
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/20 to-transparent pointer-events-none"></div>
+                    <div class="relative w-full ${heightClass} bg-slate-900 overflow-hidden">
+                        <img src="${prod.image}" alt="${prod.title}" class="w-full h-full object-cover opacity-80 animate-pan group-hover:scale-110 transition-transform duration-700" loading="lazy">
+                        <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-50 group-hover:opacity-100 transition-opacity duration-300">
+                            <i class="fa-solid fa-play text-white text-5xl drop-shadow-2xl shadow-black"></i>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/40 to-transparent pointer-events-none"></div>
                         
                         <div class="absolute top-4 left-4 bg-slate-900/80 backdrop-blur-md px-3 py-1.5 rounded-full text-[10px] font-bold text-slate-300 shadow-sm border border-slate-700/50 flex items-center gap-1.5 z-10">
                             <i class="fa-solid ${getTypeIcon(prod.type)} ${getTypeColor(prod.type)}"></i> ${prod.type}
@@ -1968,27 +2016,80 @@
                     return;
                 }
 
-                const allMatches = categories.filter(cat => 
+                const catMatches = categories.filter(cat => 
                     cat.name.toLowerCase().includes(query) || 
                     cat.desc.toLowerCase().includes(query)
                 );
                 
-                if (allMatches.length > 0) {
-                    searchDropdown.innerHTML = allMatches.slice(0, 8).map(cat => `
+                const productMatches = [...products, ...(typeof freeProducts !== 'undefined' ? freeProducts : [])].filter(p => 
+                    p.title.toLowerCase().includes(query) || 
+                    p.description.toLowerCase().includes(query) ||
+                    p.type.toLowerCase().includes(query)
+                );
+                
+                const allMatchesHTML = [];
+                
+                catMatches.slice(0, 3).forEach(cat => {
+                    allMatchesHTML.push(`
                         <div class="px-4 py-3 hover:bg-slate-50 cursor-pointer border-b border-slate-50 last:border-0 flex items-center transition-colors group" onmousedown="window.selectSearchResult('${cat.id}', '${cat.name.replace(/'/g, "\\'")}')">
                             <div class="w-10 h-10 rounded-xl bg-slate-100 group-hover:bg-blue-50 text-slate-500 group-hover:text-blue-600 flex items-center justify-center mr-4 flex-shrink-0 transition-colors">
                                 <i class="fa-solid ${cat.icon}"></i>
                             </div>
                             <div class="flex-1 min-w-0">
-                                <div class="font-bold text-slate-900 text-sm truncate">${cat.name}</div>
-                                <div class="text-xs text-slate-500 truncate w-full">${cat.desc}</div>
+                                <h4 class="text-sm font-bold text-slate-900 truncate">${cat.name}</h4>
+                                <p class="text-xs text-slate-500 truncate">Category • ${cat.desc}</p>
                             </div>
-                            <i class="fa-solid fa-arrow-right text-slate-300 group-hover:text-blue-500 transition-colors text-sm"></i>
+                            <i class="fa-solid fa-chevron-right text-slate-300 group-hover:text-blue-500 text-xs ml-2"></i>
                         </div>
-                    `).join('');
+                    `);
+                });
+                
+                productMatches.slice(0, 4).forEach(prod => {
+                    // Filter out dummy image placeholders from predictive search
+                    const imgSrc = prod.image ? prod.image : 'https://loremflickr.com/100/100/abstract';
+                    allMatchesHTML.push(`
+                        <div class="px-4 py-3 hover:bg-slate-50 cursor-pointer border-b border-slate-50 last:border-0 flex items-center transition-colors group" onmousedown="window.openPromptDetail('${prod.id}')">
+                            <div class="w-10 h-10 rounded-xl bg-slate-100 group-hover:bg-fuchsia-50 text-slate-500 group-hover:text-fuchsia-600 flex items-center justify-center mr-4 flex-shrink-0 transition-colors overflow-hidden relative border border-slate-200">
+                                <img src="${imgSrc}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" onerror="this.onerror=null; this.parentElement.innerHTML='<i class=\\'fa-solid fa-bolt\\'></i>';">
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <h4 class="text-sm font-bold text-slate-900 truncate">${prod.title}</h4>
+                                <p class="text-xs text-slate-500 truncate">${prod.type} • $${prod.price.toFixed(2)}</p>
+                            </div>
+                            <i class="fa-solid fa-arrow-right text-slate-300 group-hover:text-fuchsia-500 text-xs ml-2"></i>
+                        </div>
+                    `);
+                });
+
+                if (allMatchesHTML.length > 0) {
+                    allMatchesHTML.push(`
+                        <div class="px-4 py-3 hover:bg-slate-50 cursor-pointer flex items-center transition-colors group bg-blue-50/30" onmousedown="window.searchPrompts()">
+                            <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center mr-4 flex-shrink-0 shadow-md group-hover:scale-105 transition-transform">
+                                <i class="fa-solid fa-search"></i>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <h4 class="text-sm font-bold text-blue-700 truncate">See all results for "${e.target.value}"</h4>
+                                <p class="text-xs text-slate-500 truncate">Scan the entire 32M+ catalog</p>
+                            </div>
+                        </div>
+                    `);
+                    searchDropdown.innerHTML = allMatchesHTML.join('');
                     searchDropdown.classList.remove('hidden');
                 } else {
-                    searchDropdown.classList.add('hidden');
+                    // Infinite database fallback suggestion
+                    searchDropdown.innerHTML = `
+                        <div class="px-4 py-3 hover:bg-slate-50 cursor-pointer flex items-center transition-colors group" onmousedown="window.searchPrompts()">
+                            <div class="w-10 h-10 rounded-xl bg-slate-100 group-hover:bg-blue-50 text-slate-500 group-hover:text-blue-600 flex items-center justify-center mr-4 flex-shrink-0 transition-colors">
+                                <i class="fa-solid fa-database"></i>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <h4 class="text-sm font-bold text-slate-900 truncate">Search entire database for "${e.target.value}"</h4>
+                                <p class="text-xs text-slate-500 truncate">Press Enter to scan 32M+ prompts</p>
+                            </div>
+                            <i class="fa-solid fa-arrow-right text-slate-300 group-hover:text-blue-500 text-xs ml-2"></i>
+                        </div>
+                    `;
+                    searchDropdown.classList.remove('hidden');
                 }
             });
 
@@ -2056,7 +2157,11 @@
                         c.desc.toLowerCase().includes(query)
                     );
                     
-                    let searchResults = products.filter(p => p.title.toLowerCase().includes(query));
+                    let searchResults = [...products, ...(typeof freeProducts !== 'undefined' ? freeProducts : [])].filter(p => 
+                        p.title.toLowerCase().includes(query) || 
+                        p.description.toLowerCase().includes(query) ||
+                        p.type.toLowerCase().includes(query)
+                    );
                     
                     // If we found categories, generate highly relevant products for them
                     if (matchingCategories.length > 0) {
@@ -2094,27 +2199,47 @@
                     searchResults = [...new Map(searchResults.map(item => [item.id, item])).values()];
                     
                     if (searchResults.length === 0) {
-                        filteredGrid.innerHTML = `
-                            <div class="col-span-full py-24 flex flex-col items-center justify-center text-slate-400">
-                                <div class="w-24 h-24 bg-slate-100 rounded-full flex items-center justify-center mb-6">
-                                    <i class="fa-solid fa-search-minus text-4xl text-slate-300"></i>
-                                </div>
-                                <h3 class="text-2xl font-black text-slate-800 mb-2">No exact matches found</h3>
-                                <p class="text-slate-500 mb-8 max-w-md text-center">We couldn't find any prompts matching "${searchInput.value}". Try adjusting your search terms or browsing categories.</p>
-                                <button onclick="clearGlobalFilters()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-xl shadow-sm transition-all">Browse All Categories</button>
-                            </div>
-                        `;
-                        return;
+                        // Dynamically generate products for the exact query to simulate infinite database
+                        const generatedProducts = Array.from({ length: 8 }, (_, index) => {
+                            let pType = ['Midjourney v6', 'ChatGPT 5.5', 'Claude 3 Opus', 'Grok 1.5', 'Gemini 1.5 Pro'][Math.floor(Math.random()*5)];
+                            let pPrice = (Math.random() * 60 + 29.99).toFixed(2);
+                            const rawQuery = searchInput.value;
+                            const titleCaseQuery = rawQuery.replace(/\b\w/g, l => l.toUpperCase());
+                            const searchKeywords = encodeURIComponent(rawQuery + ' visually stunning premium digital art high resolution cinematic lighting');
+                            const imageUrl = `https://image.pollinations.ai/prompt/${searchKeywords}?width=600&height=400&nologo=true&seed=${Math.floor(Math.random() * 1000000)}`;
+
+                            return {
+                                id: `query-gen-${Math.random().toString(36).substr(2, 9)}`,
+                                title: `${titleCaseQuery} ${pType.split(' ')[0]} Master Prompts`,
+                                category: 'generated',
+                                type: pType,
+                                price: parseFloat(pPrice),
+                                rating: (Math.random() * 0.1 + 4.9).toFixed(1),
+                                reviews: Math.floor(Math.random() * 5000 + 500),
+                                image: imageUrl,
+                                description: `Expertly engineered ${pType} prompts specifically optimized for ${rawQuery} workflows, tasks, and creative output.`,
+                                previewPrompt: `[SYS_INJECT: ${rawQuery.toUpperCase().replace(/ /g, '_')}_PERSONA]\nExecute exact schemas using ${pType} optimal structures.\n...`,
+                                features: ['Exact Match', 'JSON/XML Output', 'Lifetime commercial rights']
+                            };
+                        });
+                        
+                        generatedProducts.forEach(prod => {
+                            if (!products.find(p => p.id === prod.id)) products.push(prod);
+                            searchResults.push(prod);
+                        });
                     }
 
                     const fragment = document.createDocumentFragment();
-                    exactMatches.forEach(prod => {
+                    searchResults.forEach(prod => {
                         const el = document.createElement('div');
                         el.className = "bg-white rounded-2xl border-2 border-slate-100 overflow-hidden hover:border-blue-500 transition-all duration-300 shadow-sm hover:shadow-xl group flex flex-col";
                         el.onclick = () => window.openPromptDetail(prod.id);
                         el.innerHTML = `
                             <div class="relative overflow-hidden aspect-video bg-slate-100 cursor-pointer">
-                                <img src="${prod.image}" alt="${prod.title}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" onerror="this.onerror=null; this.src='https://loremflickr.com/600/400/' + encodeURIComponent('${prod.title}'.replace(/Elite |Advanced | Prompts| Vol.*/g, '').split(' ')[0]);">
+                                ${prod.videoSrc 
+                                    ? `<video autoplay loop muted playsinline class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="${prod.videoSrc}"></video>`
+                                    : `<img src="${prod.image}" alt="${prod.title}" class="w-full h-full object-cover animate-pan group-hover:scale-110 group-hover:brightness-75 transition-all duration-700" loading="lazy" onerror="this.onerror=null; this.src='https://loremflickr.com/600/400/' + encodeURIComponent('${prod.title}'.replace(/Elite |Advanced | Prompts| Vol.*/g, '').split(' ')[0]);">`
+                                }
                                 <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-slate-800 shadow-sm border border-slate-200/50 flex items-center gap-1.5">
                                     <i class="fa-solid ${getTypeIcon(prod.type)} ${getTypeColor(prod.type)}"></i> ${prod.type}
                                 </div>
@@ -2287,62 +2412,88 @@
             if (!modal || !content) return;
             
             content.innerHTML = `
-                <div class="flex flex-col md:flex-row h-full text-slate-800">
-                    <!-- Left: Image -->
-                    <div class="w-full md:w-1/2 bg-slate-100 relative">
-                        <img src="${product.image}" alt="${product.title}" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
-                            <div class="text-white">
-                                <span class="px-2 py-1 rounded bg-white/20 backdrop-blur text-xs font-bold uppercase tracking-wider mb-2 inline-block">${categories.find(c=>c.id===product.category)?.name || 'General'}</span>
+                <div class="flex flex-col lg:flex-row h-full text-slate-800">
+                    <!-- Left: Media Preview -->
+                    <div class="w-full lg:w-[55%] bg-slate-950 relative border-r border-slate-200 flex items-center justify-center overflow-hidden">
+                        ${product.videoSrc 
+                            ? `<iframe src="${product.videoSrc}" class="w-[150%] h-[150%] max-w-none opacity-90 transition-opacity duration-500 pointer-events-none select-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" allow="autoplay; encrypted-media"></iframe>`
+                            : `<img src="${product.image}" alt="${product.title}" class="w-full h-full object-cover">`
+                        }
+                        
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/40 to-transparent pointer-events-none"></div>
+                        
+                        <div class="absolute top-6 left-6 flex items-center gap-2 z-10">
+                            <span class="px-3 py-1.5 rounded-lg bg-black/40 backdrop-blur-md border border-white/10 text-xs font-bold text-white uppercase tracking-widest shadow-xl flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full ${product.videoSrc ? 'bg-fuchsia-500 animate-pulse' : 'bg-blue-500'}"></span>
+                                ${categories.find(c=>c.id===product.category)?.name || 'General'}
+                            </span>
+                        </div>
+                        
+                        <div class="absolute bottom-6 left-6 right-6 z-10">
+                            <div class="bg-black/60 backdrop-blur-md border border-white/10 rounded-xl p-4 shadow-2xl">
+                                <h3 class="text-white font-bold text-sm mb-1 uppercase tracking-wider flex items-center gap-2">
+                                    <i class="fa-solid fa-wand-magic-sparkles text-yellow-400"></i> Generation Engine
+                                </h3>
+                                <div class="text-slate-300 text-xs">This prompt was specifically engineered, tested, and optimized exclusively for <strong class="text-white">${product.type}</strong>. It will fail or produce lower quality results if used on other models.</div>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Right: Info -->
-                    <div class="w-full md:w-1/2 p-8 flex flex-col bg-white">
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="px-3 py-1 rounded-full text-sm font-bold border ${toolColor}">${product.type}</span>
-                            <div class="flex items-center text-sm text-slate-500">
-                                <i class="fa-solid fa-star text-amber-400 mr-1"></i>
-                                <span class="font-medium text-slate-700">${product.rating}</span>
-                                <span class="ml-1">(${product.reviews})</span>
+                    <!-- Right: Explicit Info & Checkout -->
+                    <div class="w-full lg:w-[45%] p-8 flex flex-col bg-white overflow-y-auto">
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="px-3 py-1 rounded-full text-xs font-black border uppercase tracking-wider ${toolColor}">${product.type}</span>
+                            <div class="flex items-center text-sm text-slate-500 bg-slate-50 px-3 py-1 rounded-full border border-slate-200">
+                                <i class="fa-solid fa-star text-amber-400 mr-1.5"></i>
+                                <span class="font-bold text-slate-700">${product.rating}</span>
+                                <span class="ml-1.5">(${product.reviews.toLocaleString()})</span>
                             </div>
                         </div>
                         
-                        <h2 class="text-3xl font-extrabold text-slate-900 mb-4 leading-tight">${product.title}</h2>
-                        <p class="text-slate-600 text-base mb-8 leading-relaxed">${product.description}</p>
+                        <h2 class="text-3xl md:text-4xl font-black text-slate-900 mb-4 leading-tight tracking-tight">${product.title}</h2>
                         
-                        <div class="mb-8 bg-slate-50 rounded-xl border border-slate-200 overflow-hidden">
-                            <div class="bg-slate-100 px-4 py-2 border-b border-slate-200 flex justify-between items-center">
-                                <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Prompt Preview Snippet</span>
-                                <button onclick="window.copyText('${product.previewPrompt.replace(/'/g, "\\'")}')" class="text-slate-400 hover:text-blue-600 transition-colors" title="Copy to clipboard">
-                                    <i class="fa-regular fa-copy"></i>
+                        <div class="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-6">
+                            <h4 class="font-bold text-blue-900 text-sm mb-1">Real-World Utility</h4>
+                            <p class="text-blue-800 text-sm leading-relaxed">${product.description}</p>
+                        </div>
+                        
+                        <div class="mb-8 bg-slate-900 rounded-xl border border-slate-800 overflow-hidden shadow-inner">
+                            <div class="bg-slate-800 px-4 py-3 border-b border-slate-700 flex justify-between items-center">
+                                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                                    <i class="fa-solid fa-code"></i> Parameter Preview
+                                </span>
+                                <button onclick="window.copyText('${product.previewPrompt.replace(/'/g, "\\'")}')" class="text-slate-400 hover:text-white transition-colors flex items-center gap-2 text-xs font-bold bg-slate-700 hover:bg-blue-600 px-3 py-1 rounded-lg" title="Copy to clipboard">
+                                    <i class="fa-regular fa-copy"></i> Copy
                                 </button>
                             </div>
-                            <div class="p-4 font-mono text-sm text-slate-700 whitespace-pre-wrap">${product.previewPrompt}...</div>
+                            <div class="p-5 font-mono text-xs md:text-sm text-green-400 whitespace-pre-wrap leading-relaxed">${product.previewPrompt} <span class="text-slate-500 italic">... (Full syntax unlocked after purchase)</span></div>
                         </div>
                         
                         <div class="mb-8">
-                            <h4 class="font-bold text-slate-900 mb-3">What's Included:</h4>
-                            <ul class="space-y-2">
+                            <h4 class="font-black text-slate-900 mb-4 uppercase tracking-wider text-sm flex items-center gap-2">
+                                <i class="fa-solid fa-box-open text-blue-600"></i> What You Are Buying
+                            </h4>
+                            <ul class="space-y-3">
                                 ${product.features.map(f => `
-                                    <li class="flex items-center text-slate-600">
-                                        <i class="fa-solid fa-check text-green-500 mr-3"></i> ${f}
+                                    <li class="flex items-start text-slate-600 text-sm">
+                                        <i class="fa-solid fa-circle-check text-green-500 mt-1 mr-3 text-base"></i> 
+                                        <span><strong class="text-slate-800 block">${f}</strong> Explicit details provided in the downloaded parameters.</span>
                                     </li>
                                 `).join('')}
-                                <li class="flex items-center text-slate-600">
-                                    <i class="fa-solid fa-check text-green-500 mr-3"></i> Commercial use license
+                                <li class="flex items-start text-slate-600 text-sm">
+                                    <i class="fa-solid fa-scale-balanced text-slate-400 mt-1 mr-3 text-base"></i> 
+                                    <span><strong class="text-slate-800 block">Full Commercial Rights</strong> You own 100% of the generated output for commercial use.</span>
                                 </li>
                             </ul>
                         </div>
                         
-                        <div class="mt-auto flex items-center justify-between pt-6 border-t border-slate-100">
+                        <div class="mt-auto flex items-end justify-between pt-6 border-t border-slate-200">
                             <div>
-                                <span class="text-sm text-slate-500 block mb-1">One-time payment</span>
+                                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block mb-1">One-Time Payment</span>
                                 <span class="text-4xl font-black text-slate-900">$${parseFloat(product.price).toFixed(2)}</span>
                             </div>
-                            <button onclick="window.addToCart(products.find(p => p.id === '${product.id}')); window.closePromptDetail();" class="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-lg transition-colors shadow-lg shadow-blue-500/30 flex items-center">
-                                Add to Cart <i class="fa-solid fa-shopping-cart ml-2"></i>
+                            <button onclick="window.addToCart(products.find(p => p.id === '${product.id}')); window.closePromptDetail();" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 active:scale-95 text-white rounded-xl font-bold text-base transition-all shadow-lg shadow-blue-500/30 flex items-center gap-2">
+                                Add to Cart <i class="fa-solid fa-cart-shopping"></i>
                             </button>
                         </div>
                     </div>
