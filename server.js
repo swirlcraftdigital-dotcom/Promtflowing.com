@@ -50,21 +50,34 @@ app.use(express.static(path.join(__dirname)));
 // Mock DB to store items between checkout creation and webhook completion
 const mockSessionDB = {};
 
-// --- EMAIL CONFIGURATION (ETHEREAL) ---
+// --- EMAIL CONFIGURATION ---
 let transporter;
 async function initMailer() {
-    // Generate test account automatically for local development
-    let testAccount = await nodemailer.createTestAccount();
-    transporter = nodemailer.createTransport({
-        host: "smtp.ethereal.email",
-        port: 587,
-        secure: false, // true for 465, false for other ports
-        auth: {
-            user: testAccount.user, 
-            pass: testAccount.pass, 
-        },
-    });
-    console.log("Email Transporter Initialized.");
+    if (process.env.SMTP_USER && process.env.SMTP_PASS) {
+        transporter = nodemailer.createTransport({
+            host: process.env.SMTP_HOST || 'smtp-relay.brevo.com',
+            port: process.env.SMTP_PORT || 587,
+            secure: false,
+            auth: {
+                user: process.env.SMTP_USER,
+                pass: process.env.SMTP_PASS,
+            },
+        });
+        console.log("Real Email Transporter Initialized.");
+    } else {
+        // Fallback to testing account if no real credentials are provided
+        let testAccount = await nodemailer.createTestAccount();
+        transporter = nodemailer.createTransport({
+            host: "smtp.ethereal.email",
+            port: 587,
+            secure: false, 
+            auth: {
+                user: testAccount.user, 
+                pass: testAccount.pass, 
+            },
+        });
+        console.log("Test Email Transporter Initialized (Ethereal).");
+    }
 }
 initMailer();
 
@@ -74,7 +87,7 @@ app.post('/api/signup', async (req, res) => {
 
     try {
         let info = await transporter.sendMail({
-            from: '"PromptFlow Welcome" <welcome@promptflow.ai>',
+            from: process.env.SMTP_FROM || '"PromptFlow Welcome" <welcome@promptflowing.com>',
             to: email,
             subject: "Welcome to PromptFlow! 🚀",
             html: `
@@ -150,7 +163,7 @@ async function sendReceiptEmail(email, items) {
 
     try {
         let info = await transporter.sendMail({
-            from: '"PromptFlow Delivery" <delivery@promptflow.ai>',
+            from: process.env.SMTP_FROM || '"PromptFlow Orders" <orders@promptflowing.com>',
             to: email,
             subject: "Your PromptFlow Receipt & Access Details",
             html: `

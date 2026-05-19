@@ -3,24 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PromptFlow | World-Class AI Prompts, Guides & Engineering</title>
-    <meta name="description" content="Discover the best premium AI prompts for ChatGPT, Midjourney, Claude, and Gemini. Highly curated, deeply creative, and professionally structured for maximum output quality.">
-    <meta name="keywords" content="AI Prompts, ChatGPT, Midjourney, Prompt Engineering, Claude 3 Prompts, AI Resources">
-    <link rel="canonical" href="https://promptflow.ai/">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8ST4XWNEYP"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-8ST4XWNEYP');
+    </script>
+    
+    <title>PromptFlow | World-Class AI Prompts & Engineering</title>
+    <meta name="description" content="Discover the best premium AI prompts for ChatGPT, Midjourney, Claude, and Gemini. Highly curated, deeply creative, and professionally structured for maximum output quality. Improve your SEO, Weight Loss, and Business.">
+    <meta name="keywords" content="AI Prompts, ChatGPT, Midjourney, Prompt Engineering, Claude 3 Prompts, Health Prompts, Fitness Prompts, SEO Prompts, Make Money Online Prompts">
+    <link rel="canonical" href="https://www.promptflowing.com/">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://promptflow.ai/">
+    <meta property="og:url" content="https://www.promptflowing.com/">
     <meta property="og:title" content="PromptFlow | World-Class AI Prompts">
-    <meta property="og:description" content="Unlock the full potential of AI with 700+ curated premium prompt categories.">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=80">
+    <meta property="og:description" content="Unlock the full potential of AI with 50,000+ curated premium prompt options.">
+    <meta property="og:image" content="https://image.pollinations.ai/prompt/beautiful%20modern%20ai%20technology%20website%20banner?width=1200&height=630&nologo=true">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://promptflow.ai/">
+    <meta property="twitter:url" content="https://www.promptflowing.com/">
     <meta property="twitter:title" content="PromptFlow | World-Class AI Prompts">
-    <meta property="twitter:description" content="Unlock the full potential of AI with 700+ curated premium prompt categories.">
-    <meta property="twitter:image" content="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=80">
+    <meta property="twitter:description" content="Unlock the full potential of AI with 50,000+ curated premium prompt options.">
+    <meta property="twitter:image" content="https://image.pollinations.ai/prompt/beautiful%20modern%20ai%20technology%20website%20banner?width=1200&height=630&nologo=true">
 
     <!-- Schema.org JSON-LD -->
     <script type="application/ld+json">
@@ -157,6 +167,8 @@
                             </div>
                         </div>
                     </div>
+                    <a href="#" onclick="showPage('onedollar', event)" class="nav-link text-yellow-400 hover:text-yellow-300 transition-colors font-bold flex items-center gap-1.5"><i class="fa-solid fa-bolt"></i> $1 Prompts</a>
+                    <a href="#" onclick="showPage('video', event)" class="nav-link text-fuchsia-400 hover:text-fuchsia-300 transition-colors font-bold flex items-center gap-1.5"><i class="fa-solid fa-video"></i> $2 Video Prompts</a>
                     <a href="#" onclick="showPage('free', event)" class="nav-link text-gray-300 hover:text-white transition-colors font-medium">Free Prompts</a>
                     <a href="#" onclick="showPage('vault', event)" class="nav-link text-gray-300 hover:text-white transition-colors font-medium flex items-center gap-1">My Vault <span id="vaultBadgeCount" class="hidden bg-blue-500 text-white text-[10px] px-1.5 py-0.5 rounded-full font-bold">0</span></a>
                     
@@ -192,6 +204,8 @@
                 <a href="#" onclick="showPage('home', event)" class="block px-3 py-2 text-gray-300 hover:text-white hover:bg-slate-800 rounded-md">Home</a>
                 <a href="#" onclick="showPopularPage(event)" class="block px-3 py-2 text-gray-300 hover:text-white hover:bg-slate-800 rounded-md">Popular</a>
                 <a href="#" onclick="showPage('categories', event)" class="block px-3 py-2 text-gray-300 hover:text-white hover:bg-slate-800 rounded-md">Categories</a>
+                <a href="#" onclick="showPage('onedollar', event)" class="block px-3 py-2 text-yellow-400 hover:text-yellow-300 hover:bg-slate-800 rounded-md font-bold"><i class="fa-solid fa-bolt"></i> $1 Prompts</a>
+                <a href="#" onclick="showPage('video', event)" class="block px-3 py-2 text-fuchsia-400 hover:text-fuchsia-300 hover:bg-slate-800 rounded-md font-bold"><i class="fa-solid fa-video"></i> $2 Video Prompts</a>
                 <a href="#" onclick="showPage('free', event)" class="block px-3 py-2 text-gray-300 hover:text-white hover:bg-slate-800 rounded-md">Free Prompts</a>
                 <a href="#" onclick="showPage('vault', event)" class="block px-3 py-2 text-gray-300 hover:text-white hover:bg-slate-800 rounded-md">My Vault</a>
                 <div id="mobileAuthNavContainer" class="pt-4 border-t border-slate-800 px-3 mt-2">
@@ -203,25 +217,25 @@
 
     <!-- Main Content Wrapper for SPA -->
     <main id="mainContent">
-        <!-- Live Trending Ticker -->
-        <div class="relative z-45 bg-slate-950 border-b border-slate-800 py-3 shadow-xl flex items-center overflow-hidden pt-[76px]">
-            <div class="absolute left-0 top-[76px] bottom-0 w-36 md:w-48 bg-gradient-to-r from-slate-950 via-slate-950 to-transparent z-10 pointer-events-none flex items-center pl-4 md:pl-8">
-                <div class="flex items-center text-blue-400 font-bold text-xs md:text-sm tracking-widest uppercase bg-slate-950 pr-4">
-                    <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse mr-2"></span> Trending Now
-                </div>
-            </div>
-            
-            <div class="flex-1 overflow-hidden">
-                <div id="tickerTrack" class="ticker-track pl-[140px] md:pl-[200px]">
-                    <!-- Ticker items injected via JS -->
-                </div>
-            </div>
-            
-            <div class="absolute right-0 top-[76px] bottom-0 w-16 bg-gradient-to-l from-slate-950 to-transparent z-10 pointer-events-none"></div>
-        </div>
 
         <!-- HOME PAGE -->
         <div id="page-home" class="page-view block">
+            <!-- Live Trending Ticker -->
+            <div class="relative z-45 bg-slate-950 border-b border-slate-800 py-3 shadow-xl flex items-center overflow-hidden pt-[76px]">
+                <div class="absolute left-0 top-[76px] bottom-0 w-36 md:w-48 bg-gradient-to-r from-slate-950 via-slate-950 to-transparent z-10 pointer-events-none flex items-center pl-4 md:pl-8">
+                    <div class="flex items-center text-blue-400 font-bold text-xs md:text-sm tracking-widest uppercase bg-slate-950 pr-4">
+                        <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse mr-2"></span> Trending Now
+                    </div>
+                </div>
+                
+                <div class="flex-1 overflow-hidden">
+                    <div id="tickerTrack" class="ticker-track pl-[140px] md:pl-[200px]">
+                        <!-- Ticker items injected via JS -->
+                    </div>
+                </div>
+                
+                <div class="absolute right-0 top-[76px] bottom-0 w-16 bg-gradient-to-l from-slate-950 to-transparent z-10 pointer-events-none"></div>
+            </div>
             <!-- Hero Section -->
             <div class="hero-bg min-h-screen flex items-center relative z-40 pt-20">
                 <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
@@ -256,7 +270,7 @@
                             <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none z-10">
                                 <i class="fa-solid fa-search text-slate-400 group-focus-within:text-blue-500 transition-colors"></i>
                             </div>
-                            <input type="text" id="heroSearch" autocomplete="off" class="block w-full pl-12 pr-24 py-4 bg-slate-800/80 border border-slate-700 rounded-full text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent backdrop-blur-md transition-all text-lg" placeholder="Search for 'Website Design', 'Photography'...">
+                            <input type="text" id="heroSearch" autocomplete="off" class="block w-full pl-12 pr-24 py-4 bg-slate-800/80 border border-slate-700 rounded-full text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent backdrop-blur-md transition-all text-lg" placeholder="Search for 'Website Design', 'Photography'..." onkeydown="if(event.key === 'Enter') searchPrompts()">
                             <button class="absolute inset-y-2 right-2 px-6 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-medium transition-colors" onclick="searchPrompts()">
                                 Search
                             </button>
@@ -265,29 +279,7 @@
                             <div id="searchDropdown" class="absolute z-50 w-full mt-2 bg-white rounded-2xl shadow-2xl border border-slate-200 hidden max-h-80 overflow-y-auto text-left py-2 origin-top animate-[fadeIn_0.2s_ease-out]">
                             </div>
                         </div>
-                        
-                        <!-- NEW: MEGA BUNDLE BANNER -->
-                        <div class="mt-16 w-full max-w-5xl mx-auto rounded-3xl overflow-hidden shadow-2xl border-4 border-yellow-400 relative group cursor-pointer" onclick="window.openPromptDetail('mega-bundle-1')">
-                            <div class="absolute inset-0 bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500 opacity-90 z-0"></div>
-                            <div class="absolute inset-0 bg-[url('https://image.pollinations.ai/prompt/gold%20treasure%20chest%20glowing%20coins?width=1200&height=300&nologo=true')] bg-cover bg-center mix-blend-overlay z-0 group-hover:scale-105 transition-transform duration-700"></div>
-                            <div class="relative z-10 p-8 md:p-12 flex flex-col md:flex-row items-center justify-between text-left">
-                                <div>
-                                    <div class="inline-block px-3 py-1 bg-yellow-900/50 text-yellow-200 text-xs font-black rounded-full mb-3 uppercase tracking-widest border border-yellow-400/50 backdrop-blur-sm">Limited Time Offer</div>
-                                    <h2 class="text-3xl md:text-5xl font-black text-white mb-2 leading-tight drop-shadow-lg">The 50,000 Prompt <br/> Mega Bundle</h2>
-                                    <p class="text-yellow-100 text-lg md:text-xl font-medium max-w-lg drop-shadow-md">Unlock our entire master archive of engineered AI prompts for ChatGPT, Midjourney, and Claude.</p>
-                                </div>
-                                <div class="mt-6 md:mt-0 flex flex-col items-center justify-center shrink-0">
-                                    <div class="bg-white px-8 py-6 rounded-2xl shadow-xl text-center transform group-hover:scale-105 transition-transform">
-                                        <div class="text-sm font-bold text-slate-400 line-through mb-1">$499.00</div>
-                                        <div class="text-6xl font-black text-slate-900 mb-2">$1</div>
-                                        <button class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-xl shadow-lg transition-colors flex items-center justify-center gap-2">
-                                            Get It Now <i class="fa-solid fa-bolt text-yellow-300"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
+
                         <div class="mt-8 flex items-center justify-center gap-6 text-sm text-slate-400 font-medium">
                             <span class="flex items-center"><i class="fa-solid fa-check-circle text-green-400 mr-2"></i> Tested for Midjourney v6</span>
                             <span class="flex items-center"><i class="fa-solid fa-check-circle text-green-400 mr-2"></i> ChatGPT-4 Optimized</span>
@@ -329,24 +321,37 @@
                     <!-- Global Advanced Prompt Filter -->
                     <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 mb-10 shadow-sm relative z-10">
                         <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
-                            <button onclick="document.getElementById('advFilterOptions').classList.toggle('hidden')" class="flex items-center gap-3 text-slate-800 font-bold w-full md:w-auto text-lg hover:text-blue-600 transition-colors">
+                            <button onclick="document.getElementById('advFilterOptions').classList.toggle('hidden'); document.getElementById('advFilterOptions').classList.toggle('flex')" class="flex items-center gap-3 text-slate-800 font-bold w-full md:w-auto text-lg hover:text-blue-600 transition-colors">
                                 <div class="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center text-blue-600"><i class="fa-solid fa-sliders"></i></div> 
                                 Advanced Filter <i class="fa-solid fa-chevron-down text-sm ml-2"></i>
                             </button>
-                            <div id="advFilterOptions" class="hidden flex-wrap gap-3 w-full md:w-auto flex-grow justify-end md:flex">
-                                <select id="filterAiType" class="bg-white border border-slate-200 text-slate-700 rounded-xl px-4 py-2.5 text-sm font-medium focus:ring-2 focus:ring-blue-500 outline-none shadow-sm cursor-pointer hover:border-blue-300 transition-colors">
+                            <div id="advFilterOptions" class="hidden flex-wrap gap-3 w-full justify-end">
+                                <select id="filterAiType" onchange="applyGlobalFilters(false)" class="bg-white border border-slate-200 text-slate-700 rounded-xl px-4 py-2.5 text-sm font-medium focus:ring-2 focus:ring-blue-500 outline-none shadow-sm cursor-pointer hover:border-blue-300 transition-colors">
                                     <option value="all">All AI Models</option>
-                                    <option value="ChatGPT 5.5">ChatGPT 5.5</option>
-                                    <option value="Claude 3 Opus">Claude 3 Opus</option>
-                                    <option value="Gemini 1.5 Pro">Gemini 1.5 Pro</option>
-                                    <option value="Grok 1.5">Grok 1.5</option>
-                                    <option value="Midjourney v6">Midjourney v6</option>
+                                    <optgroup label="Text AI">
+                                        <option value="ChatGPT 5.5">ChatGPT 5.5</option>
+                                        <option value="Claude 3 Opus">Claude 3 Opus</option>
+                                        <option value="Gemini 1.5 Pro">Gemini 1.5 Pro</option>
+                                        <option value="Grok 1.5">Grok 1.5</option>
+                                    </optgroup>
+                                    <optgroup label="Image AI">
+                                        <option value="Midjourney v6">Midjourney v6</option>
+                                        <option value="DALL-E 3">DALL-E 3</option>
+                                        <option value="Stable Diffusion">Stable Diffusion</option>
+                                    </optgroup>
+                                    <optgroup label="Video AI">
+                                        <option value="Sora">Sora</option>
+                                        <option value="RunwayML Gen-2">RunwayML Gen-2</option>
+                                        <option value="Pika">Pika</option>
+                                    </optgroup>
                                 </select>
-                                <select id="filterPrice" class="bg-white border border-slate-200 text-slate-700 rounded-xl px-4 py-2.5 text-sm font-medium focus:ring-2 focus:ring-blue-500 outline-none shadow-sm cursor-pointer hover:border-blue-300 transition-colors">
+                                <select id="filterPrice" onchange="applyGlobalFilters(false)" class="bg-white border border-slate-200 text-slate-700 rounded-xl px-4 py-2.5 text-sm font-medium focus:ring-2 focus:ring-blue-500 outline-none shadow-sm cursor-pointer hover:border-blue-300 transition-colors">
                                     <option value="all">Any Price</option>
-                                    <option value="under30">Under $30</option>
-                                    <option value="30to50">$30 - $50</option>
-                                    <option value="over50">Premium ($50+)</option>
+                                    <option value="free">Free</option>
+                                    <option value="under10">Under $10</option>
+                                    <option value="10to50">$10 - $50</option>
+                                    <option value="50to100">$50 - $100</option>
+                                    <option value="100to500">$100 - $500</option>
                                 </select>
                                 <button onclick="applyGlobalFilters()" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-xl text-sm font-bold transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 flex items-center gap-2">
                                     <i class="fa-solid fa-search"></i> Find Prompts
@@ -377,24 +382,37 @@
                     <!-- Global Advanced Prompt Filter (Categories Page) -->
                     <div class="bg-white border border-slate-200 rounded-2xl p-5 mt-8 mb-10 shadow-sm relative z-10 max-w-5xl mx-auto text-left">
                         <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
-                            <button onclick="document.getElementById('advFilterCatOptions').classList.toggle('hidden')" class="flex items-center gap-3 text-slate-800 font-bold w-full md:w-auto text-lg hover:text-purple-600 transition-colors">
+                            <button onclick="document.getElementById('advFilterCatOptions').classList.toggle('hidden'); document.getElementById('advFilterCatOptions').classList.toggle('flex')" class="flex items-center gap-3 text-slate-800 font-bold w-full md:w-auto text-lg hover:text-purple-600 transition-colors">
                                 <div class="w-10 h-10 rounded-xl bg-purple-100 flex items-center justify-center text-purple-600"><i class="fa-solid fa-filter"></i></div> 
                                 Filter Prompts <i class="fa-solid fa-chevron-down text-sm ml-2"></i>
                             </button>
-                            <div id="advFilterCatOptions" class="hidden flex-wrap gap-3 w-full md:w-auto flex-grow justify-end md:flex">
-                                <select id="filterAiTypeCat" class="bg-slate-50 border border-slate-200 text-slate-700 rounded-xl px-4 py-2.5 text-sm font-medium focus:ring-2 focus:ring-purple-500 outline-none shadow-sm cursor-pointer hover:border-purple-300 transition-colors">
+                            <div id="advFilterCatOptions" class="hidden flex-wrap gap-3 w-full justify-end">
+                                <select id="filterAiTypeCat" onchange="applyGlobalFilters(true)" class="bg-slate-50 border border-slate-200 text-slate-700 rounded-xl px-4 py-2.5 text-sm font-medium focus:ring-2 focus:ring-purple-500 outline-none shadow-sm cursor-pointer hover:border-purple-300 transition-colors">
                                     <option value="all">All AI Models</option>
-                                    <option value="ChatGPT 5.5">ChatGPT 5.5</option>
-                                    <option value="Claude 3 Opus">Claude 3 Opus</option>
-                                    <option value="Gemini 1.5 Pro">Gemini 1.5 Pro</option>
-                                    <option value="Grok 1.5">Grok 1.5</option>
-                                    <option value="Midjourney v6">Midjourney v6</option>
+                                    <optgroup label="Text AI">
+                                        <option value="ChatGPT 5.5">ChatGPT 5.5</option>
+                                        <option value="Claude 3 Opus">Claude 3 Opus</option>
+                                        <option value="Gemini 1.5 Pro">Gemini 1.5 Pro</option>
+                                        <option value="Grok 1.5">Grok 1.5</option>
+                                    </optgroup>
+                                    <optgroup label="Image AI">
+                                        <option value="Midjourney v6">Midjourney v6</option>
+                                        <option value="DALL-E 3">DALL-E 3</option>
+                                        <option value="Stable Diffusion">Stable Diffusion</option>
+                                    </optgroup>
+                                    <optgroup label="Video AI">
+                                        <option value="Sora">Sora</option>
+                                        <option value="RunwayML Gen-2">RunwayML Gen-2</option>
+                                        <option value="Pika">Pika</option>
+                                    </optgroup>
                                 </select>
-                                <select id="filterPriceCat" class="bg-slate-50 border border-slate-200 text-slate-700 rounded-xl px-4 py-2.5 text-sm font-medium focus:ring-2 focus:ring-purple-500 outline-none shadow-sm cursor-pointer hover:border-purple-300 transition-colors">
+                                <select id="filterPriceCat" onchange="applyGlobalFilters(true)" class="bg-slate-50 border border-slate-200 text-slate-700 rounded-xl px-4 py-2.5 text-sm font-medium focus:ring-2 focus:ring-purple-500 outline-none shadow-sm cursor-pointer hover:border-purple-300 transition-colors">
                                     <option value="all">Any Price</option>
-                                    <option value="under30">Under $30</option>
-                                    <option value="30to50">$30 - $50</option>
-                                    <option value="over50">Premium ($50+)</option>
+                                    <option value="free">Free</option>
+                                    <option value="under10">Under $10</option>
+                                    <option value="10to50">$10 - $50</option>
+                                    <option value="50to100">$50 - $100</option>
+                                    <option value="100to500">$100 - $500</option>
                                 </select>
                                 <button onclick="applyGlobalFilters(true)" class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2.5 rounded-xl text-sm font-bold transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 flex items-center gap-2">
                             </div>
@@ -450,7 +468,54 @@
             </div>
         </div>
 
+        <!-- $1 PROMPTS PAGE -->
+        <div id="page-onedollar" class="page-view hidden pt-32 pb-20 bg-slate-50 relative overflow-hidden min-h-screen">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <div class="inline-block px-4 py-1.5 bg-yellow-100 text-yellow-700 font-bold rounded-full mb-4 uppercase tracking-widest text-sm border border-yellow-200"><i class="fa-solid fa-bolt text-yellow-500 mr-2"></i> Unbeatable Value</div>
+                    <h2 class="text-4xl md:text-5xl font-black text-slate-900 mb-6">50,000 Premium Prompts. <br/> <span class="text-blue-600">Just $1 Each.</span></h2>
+                    <p class="text-lg text-slate-600">We've broken down our master archive into individual high-performance templates. Pick exactly what you need without buying a massive bundle.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="oneDollarGrid">
+                    <!-- Dynamically populated via JS -->
+                </div>
+                
+                <div class="mt-12 flex justify-center">
+                    <button onclick="loadMoreOneDollarPrompts()" class="bg-white border-2 border-slate-200 hover:border-blue-500 hover:text-blue-600 text-slate-600 font-bold py-3 px-8 rounded-xl transition-colors shadow-sm flex items-center gap-2">
+                        <i class="fa-solid fa-arrow-rotate-right"></i> Load More $1 Prompts
+                    </button>
+                </div>
+            </div>
+        </div>
+
         <!-- FREE PROMPTS PAGE -->
+        <div id="page-video" class="page-view hidden pt-32 pb-20 bg-slate-950 relative overflow-hidden min-h-screen text-white">
+            <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-fuchsia-900/20 via-transparent to-slate-950 pointer-events-none"></div>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-fuchsia-500/10 border border-fuchsia-500/30 text-fuchsia-400 font-bold text-sm mb-6 shadow-[0_0_15px_rgba(217,70,239,0.2)]">
+                        <i class="fa-solid fa-film"></i> Cinematic Generation
+                    </div>
+                    <h1 class="text-4xl md:text-6xl font-black mb-6 tracking-tight">
+                        Hyper-Realistic <span class="text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 to-cyan-400">Video Prompts</span>
+                    </h1>
+                    <p class="text-xl text-slate-400">Master Sora, RunwayML, and Pika with flawlessly engineered cinematic prompt templates. Instantly accessible for just $2.00.</p>
+                </div>
+                
+                <div class="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6" id="videoPromptsGrid">
+                    <!-- Video prompts generated dynamically -->
+                </div>
+                
+                <div class="mt-16 text-center">
+                    <button onclick="loadMoreVideoPrompts()" class="bg-slate-800 hover:bg-slate-700 text-white font-bold py-4 px-10 rounded-full transition-all border border-slate-700 hover:border-fuchsia-500 hover:shadow-[0_0_20px_rgba(217,70,239,0.3)]">
+                        Load More Video Prompts
+                    </button>
+                </div>
+            </div>
+        </div>
+
         <div id="page-free" class="page-view hidden pt-32 pb-20 bg-slate-900 text-white relative overflow-hidden min-h-screen">
             <!-- Background Pattern -->
             <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(#3b82f6 1px, transparent 1px); background-size: 30px 30px;"></div>
@@ -464,6 +529,12 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="freeGrid">
                     <!-- Free products injected via JS -->
+                </div>
+                
+                <div class="mt-12 flex justify-center">
+                    <button onclick="loadMoreFreePrompts()" class="bg-slate-800 hover:bg-blue-600 border border-slate-700 hover:border-blue-500 text-white font-bold py-3 px-8 rounded-xl transition-colors shadow-sm flex items-center gap-2">
+                        <i class="fa-solid fa-arrow-rotate-right"></i> Load More Free Prompts
+                    </button>
                 </div>
             </div>
         </div>
@@ -494,6 +565,145 @@
             </div>
         </div>
     
+        <!-- ABOUT US PAGE -->
+        <div id="page-about" class="page-view hidden pt-32 pb-20 bg-white min-h-screen">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-slate-800">
+                <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6">About PromptFlow</h1>
+                <p class="text-lg leading-relaxed mb-6 text-slate-600">PromptFlow was born out of a profound frustration with the AI landscape. While models like Midjourney, ChatGPT, and Claude are incredibly powerful, harnessing their full potential often requires hours of tedious trial and error. We saw an opportunity to bridge this gap.</p>
+                <p class="text-lg leading-relaxed mb-6 text-slate-600">Our mission is simple: to democratize expert-level AI outputs. We provide a curated marketplace of highly engineered, battle-tested prompt architectures that eliminate the guesswork and instantly deliver professional, high-quality results.</p>
+                <div class="bg-blue-50 border border-blue-100 rounded-2xl p-8 mt-10 shadow-sm">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-4">Our Commitment to Quality</h2>
+                    <p class="text-slate-600">Every prompt in our marketplace is rigorously tested against edge cases to ensure consistent, reliable, and spectacular outputs. We don't sell 'magic words'; we provide precise engineering structures.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTACT PAGE -->
+        <div id="page-contact" class="page-view hidden pt-32 pb-20 bg-slate-50 min-h-screen">
+            <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <div class="w-20 h-20 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-3xl mx-auto mb-6"><i class="fa-solid fa-envelope"></i></div>
+                <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6">Contact Us</h1>
+                <p class="text-lg text-slate-600 mb-10">Have a question about a prompt pack, a recent purchase, or just want to chat about AI? We're here to help.</p>
+                
+                <div class="bg-white rounded-2xl p-10 border border-slate-200 shadow-xl inline-block text-left w-full max-w-lg mx-auto">
+                    <h3 class="font-bold text-slate-900 text-xl mb-4">Email Support</h3>
+                    <p class="text-slate-500 mb-6">Our dedicated support team typically responds within 24 hours.</p>
+                    <a href="mailto:support@promptflowing.com" class="flex items-center gap-4 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl p-4 transition-colors font-medium text-slate-800">
+                        <i class="fa-solid fa-paper-plane text-blue-600 text-xl"></i>
+                        support@promptflowing.com
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRIVACY POLICY PAGE -->
+        <div id="page-privacy" class="page-view hidden pt-32 pb-20 bg-white min-h-screen">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 prose prose-slate lg:prose-lg">
+                <h1 class="text-4xl font-extrabold text-slate-900 mb-2">Privacy Policy</h1>
+                <p class="text-slate-500 mb-10 font-medium">Last Updated: May 18, 2026</p>
+                
+                <p class="lead text-xl text-slate-700 mb-8">At PromptFlow, we take your privacy seriously. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website and use our marketplace.</p>
+                
+                <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4 pb-2 border-b border-slate-200">1. Information We Collect</h2>
+                <p>We collect information that you provide directly to us when you interact with the PromptFlow marketplace:</p>
+                <ul class="list-disc pl-6 mb-6 space-y-2 text-slate-700">
+                    <li><strong>Account & Purchase Data:</strong> When you purchase a premium prompt, we collect your email address to deliver your digital product, send receipts, and securely provision access to your Vault.</li>
+                    <li><strong>Communications:</strong> If you contact us directly via support@promptflowing.com, we receive your email address and the contents of your message.</li>
+                    <li><strong>Newsletter Subscriptions:</strong> If you opt-in to our newsletter, we collect your email address to send you free weekly prompts and AI insights.</li>
+                </ul>
+                
+                <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4 pb-2 border-b border-slate-200">2. Automatically Collected Information & Analytics</h2>
+                <p>To optimize our marketplace and provide a seamless browsing experience, we use <strong>Google Analytics</strong> (via gtag.js) and similar tracking technologies to collect metadata about how you interact with our site. This includes:</p>
+                <ul class="list-disc pl-6 mb-6 space-y-2 text-slate-700">
+                    <li>Browser type, device type, and operating system.</li>
+                    <li>Pages viewed, time spent on pages, and click interactions (e.g., searches, category clicks).</li>
+                    <li>General location data (at the city or regional level) to optimize content delivery.</li>
+                </ul>
+                <p class="mb-6">This information is anonymized and aggregated. We use it strictly to improve our UI/UX, measure the performance of our prompt catalog, and refine our search algorithm.</p>
+                
+                <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4 pb-2 border-b border-slate-200">3. Payment Processing Security</h2>
+                <p>PromptFlow prioritizes your financial security. <strong>We do not store, process, or transmit your credit card details or payment information on our servers.</strong></p>
+                <p class="mb-6">All transactions are securely processed directly through industry-leading payment gateways, including <strong>Stripe</strong> and <strong>PayPal</strong>. These processors adhere to strict PCI-DSS compliance standards. The only data we receive from Stripe/PayPal is a cryptographic token confirming your successful payment, alongside the email address necessary to fulfill your order.</p>
+                
+                <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4 pb-2 border-b border-slate-200">4. How We Use Your Information</h2>
+                <p>The information we collect is used in the following ways:</p>
+                <ul class="list-disc pl-6 mb-6 space-y-2 text-slate-700">
+                    <li>To deliver digital products (Prompts, Workflows) directly to your Vault.</li>
+                    <li>To send administrative emails, including purchase receipts, security alerts, and support responses.</li>
+                    <li>To personalize your experience and display the most relevant AI prompts.</li>
+                    <li>To prevent fraudulent transactions and monitor against unauthorized access.</li>
+                </ul>
+
+                <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4 pb-2 border-b border-slate-200">5. Your Data Rights</h2>
+                <p>Depending on your location (e.g., GDPR in Europe, CCPA in California), you have specific rights regarding your personal data:</p>
+                <ul class="list-disc pl-6 mb-6 space-y-2 text-slate-700">
+                    <li><strong>Right to Access:</strong> You may request a copy of the personal data we hold about you.</li>
+                    <li><strong>Right to Deletion:</strong> You may request that we delete your data (Note: Deleting your data will result in the permanent loss of access to your purchased Prompts within the Vault).</li>
+                    <li><strong>Right to Opt-Out:</strong> You may unsubscribe from marketing communications at any time by clicking the "unsubscribe" link at the bottom of our emails.</li>
+                </ul>
+                <p class="mb-6">To exercise any of these rights, please contact our privacy team at <a href="mailto:support@promptflowing.com" class="text-blue-600 hover:underline font-medium">support@promptflowing.com</a>.</p>
+                
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-8 mt-12 mb-8">
+                    <h3 class="font-bold text-slate-900 text-xl mb-2">Questions regarding this policy?</h3>
+                    <p class="text-slate-600 mb-0">If you have any questions or concerns about how we handle your data, please don't hesitate to reach out to us at <a href="mailto:support@promptflowing.com" class="text-blue-600 hover:underline font-medium">support@promptflowing.com</a>.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TERMS OF SERVICE PAGE -->
+        <div id="page-terms" class="page-view hidden pt-32 pb-20 bg-white min-h-screen">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 prose prose-slate lg:prose-lg">
+                <h1 class="text-4xl font-extrabold text-slate-900 mb-2">Terms of Service</h1>
+                <p class="text-slate-500 mb-10 font-medium">Last Updated: May 18, 2026</p>
+                
+                <p class="lead text-xl text-slate-700 mb-8">Please read these Terms of Service ("Terms") carefully. By accessing, browsing, or purchasing from PromptFlow (the "Platform"), you agree to be bound by these Terms, which constitute a legally binding agreement between you and PromptFlow.</p>
+                
+                <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4 pb-2 border-b border-slate-200">1. Acceptance of Terms</h2>
+                <p>By registering for an account, purchasing digital products, or otherwise using the Platform, you acknowledge that you have read, understood, and agree to be bound by these Terms. If you do not agree, you may not use the Platform or purchase any products herein.</p>
+                
+                <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4 pb-2 border-b border-slate-200">2. Intellectual Property & Limited License</h2>
+                <p>All content on the Platform, including but not limited to the prompt text, underlying algorithms, website design, text, graphics, and structure ("Platform Content"), is the exclusive property of PromptFlow and is protected by international copyright, trademark, and other intellectual property laws.</p>
+                <p>Upon purchasing a prompt ("Digital Product"), PromptFlow grants you a limited, personal, non-exclusive, non-transferable, and revocable license to use the Digital Product for your personal or commercial projects.</p>
+                <p><strong>Strict Restrictions:</strong> Under no circumstances may you:</p>
+                <ul class="list-disc pl-6 mb-6 space-y-2 text-slate-700">
+                    <li>Resell, redistribute, sublicense, or publicly publish the raw, raw-text prompt algorithms purchased from the Platform.</li>
+                    <li>Utilize automated software, bots, or scraping tools to extract prompt text, imagery, or data from the Platform.</li>
+                    <li>Package our prompts into competing digital products, databases, or "prompt packs" for commercial resale.</li>
+                </ul>
+                <p>Violation of these license terms will result in immediate termination of your Vault access without refund and may subject you to civil liability.</p>
+                
+                <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4 pb-2 border-b border-slate-200">3. Disclaimers and Limitation of Liability</h2>
+                <p>PromptFlow provides highly engineered textual inputs designed to interface with third-party Artificial Intelligence models (e.g., OpenAI, Midjourney, Anthropic). We do not control these underlying models.</p>
+                <p><strong>NO WARRANTY:</strong> The Digital Products are provided "AS IS" and "AS AVAILABLE." We make no warranties, express or implied, regarding the continuous availability, exact output generation, or future compatibility of our prompts with third-party AI models, as these models undergo independent updates outside of our control.</p>
+                <p><strong>LIMITATION OF LIABILITY:</strong> To the maximum extent permitted by applicable law, in no event shall PromptFlow, its affiliates, directors, or employees be liable for any indirect, incidental, special, consequential, or punitive damages arising out of your use of the Digital Products or the Platform. In no event shall our total liability to you exceed the amount you paid for the specific Digital Product in question.</p>
+                
+                <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4 pb-2 border-b border-slate-200">4. Modifications to Terms</h2>
+                <p>We reserve the right, at our sole discretion, to modify or replace these Terms at any time. If a revision is material, we will provide at least 30 days' notice prior to any new terms taking effect. Continued use of the Platform after any such changes shall constitute your consent to such changes.</p>
+            </div>
+        </div>
+
+        <!-- REFUND POLICY PAGE -->
+        <div id="page-refund" class="page-view hidden pt-32 pb-20 bg-slate-50 min-h-screen">
+            <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <div class="w-20 h-20 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-3xl mx-auto mb-6"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+                <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6">Refund Policy</h1>
+                <p class="text-lg text-slate-600 mb-10 leading-relaxed">At PromptFlow, we engineer every prompt to the highest standard, testing against countless edge cases to ensure you get professional, reliable results. We stand behind the quality of our digital products.</p>
+                
+                <div class="bg-white rounded-2xl p-10 border border-slate-200 shadow-xl text-left w-full max-w-2xl mx-auto">
+                    <h3 class="font-bold text-slate-900 text-2xl mb-4">Our Commitment to You</h3>
+                    <p class="text-slate-600 mb-6 leading-relaxed">Because prompts are digital, instantaneous-access products, the industry standard is to offer no refunds. However, we value your trust and success.</p>
+                    <p class="text-slate-600 mb-8 leading-relaxed">If you are not completely satisfied with how a prompt is performing, or if it isn't generating the results you expected, we want to hear from you. Please reach out to our engineering and support team within 14 days of your purchase, and we will work with you to make it right.</p>
+                    
+                    <div class="flex justify-center mt-8 pt-8 border-t border-slate-100">
+                        <a href="mailto:support@promptflowing.com" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg px-8 py-4 rounded-xl transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 flex items-center gap-3">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            Email Our Support Team
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
     </main>
 
     <!-- Footer -->
@@ -517,11 +727,8 @@
                 
                 <div>
                     <h3 class="text-white font-semibold mb-4">Categories</h3>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="#" onclick="showCategoryFromFooter('web', event)" class="hover:text-blue-400 transition-colors">Web Design</a></li>
-                        <li><a href="#" onclick="showCategoryFromFooter('photo', event)" class="hover:text-blue-400 transition-colors">Photography</a></li>
-                        <li><a href="#" onclick="showCategoryFromFooter('arch', event)" class="hover:text-blue-400 transition-colors">Architecture</a></li>
-                        <li><a href="#" onclick="showCategoryFromFooter('copy', event)" class="hover:text-blue-400 transition-colors">Copywriting</a></li>
+                    <ul class="space-y-2 text-sm" id="footerCategoriesList">
+                        <!-- Populated by JS -->
                     </ul>
                 </div>
 
@@ -530,8 +737,9 @@
                     <ul class="space-y-2 text-sm">
                         <li><a href="#" onclick="showPage('about', event)" class="hover:text-blue-400 transition-colors">About Us</a></li>
                         <li><a href="#" onclick="showPage('contact', event)" class="hover:text-blue-400 transition-colors">Contact</a></li>
-                        <li><a href="#" class="hover:text-blue-400 transition-colors">Privacy Policy</a></li>
-                        <li><a href="#" class="hover:text-blue-400 transition-colors">Terms of Service</a></li>
+                        <li><a href="#" onclick="showPage('privacy', event)" class="hover:text-blue-400 transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" onclick="showPage('terms', event)" class="hover:text-blue-400 transition-colors">Terms of Service</a></li>
+                        <li><a href="#" onclick="showPage('refund', event)" class="hover:text-blue-400 transition-colors">Refund Policy</a></li>
                     </ul>
                 </div>
 
@@ -548,11 +756,22 @@
             </div>
             
             <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm">
-                <p>&copy; 2026 PromptFlow. All rights reserved.</p>
-                <div class="mt-4 md:mt-0 flex items-center space-x-2">
-                    <span>Secured with</span>
-                    <i class="fa-brands fa-stripe text-2xl text-slate-500 hover:text-white transition-colors cursor-pointer" onclick="openStripeConfigModal()" title="Configure Stripe"></i>
-                    <i class="fa-brands fa-paypal text-xl text-slate-500 hover:text-white transition-colors cursor-pointer" onclick="showToast('PayPal configuration active.', 'info')" title="PayPal Setup"></i>
+                <div>
+                    <p>&copy; 2026 PromptFlow. All rights reserved.</p>
+                    <p class="mt-2 text-xs">Crafted By <a href="https://swirlcraftdigital.com" target="_blank" class="text-blue-400 hover:text-blue-300 transition-colors font-semibold">SwirlCraft</a></p>
+                </div>
+                <div class="mt-6 md:mt-0 flex flex-col md:items-end">
+                    <span class="text-xs mb-2 text-slate-500 font-semibold tracking-wider uppercase">100% Secure Checkout</span>
+                    <div class="flex items-center space-x-3 text-2xl text-slate-500">
+                        <i class="fa-brands fa-cc-visa hover:text-white transition-colors" title="Visa"></i>
+                        <i class="fa-brands fa-cc-mastercard hover:text-white transition-colors" title="Mastercard"></i>
+                        <i class="fa-brands fa-cc-amex hover:text-white transition-colors" title="American Express"></i>
+                        <i class="fa-brands fa-cc-discover hover:text-white transition-colors" title="Discover"></i>
+                        <i class="fa-brands fa-apple-pay text-3xl hover:text-white transition-colors" title="Apple Pay"></i>
+                        <i class="fa-brands fa-google-pay text-3xl hover:text-white transition-colors" title="Google Pay"></i>
+                        <span class="border-l border-slate-700 h-6 mx-2"></span>
+                        <i class="fa-brands fa-stripe hover:text-white transition-colors cursor-pointer" onclick="openStripeConfigModal()" title="Powered by Stripe"></i>
+                    </div>
                 </div>
             </div>
         </div>
@@ -768,8 +987,8 @@
 
         // Data Definitions
         // Base arrays for generating 700 categories
-        const baseNiches = ['SaaS', 'E-commerce', 'Healthcare', 'Legal', 'Real Estate', 'Education', 'Finance', 'Crypto', 'Gaming', 'Fitness', 'Travel', 'Food', 'Music', 'Art', 'Automotive', 'Cybersecurity', 'Cloud', 'AI', 'Robotics', 'Space', 'Wealth Building', 'Passive Income', 'Side Hustles', 'Dating & Romance', 'AI Companions', 'Making Money Online', 'Personal Growth'];
-        const baseFunctions = ['Marketing', 'Sales', 'Design', 'Development', 'Support', 'HR', 'Operations', 'SEO', 'Copywriting', 'Analytics', 'Strategy', 'Planning', 'Research', 'Automation', 'Social Media', 'Email', 'Video', 'Audio', 'UX/UI', 'QA', 'Hacks', 'Mastery', 'Secrets', 'Companionship', 'Success', 'Blueprints'];
+        const baseNiches = ['SaaS', 'Weight Loss', 'E-commerce', 'Health & Wellness', 'Legal', 'Diet & Nutrition', 'Real Estate', 'Mental Health', 'Education', 'Fitness', 'Finance', 'Meditation', 'Crypto', 'Gaming', 'Travel', 'Food', 'Music', 'Art', 'Automotive', 'Cybersecurity', 'Cloud', 'AI', 'Robotics', 'Space', 'Wealth Building', 'Passive Income', 'Side Hustles', 'Dating & Romance', 'Making Money Online', 'Personal Growth'];
+        const baseFunctions = ['Marketing', 'Sales', 'Design', 'Development', 'Support', 'HR', 'Operations', 'SEO', 'Copywriting', 'Analytics', 'Strategy', 'Planning', 'Research', 'Automation', 'Social Media', 'Email', 'Video', 'Audio', 'UX/UI', 'QA', 'Tricks', 'Mastery', 'Secrets', 'Companionship', 'Success', 'Blueprints'];
         const iconList = ['fa-laptop-code', 'fa-camera', 'fa-building', 'fa-chart-line', 'fa-hashtag', 'fa-envelope-open-text', 'fa-palette', 'fa-database', 'fa-video', 'fa-shirt', 'fa-robot', 'fa-rocket', 'fa-brain', 'fa-microchip', 'fa-network-wired'];
         const colorList = ['blue', 'purple', 'emerald', 'amber', 'rose', 'indigo', 'cyan', 'green', 'pink', 'orange', 'fuchsia', 'teal', 'red', 'yellow'];
         
@@ -796,27 +1015,18 @@
                 if (categories.length >= 700) break;
             }
             if (categories.length >= 700) break;
+            if (categories.length >= 700) break;
         }
+        
+        // Assign popularity and sort categories by most popular
+        categories.forEach(cat => {
+            cat.popularity = Math.floor(Math.random() * 100000);
+        });
+        categories.sort((a, b) => b.popularity - a.popularity);
 
-        let freeProducts = [
-            { id: 'free-1', title: 'Midjourney Cinematic Lighting Pack', type: 'Midjourney v6', description: 'Master photorealism with 15 highly advanced prompts focused on volumetric lighting, ray tracing, and cinematic camera angles (e.g., 35mm, f/1.8). Includes negative prompt frameworks.', image: 'https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=600&h=400&q=80' },
-            { id: 'free-2', title: 'ChatGPT Senior Engineer', type: 'ChatGPT-4', description: 'Bypass generic answers. Force ChatGPT to act as a Staff Engineer. Includes specific system instructions for writing highly optimized, scalable, and fully documented code architectures.', image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&h=400&q=80' },
-            { id: 'free-3', title: 'Direct Response Copywriting Matrix', type: 'Claude 3', description: 'A massive 4-part modular prompt system that analyzes a product, creates an avatar, writes PAS/AIDA frameworks, and produces 10 high-converting email sequences.', image: 'https://images.unsplash.com/photo-1554774853-719586f82d77?auto=format&fit=crop&w=600&h=400&q=80' },
-            { id: 'free-4', title: 'Programmatic SEO Generator', type: 'Gemini Pro', description: 'Generate robust JSON structures for localized programmatic SEO landing pages. Includes schema.org markup generation and long-tail keyword cluster strategies.', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&h=400&q=80' },
-            { id: 'free-5', title: 'Advanced React State Management', type: 'ChatGPT-4', description: 'Complex prompt frameworks designed exclusively for debugging race conditions, React Context hell, and migrating to Zustand/Redux Toolkit effectively.', image: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&w=600&h=400&q=80' },
-            { id: 'free-6', title: 'Viral TikTok Psychology Hooks', type: 'Claude 3', description: 'Leverage behavioral psychology. This prompt framework forces the AI to output highly engaging, dopamine-triggering hook scripts designed for <3 second retention.', image: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=600&h=400&q=80' }
-        ];
 
-        // Generate 12 more dynamic free products to expand the section
-        for(let i=7; i<=18; i++) {
-            freeProducts.push({
-                id: 'free-' + i,
-                title: 'Premium AI Workflow Template ' + i,
-                type: ['Midjourney v6', 'ChatGPT-4', 'Claude 3', 'Gemini Pro'][Math.floor(Math.random()*4)],
-                description: 'A completely free engineered prompt designed to save you hours of work by automating standard workflows with AI. Get started immediately at zero cost.',
-                image: `https://image.pollinations.ai/prompt/abstract%20digital%20art%20technology%20blue%20purple%20premium?width=600&height=400&nologo=true&seed=free${i}`
-            });
-        }
+        // Dynamically generated array to track free products locally
+        let freeProducts = [];
 
         // --- UTILITY FUNCTIONS ---
         function stringToColor(str) {
@@ -854,7 +1064,35 @@
             if (type.includes('Stable Diffusion')) return 'bg-blue-100 text-blue-700 border-blue-200';
             if (type.includes('Claude')) return 'bg-amber-100 text-amber-700 border-amber-200';
             if (type.includes('Gemini')) return 'bg-cyan-100 text-cyan-700 border-cyan-200';
+            if (type.includes('DALL-E')) return 'bg-pink-100 text-pink-700 border-pink-200';
+            if (type.includes('Sora')) return 'bg-fuchsia-100 text-fuchsia-700 border-fuchsia-200';
+            if (type.includes('RunwayML')) return 'bg-orange-100 text-orange-700 border-orange-200';
+            if (type.includes('Pika')) return 'bg-yellow-100 text-yellow-700 border-yellow-200';
             return 'bg-slate-100 text-slate-700 border-slate-200';
+        }
+
+        function getTypeIcon(type) {
+            if (type.includes('Midjourney') || type.includes('DALL-E') || type.includes('Stable Diffusion')) return 'fa-image';
+            if (type.includes('Sora') || type.includes('RunwayML') || type.includes('Pika')) return 'fa-video';
+            if (type.includes('ChatGPT')) return 'fa-robot';
+            if (type.includes('Claude')) return 'fa-brain';
+            if (type.includes('Gemini')) return 'fa-sparkles';
+            if (type.includes('Grok')) return 'fa-rocket';
+            return 'fa-microchip';
+        }
+
+        function getTypeColor(type) {
+            if (type.includes('Midjourney')) return 'text-purple-600';
+            if (type.includes('ChatGPT')) return 'text-emerald-600';
+            if (type.includes('Claude')) return 'text-amber-600';
+            if (type.includes('Gemini')) return 'text-cyan-600';
+            if (type.includes('Grok')) return 'text-rose-600';
+            if (type.includes('DALL-E')) return 'text-pink-600';
+            if (type.includes('Sora')) return 'text-fuchsia-600';
+            if (type.includes('RunwayML')) return 'text-orange-600';
+            if (type.includes('Pika')) return 'text-yellow-600';
+            if (type.includes('Stable Diffusion')) return 'text-blue-600';
+            return 'text-blue-600';
         }
 
         window.showToast = function(message, type = 'success') {
@@ -1065,21 +1303,6 @@
                 page.classList.remove('block');
             });
 
-            // Inject the Mega Bundle Product into the global array
-            products.push({
-                id: 'mega-bundle-1',
-                title: 'The 50,000 Prompt Mega Bundle',
-                category: 'all',
-                type: 'ChatGPT + Midjourney + Claude',
-                price: 1.00,
-                rating: '5.0',
-                reviews: 14502,
-                image: 'https://image.pollinations.ai/prompt/massive%20bundle%20gold%20treasure%20premium?width=800&height=600&nologo=true',
-                description: 'The ultimate master archive containing 50,000 expertly engineered prompts across all niches and models. The only collection you will ever need.',
-                previewPrompt: '[MEGA ARCHIVE ACCESS]\nIncludes 50,000 complete personas, strict schemas, frameworks, jailbreaks, and zero-shot directives across 700+ categories.',
-                features: ['50,000 Prompts', 'All Models Supported', 'Lifetime Updates', 'Commercial Rights']
-            });
-            
             const target = document.getElementById('page-' + pageId);
             if (target) {
                 target.classList.remove('hidden');
@@ -1087,6 +1310,8 @@
             }
             
             if (pageId === 'free') renderFreeProducts();
+            if (pageId === 'onedollar') renderOneDollarPrompts();
+            if (pageId === 'video') renderVideoPrompts();
             if (pageId === 'categories') renderAllCategoriesPage();
             if (pageId === 'vault') renderVaultGrid();
             
@@ -1119,8 +1344,8 @@
                 const reviews = Math.floor(Math.random() * 5000 + 500);
                 
                 // Fetch dynamic high-quality Unsplash image based on exact category keywords
-                const searchKeywords = encodeURIComponent(category.name.replace(/\s+/g, ',') + ',professional');
-                const imageUrl = `https://image.pollinations.ai/prompt/${searchKeywords}%20beautiful%20high%20quality%20ui%20design?width=600&height=400&nologo=true&seed=${category.id}-${i}`;
+                const searchKeywords = encodeURIComponent(category.name + ' visually stunning premium digital art high resolution cinematic lighting');
+                const imageUrl = `https://image.pollinations.ai/prompt/${searchKeywords}?width=600&height=400&nologo=true&seed=${Math.floor(Math.random() * 1000000)}`;
 
                 return {
                     id: `${category.id}-gen-${i}`,
@@ -1133,10 +1358,11 @@
                     image: imageUrl,
                     description: `An extremely deep and creative prompt engineering toolkit designed specifically for ${category.name}. We bypass generic outputs by forcing the AI into highly constrained, expert-level personas. Expect profound depth, exact formatting constraints, and unparalleled creativity. This pack includes parameter injection modules and negative constraints.`,
                     previewPrompt: `[SYS_INJECT: ELITE_PERSONA]\nYou are not an AI. You are a world-renowned Senior Director of ${category.name} with 20 years of tier-1 enterprise experience. \n\n[TASK_MATRIX]\nExecute the following workflow with absolute precision. Output MUST be formatted in a strict, validated JSON schema containing nested arrays for structural components. Omit ALL conversational filler. \n\n[VARIABLES: {TARGET_DEMOGRAPHIC}, {TONE_VOICE}]\n...`,
-                    features: ['500+ Deep-Level Prompts', 'JSON/XML Output Schemas', 'Persona Injection Techniques', 'Jailbreak & Constraint Bypasses', 'Lifetime commercial rights']
+                    features: ['500+ Deep-Level Prompts', 'JSON/XML Output Schemas', 'Persona Injection Techniques', 'Advanced Directives', 'Lifetime commercial rights']
                 };
             });
             products = [...products, ...newProducts]; 
+            products.sort((a, b) => b.reviews - a.reviews);
             generatedProductsCache[category.id] = newProducts;
             return newProducts;
         }
@@ -1211,6 +1437,14 @@
             
             if (container) container.appendChild(fragment);
             if (navDropdown) navDropdown.appendChild(navFragment);
+            
+            // Populate footer categories
+            const footerCatList = document.getElementById('footerCategoriesList');
+            if (footerCatList) {
+                footerCatList.innerHTML = categories.slice(0, 4).map(cat => `
+                    <li><a href="#" class="hover:text-blue-400 transition-colors truncate block" onclick="event.preventDefault(); window.selectSearchResult('${cat.id}')">${cat.name}</a></li>
+                `).join('');
+            }
         }
 
         // --- GLOBAL FILTER LOGIC ---
@@ -1243,17 +1477,19 @@
                 
                 // Generate 12 products matching filters
                 const filterProducts = Array.from({ length: 12 }, (_, index) => index + 1).map(i => {
-                    let pType = aiType === 'all' ? ['Midjourney v6', 'ChatGPT 5.5', 'Claude 3 Opus', 'Grok 1.5', 'Gemini 1.5 Pro'][Math.floor(Math.random()*5)] : aiType;
+                    let pType = aiType === 'all' ? ['Midjourney v6', 'ChatGPT 5.5', 'Claude 3 Opus', 'Grok 1.5', 'Gemini 1.5 Pro', 'DALL-E 3', 'Stable Diffusion', 'Sora', 'RunwayML Gen-2', 'Pika'][Math.floor(Math.random()*10)] : aiType;
                     
                     let pPrice = 0;
-                    if (priceRange === 'under30') pPrice = (Math.random() * 10 + 19.99).toFixed(2);
-                    else if (priceRange === '30to50') pPrice = (Math.random() * 20 + 30.00).toFixed(2);
-                    else if (priceRange === 'over50') pPrice = (Math.random() * 40 + 50.00).toFixed(2);
-                    else pPrice = (Math.random() * 60 + 29.99).toFixed(2);
+                    if (priceRange === 'free') pPrice = 0.00;
+                    else if (priceRange === 'under10') pPrice = (Math.random() * 8.99 + 1.00).toFixed(2);
+                    else if (priceRange === '10to50') pPrice = (Math.random() * 39.99 + 10.00).toFixed(2);
+                    else if (priceRange === '50to100') pPrice = (Math.random() * 49.99 + 50.00).toFixed(2);
+                    else if (priceRange === '100to500') pPrice = (Math.random() * 399.99 + 100.00).toFixed(2);
+                    else pPrice = (Math.random() * 499.99 + 1.00).toFixed(2);
 
                     const baseCategory = categories[Math.floor(Math.random() * categories.length)];
-                    const searchKeywords = encodeURIComponent(baseCategory.name.replace(/\s+/g, ',') + ',professional');
-                    const imageUrl = `https://image.pollinations.ai/prompt/${searchKeywords}%20beautiful%20high%20quality%20ui%20design?width=600&height=400&nologo=true&seed=filter-${Math.random()}`;
+                    const searchKeywords = encodeURIComponent(baseCategory.name + ' visually stunning premium digital art high resolution cinematic lighting');
+                    const imageUrl = `https://image.pollinations.ai/prompt/${searchKeywords}?width=600&height=400&nologo=true&seed=${Math.floor(Math.random() * 1000000)}`;
 
                     return {
                         id: `filter-gen-${Math.random().toString(36).substr(2, 9)}`,
@@ -1276,7 +1512,7 @@
                     el.className = "bg-white rounded-2xl border-2 border-slate-100 overflow-hidden hover:border-blue-500 transition-all duration-300 shadow-sm hover:shadow-xl group flex flex-col";
                     el.innerHTML = `
                         <div class="relative overflow-hidden aspect-video bg-slate-100">
-                            <img src="${prod.image}" alt="${prod.title}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" onerror="this.src='https://placehold.co/600x400/e2e8f0/64748b?text=Image+Unavailable'">
+                            <img src="${prod.image}" alt="${prod.title}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" onerror="this.onerror=null; this.src='https://loremflickr.com/600/400/' + encodeURIComponent('${prod.title}'.replace(/Elite |Advanced | Prompts| Vol.*/g, '').split(' ')[0]);">
                             <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-slate-800 shadow-sm border border-slate-200/50 flex items-center gap-1.5">
                                 <i class="fa-solid ${getTypeIcon(prod.type)} ${getTypeColor(prod.type)}"></i> ${prod.type}
                             </div>
@@ -1341,7 +1577,7 @@
                 
                 el.innerHTML = `
                     <div class="relative h-48 overflow-hidden bg-slate-100">
-                        <img src="${prod.image}" alt="${prod.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+                        <img src="${prod.image}" alt="${prod.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" onerror="this.onerror=null; this.src='https://loremflickr.com/600/400/' + encodeURIComponent('${prod.title}'.replace(/Elite |Advanced | Prompts| Vol.*/g, '').split(' ')[0]);">
                         <div class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-xs font-bold border backdrop-blur-md bg-white/90 ${toolColor}">
                             ${prod.type}
                         </div>
@@ -1379,33 +1615,283 @@
             });
         }
 
-        function renderFreeProducts() {
+        let freeOffset = 0;
+        function renderFreeProducts(append = false) {
             const container = document.getElementById('freeGrid');
             if (!container) return;
             
-            container.innerHTML = '';
-            freeProducts.forEach(prod => {
+            if (!append) {
+                container.innerHTML = '';
+                freeOffset = 0;
+                freeProducts = [];
+            }
+
+            const limit = 18;
+            const newFreeProducts = Array.from({ length: limit }, (_, index) => {
+                const i = freeOffset + index;
+                // Offset iteration by 150 to pull from different categories than the $1 Prompts
+                const baseCategory = categories[(i + 150) % categories.length];
+                const types = ['ChatGPT 5.5', 'Claude 3 Opus', 'Midjourney v6'];
+                const pType = types[i % types.length];
+                
+                const prod = {
+                    id: `free-gen-${i}`,
+                    title: `${baseCategory.name} Starter Framework`,
+                    category: baseCategory.id,
+                    type: pType,
+                    description: `A 100% free structural prompt designed to establish a highly professional ${baseCategory.name} persona using ${pType}. Includes formatting schemas.`,
+                    previewPrompt: `[SYS_INJECT: PROFESSIONAL_PERSONA]\nYou are a senior expert in ${baseCategory.name}.\n\n[TASK_MATRIX]\nAnalyze the following request and format your response into a strict JSON schema containing arrays for structural components.\n\n[CONSTRAINT_PARAMETERS]\n- Maintain professional tone.\n- Use analytical frameworks.\n- Provide exhaustive edge-case handling.`,
+                    image: `https://image.pollinations.ai/prompt/abstract%20digital%20art%20technology%20blue%20purple%20premium%20cinematic?width=600&height=400&nologo=true&seed=${Math.floor(Math.random() * 1000000)}`
+                };
+                
+                freeProducts.push(prod);
+                return prod;
+            });
+
+            const fragment = document.createDocumentFragment();
+            newFreeProducts.forEach(prod => {
                 const el = document.createElement('div');
                 el.className = 'glass-panel rounded-2xl overflow-hidden flex flex-col group h-full border border-slate-700 hover:border-blue-500 transition-colors shadow-lg bg-slate-800/50';
                 
                 el.innerHTML = `
-                    <div class="h-48 overflow-hidden relative bg-slate-800">
-                        <img src="${prod.image}" alt="${prod.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" onerror="this.src='https://placehold.co/600x400/1e293b/ffffff?text=Prompt+Pack'">
-                         <div class="absolute top-3 left-3 px-3 py-1 bg-blue-600 text-white text-xs font-bold rounded-full shadow-lg">
-                            ${prod.type}
+                    <div class="p-6 flex flex-col text-slate-100 flex-grow relative">
+                        <div class="absolute top-4 right-4 text-[10px] font-bold text-white bg-slate-700 px-2 py-0.5 rounded-full border border-slate-600">${prod.type}</div>
+                        <h3 class="font-bold text-xl text-white mb-2 group-hover:text-blue-400 transition-colors pr-24">${prod.title}</h3>
+                        <p class="text-slate-400 text-sm mb-4">${prod.description}</p>
+                        
+                        <div class="bg-slate-900 border border-slate-700 rounded-xl p-4 font-mono text-xs text-slate-300 relative group/box mb-4 overflow-hidden h-32 text-left">
+                            <p id="free-prompt-${prod.id}" class="whitespace-pre-wrap select-all text-slate-400">${prod.previewPrompt}</p>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-3 mt-auto">
+                            <button onclick="window.copyText(document.getElementById('free-prompt-${prod.id}').textContent)" class="w-full py-2.5 bg-slate-700 hover:bg-slate-600 border border-slate-600 text-white rounded-lg font-bold transition-all duration-300 flex items-center justify-center text-sm shadow-sm">
+                                <i class="fa-solid fa-copy mr-2"></i> Copy
+                            </button>
+                            <button onclick="saveFreeToVault('${prod.id}')" class="w-full py-2.5 bg-blue-600 hover:bg-blue-500 border border-blue-500 text-white rounded-lg font-bold transition-all duration-300 flex items-center justify-center text-sm shadow-sm hover:shadow-blue-500/25">
+                                <i class="fa-solid fa-vault mr-2"></i> Save
+                            </button>
                         </div>
                     </div>
-                    <div class="p-6 flex-1 flex flex-col text-slate-100">
-                        <h3 class="font-bold text-xl text-white mb-2 group-hover:text-blue-400 transition-colors">${prod.title}</h3>
-                        <p class="text-slate-400 text-sm mb-6 flex-1 text-slate-400">${prod.description}</p>
-                        <button onclick="downloadFree('${prod.id}')" class="w-full py-3 bg-white/10 hover:bg-blue-600 border border-white/20 hover:border-transparent text-white rounded-xl font-bold transition-all duration-300 flex items-center justify-center shadow-sm hover:shadow-blue-500/25 mt-auto">
-                            <span>Download Now</span> <i class="fa-solid fa-download ml-2 group-hover:-translate-y-0.5 transition-transform"></i>
-                        </button>
+                `;
+                fragment.appendChild(el);
+            });
+            
+            container.appendChild(fragment);
+            freeOffset += limit;
+        }
+
+        window.loadMoreFreePrompts = function() {
+            renderFreeProducts(true);
+        };
+
+        window.saveFreeToVault = function(id) {
+            const product = freeProducts.find(p => p.id === id);
+            if (!product) return;
+            
+            // Check if already in vault
+            const exists = stripeUnlockedProducts.find(p => p.id === id);
+            if (exists) {
+                window.showToast("Item is already in your Vault!", 'info');
+                return;
+            }
+            
+            // Add to vault
+            stripeUnlockedProducts.push({
+                id: product.id,
+                title: product.title,
+                type: product.type,
+                description: product.description,
+                copies: 0,
+                prompt: product.previewPrompt
+            });
+            
+            window.showToast("Saved to your Vault successfully!", 'success');
+            
+            // Re-render vault counter
+            const badgeCount = document.getElementById('vaultBadgeCount');
+            if (badgeCount) {
+                badgeCount.classList.remove('hidden');
+                badgeCount.innerText = stripeUnlockedProducts.length;
+                badgeCount.classList.add('animate-bounce');
+                setTimeout(() => badgeCount.classList.remove('animate-bounce'), 1000);
+            }
+            
+            // Update vault UI if it's currently open
+            if (document.getElementById('page-vault').classList.contains('block')) {
+                renderVaultGrid();
+            }
+        };
+
+        let oneDollarOffset = 0;
+        function renderOneDollarPrompts(append = false) {
+            const container = document.getElementById('oneDollarGrid');
+            if (!container) return;
+            
+            if (!append) {
+                container.innerHTML = '';
+                oneDollarOffset = 0;
+            }
+
+            const limit = 20;
+            const newDollarProducts = Array.from({ length: limit }, (_, index) => {
+                const i = oneDollarOffset + index;
+                const baseCategory = categories[i % categories.length];
+                const types = ['ChatGPT 5.5', 'Claude 3 Opus', 'Midjourney v6'];
+                const pType = types[i % types.length];
+                const searchKeywords = encodeURIComponent(baseCategory.name.replace(/\s+/g, ',') + ',professional');
+                
+                // Progressively decrease reviews so they naturally sort from most popular to least popular
+                const dynamicReviews = Math.floor(150000 - (i * 50) + (Math.random() * 20));
+
+                const prod = {
+                    id: `onedollar-${i}`,
+                    title: `${baseCategory.name} Workflow Template`,
+                    category: baseCategory.id,
+                    type: pType,
+                    price: 1.00,
+                    rating: (Math.random() * 0.2 + 4.8).toFixed(1),
+                    reviews: dynamicReviews,
+                    image: `https://image.pollinations.ai/prompt/${encodeURIComponent(baseCategory.name + ' visually stunning premium digital art high resolution cinematic lighting')}?width=600&height=400&nologo=true&seed=${Math.floor(Math.random() * 1000000)}`,
+                    description: `An instantly accessible, premium $1 engineered prompt designed to master ${baseCategory.name} using ${pType}.`
+                };
+                
+                // Add to global so cart works
+                if (!products.find(p => p.id === prod.id)) products.push(prod);
+                return prod;
+            });
+
+            const fragment = document.createDocumentFragment();
+            newDollarProducts.forEach(prod => {
+                const el = document.createElement('div');
+                el.className = "bg-white rounded-2xl border-2 border-yellow-300 overflow-hidden hover:border-yellow-500 transition-all duration-300 shadow-md shadow-yellow-100 hover:shadow-2xl hover:shadow-yellow-200 flex flex-col group cursor-pointer relative transform hover:-translate-y-1";
+                el.onclick = () => window.openPromptDetail(prod.id);
+                el.innerHTML = `
+                    <div class="absolute top-0 right-0 bg-gradient-to-l from-yellow-400 to-yellow-300 text-yellow-900 text-[10px] font-black px-3 py-1 rounded-bl-xl z-10 shadow-sm uppercase tracking-wider flex items-center gap-1">
+                        <i class="fa-solid fa-bolt"></i> Premium $1
+                    </div>
+                    <div class="relative overflow-hidden h-40 bg-slate-100">
+                        <img src="${prod.image}" alt="${prod.title}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" onerror="this.onerror=null; this.src='https://loremflickr.com/600/400/' + encodeURIComponent('${prod.title}'.replace(/Elite |Advanced | Prompts| Vol.*/g, '').split(' ')[0]);">
+                        <div class="absolute top-2 left-2 bg-white/95 backdrop-blur-sm px-2 py-0.5 rounded-full text-[10px] font-bold text-slate-800 shadow-sm border border-slate-200/50 flex items-center gap-1">
+                            <i class="fa-solid ${getTypeIcon(prod.type)} ${getTypeColor(prod.type)}"></i> ${prod.type}
+                        </div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h3 class="font-bold text-slate-900 text-base mb-2 leading-tight">${prod.title}</h3>
+                        <div class="flex items-center text-xs text-slate-500 mb-2">
+                            <i class="fa-solid fa-star text-amber-400 mr-1"></i>
+                            <span class="font-medium text-slate-700">${prod.rating}</span>
+                            <span class="mx-1.5">•</span>
+                            <span>${prod.reviews.toLocaleString()} reviews</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mb-4 line-clamp-3 flex-grow">${prod.description}</p>
+                        <div class="flex items-center justify-between mt-auto pt-3 border-t border-slate-100">
+                            <div class="text-2xl font-black text-slate-900">$1<span class="text-sm text-slate-400">.00</span></div>
+                            <button onclick="addToCart('${prod.id}', event)" class="bg-yellow-400 hover:bg-yellow-500 text-yellow-900 w-10 h-10 rounded-xl flex items-center justify-center transition-colors shadow-sm relative group/btn z-10">
+                                <i class="fa-solid fa-cart-shopping transition-transform group-hover/btn:scale-110"></i>
+                            </button>
+                        </div>
                     </div>
                 `;
-                container.appendChild(el);
+                fragment.appendChild(el);
             });
+            
+            container.appendChild(fragment);
+            oneDollarOffset += limit;
         }
+
+        window.loadMoreOneDollarPrompts = function() {
+            renderOneDollarPrompts(true);
+        };
+
+        const videoSources = [
+            'https://assets.mixkit.co/videos/preview/mixkit-abstract-technology-connection-lines-loop-31294-large.mp4',
+            'https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-a-sphere-31122-large.mp4',
+            'https://assets.mixkit.co/videos/preview/mixkit-stars-in-space-1610-large.mp4',
+            'https://assets.mixkit.co/videos/preview/mixkit-galaxy-with-stars-in-the-universe-31761-large.mp4',
+            'https://assets.mixkit.co/videos/preview/mixkit-futuristic-robotic-arm-moving-4966-large.mp4',
+            'https://assets.mixkit.co/videos/preview/mixkit-virtual-reality-abstract-tunnel-with-neon-lights-31845-large.mp4',
+            'https://assets.mixkit.co/videos/preview/mixkit-colorful-abstract-background-with-moving-lines-29834-large.mp4'
+        ];
+
+        let videoOffset = 0;
+        function renderVideoPrompts(append = false) {
+            const container = document.getElementById('videoPromptsGrid');
+            if (!container) return;
+            
+            if (!append) {
+                container.innerHTML = '';
+                videoOffset = 0;
+            }
+
+            const limit = 12;
+            const newVideoProducts = Array.from({ length: limit }, (_, index) => {
+                const i = videoOffset + index;
+                const baseCategory = categories[i % categories.length];
+                const types = ['Sora', 'RunwayML Gen-2', 'Pika', 'Kling AI'];
+                const pType = types[i % types.length];
+                const videoSrc = videoSources[i % videoSources.length];
+                
+                const prod = {
+                    id: `video-${i}`,
+                    title: `Cinematic ${baseCategory.name} Animation`,
+                    category: baseCategory.id,
+                    type: pType,
+                    price: 2.00,
+                    rating: (Math.random() * 0.2 + 4.8).toFixed(1),
+                    reviews: Math.floor(200000 - (i * 100) + (Math.random() * 50)),
+                    image: '', // Handled by video in template
+                    videoSrc: videoSrc,
+                    description: `A hyper-realistic $2 video generation prompt engineered specifically for ${baseCategory.name} utilizing the ${pType} engine.`
+                };
+                
+                if (!products.find(p => p.id === prod.id)) products.push(prod);
+                return prod;
+            });
+
+            const fragment = document.createDocumentFragment();
+            newVideoProducts.forEach((prod, i) => {
+                const el = document.createElement('div');
+                // Varying heights for masonry look
+                const heightClass = i % 3 === 0 ? 'h-[28rem]' : (i % 2 === 0 ? 'h-[24rem]' : 'h-[20rem]');
+                
+                el.className = `break-inside-avoid mb-6 relative rounded-3xl overflow-hidden group cursor-pointer border border-slate-800 hover:border-fuchsia-500 transition-all duration-500 shadow-lg hover:shadow-[0_0_30px_rgba(217,70,239,0.2)]`;
+                el.onclick = () => window.openPromptDetail(prod.id);
+                el.innerHTML = `
+                    <div class="relative w-full ${heightClass} bg-slate-900">
+                        <video autoplay loop muted playsinline class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-700 group-hover:scale-105" src="${prod.videoSrc}"></video>
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/20 to-transparent pointer-events-none"></div>
+                        
+                        <div class="absolute top-4 left-4 bg-slate-900/80 backdrop-blur-md px-3 py-1.5 rounded-full text-[10px] font-bold text-slate-300 shadow-sm border border-slate-700/50 flex items-center gap-1.5 z-10">
+                            <i class="fa-solid ${getTypeIcon(prod.type)} ${getTypeColor(prod.type)}"></i> ${prod.type}
+                        </div>
+                        <div class="absolute top-4 right-4 bg-fuchsia-500/20 backdrop-blur-md px-2.5 py-1 rounded-lg text-xs font-black text-fuchsia-400 shadow-sm border border-fuchsia-500/30 z-10">
+                            $2.00
+                        </div>
+                        
+                        <div class="absolute bottom-0 left-0 w-full p-6 z-10 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                            <h3 class="font-bold text-white text-lg mb-2 leading-tight">${prod.title}</h3>
+                            <p class="text-sm text-slate-400 line-clamp-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 mb-4">${prod.description}</p>
+                            <div class="pt-4 border-t border-slate-800 flex items-center justify-between">
+                                <div class="flex items-center text-xs text-slate-400">
+                                    <i class="fa-solid fa-star text-yellow-400 mr-1.5"></i> ${prod.rating}
+                                </div>
+                                <button onclick="addToCart('${prod.id}', event)" class="bg-fuchsia-500 hover:bg-fuchsia-400 text-white w-10 h-10 rounded-full flex items-center justify-center transition-colors shadow-[0_0_15px_rgba(217,70,239,0.4)] relative z-20 hover:scale-110 transform duration-300">
+                                    <i class="fa-solid fa-cart-shopping text-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                fragment.appendChild(el);
+            });
+            
+            container.appendChild(fragment);
+            videoOffset += limit;
+        }
+
+        window.loadMoreVideoPrompts = function() {
+            renderVideoPrompts(true);
+        };
 
         function renderAllCategoriesPage(filtered = null) {
             const container = document.getElementById('categoriesPageGrid');
@@ -1482,36 +1968,14 @@
                     return;
                 }
 
-                const staticMatches = categories.filter(cat => 
+                const allMatches = categories.filter(cat => 
                     cat.name.toLowerCase().includes(query) || 
                     cat.desc.toLowerCase().includes(query)
-                ).slice(0, 4);
-
-                const dynamicMatches = [];
-                const queryCapitalized = query.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-                
-                if (query.length >= 2) {
-                    dynamicMatches.push({
-                        id: 'dyn-' + Date.now() + '-1',
-                        name: `${queryCapitalized} Mastery`,
-                        icon: 'fa-wand-magic-sparkles',
-                        color: 'purple',
-                        desc: `Advanced AI prompts specifically optimized for ${query}.`
-                    });
-                    dynamicMatches.push({
-                        id: 'dyn-' + Date.now() + '-2',
-                        name: `${queryCapitalized} Workflows`,
-                        icon: 'fa-bolt',
-                        color: 'blue',
-                        desc: `Automate and enhance your ${query} tasks instantly.`
-                    });
-                }
-
-                let allMatches = [...staticMatches, ...dynamicMatches];
+                );
                 
                 if (allMatches.length > 0) {
                     searchDropdown.innerHTML = allMatches.slice(0, 8).map(cat => `
-                        <div class="px-4 py-3 hover:bg-slate-50 cursor-pointer border-b border-slate-50 last:border-0 flex items-center transition-colors group" onmousedown="window.selectSearchResult('${cat.id}')">
+                        <div class="px-4 py-3 hover:bg-slate-50 cursor-pointer border-b border-slate-50 last:border-0 flex items-center transition-colors group" onmousedown="window.selectSearchResult('${cat.id}', '${cat.name.replace(/'/g, "\\'")}')">
                             <div class="w-10 h-10 rounded-xl bg-slate-100 group-hover:bg-blue-50 text-slate-500 group-hover:text-blue-600 flex items-center justify-center mr-4 flex-shrink-0 transition-colors">
                                 <i class="fa-solid ${cat.icon}"></i>
                             </div>
@@ -1533,16 +1997,20 @@
             });
         }
 
-        window.selectSearchResult = function(catId) {
-            const cat = categories.find(c => c.id === catId);
-            if (cat) {
-                const searchInput = document.getElementById('heroSearch');
-                if (searchInput) searchInput.value = cat.name;
-                
-                const dropdown = document.getElementById('searchDropdown');
-                if (dropdown) dropdown.classList.add('hidden');
-                
-                filterByCategory(cat);
+        window.selectSearchResult = function(catId, catName) {
+            const searchInput = document.getElementById('heroSearch');
+            const dropdown = document.getElementById('searchDropdown');
+            if (dropdown) dropdown.classList.add('hidden');
+            
+            if (catId.startsWith('dyn-')) {
+                if (searchInput) searchInput.value = catName;
+                searchPrompts();
+            } else {
+                const cat = categories.find(c => c.id === catId);
+                if (cat) {
+                    if (searchInput) searchInput.value = cat.name;
+                    filterByCategory(cat);
+                }
             }
         };
 
@@ -1550,13 +2018,132 @@
             const searchInput = document.getElementById('heroSearch');
             if (searchInput && searchInput.value) {
                 const query = searchInput.value.toLowerCase().trim();
-                const matchedCat = categories.find(c => c.name.toLowerCase().includes(query));
-                if (matchedCat) {
-                    filterByCategory(matchedCat);
-                } else {
-                    window.showToast(`Searching directory for "${searchInput.value}"...`, 'info');
-                    window.showPage('popular');
-                }
+                
+                // Show toast
+                window.showToast(`Searching for "${searchInput.value}"...`, 'info');
+                
+                // Force home page view to show global grid
+                window.showPage('home');
+                
+                // Hide normal category grid
+                const catGrid = document.getElementById('categoryGrid');
+                if (catGrid) catGrid.classList.add('hidden');
+                
+                // Show filtered grid
+                const filteredGrid = document.getElementById('globalFilteredProductsGrid');
+                if (!filteredGrid) return;
+                
+                filteredGrid.classList.remove('hidden');
+                filteredGrid.classList.add('grid');
+                
+                // Spinner
+                filteredGrid.innerHTML = `
+                    <div class="col-span-full py-32 flex flex-col items-center justify-center text-slate-400">
+                        <i class="fa-solid fa-circle-notch fa-spin text-5xl mb-6 text-blue-500"></i>
+                        <p class="text-lg font-medium text-slate-600">Generating dynamic matching prompts...</p>
+                    </div>
+                `;
+                
+                // Scroll down smoothly to the results
+                filteredGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                
+                setTimeout(() => {
+                    filteredGrid.innerHTML = '';
+                    
+                    // Find matching categories from the full database
+                    const matchingCategories = categories.filter(c => 
+                        c.name.toLowerCase().includes(query) || 
+                        c.desc.toLowerCase().includes(query)
+                    );
+                    
+                    let searchResults = products.filter(p => p.title.toLowerCase().includes(query));
+                    
+                    // If we found categories, generate highly relevant products for them
+                    if (matchingCategories.length > 0) {
+                        matchingCategories.slice(0, 4).forEach(cat => {
+                            // Generate 3 products per matched category
+                            const filterProducts = Array.from({ length: 3 }, (_, index) => {
+                                let pType = ['Midjourney v6', 'ChatGPT 5.5', 'Claude 3 Opus', 'Grok 1.5', 'Gemini 1.5 Pro'][Math.floor(Math.random()*5)];
+                                let pPrice = (Math.random() * 60 + 29.99).toFixed(2);
+                                const searchKeywords = encodeURIComponent(cat.name + ' visually stunning premium digital art high resolution cinematic lighting');
+                                const imageUrl = `https://image.pollinations.ai/prompt/${searchKeywords}?width=600&height=400&nologo=true&seed=${Math.floor(Math.random() * 1000000)}`;
+
+                                return {
+                                    id: `search-gen-${Math.random().toString(36).substr(2, 9)}`,
+                                    title: `${cat.name} ${pType.split(' ')[0]} Master Prompts`,
+                                    category: cat.id,
+                                    type: pType,
+                                    price: parseFloat(pPrice),
+                                    rating: (Math.random() * 0.1 + 4.9).toFixed(1),
+                                    reviews: Math.floor(Math.random() * 5000 + 500),
+                                    image: imageUrl,
+                                    description: `Expertly engineered ${pType} prompts specifically optimized for ${cat.name} workflows and tasks.`,
+                                    previewPrompt: `[SYS_INJECT: ${cat.name.toUpperCase().replace(/ /g, '_')}_PERSONA]\nExecute exact schemas using ${pType} optimal structures.\n...`,
+                                    features: ['Exact Match', 'JSON/XML Output', 'Lifetime commercial rights']
+                                };
+                            });
+                            
+                            filterProducts.forEach(prod => {
+                                if (!products.find(p => p.id === prod.id)) products.push(prod);
+                                searchResults.push(prod);
+                            });
+                        });
+                    }
+                    
+                    // Remove duplicates just in case
+                    searchResults = [...new Map(searchResults.map(item => [item.id, item])).values()];
+                    
+                    if (searchResults.length === 0) {
+                        filteredGrid.innerHTML = `
+                            <div class="col-span-full py-24 flex flex-col items-center justify-center text-slate-400">
+                                <div class="w-24 h-24 bg-slate-100 rounded-full flex items-center justify-center mb-6">
+                                    <i class="fa-solid fa-search-minus text-4xl text-slate-300"></i>
+                                </div>
+                                <h3 class="text-2xl font-black text-slate-800 mb-2">No exact matches found</h3>
+                                <p class="text-slate-500 mb-8 max-w-md text-center">We couldn't find any prompts matching "${searchInput.value}". Try adjusting your search terms or browsing categories.</p>
+                                <button onclick="clearGlobalFilters()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-xl shadow-sm transition-all">Browse All Categories</button>
+                            </div>
+                        `;
+                        return;
+                    }
+
+                    const fragment = document.createDocumentFragment();
+                    exactMatches.forEach(prod => {
+                        const el = document.createElement('div');
+                        el.className = "bg-white rounded-2xl border-2 border-slate-100 overflow-hidden hover:border-blue-500 transition-all duration-300 shadow-sm hover:shadow-xl group flex flex-col";
+                        el.onclick = () => window.openPromptDetail(prod.id);
+                        el.innerHTML = `
+                            <div class="relative overflow-hidden aspect-video bg-slate-100 cursor-pointer">
+                                <img src="${prod.image}" alt="${prod.title}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" onerror="this.onerror=null; this.src='https://loremflickr.com/600/400/' + encodeURIComponent('${prod.title}'.replace(/Elite |Advanced | Prompts| Vol.*/g, '').split(' ')[0]);">
+                                <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-slate-800 shadow-sm border border-slate-200/50 flex items-center gap-1.5">
+                                    <i class="fa-solid ${getTypeIcon(prod.type)} ${getTypeColor(prod.type)}"></i> ${prod.type}
+                                </div>
+                                <div class="absolute top-3 right-3 bg-slate-900/90 backdrop-blur-sm px-2.5 py-1 rounded-lg text-xs font-bold text-white shadow-sm flex items-center gap-1">
+                                    <i class="fa-solid fa-star text-yellow-400"></i> ${prod.rating}
+                                </div>
+                            </div>
+                            <div class="p-6 flex flex-col flex-grow">
+                                <h3 class="font-bold text-slate-900 text-lg mb-2 leading-tight cursor-pointer hover:text-blue-600 transition-colors">${prod.title}</h3>
+                                <p class="text-sm text-slate-500 mb-4 line-clamp-2 flex-grow">${prod.description}</p>
+                                <div class="flex items-center justify-between mt-auto pt-4 border-t border-slate-100">
+                                    <div class="text-xl font-black text-slate-900">$${prod.price.toFixed(2)}</div>
+                                    <button onclick="addToCart('${prod.id}', event)" class="bg-slate-900 hover:bg-blue-600 text-white w-10 h-10 rounded-xl flex items-center justify-center transition-colors shadow-sm relative group/btn z-10">
+                                        <i class="fa-solid fa-cart-shopping transition-transform group-hover/btn:scale-110"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                        fragment.appendChild(el);
+                    });
+                    
+                    const clearEl = document.createElement('div');
+                    clearEl.className = "col-span-full flex justify-center mt-8";
+                    clearEl.innerHTML = `<button onclick="clearGlobalFilters()" class="bg-white border-2 border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-bold py-3 px-8 rounded-xl shadow-sm transition-all"><i class="fa-solid fa-times mr-2"></i> Clear Search</button>`;
+                    fragment.appendChild(clearEl);
+
+                    filteredGrid.appendChild(fragment);
+                    
+                }, 800);
             }
         };
 
