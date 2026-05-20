@@ -1,7 +1,7 @@
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '.env') });
 const express = require('express');
 const cors = require('cors');
-const path = require('path');
 const nodemailer = require('nodemailer');
 
 const app = express();
@@ -67,30 +67,42 @@ const mockSessionDB = {};
 // --- EMAIL CONFIGURATION ---
 let transporter;
 async function initMailer() {
+    let configured = false;
     if (process.env.SMTP_USER && process.env.SMTP_PASS) {
-        transporter = nodemailer.createTransport({
-            host: process.env.SMTP_HOST || 'smtp-relay.brevo.com',
-            port: process.env.SMTP_PORT || 587,
-            secure: false,
-            auth: {
-                user: process.env.SMTP_USER,
-                pass: process.env.SMTP_PASS,
-            },
-        });
-        console.log("Real Email Transporter Initialized.");
-    } else {
-        // Fallback to testing account if no real credentials are provided
-        let testAccount = await nodemailer.createTestAccount();
-        transporter = nodemailer.createTransport({
-            host: "smtp.ethereal.email",
-            port: 587,
-            secure: false, 
-            auth: {
-                user: testAccount.user, 
-                pass: testAccount.pass, 
-            },
-        });
-        console.log("Test Email Transporter Initialized (Ethereal).");
+        try {
+            transporter = nodemailer.createTransport({
+                host: process.env.SMTP_HOST || 'smtp-relay.brevo.com',
+                port: process.env.SMTP_PORT || 587,
+                secure: false,
+                auth: {
+                    user: process.env.SMTP_USER,
+                    pass: process.env.SMTP_PASS,
+                },
+            });
+            await transporter.verify();
+            console.log("Real Email Transporter Initialized and Verified successfully.");
+            configured = true;
+        } catch (err) {
+            console.warn("⚠️ Real SMTP verification failed (EAUTH/Invalid Login). Falling back to Ethereal Mailer...", err.message);
+        }
+    }
+    
+    if (!configured) {
+        try {
+            let testAccount = await nodemailer.createTestAccount();
+            transporter = nodemailer.createTransport({
+                host: "smtp.ethereal.email",
+                port: 587,
+                secure: false, 
+                auth: {
+                    user: testAccount.user, 
+                    pass: testAccount.pass, 
+                },
+            });
+            console.log("Test Email Transporter Initialized (Ethereal).");
+        } catch (err) {
+            console.error("❌ Critical: Failed to initialize even the fallback Ethereal mailer:", err);
+        }
     }
 }
 initMailer();
@@ -101,7 +113,7 @@ app.post('/api/signup', async (req, res) => {
 
     try {
         let info = await transporter.sendMail({
-            from: process.env.SMTP_FROM || '"PromptFlow Welcome" <welcome@promptflowing.com>',
+            from: process.env.SMTP_FROM || '"PromptFlow" <swirlcraftdigital@gmail.com>',
             to: email,
             subject: "Welcome to PromptFlow! 🚀",
             html: `
@@ -139,13 +151,14 @@ app.post('/api/trigger-simulated-receipt', async (req, res) => {
 
 app.post('/api/create-checkout-session', async (req, res) => {
     try {
-        if (!process.env.STRIPE_SECRET_KEY || process.env.STRIPE_SECRET_KEY === 'your_stripe_secret_key_here') {
-            return res.status(500).json({ 
-                error: "Stripe Secret Key not configured. Please add it to your .env file." 
+        const stripeKey = process.env.STRIPE_SECRET_KEY;
+        if (!stripeKey || stripeKey === 'your_stripe_secret_key_here' || stripeKey.startsWith('mk_')) {
+            return res.status(400).json({ 
+                error: `Invalid Stripe Secret Key ('${stripeKey || 'not configured'}'). Please replace the key in your .env file with your real Live Stripe Secret Key (starting with 'sk_live_') to accept real-money payments.` 
             });
         }
         
-        const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+        const stripe = require('stripe')(stripeKey);
         const { items, customerEmail, successUrl, cancelUrl } = req.body;
 
         const lineItems = items.map(item => ({
@@ -229,7 +242,7 @@ Deliver the final result as a structured JSON schema with all parameters locked.
 
     try {
         let info = await transporter.sendMail({
-            from: process.env.SMTP_FROM || '"PromptFlow Orders" <orders@promptflowing.com>',
+            from: process.env.SMTP_FROM || '"PromptFlow" <swirlcraftdigital@gmail.com>',
             to: email,
             subject: "✨ Your PromptFlow Purchase — Premium Prompts Unlocked!",
             html: `
