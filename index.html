@@ -788,7 +788,96 @@
             </div>
         </div>
 
-        <!-- MY VAULT PAGE (UNLOCKED SECURE PROMPTS) -->
+        </div>
+
+        <!-- STORE ADMINISTRATIVE PORTAL (ADMIN DASHBOARD) -->
+        <div id="page-admin" class="page-view hidden pt-32 pb-20 bg-slate-900 min-h-screen text-slate-100 border-t border-slate-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <!-- Page Title -->
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-10 gap-4">
+                    <div>
+                        <span class="inline-flex items-center gap-1.5 bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider mb-3">
+                            <i class="fa-solid fa-shield-halved"></i> Administrative System
+                        </span>
+                        <h2 class="text-4xl font-extrabold text-white" style="font-family:'Space Grotesk',sans-serif;">E-Commerce Admin Portal</h2>
+                        <p class="text-slate-400 text-sm mt-1">Real-time storefront performance metrics, transactional email queues, and product conversion stats.</p>
+                    </div>
+                    <div class="flex gap-3">
+                        <button onclick="window.fetchAdminStats();" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-750 border border-slate-700 text-slate-200 rounded-xl font-bold text-sm transition-all flex items-center gap-2">
+                            <i class="fa-solid fa-arrow-rotate-right"></i> Refresh
+                        </button>
+                        <button onclick="window.resetAdminStats();" class="px-5 py-2.5 bg-rose-600/20 hover:bg-rose-600/30 border border-rose-500/30 text-rose-300 rounded-xl font-bold text-sm transition-all flex items-center gap-2">
+                            <i class="fa-solid fa-trash-can"></i> Reset Data
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+                    <div class="bg-slate-800/50 border border-slate-700 rounded-2xl p-6 relative overflow-hidden group shadow-lg">
+                        <div class="absolute top-4 right-4 text-2xl text-blue-500/20 group-hover:text-blue-500/40 transition-colors"><i class="fa-solid fa-eye"></i></div>
+                        <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Unique Page Traffic</div>
+                        <div id="adminViewsVal" class="text-4xl font-black text-white">0</div>
+                        <p class="text-[10px] text-emerald-400 mt-2 flex items-center gap-1"><i class="fa-solid fa-circle text-[6px]"></i> Real-time views recorded</p>
+                    </div>
+                    <div class="bg-slate-800/50 border border-slate-700 rounded-2xl p-6 relative overflow-hidden group shadow-lg">
+                        <div class="absolute top-4 right-4 text-2xl text-purple-500/20 group-hover:text-purple-500/40 transition-colors"><i class="fa-solid fa-shopping-bag"></i></div>
+                        <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Total Completed Orders</div>
+                        <div id="adminOrdersVal" class="text-4xl font-black text-white">0</div>
+                        <p class="text-[10px] text-emerald-400 mt-2 flex items-center gap-1"><i class="fa-solid fa-circle text-[6px]"></i> Successful checkout operations</p>
+                    </div>
+                    <div class="bg-slate-800/50 border border-slate-700 rounded-2xl p-6 relative overflow-hidden group shadow-lg">
+                        <div class="absolute top-4 right-4 text-2xl text-emerald-500/20 group-hover:text-emerald-500/40 transition-colors"><i class="fa-solid fa-dollar-sign"></i></div>
+                        <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Gross Storefront Revenue</div>
+                        <div id="adminRevenueVal" class="text-4xl font-black text-emerald-400">$0.00</div>
+                        <p class="text-[10px] text-slate-400 mt-2 flex items-center gap-1">Stripe Checkout processing (live)</p>
+                    </div>
+                    <div class="bg-slate-800/50 border border-slate-700 rounded-2xl p-6 relative overflow-hidden group shadow-lg">
+                        <div class="absolute top-4 right-4 text-2xl text-amber-500/20 group-hover:text-amber-500/40 transition-colors"><i class="fa-solid fa-percent"></i></div>
+                        <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Traffic Conversion Rate</div>
+                        <div id="adminConversionVal" class="text-4xl font-black text-white">0.00%</div>
+                        <p class="text-[10px] text-indigo-400 mt-2 flex items-center gap-1"><i class="fa-solid fa-circle text-[6px]"></i> Global checkouts per page traffic</p>
+                    </div>
+                </div>
+
+                <!-- Secondary Data Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-10">
+                    
+                    <!-- Popular Prompts (Product conversion interest) -->
+                    <div class="bg-slate-850 border border-slate-800 rounded-3xl p-6 shadow-xl flex flex-col min-h-[24rem]">
+                        <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-fire text-amber-400"></i> Prompt Clicks & Interest
+                        </h3>
+                        <div class="flex-grow overflow-y-auto max-h-[18rem] pr-1 space-y-3" id="adminClicksContainer">
+                            <div class="text-center py-10 text-slate-500 text-sm">No product views recorded yet.</div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Orders Log -->
+                    <div class="bg-slate-850 border border-slate-800 rounded-3xl p-6 shadow-xl flex flex-col min-h-[24rem] lg:col-span-2">
+                        <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-receipt text-blue-400"></i> Recent Purchases Transaction Log
+                        </h3>
+                        <div class="flex-grow overflow-y-auto max-h-[18rem] pr-1 space-y-3" id="adminOrdersContainer">
+                            <div class="text-center py-10 text-slate-500 text-sm">No transaction orders recorded yet.</div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Active SMTP Email logs -->
+                <div class="bg-slate-850 border border-slate-800 rounded-3xl p-6 shadow-xl flex flex-col min-h-[20rem]">
+                    <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-paper-plane text-emerald-400"></i> SMTP Deliveries Transaction Queue
+                    </h3>
+                    <div class="flex-grow overflow-y-auto max-h-[15rem] pr-1 space-y-3" id="adminEmailsContainer">
+                        <div class="text-center py-10 text-slate-500 text-sm">No outgoing emails dispatched yet.</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
         <div id="page-vault" class="page-view hidden pt-32 pb-20 bg-slate-50 min-h-screen border-t border-slate-200">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12">
@@ -1118,7 +1207,7 @@
             <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm">
                 <div>
                     <p>&copy; 2026 PromptFlow. All rights reserved.</p>
-                    <p class="mt-2 text-xs">Crafted By <a href="https://swirlcraftdigital.com" target="_blank" class="text-blue-400 hover:text-blue-300 transition-colors font-semibold">SwirlCraft</a></p>
+                    <p class="mt-2 text-xs">Crafted By <a href="https://swirlcraftdigital.com" target="_blank" class="text-blue-400 hover:text-blue-300 transition-colors font-semibold">SwirlCraft</a> &bull; <a href="#" onclick="showPage('admin', event)" class="text-slate-500 hover:text-slate-200 transition-colors font-medium"><i class="fa-solid fa-lock"></i> Store Admin Portal</a></p>
                 </div>
                 <div class="mt-6 md:mt-0 flex flex-col md:items-end">
                     <span class="text-xs mb-2 text-slate-500 font-semibold tracking-wider uppercase">100% Secure Checkout</span>
@@ -1749,6 +1838,16 @@
         window.showPage = function(pageId, e) {
             if (e) e.preventDefault();
             
+            // Clear body viewport freezes instantly
+            document.body.style.overflow = '';
+            
+            // Clear active modals
+            const activeOverlays = ['stripeSuccessModal', 'cartModal', 'promptDetailModal', 'authModal', 'stripeConfigModal', 'exitRescueModal'];
+            activeOverlays.forEach(id => {
+                const overlay = document.getElementById(id);
+                if (overlay) overlay.classList.remove('open');
+            });
+            
             document.querySelectorAll('.page-view').forEach(page => {
                 page.classList.add('hidden');
                 page.classList.remove('block');
@@ -1765,6 +1864,11 @@
             if (pageId === 'video') renderVideoPrompts();
             if (pageId === 'categories') renderAllCategoriesPage();
             if (pageId === 'vault') renderVaultGrid();
+            if (pageId === 'creators') renderCreatorForm();
+            if (pageId === 'admin') window.fetchAdminStats();
+            
+            // Track view on server
+            window.trackPageView();
             
             // Force nav refresh based on new view
             window.dispatchEvent(new Event('scroll'));
@@ -1773,7 +1877,8 @@
             const mobileMenu = document.getElementById('mobileMenu');
             if (mobileMenu) mobileMenu.classList.add('hidden');
             
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            // Unconditional snap scroll to top to prevent stutters or locking
+            window.scrollTo(0, 0);
         };
 
         window.showPopularPage = function(e) {
@@ -2390,7 +2495,7 @@
                             <i class="fa-solid fa-star text-amber-400 mr-1"></i>
                             <span class="font-medium text-slate-700">${prod.rating}</span>
                             <span class="mx-1.5">•</span>
-                            <span>${prod.reviews.toLocaleString()} reviews</span>
+                            <span>${(prod.reviews || 0).toLocaleString()} reviews</span>
                         </div>
                         <p class="text-xs text-slate-500 mb-4 line-clamp-3 flex-grow">${prod.description}</p>
                         <div class="flex items-center justify-between mt-auto pt-3 border-t border-slate-100">
@@ -2463,24 +2568,23 @@
             const photoId = posterPhotoIds[i % posterPhotoIds.length];
             const imageUrl = `https://images.unsplash.com/${photoId}?w=600&h=800&fit=crop&auto=format&q=80`;
             
-            // Explicitly map index to unique Cloudinary sample videos to prevent ANY repeating files in the grid
+            // Explicitly map index to unique, verified active videos to prevent ANY repeating or broken files in the grid
             const videoMapping = [
-                { file: 'samples/mac-book', crop: 'w_400,h_500,c_fill,g_center' },       // Product Showcase 360°
-                { file: 'samples/land-scape', crop: 'w_400,h_500,c_fill,g_center' },      // Cinematic Drone Flyover
-                { file: 'samples/dance-transition', crop: 'w_400,h_500,c_fill,g_center' },// Social Media Hook
-                { file: 'samples/sea-surf', crop: 'w_400,h_500,c_fill,g_center' },        // Luxury Brand Commercial
-                { file: 'samples/sea-turtle', crop: 'w_400,h_500,c_fill,g_center' },      // Nature Documentary B-Roll
-                { file: 'samples/cloud-globe', crop: 'w_400,h_500,c_fill,g_center' },     // Tech Product Launch
-                { file: 'docs/walking_talking', crop: 'w_400,h_500,c_fill,g_face' },      // Fashion Lookbook Walk
-                { file: 'samples/kitchen-food', crop: 'w_400,h_500,c_fill,g_center' },     // Real Estate Walkthrough
-                { file: 'samples/water-splash', crop: 'w_400,h_500,c_fill,g_center' },     // Food Commercial Close-up
-                { file: 'samples/fitness-girl', crop: 'w_400,h_500,c_fill,g_center' },     // Fitness Training Montage
-                { file: 'samples/cloud-water', crop: 'w_400,h_500,c_fill,g_center' },      // Travel Vlog Transition
-                { file: 'samples/cld-sample-video', crop: 'w_400,h_500,c_fill,g_center' }  // Corporate Explainer
+                'https://res.cloudinary.com/demo/video/upload/w_400,h_500,c_fill/dog.mp4',
+                'https://res.cloudinary.com/demo/video/upload/w_400,h_500,c_fill/sea_turtle.mp4',
+                'https://res.cloudinary.com/demo/video/upload/w_400,h_500,c_fill/forest_bike.mp4',
+                'https://res.cloudinary.com/demo/video/upload/w_400,h_500,c_fill/snow_horses.mp4',
+                'https://res.cloudinary.com/demo/video/upload/w_400,h_500,c_fill/rafting.mp4',
+                'https://res.cloudinary.com/demo/video/upload/w_400,h_500,c_fill/marmots.mp4',
+                'https://res.cloudinary.com/demo/video/upload/w_400,h_500,c_fill/ski_jump.mp4',
+                'https://res.cloudinary.com/demo/video/upload/w_400,h_500,c_fill/what_is_cloudinary_sd.mp4',
+                'https://res.cloudinary.com/demo/video/upload/w_400,h_500,c_fill/cld-sample-video.mp4',
+                'https://res.cloudinary.com/demo/video/upload/w_400,h_500,c_fill/elephants.mp4',
+                'https://res.cloudinary.com/demo/video/upload/w_400,h_500,c_fill/docs/walking_talking.mp4',
+                'https://www.w3schools.com/html/mov_bbb.mp4'
             ];
             
-            const selectedVideo = videoMapping[i % videoMapping.length];
-            const videoUrl = `https://res.cloudinary.com/demo/video/upload/${selectedVideo.crop}/${selectedVideo.file}.mp4`;
+            const videoUrl = videoMapping[i % videoMapping.length];
             
             // Adjust description dynamically to match baseCategory to make absolute real-world sense
             const dynamicDesc = `Expertly engineered ${curated.type} prompt optimized for producing high-fidelity ${baseCategory.name.toLowerCase()} visuals, ${curated.useCase}. Features exact motion vectors and lighting parameters.`;
@@ -2913,6 +3017,16 @@
         // --- CART OPERATIONS ---
         window.addToCart = function(productOrId, evt) {
             if (evt) { evt.stopPropagation(); evt.preventDefault(); }
+            
+            // Enforce account creation check before buying
+            if (!currentUser) {
+                window.showToast("Please create an account or sign in to build your cart!", "warning");
+                setTimeout(() => {
+                    window.toggleAuthModal();
+                }, 350);
+                return;
+            }
+
             let product = productOrId;
             if (typeof productOrId === 'string') {
                 product = products.find(p => p.id === productOrId);
@@ -3011,28 +3125,151 @@
             document.body.style.overflow = modal.classList.contains('open') ? 'hidden' : '';
         };
 
+        // --- DYNAMIC SELLER PORTAL RENDERING ---
+        function renderCreatorForm() {
+            const body = document.getElementById('creatorFormBody');
+            if (!body) return;
+
+            if (!currentUser) {
+                body.innerHTML = `
+                    <div class="text-center py-10 flex flex-col items-center">
+                        <div class="w-16 h-16 bg-amber-500/10 text-amber-400 rounded-full flex items-center justify-center text-2xl mb-4">
+                            <i class="fa-solid fa-lock"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800 mb-2">Creator Account Required</h3>
+                        <p class="text-slate-500 text-sm max-w-sm mb-6">You must create an account or sign in to list, publish, and sell prompts on the Creator Marketplace.</p>
+                        <button onclick="window.toggleAuthModal();" class="px-8 py-3 bg-emerald-500 hover:bg-emerald-400 text-white font-bold rounded-xl transition-all shadow-md">
+                            Sign In / Create Account
+                        </button>
+                    </div>
+                `;
+            } else {
+                body.innerHTML = `
+                    <form id="promptSubmitForm" onsubmit="window.handlePromptSubmit(event)" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Prompt Title</label>
+                                <input type="text" id="creatorPromptTitle" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-slate-800" placeholder="e.g. Photorealistic Architecture Staging">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">AI Engine Model</label>
+                                <select id="creatorPromptType" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-slate-800">
+                                    <option value="ChatGPT 5.5">ChatGPT 5.5</option>
+                                    <option value="Claude 3 Opus">Claude 3 Opus</option>
+                                    <option value="Midjourney v6">Midjourney v6</option>
+                                    <option value="Sora Cinematic">Sora Cinematic</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Target Category</label>
+                                <select id="creatorPromptCategory" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-slate-800">
+                                    ${categories.map(c => `<option value="${c.id}">${c.name}</option>`).join('')}
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Selling Price (USD)</label>
+                                <input type="number" step="0.01" min="0.00" max="100.00" id="creatorPromptPrice" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-slate-800" placeholder="e.g. 4.99">
+                             </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Item Description</label>
+                            <textarea id="creatorPromptDesc" rows="3" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-slate-800" placeholder="Describe what the prompt accomplishes, target audience, and output benefits..."></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Raw Prompt Instruction (Unlocked on Purchase)</label>
+                            <textarea id="creatorPromptRaw" rows="4" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-slate-800" placeholder="e.g. Act as a B2B copywriter... [Include instructions here]"></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-4 bg-emerald-500 hover:bg-emerald-400 text-white font-bold rounded-xl transition-all shadow-lg shadow-emerald-500/20 text-center">
+                            Publish & List Live Prompt
+                        </button>
+                    </form>
+                `;
+            }
+        }
+
+        window.handlePromptSubmit = function(e) {
+            e.preventDefault();
+            
+            if (!currentUser) {
+                window.showToast("Please sign in or create an account to list prompts!", "error");
+                return;
+            }
+
+            const title = document.getElementById('creatorPromptTitle').value.trim();
+            const type = document.getElementById('creatorPromptType').value;
+            const category = document.getElementById('creatorPromptCategory').value;
+            const price = parseFloat(document.getElementById('creatorPromptPrice').value) || 0;
+            const desc = document.getElementById('creatorPromptDesc').value.trim();
+            const rawPrompt = document.getElementById('creatorPromptRaw').value.trim();
+
+            if (!title || !desc || !rawPrompt) {
+                window.showToast("Please fill in all listing details.", "error");
+                return;
+            }
+
+            const newProd = {
+                id: `creator-custom-${Date.now()}`,
+                title: title,
+                category: category,
+                type: type,
+                price: price,
+                rating: '5.0',
+                reviews: 1,
+                image: `https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=600&h=400&fit=crop&auto=format&q=80`,
+                description: desc,
+                previewPrompt: rawPrompt,
+                features: ['Instant Access', 'Fully Custom Engineered', 'Verified Creator Support']
+            };
+
+            // Publish directly into catalog
+            products.unshift(newProd);
+            window.showToast(`Congratulations! "${title}" is now published and live on the store!`, "success");
+            
+            // Track submitted click in server metrics
+            fetch('/api/admin/track-product-click', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ productId: newProd.id })
+            });
+
+            renderProducts();
+            showPage('home');
+        };
+
         // --- MASTER CHECKOUT ROUTINE ---
-        // Processes purchase instantly: unlocks prompts, saves to vault, sends receipt email
+        // Processes purchase: directs premium prompts strictly to live Stripe, direct unlocks free items
         window.checkout = function() {
-            executeSimulatedCheckout();
+            if (!currentUser) {
+                window.showToast("Please create an account or sign in to complete your checkout!", "warning");
+                window.toggleCart();
+                setTimeout(() => {
+                    window.toggleAuthModal();
+                }, 350);
+                return;
+            }
+
+            const hasPremium = cart.some(item => parseFloat(item.price) > 0);
+            if (hasPremium) {
+                // Live e-commerce Stripe Redirection!
+                executeStripeRedirectCheckout();
+            } else {
+                // Direct instant unlock for free prompts
+                executeSimulatedCheckout();
+            }
         };
 
         async function executeSimulatedCheckout() {
             window.toggleCart();
             
-            // Query guest email if not logged in
-            let userEmail = '';
-            if (currentUser && currentUser.email) {
-                userEmail = currentUser.email;
-            } else {
-                userEmail = prompt("Enter your email address to receive your premium prompts via email:");
-                if (!userEmail || !userEmail.includes('@')) {
-                    window.showToast("Valid email required for digital delivery.", "error");
-                    return;
-                }
+            let userEmail = currentUser ? currentUser.email : '';
+            if (!userEmail) {
+                window.showToast("Active account required for checkout.", "error");
+                return;
             }
 
-            window.showToast('Processing secure checkout...', 'info');
+            window.showToast('Unlocking free items...', 'info');
             
             const newlyUnlocked = [];
             const formattedDate = new Date().toLocaleString('en-US', {
@@ -3060,13 +3297,8 @@
                 newlyUnlocked.push(simulatedItem);
             });
 
-            if (currentUser) {
-                localStorage.setItem('promptflow_vault_' + currentUser.email, JSON.stringify(stripeUnlockedProducts));
-            } else {
-                localStorage.setItem('promptflow_unlocked_vault', JSON.stringify(stripeUnlockedProducts));
-            }
+            localStorage.setItem('promptflow_vault_' + currentUser.email, JSON.stringify(stripeUnlockedProducts));
             
-            // Dispatch simulated receipt email via backend
             try {
                 await fetch('/api/trigger-simulated-receipt', {
                     method: 'POST',
@@ -3094,6 +3326,9 @@
         window.openPromptDetail = function(productId) {
             const product = products.find(p => p.id === productId);
             if(!product) return;
+
+            // Track detailed click in admin dashboard on server
+            window.trackProductClick(productId);
 
             const modal = document.getElementById('promptDetailModal');
             const content = document.getElementById('promptDetailContent');
@@ -3221,7 +3456,7 @@
                     el.innerHTML = `
                         <div class="flex justify-between items-center">
                             <span class="px-2.5 py-0.5 text-[10px] font-bold rounded-full uppercase border ${colors}">${item.type}</span>
-                            <span class="text-[10px] text-slate-400 font-semibold"><i class="fa-solid fa-copy mr-1 text-slate-500"></i>${item.copies.toLocaleString()} uses</span>
+                            <span class="text-[10px] text-slate-400 font-semibold"><i class="fa-solid fa-copy mr-1 text-slate-500"></i>${(item.copies !== undefined ? item.copies : 1010).toLocaleString()} uses</span>
                         </div>
                         <h4 class="font-extrabold text-sm text-white">${item.title}</h4>
                         
@@ -3293,6 +3528,39 @@
                 }
                 renderVaultGrid();
                 
+                // Dispatch immediate post-checkout confirmation email (extremely robust fallback!)
+                const userEmail = currentUser ? currentUser.email : (localStorage.getItem('promptflow_guest_email') || 'buyer@promptflow.ai');
+                if (newlyUnlocked.length > 0) {
+                    fetch('/api/trigger-simulated-receipt', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            email: userEmail,
+                            items: newlyUnlocked
+                        })
+                    }).then(res => {
+                        console.log("Post-checkout receipt email triggered successfully.");
+                        
+                        // Calculate total paid with potential promo codes applied
+                        let totalPaid = 0;
+                        newlyUnlocked.forEach(item => {
+                            let matched = products.find(p => p.id === item.id);
+                            if (matched) totalPaid += parseFloat(matched.price) || 0;
+                        });
+                        if (window.couponApplied) totalPaid *= 0.5;
+
+                        fetch('/api/admin/track-sale', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                email: userEmail,
+                                items: newlyUnlocked,
+                                totalPaid: totalPaid
+                            })
+                        });
+                    }).catch(err => console.error("Post-checkout receipt email trigger failed:", err));
+                }
+
                 if (newlyUnlocked.length > 0) {
                     showPurchaseSuccessModal(newlyUnlocked);
                 } else {
@@ -3415,7 +3683,7 @@
                     <div class="flex justify-between items-start mb-3">
                         <span class="px-2.5 py-1 text-xs font-bold rounded-full uppercase border ${colors}">${item.type}</span>
                         <div class="flex flex-col items-end">
-                            <span class="text-xs text-slate-500 font-semibold flex items-center gap-1"><i class="fa-solid fa-copy text-slate-400"></i>${item.copies.toLocaleString()} uses</span>
+                            <span class="text-xs text-slate-500 font-semibold flex items-center gap-1"><i class="fa-solid fa-copy text-slate-400"></i>${(item.copies !== undefined ? item.copies : 1010).toLocaleString()} uses</span>
                             <span class="text-[10px] text-slate-400 mt-1 font-medium flex items-center gap-1"><i class="fa-regular fa-calendar-check"></i> ${item.purchasedAt || 'Unlocked'}</span>
                         </div>
                     </div>
@@ -4214,6 +4482,151 @@
                 console.error("Initialization Error:", error);
             }
         });
+
+        // --- ADMINISTRATIVE E-COMMERCE TELEMETRY AND CLIENT HELPERS ---
+        window.trackPageView = function() {
+            fetch('/api/admin/track-view', {
+                method: 'POST'
+            }).then(res => res.json())
+              .then(data => {
+                  console.log(`E-Commerce traffic tracked successfully. View count: ${data.views}`);
+              }).catch(err => console.error("Traffic tracking failure:", err));
+        };
+
+        window.trackProductClick = function(productId) {
+            fetch('/api/admin/track-product-click', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ productId: productId })
+            }).catch(err => console.error("Product click telemetry failure:", err));
+        };
+
+        window.fetchAdminStats = async function() {
+            let pass = sessionStorage.getItem('adminPass');
+            if (!pass) {
+                pass = prompt("🔑 Security Verification Required\nEnter Admin Password:");
+                if (!pass) {
+                    window.showPage('home');
+                    return;
+                }
+                sessionStorage.setItem('adminPass', pass);
+            }
+
+            try {
+                const res = await fetch('/api/admin/stats', {
+                    headers: {
+                        'X-Admin-Password': pass
+                    }
+                });
+                if (res.status === 401) {
+                    alert("❌ Invalid Admin Password! Access Denied.");
+                    sessionStorage.removeItem('adminPass');
+                    window.showPage('home');
+                    return;
+                }
+                if (!res.ok) throw new Error("Could not connect to metrics API.");
+                const stats = await res.json();
+                
+                // Update stats counts
+                document.getElementById('adminViewsVal').textContent = stats.views.toLocaleString();
+                document.getElementById('adminOrdersVal').textContent = stats.sales.toLocaleString();
+                document.getElementById('adminRevenueVal').textContent = `$${parseFloat(stats.revenue).toFixed(2)}`;
+                
+                const conversion = stats.views > 0 ? (stats.sales / stats.views * 100) : 0;
+                document.getElementById('adminConversionVal').textContent = `${conversion.toFixed(2)}%`;
+                
+                // Popular clicks list
+                const clicksContainer = document.getElementById('adminClicksContainer');
+                if (clicksContainer) {
+                    if (Object.keys(stats.productClicks).length === 0) {
+                        clicksContainer.innerHTML = `<div class="text-center py-10 text-slate-500 text-sm">No product views recorded yet.</div>`;
+                    } else {
+                        const sorted = Object.entries(stats.productClicks).sort((a,b) => b[1] - a[1]);
+                        clicksContainer.innerHTML = sorted.map(([id, count]) => {
+                            const p = products.find(prod => prod.id === id);
+                            return `
+                                <div class="flex items-center justify-between p-3 bg-slate-800/40 rounded-xl border border-slate-700/50">
+                                    <div class="truncate mr-3">
+                                        <div class="text-sm font-bold text-white truncate">${p ? p.title : id}</div>
+                                        <div class="text-[10px] text-slate-400 mt-0.5">${p ? p.type : 'Unknown Engine'}</div>
+                                    </div>
+                                    <span class="px-2.5 py-1 bg-amber-400/20 text-amber-300 border border-amber-500/20 rounded-lg text-xs font-black shrink-0">${count} Clicks</span>
+                                </div>
+                            `;
+                        }).join('');
+                    }
+                }
+                
+                // Transaction sales logs
+                const ordersContainer = document.getElementById('adminOrdersContainer');
+                if (ordersContainer) {
+                    if (stats.recentSales.length === 0) {
+                        ordersContainer.innerHTML = `<div class="text-center py-10 text-slate-500 text-sm">No transaction orders recorded yet.</div>`;
+                    } else {
+                        ordersContainer.innerHTML = stats.recentSales.map(order => `
+                            <div class="p-3 bg-slate-800/40 border border-slate-700/50 rounded-xl flex justify-between items-center text-xs">
+                                <div>
+                                    <p class="font-bold text-white">${order.email}</p>
+                                    <p class="text-slate-400 mt-1">${order.itemsSummary}</p>
+                                    <p class="text-[10px] text-slate-500 mt-0.5">${order.timestamp}</p>
+                                </div>
+                                <div class="text-right shrink-0">
+                                    <span class="px-2.5 py-1 bg-emerald-500/20 text-emerald-300 border border-emerald-500/20 rounded-lg font-black">$${parseFloat(order.amount).toFixed(2)}</span>
+                                </div>
+                            </div>
+                        `).join('');
+                    }
+                }
+                
+                // SMTP Log
+                const emailsContainer = document.getElementById('adminEmailsContainer');
+                if (emailsContainer) {
+                    if (stats.emailLogs.length === 0) {
+                        emailsContainer.innerHTML = `<div class="text-center py-10 text-slate-500 text-sm">No outgoing emails dispatched yet.</div>`;
+                    } else {
+                        emailsContainer.innerHTML = stats.emailLogs.map(log => `
+                            <div class="p-3 bg-slate-800/40 border border-slate-700/50 rounded-xl flex justify-between items-center text-xs">
+                                <div>
+                                    <p class="font-bold text-white">${log.email}</p>
+                                    <p class="text-slate-400 mt-1">${log.subject}</p>
+                                    <p class="text-[10px] text-slate-500 mt-0.5">${log.timestamp} &bull; ${log.itemsCount} templates compiled</p>
+                                </div>
+                                <div class="text-right shrink-0">
+                                    <span class="px-2.5 py-1 bg-blue-500/20 text-blue-300 border border-blue-500/20 rounded-lg font-bold flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> ${log.status}</span>
+                                </div>
+                            </div>
+                        `).join('');
+                    }
+                }
+            } catch(e) {
+                console.error("Administrative fetch statistics failed:", e);
+            }
+        };
+
+        window.resetAdminStats = async function() {
+            if (!confirm("Are you absolutely sure you want to clear all store statistics, transactional databases, and email queues? This action is irreversible.")) return;
+            const pass = sessionStorage.getItem('adminPass');
+            try {
+                const res = await fetch('/api/admin/reset', { 
+                    method: 'POST',
+                    headers: {
+                        'X-Admin-Password': pass || ''
+                    }
+                });
+                if (res.status === 401) {
+                    alert("❌ Invalid Admin Password! Access Denied.");
+                    sessionStorage.removeItem('adminPass');
+                    window.showPage('home');
+                    return;
+                }
+                if (res.ok) {
+                    window.showToast("All stats reset to zero.", "success");
+                    window.fetchAdminStats();
+                }
+            } catch(e) {
+                console.error("Failed to reset statistics:", e);
+            }
+        };
 
         // Nav scroll glow
         window.addEventListener('scroll', () => {
