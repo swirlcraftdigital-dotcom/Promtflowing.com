@@ -1,8 +1,10 @@
 {
-  "views": 12,
+  "views": 19,
   "sales": 0,
   "revenue": 0,
   "emailLogs": [],
   "recentSales": [],
-  "productClicks": {}
+  "productClicks": {
+    "cat-426-gen-3": 1
+  }
 }

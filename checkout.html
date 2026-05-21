@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Payment | PromptFlow</title>
+    <meta name="robots" content="noindex, nofollow">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0f172a; }
+        .heading-font { font-family: 'Space Grotesk', sans-serif; }
+        .stripe-card { box-shadow: 0 50px 100px -20px rgba(50,50,93,0.25), 0 30px 60px -30px rgba(0,0,0,0.3); }
+        @keyframes spinner { to { transform: rotate(360deg); } }
+        .spin { animation: spinner 0.8s linear infinite; }
+        /* Stripe Payment Element dark theme overrides */
+        #stripe-element-mount {
+            min-height: 200px;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: { extend: { colors: { stripe: { blue: '#635bff', dark: '#0a2540', gray: '#a3acb9', light: '#f6f9fc' } } } }
+        }
+    </script>
+</head>
+<body class="min-h-screen text-slate-100 flex items-center justify-center p-4 md:p-8 bg-slate-950">
+
+    <!-- Ambient Background Blobs -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="absolute -top-[40%] -left-[20%] w-[80%] h-[80%] rounded-full bg-blue-600/10 blur-[120px]"></div>
+        <div class="absolute -bottom-[40%] -right-[20%] w-[80%] h-[80%] rounded-full bg-indigo-600/10 blur-[120px]"></div>
+    </div>
+
+    <!-- Main checkout container -->
+    <div class="relative z-10 w-full max-w-5xl bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row stripe-card">
+
+        <!-- LEFT PANEL: Brand Info & Order Summary -->
+        <div class="w-full md:w-5/12 bg-slate-950/70 p-6 md:p-10 border-b md:border-b-0 md:border-r border-slate-800 flex flex-col justify-between">
+            <div>
+                <!-- Brand logo and status -->
+                <div class="flex items-center justify-between mb-8">
+                    <a href="http://localhost:3000" class="flex items-center gap-2 group">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-all">
+                            <i class="fa-solid fa-bolt text-white text-lg"></i>
+                        </div>
+                        <span class="font-bold text-xl text-white tracking-tight heading-font">PromptFlow</span>
+                    </a>
+                    <span class="inline-flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
+                        <i class="fa-solid fa-shield-halved"></i> Secured by Stripe
+                    </span>
+                </div>
+
+                <div class="mb-4">
+                    <span class="text-xs font-bold text-slate-500 uppercase tracking-widest block mb-1">Paying Amount</span>
+                    <h1 id="orderTotal" class="text-4xl font-extrabold text-white heading-font">$0.00</h1>
+                </div>
+
+                <!-- Product items list -->
+                <div class="mt-8 space-y-4">
+                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest border-b border-slate-800 pb-2">Order items</h3>
+                    <div id="itemsContainer" class="space-y-4 max-h-[22rem] overflow-y-auto pr-1">
+                        <div class="flex items-center justify-center py-8 text-slate-500 text-sm">
+                            <i class="fa-solid fa-circle-notch spin text-blue-500 text-lg mr-2"></i> Loading items...
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer totals & seals -->
+            <div class="mt-8 pt-6 border-t border-slate-800 text-xs text-slate-500 flex flex-col gap-2">
+                <div class="flex justify-between items-center text-slate-400 font-medium">
+                    <span>Subtotal</span><span id="orderSubtotal">$0.00</span>
+                </div>
+                <div class="flex justify-between items-center text-slate-400 font-medium">
+                    <span>Platform Tax (0%)</span><span>$0.00</span>
+                </div>
+                <div class="flex justify-between items-center text-white font-bold text-sm mt-1 pt-2 border-t border-slate-800">
+                    <span>Total Due</span><span id="orderFinalTotal">$0.00</span>
+                </div>
+                <div class="flex items-center gap-1.5 mt-4 text-[10px] text-slate-500">
+                    <i class="fa-solid fa-lock text-emerald-500"></i>
+                    <span>Guaranteed 256-bit AES secure connection via Stripe.</span>
+                </div>
+                <div class="flex items-center gap-3 mt-2 text-slate-600">
+                    <i class="fa-brands fa-apple-pay text-2xl"></i>
+                    <i class="fa-brands fa-google-pay text-2xl"></i>
+                    <i class="fa-brands fa-cc-stripe text-2xl"></i>
+                    <i class="fa-brands fa-cc-visa text-xl"></i>
+                    <i class="fa-brands fa-cc-mastercard text-xl"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT PANEL: Stripe Payment Element -->
+        <div class="w-full md:w-7/12 p-6 md:p-10 flex flex-col justify-center bg-slate-900 relative">
+
+            <!-- LOADING STATE -->
+            <div id="loadingState" class="flex flex-col items-center justify-center py-16 gap-4">
+                <i class="fa-solid fa-circle-notch spin text-blue-500 text-3xl"></i>
+                <p class="text-sm text-slate-400">Preparing secure payment form…</p>
+            </div>
+
+            <!-- PAYMENT FORM (hidden until Stripe element is ready) -->
+            <div id="paymentForm" class="hidden">
+                <h2 class="text-2xl font-bold text-white heading-font mb-1">Complete Payment</h2>
+                <p class="text-xs text-slate-400 mb-6">Apple Pay, Google Pay, Link, and all major cards accepted.</p>
+
+                <!-- Stripe error box -->
+                <div id="errBox" class="hidden mb-4 bg-red-500/10 border border-red-500/25 text-red-400 p-4 rounded-xl text-sm flex items-start gap-3">
+                    <i class="fa-solid fa-circle-exclamation mt-0.5 shrink-0"></i>
+                    <span id="errText">An error occurred.</span>
+                </div>
+
+                <!-- Stripe Payment Element mounts here -->
+                <div id="stripe-element-mount" class="mb-6">
+                    <div id="payment-element"></div>
+                </div>
+
+                <!-- Pay button — disabled until element fires 'ready' -->
+                <button id="payBtn" disabled
+                    class="w-full py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold rounded-xl transition-all shadow-lg shadow-blue-500/10 flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-[0.99] cursor-pointer">
+                    <i id="payIcon" class="fa-solid fa-lock text-sm"></i>
+                    <span id="payLabel">Pay <span id="btnAmt">now</span></span>
+                </button>
+
+                <div class="text-center mt-4">
+                    <a href="http://localhost:3000" class="text-xs text-slate-500 hover:text-slate-400 transition-colors">
+                        ← Cancel and return to store
+                    </a>
+                </div>
+            </div>
+
+            <!-- SUCCESS OVERLAY -->
+            <div id="successOverlay" class="hidden absolute inset-0 bg-slate-900/95 backdrop-blur-sm rounded-3xl flex flex-col items-center justify-center p-8 text-center z-20">
+                <div class="w-20 h-20 bg-emerald-950 border border-emerald-800 rounded-full flex items-center justify-center text-emerald-400 text-4xl mb-6 shadow-lg shadow-emerald-500/10 animate-bounce">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <h3 class="text-3xl font-extrabold text-white heading-font mb-2">Payment Approved!</h3>
+                <p class="text-slate-400 text-sm max-w-sm mb-6 leading-relaxed">
+                    Your payment was confirmed. A receipt has been sent to your email. Redirecting to your Vault…
+                </p>
+                <div class="flex items-center gap-2 text-xs text-slate-500 font-semibold uppercase tracking-wider">
+                    <i class="fa-solid fa-circle-notch spin text-blue-500"></i> Unlocking your prompts
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+    'use strict';
+
+    // ── Parse URL params ──────────────────────────────────────────────────────
+    const urlParams = new URLSearchParams(location.search);
+    let cartItems = [];
+    let customerEmail = urlParams.get('email') || '';
+
+    try { cartItems = JSON.parse(decodeURIComponent(urlParams.get('cart') || '[]')); }
+    catch(e) { console.error('Cart parse error:', e); }
+
+    const unlockedIds = cartItems.map(i => i.id).join(',');
+
+    // ── Render order summary ──────────────────────────────────────────────────
+    function fmt(p) { return '$' + parseFloat(p || 0).toFixed(2); }
+
+    function renderItems() {
+        const container = document.getElementById('itemsContainer');
+        if (!cartItems.length) {
+            container.innerHTML = `<div class="text-slate-500 text-center py-8 text-sm">No items in checkout.</div>`;
+            return;
+        }
+        let subtotal = 0;
+        container.innerHTML = cartItems.map(item => {
+            const price = parseFloat(item.price) || 0;
+            subtotal += price;
+            return `
+                <div class="flex items-center justify-between p-3 bg-slate-900/50 border border-slate-800 rounded-xl">
+                    <div class="flex items-center gap-3 truncate mr-2">
+                        <div class="w-10 h-10 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-400 shrink-0 overflow-hidden">
+                            ${item.image
+                                ? `<img src="${item.image}" class="w-full h-full object-cover" alt="" onerror="this.parentElement.innerHTML='<i class=\\'fa-solid fa-unlock-keyhole text-sm\\'></i>'">`
+                                : `<i class="fa-solid fa-unlock-keyhole text-sm"></i>`}
+                        </div>
+                        <div class="truncate">
+                            <h4 class="text-sm font-bold text-white truncate">${item.title || 'AI Prompt'}</h4>
+                            <span class="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">${item.type || 'Prompt'}</span>
+                        </div>
+                    </div>
+                    <span class="text-sm font-black text-slate-300 shrink-0">${fmt(price)}</span>
+                </div>`;
+        }).join('');
+
+        const t = fmt(subtotal);
+        document.getElementById('orderTotal').textContent = t;
+        document.getElementById('orderSubtotal').textContent = t;
+        document.getElementById('orderFinalTotal').textContent = t;
+        document.getElementById('btnAmt').textContent = t;
+    }
+
+    renderItems();
+
+    // ── Helpers ───────────────────────────────────────────────────────────────
+    function showError(msg) {
+        const box = document.getElementById('errBox');
+        document.getElementById('errText').textContent = msg;
+        box.classList.remove('hidden');
+        box.classList.add('flex');
+    }
+
+    function clearError() {
+        const box = document.getElementById('errBox');
+        box.classList.add('hidden');
+        box.classList.remove('flex');
+    }
+
+    function showSuccess() {
+        document.getElementById('successOverlay').classList.remove('hidden');
+        const successUrl = `http://localhost:3000/?checkout_success=true&unlocked=${encodeURIComponent(unlockedIds)}&email=${encodeURIComponent(customerEmail)}`;
+        setTimeout(() => { window.location.href = successUrl; }, 3000);
+    }
+
+    // ── Stripe init ───────────────────────────────────────────────────────────
+    let stripe = null;
+    let elements = null;
+    let elementReady = false;
+
+    async function initPayment() {
+        try {
+            // 1. Fetch publishable key from our server (reads from .env)
+            const cfgRes = await fetch('http://localhost:3000/api/config');
+            if (!cfgRes.ok) throw new Error(`Config endpoint returned ${cfgRes.status}`);
+            const { publishableKey } = await cfgRes.json();
+            if (!publishableKey) throw new Error('Stripe publishable key not set in .env (STRIPE_PUBLISHABLE_KEY).');
+
+            stripe = Stripe(publishableKey);
+
+            // 2. Create PaymentIntent on our server
+            const piRes = await fetch('http://localhost:3000/api/create-payment-intent', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ items: cartItems, customerEmail })
+            });
+            if (!piRes.ok) {
+                const err = await piRes.json().catch(() => ({}));
+                throw new Error(err.error || `Server error ${piRes.status}`);
+            }
+            const { clientSecret } = await piRes.json();
+            if (!clientSecret) throw new Error('No client secret returned from server.');
+
+            // 3. Mount Stripe Payment Element (auto-shows Apple Pay, Google Pay, Link, Card)
+            elements = stripe.elements({
+                clientSecret,
+                appearance: {
+                    theme: 'night',
+                    variables: {
+                        colorPrimary: '#6366f1',
+                        colorBackground: '#0f172a',
+                        colorText: '#e2e8f0',
+                        colorDanger: '#f87171',
+                        fontFamily: '"Inter", system-ui, sans-serif',
+                        fontSizeBase: '14px',
+                        borderRadius: '12px',
+                    },
+                    rules: {
+                        '.Input': {
+                            backgroundColor: '#1e293b',
+                            border: '1px solid #334155',
+                            color: '#e2e8f0',
+                            padding: '12px 14px',
+                        },
+                        '.Input:focus': {
+                            border: '1px solid #6366f1',
+                            boxShadow: '0 0 0 3px rgba(99,102,241,0.2)',
+                        },
+                        '.Input::placeholder': { color: '#475569' },
+                        '.Label': {
+                            color: '#94a3b8',
+                            fontSize: '11px',
+                            fontWeight: '700',
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.1em',
+                        },
+                        '.Tab': { backgroundColor: '#1e293b', border: '1px solid #334155', color: '#94a3b8' },
+                        '.Tab:hover': { border: '1px solid #6366f1', color: '#e2e8f0' },
+                        '.Tab--selected': { border: '1px solid #6366f1', color: '#e2e8f0', backgroundColor: '#0f172a' },
+                        '.TabLabel--selected': { color: '#e2e8f0' },
+                        '.Block': { backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '12px' },
+                    }
+                }
+            });
+
+            const paymentEl = elements.create('payment', {
+                layout: { type: 'tabs', defaultCollapsed: false },
+                wallets: { applePay: 'auto', googlePay: 'auto' }
+            });
+
+            paymentEl.mount('#payment-element');
+
+            // Enable Pay button only when element is fully ready
+            paymentEl.on('ready', () => {
+                elementReady = true;
+                document.getElementById('loadingState').classList.add('hidden');
+                document.getElementById('paymentForm').classList.remove('hidden');
+                document.getElementById('payBtn').disabled = false;
+                console.log('Stripe Payment Element ready ✓');
+            });
+
+            paymentEl.on('loaderror', (ev) => {
+                console.error('Element load error:', ev);
+                document.getElementById('loadingState').innerHTML = `
+                    <div class="text-center text-red-400 py-8">
+                        <i class="fa-solid fa-triangle-exclamation text-3xl mb-3 block"></i>
+                        <div class="font-bold mb-1">Payment form failed to load</div>
+                        <div class="text-xs text-slate-500 max-w-xs mx-auto">${ev.error?.message || 'Unknown Stripe error'}</div>
+                        <a href="http://localhost:3000" class="inline-block mt-4 text-blue-400 text-sm hover:underline">← Return to store</a>
+                    </div>`;
+            });
+
+        } catch(err) {
+            console.error('initPayment error:', err);
+            document.getElementById('loadingState').innerHTML = `
+                <div class="text-center text-red-400 py-8">
+                    <i class="fa-solid fa-triangle-exclamation text-3xl mb-3 block"></i>
+                    <div class="font-bold mb-1">Could not start payment</div>
+                    <div class="text-xs text-slate-500 max-w-xs mx-auto">${err.message}</div>
+                    <a href="http://localhost:3000" class="inline-block mt-4 text-blue-400 text-sm hover:underline">← Return to store</a>
+                </div>`;
+        }
+    }
+
+    // ── Pay button ────────────────────────────────────────────────────────────
+    document.getElementById('payBtn').addEventListener('click', async () => {
+        if (!elementReady || !elements || !stripe) {
+            showError('Payment form not ready. Please wait a moment and try again.');
+            return;
+        }
+        clearError();
+
+        const btn = document.getElementById('payBtn');
+        const icon = document.getElementById('payIcon');
+        const label = document.getElementById('payLabel');
+        btn.disabled = true;
+        icon.className = 'fa-solid fa-circle-notch spin text-sm';
+        label.textContent = 'Authorizing…';
+
+        const successUrl = `http://localhost:3000/?checkout_success=true&unlocked=${encodeURIComponent(unlockedIds)}&email=${encodeURIComponent(customerEmail)}`;
+
+        try {
+            const { error } = await stripe.confirmPayment({
+                elements,
+                confirmParams: {
+                    return_url: successUrl,
+                    receipt_email: customerEmail || undefined,
+                },
+                redirect: 'if_required'
+            });
+
+            if (error) {
+                showError(error.message || 'Payment failed. Please check your details and try again.');
+                btn.disabled = false;
+                icon.className = 'fa-solid fa-lock text-sm';
+                label.innerHTML = 'Pay <span id="btnAmt">' + document.getElementById('orderFinalTotal').textContent + '</span>';
+            } else {
+                showSuccess();
+            }
+        } catch(err) {
+            showError('Unexpected error: ' + err.message);
+            btn.disabled = false;
+            icon.className = 'fa-solid fa-lock text-sm';
+            label.innerHTML = 'Pay <span id="btnAmt">' + document.getElementById('orderFinalTotal').textContent + '</span>';
+        }
+    });
+
+    // ── Handle Stripe redirect-back (Apple Pay / 3DS) ─────────────────────────
+    const piSecret = urlParams.get('payment_intent_client_secret');
+    const redirectStatus = urlParams.get('redirect_status');
+    if (piSecret && redirectStatus === 'succeeded') {
+        document.getElementById('loadingState').classList.add('hidden');
+        showSuccess();
+    } else {
+        initPayment();
+    }
+    </script>
+</body>
+</html>

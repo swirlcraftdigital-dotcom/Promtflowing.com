@@ -287,43 +287,38 @@ app.post('/api/trigger-simulated-receipt', async (req, res) => {
     }
 });
 
+// Expose only the publishable key to the frontend — never the secret key
+app.get('/api/config', (req, res) => {
+    res.json({ publishableKey: process.env.STRIPE_PUBLISHABLE_KEY || '' });
+});
+
+
 app.post('/api/create-checkout-session', async (req, res) => {
     try {
         const stripeKey = process.env.STRIPE_SECRET_KEY;
         const { items, customerEmail, successUrl, cancelUrl } = req.body;
 
+
         // If no key or placeholder/mock key is present, generate a simulated checkout experience
         if (!stripeKey || stripeKey === 'your_stripe_secret_key_here' || stripeKey.startsWith('mk_')) {
             const sessionId = `sim_session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-            
-            // Store items in memory DB so simulated webhook / receipt logic can look it up
             mockSessionDB[sessionId] = { email: customerEmail, items: items };
-
             const simulatedCheckoutUrl = `/checkout-simulation.html?session_id=${sessionId}&success_url=${encodeURIComponent(successUrl)}&cancel_url=${encodeURIComponent(cancelUrl)}`;
             return res.json({ id: sessionId, url: simulatedCheckoutUrl });
         }
         
         const stripe = require('stripe')(stripeKey);
-
         const lineItems = items.map(item => ({
             price_data: {
                 currency: 'usd',
-                product_data: {
-                    name: item.title,
-                    description: item.type,
-                },
+                product_data: { name: item.title, description: item.type },
                 unit_amount: Math.round(item.price * 100), 
             },
             quantity: 1,
         }));
 
-        // Prepare metadata with items for webhook (survives server restarts)
-        // Stripe metadata values have 500 char limit, so we trim prompt text
         const metadataItems = items.map(item => ({
-            id: item.id,
-            title: item.title,
-            type: item.type,
-            price: item.price,
+            id: item.id, title: item.title, type: item.type, price: item.price,
             previewPrompt: (item.previewPrompt || '').substring(0, 200)
         }));
         const metadataStr = JSON.stringify(metadataItems).substring(0, 500);
@@ -335,21 +330,68 @@ app.post('/api/create-checkout-session', async (req, res) => {
             customer_email: customerEmail || undefined,
             success_url: successUrl,
             cancel_url: cancelUrl,
-            metadata: {
-                items: metadataStr,
-                customerEmail: customerEmail || ''
-            }
+            metadata: { items: metadataStr, customerEmail: customerEmail || '' }
         });
 
-        // Store items in memory so the webhook can retrieve them
         mockSessionDB[session.id] = { email: customerEmail, items: items };
-
         res.json({ id: session.id, url: session.url });
     } catch (error) {
         console.error('Stripe error:', error);
         res.status(500).json({ error: error.message });
     }
 });
+
+// Custom checkout: creates a PaymentIntent powering the Stripe Payment Element
+// Supports Apple Pay, Google Pay, Stripe Link, and all card types
+app.post('/api/create-payment-intent', async (req, res) => {
+    try {
+        const stripeKey = process.env.STRIPE_SECRET_KEY;
+        const { items, customerEmail } = req.body;
+
+        if (!stripeKey || stripeKey.startsWith('mk_')) {
+            return res.status(400).json({ error: 'Live Stripe key required for Payment Element.' });
+        }
+
+        const stripe = require('stripe')(stripeKey);
+
+        const totalAmount = items.reduce((sum, item) => sum + Math.round(parseFloat(item.price) * 100), 0);
+
+        if (totalAmount < 50) {
+            return res.status(400).json({ error: 'Order total must be at least $0.50.' });
+        }
+
+        const metadataItems = items.map(item => ({
+            id: item.id, title: item.title, type: item.type, price: item.price,
+            previewPrompt: (item.previewPrompt || '').substring(0, 150)
+        }));
+        const metadataStr = JSON.stringify(metadataItems).substring(0, 500);
+
+        const paymentIntent = await stripe.paymentIntents.create({
+            amount: totalAmount,
+            currency: 'usd',
+            receipt_email: customerEmail || undefined,
+            automatic_payment_methods: { enabled: true },
+            metadata: {
+                items: metadataStr,
+                customerEmail: customerEmail || '',
+            }
+        });
+
+        // Store items keyed by payment intent ID for webhook lookup
+        mockSessionDB[paymentIntent.id] = { email: customerEmail, items: items };
+
+        res.json({
+            clientSecret: paymentIntent.client_secret,
+            paymentIntentId: paymentIntent.id,
+            totalAmount: totalAmount
+        });
+    } catch (error) {
+        console.error('PaymentIntent error:', error);
+        res.status(500).json({ error: error.message });
+    }
+});
+
+
 
 app.get('/api/get-session-items/:id', (req, res) => {
     const session = mockSessionDB[req.params.id];

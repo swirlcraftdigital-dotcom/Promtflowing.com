@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Payment | Stripe Gateway</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+        }
+        .heading-font {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .stripe-card {
+            box-shadow: 0 50px 100px -20px rgba(50,50,93,0.25), 0 30px 60px -30px rgba(0,0,0,0.3);
+        }
+        @keyframes spinner {
+            to { transform: rotate(360deg); }
+        }
+        .spin {
+            animation: spinner 0.8s linear infinite;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        stripe: {
+                            blue: '#635bff',
+                            dark: '#0a2540',
+                            gray: '#a3acb9',
+                            light: '#f6f9fc'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="min-h-screen text-slate-100 flex items-center justify-center p-4 md:p-8 bg-slate-950">
+    
+    <!-- Ambient Background Blobs -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="absolute -top-[40%] -left-[20%] w-[80%] h-[80%] rounded-full bg-blue-600/10 blur-[120px]"></div>
+        <div class="absolute -bottom-[40%] -right-[20%] w-[80%] h-[80%] rounded-full bg-indigo-600/10 blur-[120px]"></div>
+    </div>
+
+    <!-- main checkout container -->
+    <div class="relative z-10 w-full max-w-5xl bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row stripe-card">
+        
+        <!-- LEFT PANEL: Brand Info & Order Summary -->
+        <div class="w-full md:w-5/12 bg-slate-950/70 p-6 md:p-10 border-b md:border-b-0 md:border-r border-slate-800 flex flex-col justify-between">
+            <div>
+                <!-- Brand logo and status -->
+                <div class="flex items-center justify-between mb-8">
+                    <a href="/" class="flex items-center gap-2 group">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-all">
+                            <i class="fa-solid fa-bolt text-white text-lg"></i>
+                        </div>
+                        <span class="font-bold text-xl text-white tracking-tight heading-font">PromptFlow</span>
+                    </a>
+                    <span class="inline-flex items-center gap-1.5 bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
+                        <i class="fa-solid fa-shield-halved"></i> Simulated Gateway
+                    </span>
+                </div>
+
+                <div class="mb-4">
+                    <span class="text-xs font-bold text-slate-500 uppercase tracking-widest block mb-1">Paying Amount</span>
+                    <h1 id="orderTotal" class="text-4xl font-extrabold text-white heading-font">$0.00</h1>
+                </div>
+
+                <!-- Product items list container -->
+                <div class="mt-8 space-y-4">
+                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest border-b border-slate-850 pb-2">Order items</h3>
+                    <div id="itemsContainer" class="space-y-4 max-h-[22rem] overflow-y-auto pr-1">
+                        <!-- Items rendered dynamically -->
+                        <div class="flex items-center justify-center py-8 text-slate-500 text-sm">
+                            <i class="fa-solid fa-circle-notch spin text-blue-500 text-lg mr-2"></i> Loading items...
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer metrics and seals -->
+            <div class="mt-8 pt-6 border-t border-slate-850 text-xs text-slate-500 flex flex-col gap-2">
+                <div class="flex justify-between items-center text-slate-400 font-medium">
+                    <span>Subtotal</span>
+                    <span id="orderSubtotal">$0.00</span>
+                </div>
+                <div class="flex justify-between items-center text-slate-400 font-medium">
+                    <span>Platform Tax (0%)</span>
+                    <span>$0.00</span>
+                </div>
+                <div class="flex justify-between items-center text-white font-bold text-sm mt-1 pt-2 border-t border-slate-850">
+                    <span>Total Due</span>
+                    <span id="orderFinalTotal">$0.00</span>
+                </div>
+                <div class="flex items-center gap-1.5 mt-4 text-[10px] text-slate-500">
+                    <i class="fa-solid fa-lock text-emerald-500"></i>
+                    <span>Guaranteed 256-bit AES secure connection via Stripe interface.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT PANEL: Credit Card Payment Form -->
+        <div class="w-full md:w-7/12 p-6 md:p-10 flex flex-col justify-center bg-slate-900">
+            <h2 class="text-2xl font-bold text-white heading-font mb-2">Pay with Card</h2>
+            <p class="text-xs text-slate-400 mb-6">Enter details to complete your secure simulated transaction.</p>
+
+            <form id="paymentForm" onsubmit="handlePayment(event)" class="space-y-5">
+                
+                <!-- Email Input -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5">Email Address</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-500"><i class="fa-regular fa-envelope"></i></span>
+                        <input type="email" id="emailInput" required class="w-full pl-10 pr-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm placeholder-slate-700 transition-all" placeholder="customer@example.com">
+                    </div>
+                </div>
+
+                <!-- Card Info Input Group -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5">Card Details</label>
+                    <div class="bg-slate-950 border border-slate-800 rounded-xl overflow-hidden divide-y divide-slate-850">
+                        <!-- Card number field -->
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-500"><i class="fa-regular fa-credit-card"></i></span>
+                            <input type="text" id="cardNumberInput" required class="w-full pl-10 pr-12 py-3 bg-transparent text-slate-200 focus:outline-none text-sm placeholder-slate-700 font-mono transition-all" placeholder="4242 4242 4242 4242">
+                            <span class="absolute inset-y-0 right-3 flex items-center text-indigo-400"><i class="fa-brands fa-cc-stripe text-xl"></i></span>
+                        </div>
+                        
+                        <!-- Expiration and CVC/ZIP -->
+                        <div class="grid grid-cols-3 divide-x divide-slate-850">
+                            <input type="text" id="cardExpiryInput" required class="w-full px-4 py-3 bg-transparent text-slate-200 focus:outline-none text-sm placeholder-slate-700 font-mono transition-all" placeholder="MM / YY">
+                            <input type="text" id="cardCvcInput" required class="w-full px-4 py-3 bg-transparent text-slate-200 focus:outline-none text-sm placeholder-slate-700 font-mono transition-all" placeholder="CVC">
+                            <input type="text" id="cardZipInput" required class="w-full px-4 py-3 bg-transparent text-slate-200 focus:outline-none text-sm placeholder-slate-700 transition-all" placeholder="ZIP / Post">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Name on Card -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5">Cardholder Name</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-500"><i class="fa-regular fa-user"></i></span>
+                        <input type="text" id="nameInput" required class="w-full pl-10 pr-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm placeholder-slate-700 transition-all" placeholder="John Doe">
+                    </div>
+                </div>
+
+                <!-- Sandbox Hint -->
+                <div class="bg-blue-500/10 border border-blue-500/20 text-blue-400 p-4 rounded-xl text-xs flex gap-3 leading-relaxed">
+                    <i class="fa-solid fa-info-circle text-base shrink-0 mt-0.5"></i>
+                    <div>
+                        <span class="font-bold text-white block mb-0.5">Simulated Payment Sandboxed</span>
+                        This is a simulated secure window because you are using a mock Stripe API key. Feel free to use test numbers (e.g. card `4242...`) to fully test checkout, statistics logging, and Brevo SMTP email receipts.
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" id="submitBtn" class="w-full py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold rounded-xl transition-all shadow-lg shadow-blue-500/10 flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-[0.99] cursor-pointer">
+                    <i class="fa-solid fa-lock text-sm"></i>
+                    <span id="submitBtnText">Pay Now</span>
+                </button>
+
+                <div class="text-center">
+                    <a href="#" id="cancelLink" class="text-xs text-slate-500 hover:text-slate-400 transition-colors">Cancel and return to store</a>
+                </div>
+
+            </form>
+
+            <!-- Success State Loader overlays -->
+            <div id="paymentSuccessOverlay" class="hidden absolute inset-0 bg-slate-900/95 backdrop-blur-sm rounded-3xl flex flex-col items-center justify-center p-8 text-center transition-all z-20">
+                <div class="w-20 h-20 bg-emerald-950 border border-emerald-800 rounded-full flex items-center justify-center text-emerald-400 text-4xl mb-6 shadow-lg shadow-emerald-500/10 animate-bounce">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <h3 class="text-3xl font-extrabold text-white heading-font mb-2">Simulated Payment Approved!</h3>
+                <p class="text-slate-400 text-sm max-w-sm mb-6 leading-relaxed">Your secure simulated session completed successfully. Sending receipt email and redirecting to the Vault...</p>
+                <div class="flex items-center gap-2 text-xs text-slate-500 font-semibold uppercase tracking-wider">
+                    <i class="fa-solid fa-circle-notch spin text-blue-500"></i> Dispatching confirmation receipts
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        // Extract URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const sessionId = urlParams.get('session_id');
+        const successUrl = urlParams.get('success_url') || '/';
+        const cancelUrl = urlParams.get('cancel_url') || '/';
+
+        let cartItems = [];
+
+        // Configure cancel redirect anchor link
+        document.getElementById('cancelLink').href = cancelUrl;
+
+        // Fetch session data immediately
+        async function fetchSessionData() {
+            if (!sessionId) {
+                alert("Critical error: Session ID missing.");
+                window.location.href = cancelUrl;
+                return;
+            }
+
+            try {
+                const res = await fetch(`/api/get-session-items/${sessionId}`);
+                if (!res.ok) throw new Error("Session retrieval failed.");
+                const data = await res.json();
+                
+                cartItems = data.items || [];
+                const savedEmail = data.email || '';
+                if (savedEmail) {
+                    document.getElementById('emailInput').value = savedEmail;
+                }
+
+                renderItems();
+            } catch (err) {
+                console.error("Session fetch failed:", err);
+                alert("Stripe Session has expired or is invalid. Returning to checkout.");
+                window.location.href = cancelUrl;
+            }
+        }
+
+        function renderItems() {
+            const container = document.getElementById('itemsContainer');
+            if (!container) return;
+
+            if (cartItems.length === 0) {
+                container.innerHTML = `<div class="text-slate-500 text-center py-8">No items in checkout.</div>`;
+                return;
+            }
+
+            let subtotal = 0;
+            container.innerHTML = cartItems.map(item => {
+                const price = parseFloat(item.price) || 0;
+                subtotal += price;
+                return `
+                    <div class="flex items-center justify-between p-3 bg-slate-900/50 border border-slate-850 rounded-xl">
+                        <div class="flex items-center gap-3 truncate mr-2">
+                            <div class="w-10 h-10 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-400 shrink-0">
+                                <i class="fa-solid fa-unlock-keyhole text-sm"></i>
+                            </div>
+                            <div class="truncate">
+                                <h4 class="text-sm font-bold text-white truncate">${item.title}</h4>
+                                <span class="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">${item.type}</span>
+                            </div>
+                        </div>
+                        <span class="text-sm font-black text-slate-300 shrink-0">$${price.toFixed(2)}</span>
+                    </div>
+                `;
+            }).join('');
+
+            // Update footer summary totals
+            document.getElementById('orderTotal').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('orderSubtotal').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('orderFinalTotal').textContent = `$${subtotal.toFixed(2)}`;
+        }
+
+        async function handlePayment(e) {
+            e.preventDefault();
+
+            const email = document.getElementById('emailInput').value.trim();
+            const submitBtn = document.getElementById('submitBtn');
+            const submitText = document.getElementById('submitBtnText');
+
+            if (!email) {
+                alert("Please specify a valid email address.");
+                return;
+            }
+
+            // Lock and trigger premium loading spinner
+            submitBtn.disabled = true;
+            submitText.innerHTML = `<i class="fa-solid fa-circle-notch spin mr-2"></i> Authorizing payment...`;
+
+            setTimeout(async () => {
+                try {
+                    // 1. Process simulated sale metrics and trigger real Brevo email receipt from the backend
+                    const receiptRes = await fetch('/api/trigger-simulated-receipt', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            email: email,
+                            items: cartItems
+                        })
+                    });
+
+                    if (!receiptRes.ok) {
+                        console.warn("Could not dispatch real Brevo receipt email automatically.");
+                    }
+
+                    // 2. Display success animated modal screen overlay
+                    document.getElementById('paymentSuccessOverlay').classList.remove('hidden');
+
+                    // 3. Compile checkout redirect token parameter array
+                    const itemIds = cartItems.map(item => item.id).join(',');
+                    
+                    // Redirect back to our main store SUCCESS landing page
+                    setTimeout(() => {
+                        const finalRedirectUrl = new URL(successUrl, window.location.origin);
+                        finalRedirectUrl.searchParams.set('checkout_success', 'true');
+                        finalRedirectUrl.searchParams.set('unlocked', itemIds);
+                        window.location.href = finalRedirectUrl.toString();
+                    }, 2500);
+
+                } catch (error) {
+                    console.error("Simulated checkout operation failure:", error);
+                    submitBtn.disabled = false;
+                    submitText.innerText = "Pay Now";
+                    alert("A network timeout occurred during credit card authorization. Please try again.");
+                }
+            }, 1800);
+        }
+
+        // Initialize session on load
+        fetchSessionData();
+    </script>
+</body>
+</html>
