@@ -13,7 +13,7 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res)
     const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
     let event;
-    const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+    const stripe = require('stripe')((process.env.STRIPE_SECRET_KEY || '').trim());
 
     try {
         if (endpointSecret) {
@@ -352,7 +352,7 @@ function isStripeKeyError(error) {
 
 app.post('/api/create-checkout-session', async (req, res) => {
     try {
-        const stripeKey = process.env.STRIPE_SECRET_KEY;
+        const stripeKey = (process.env.STRIPE_SECRET_KEY || '').trim();
         const { items, customerEmail, successUrl, cancelUrl } = req.body;
 
 
@@ -407,7 +407,7 @@ app.post('/api/create-checkout-session', async (req, res) => {
 
 app.post('/api/create-payment-intent', async (req, res) => {
     try {
-        const stripeKey = process.env.STRIPE_SECRET_KEY;
+        const stripeKey = (process.env.STRIPE_SECRET_KEY || '').trim();
         const { items, customerEmail } = req.body;
 
         if (!stripeKey || stripeKey.startsWith('mk_')) {
@@ -464,7 +464,7 @@ app.post('/api/create-payment-intent', async (req, res) => {
                 url: simulatedCheckoutUrl
             });
         }
-        console.error('PaymentIntent error:', error);
+        console.error('PaymentIntent detailed failure error:', error);
         res.status(500).json({ error: error.message });
     }
 });
