@@ -448,7 +448,10 @@
     // ── Handle Stripe redirect-back (Apple Pay / 3DS) ─────────────────────────
     const piSecret = urlParams.get('payment_intent_client_secret');
     const redirectStatus = urlParams.get('redirect_status');
-    const activeMode = localStorage.getItem('promptflow_checkout_mode') || 'live';
+    let activeMode = localStorage.getItem('promptflow_checkout_mode') || 'live';
+    if (window.location.hostname === 'promptflowing.com' || window.location.hostname === 'www.promptflowing.com') {
+        activeMode = 'live';
+    }
 
     if (activeMode === 'simulated') {
         window.triggerSandboxCheckoutFallback();

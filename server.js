@@ -47,8 +47,10 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res)
         const customerEmail = session.customer_details?.email || session.customer_email || purchasedItems.email || null;
 
         if (customerEmail && customerEmail !== 'customer@example.com') {
-            console.log(`Payment successful for session ${session.id}. Sending receipt to ${customerEmail}...`);
-            await sendReceiptEmail(customerEmail, purchasedItems.items || []);
+            console.log(`Payment successful for session ${session.id}. Dispatching receipt to ${customerEmail} in background...`);
+            sendReceiptEmail(customerEmail, purchasedItems.items || []).catch(err => {
+                console.error("Error sending background receipt email:", err);
+            });
         } else {
             console.log(`Payment successful for session ${session.id}. No customer email available — skipping receipt.`);
         }
