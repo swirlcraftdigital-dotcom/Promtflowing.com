@@ -19,8 +19,8 @@
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
 
-    <!-- Stripe SDK — loaded first so it's ready when initPayment() runs -->
-    <script src="https://js.stripe.com/v3/" async></script>
+    <!-- Stripe SDK — loaded first synchronously to prevent race conditions or deferred loading lag -->
+    <script src="https://js.stripe.com/v3/"></script>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -126,12 +126,14 @@
 
                 <!-- Stripe Payment Element mounts here -->
                 <div id="stripe-element-mount" class="mb-6 min-h-[200px] flex flex-col justify-center relative">
-                    <div id="payment-element">
-                        <div class="flex flex-col items-center justify-center py-12 gap-3 text-slate-400">
-                            <i class="fa-solid fa-circle-notch spin text-indigo-500 text-3xl"></i>
-                            <span class="text-[10px] font-bold tracking-widest uppercase text-slate-500">Loading secure gateways...</span>
-                        </div>
+                    <!-- SIBLING LOADER (hidden when elements are ready) -->
+                    <div id="paymentLoader" class="flex flex-col items-center justify-center py-12 gap-3 text-slate-400">
+                        <i class="fa-solid fa-circle-notch spin text-indigo-500 text-3xl"></i>
+                        <span class="text-[10px] font-bold tracking-widest uppercase text-slate-500">Loading secure gateways...</span>
                     </div>
+
+                    <!-- Clean mount container -->
+                    <div id="payment-element"></div>
                 </div>
 
                 <!-- Pay button — starts in initializing state and enables when ready -->
@@ -344,6 +346,11 @@
             // Enable Pay button only when element is fully ready
             paymentEl.on('ready', () => {
                 elementReady = true;
+                
+                // Hide the spinning loader immediately
+                const loader = document.getElementById('paymentLoader');
+                if (loader) loader.classList.add('hidden');
+
                 const payBtn = document.getElementById('payBtn');
                 payBtn.disabled = false;
                 
