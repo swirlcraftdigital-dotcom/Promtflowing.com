@@ -380,26 +380,26 @@
 
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="#" onclick="showPage('home', event)" class="nav-link text-gray-300 hover:text-white transition-colors font-medium">Home</a>
-                    <a href="#" onclick="showPopularPage(event)" class="nav-link text-gray-300 hover:text-white transition-colors font-medium">Popular</a>
+                    <a href="/" onclick="showPage('home', event)" class="nav-link text-gray-300 hover:text-white transition-colors font-medium">Home</a>
+                    <a href="/popular" onclick="showPopularPage(event)" class="nav-link text-gray-300 hover:text-white transition-colors font-medium">Popular</a>
                     <div class="relative group h-full flex items-center">
-                        <a href="#" onclick="showPage('categories', event)" class="nav-link text-gray-300 hover:text-white transition-colors font-medium flex items-center gap-1 h-full py-4">Categories <i class="fa-solid fa-chevron-down text-[10px]"></i></a>
+                        <a href="/categories" onclick="showPage('categories', event)" class="nav-link text-gray-300 hover:text-white transition-colors font-medium flex items-center gap-1 h-full py-4">Categories <i class="fa-solid fa-chevron-down text-[10px]"></i></a>
                         <!-- Dropdown Menu -->
                         <div class="absolute left-0 top-full w-[600px] max-h-[70vh] overflow-y-auto bg-white rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 border border-slate-100 transform origin-top -translate-y-2 group-hover:translate-y-0 z-[100]">
                             <div class="p-4 grid grid-cols-2 gap-2" id="navCategoryDropdown">
                                 <!-- Populated via JS -->
                             </div>
                             <div class="p-3 border-t border-slate-50 bg-slate-50 rounded-b-xl">
-                                <a href="#" onclick="showPage('categories', event)" class="block px-4 py-2 text-sm font-bold text-blue-600 hover:bg-white rounded-lg text-center transition-colors shadow-sm border border-slate-200">View All 700 Categories</a>
+                                <a href="/categories" onclick="showPage('categories', event)" class="block px-4 py-2 text-sm font-bold text-blue-600 hover:bg-white rounded-lg text-center transition-colors shadow-sm border border-slate-200">View All 700 Categories</a>
                             </div>
                         </div>
                     </div>
-                    <a href="#" onclick="showPage('onedollar', event)" class="nav-link text-yellow-400 hover:text-yellow-300 transition-colors font-bold flex items-center gap-1.5"><i class="fa-solid fa-bolt"></i> $1 Prompts</a>
-                    <a href="#" onclick="showPage('video', event)" class="nav-link text-fuchsia-400 hover:text-fuchsia-300 transition-colors font-bold flex items-center gap-1.5"><i class="fa-solid fa-video"></i> $2 Video Prompts</a>
-                    <a href="#" onclick="showPage('free', event)" class="nav-link text-gray-300 hover:text-white transition-colors font-medium">Free Prompts</a>
-                    <a href="#" onclick="showPage('playgrounds', event)" class="nav-link text-cyan-400 hover:text-cyan-300 font-bold transition-colors flex items-center gap-1.5"><i class="fa-solid fa-wand-magic-sparkles"></i> Instant Demos</a>
-                    <a href="#" onclick="showPage('vault', event)" class="nav-link text-gray-300 hover:text-white transition-colors font-medium flex items-center gap-1">My Vault <span id="vaultBadgeCount" class="hidden bg-blue-500 text-white text-[10px] px-1.5 py-0.5 rounded-full font-bold">0</span></a>
-                    <a href="#" onclick="showPage('creators', event)" class="nav-link text-emerald-400 hover:text-emerald-300 transition-colors font-bold flex items-center gap-1.5"><i class="fa-solid fa-store"></i> Sell Prompts</a>
+                    <a href="/onedollar" onclick="showPage('onedollar', event)" class="nav-link text-yellow-400 hover:text-yellow-300 transition-colors font-bold flex items-center gap-1.5"><i class="fa-solid fa-bolt"></i> $1 Prompts</a>
+                    <a href="/video" onclick="showPage('video', event)" class="nav-link text-fuchsia-400 hover:text-fuchsia-300 transition-colors font-bold flex items-center gap-1.5"><i class="fa-solid fa-video"></i> $2 Video Prompts</a>
+                    <a href="/free" onclick="showPage('free', event)" class="nav-link text-gray-300 hover:text-white transition-colors font-medium">Free Prompts</a>
+                    <a href="/playgrounds" onclick="showPage('playgrounds', event)" class="nav-link text-cyan-400 hover:text-cyan-300 font-bold transition-colors flex items-center gap-1.5"><i class="fa-solid fa-wand-magic-sparkles"></i> Instant Demos</a>
+                    <a href="/vault" onclick="showPage('vault', event)" class="nav-link text-gray-300 hover:text-white transition-colors font-medium flex items-center gap-1">My Vault <span id="vaultBadgeCount" class="hidden bg-blue-500 text-white text-[10px] px-1.5 py-0.5 rounded-full font-bold">0</span></a>
+                    <a href="/creators" onclick="showPage('creators', event)" class="nav-link text-emerald-400 hover:text-emerald-300 transition-colors font-bold flex items-center gap-1.5"><i class="fa-solid fa-store"></i> Sell Prompts</a>
                     
                     <button onclick="toggleCart()" class="nav-link relative p-2 text-gray-300 hover:text-white transition-colors">
                         <i class="fa-solid fa-shopping-cart text-xl"></i>
@@ -430,14 +430,14 @@
         <!-- Mobile Menu Dropdown -->
         <div id="mobileMenu" class="hidden md:hidden bg-slate-900 border-t border-slate-800 shadow-2xl">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="#" onclick="showPage('home', event)" class="block px-3 py-2 text-gray-300 hover:text-white hover:bg-slate-800 rounded-md">Home</a>
-                <a href="#" onclick="showPopularPage(event)" class="block px-3 py-2 text-gray-300 hover:text-white hover:bg-slate-800 rounded-md">Popular</a>
-                <a href="#" onclick="showPage('categories', event)" class="block px-3 py-2 text-gray-300 hover:text-white hover:bg-slate-800 rounded-md">Categories</a>
-                <a href="#" onclick="showPage('onedollar', event)" class="block px-3 py-2 text-yellow-400 hover:text-yellow-300 hover:bg-slate-800 rounded-md font-bold"><i class="fa-solid fa-bolt"></i> $1 Prompts</a>
-                <a href="#" onclick="showPage('video', event)" class="block px-3 py-2 text-fuchsia-400 hover:text-fuchsia-300 hover:bg-slate-800 rounded-md font-bold"><i class="fa-solid fa-video"></i> $2 Video Prompts</a>
-                <a href="#" onclick="showPage('free', event)" class="block px-3 py-2 text-gray-300 hover:text-white hover:bg-slate-800 rounded-md">Free Prompts</a>
-                <a href="#" onclick="showPage('playgrounds', event)" class="block px-3 py-2 text-cyan-400 hover:text-cyan-300 hover:bg-slate-800 rounded-md font-bold"><i class="fa-solid fa-wand-magic-sparkles"></i> Instant Demos</a>
-                <a href="#" onclick="showPage('vault', event)" class="block px-3 py-2 text-gray-300 hover:text-white hover:bg-slate-800 rounded-md">My Vault</a>
+                <a href="/" onclick="showPage('home', event)" class="block px-3 py-2 text-gray-300 hover:text-white hover:bg-slate-800 rounded-md">Home</a>
+                <a href="/popular" onclick="showPopularPage(event)" class="block px-3 py-2 text-gray-300 hover:text-white hover:bg-slate-800 rounded-md">Popular</a>
+                <a href="/categories" onclick="showPage('categories', event)" class="block px-3 py-2 text-gray-300 hover:text-white hover:bg-slate-800 rounded-md">Categories</a>
+                <a href="/onedollar" onclick="showPage('onedollar', event)" class="block px-3 py-2 text-yellow-400 hover:text-yellow-300 hover:bg-slate-800 rounded-md font-bold"><i class="fa-solid fa-bolt"></i> $1 Prompts</a>
+                <a href="/video" onclick="showPage('video', event)" class="block px-3 py-2 text-fuchsia-400 hover:text-fuchsia-300 hover:bg-slate-800 rounded-md font-bold"><i class="fa-solid fa-video"></i> $2 Video Prompts</a>
+                <a href="/free" onclick="showPage('free', event)" class="block px-3 py-2 text-gray-300 hover:text-white hover:bg-slate-800 rounded-md">Free Prompts</a>
+                <a href="/playgrounds" onclick="showPage('playgrounds', event)" class="block px-3 py-2 text-cyan-400 hover:text-cyan-300 hover:bg-slate-800 rounded-md font-bold"><i class="fa-solid fa-wand-magic-sparkles"></i> Instant Demos</a>
+                <a href="/vault" onclick="showPage('vault', event)" class="block px-3 py-2 text-gray-300 hover:text-white hover:bg-slate-800 rounded-md">My Vault</a>
                 <div id="mobileAuthNavContainer" class="pt-4 border-t border-slate-800 px-3 mt-2">
                     <button onclick="openAuthModal()" class="w-full text-center bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md font-medium transition-colors">Sign In</button>
                 </div>
@@ -1584,11 +1584,11 @@
                 <div>
                     <h3 class="text-white font-semibold mb-4">Company</h3>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="#" onclick="showPage('about', event)" class="hover:text-blue-400 transition-colors">About Us</a></li>
-                        <li><a href="#" onclick="showPage('contact', event)" class="hover:text-blue-400 transition-colors">Contact</a></li>
-                        <li><a href="#" onclick="showPage('privacy', event)" class="hover:text-blue-400 transition-colors">Privacy Policy</a></li>
-                        <li><a href="#" onclick="showPage('terms', event)" class="hover:text-blue-400 transition-colors">Terms of Service</a></li>
-                        <li><a href="#" onclick="showPage('refund', event)" class="hover:text-blue-400 transition-colors">Refund Policy</a></li>
+                        <li><a href="/about" onclick="showPage('about', event)" class="hover:text-blue-400 transition-colors">About Us</a></li>
+                        <li><a href="/contact" onclick="showPage('contact', event)" class="hover:text-blue-400 transition-colors">Contact</a></li>
+                        <li><a href="/privacy" onclick="showPage('privacy', event)" class="hover:text-blue-400 transition-colors">Privacy Policy</a></li>
+                        <li><a href="/terms" onclick="showPage('terms', event)" class="hover:text-blue-400 transition-colors">Terms of Service</a></li>
+                        <li><a href="/refund" onclick="showPage('refund', event)" class="hover:text-blue-400 transition-colors">Refund Policy</a></li>
                     </ul>
                 </div>
 
@@ -1607,7 +1607,7 @@
             <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm">
                 <div>
                     <p>&copy; 2026 PromptFlow. All rights reserved.</p>
-                    <p class="mt-2 text-xs">Crafted By <a href="https://swirlcraftdigital.com" target="_blank" class="text-blue-400 hover:text-blue-300 transition-colors font-semibold">SwirlCraft</a> &bull; <a href="#" onclick="showPage('admin', event)" class="text-slate-500 hover:text-slate-200 transition-colors font-medium"><i class="fa-solid fa-lock"></i> Store Admin Portal</a></p>
+                    <p class="mt-2 text-xs">Crafted By <a href="https://swirlcraftdigital.com" target="_blank" class="text-blue-400 hover:text-blue-300 transition-colors font-semibold">SwirlCraft</a> &bull; <a href="/admin" onclick="showPage('admin', event)" class="text-slate-500 hover:text-slate-200 transition-colors font-medium"><i class="fa-solid fa-lock"></i> Store Admin Portal</a></p>
                 </div>
                 <div class="mt-6 md:mt-0 flex flex-col md:items-end">
                     <span class="text-xs mb-2 text-slate-500 font-semibold tracking-wider uppercase">100% Secure Checkout</span>
@@ -2235,9 +2235,98 @@
             if (menu) menu.classList.toggle('hidden');
         };
 
+        // --- CLIENT-SIDE SEO ROUTER (SPA HISTORY API) ---
+        const pageSeoData = {
+            'home': {
+                title: 'PromptFlow | Premium AI Prompts Marketplace (ChatGPT, Midjourney & Sora)',
+                desc: 'Unlock over 32 million high-fidelity, expertly engineered AI prompt templates for ChatGPT, Midjourney, Claude, Gemini, and Sora. Optimize copywriting, SEO, web design, vector art, health, and business automation.',
+                canonical: 'https://www.promptflowing.com/'
+            },
+            'popular': {
+                title: 'Popular & Trending AI Prompts | PromptFlow',
+                desc: 'Discover our most popular, high-converting prompt collections for Midjourney, ChatGPT, Sora, and more, as voted by our community.',
+                canonical: 'https://www.promptflowing.com/popular'
+            },
+            'categories': {
+                title: 'Browse 22,000+ Specialized AI Prompt Categories | PromptFlow',
+                desc: 'Search through our massive index of 22,000+ niche-focused categories designed to supercharge your design, copy, development, and marketing workflows.',
+                canonical: 'https://www.promptflowing.com/categories'
+            },
+            'onedollar': {
+                title: 'Premium AI Prompts for Just $1 | PromptFlow Dollar Store',
+                desc: 'Unlock premium AI prompt templates for Midjourney and ChatGPT for just $1.00 each. Get individual prompt packs with no bulk bundles required.',
+                canonical: 'https://www.promptflowing.com/onedollar'
+            },
+            'video': {
+                title: 'Cinematic AI Video Prompts for Sora & Runway | PromptFlow',
+                desc: 'Master AI video engines like OpenAI Sora, Runway Gen-2, and Pika. Access hyper-realistic premium video prompt templates for just $2.00.',
+                canonical: 'https://www.promptflowing.com/video'
+            },
+            'free': {
+                title: '100% Free Premium AI Prompts Library | PromptFlow',
+                desc: 'Download completely free prompt packs for ChatGPT, Midjourney, and Claude. Start generating professional text and images with zero cost.',
+                canonical: 'https://www.promptflowing.com/free'
+            },
+            'playgrounds': {
+                title: 'Instant AI Prompt Demos & Playgrounds | PromptFlow',
+                desc: 'Test and interact with premium AI prompts inside our instant playgrounds. See prompts in action and experience their high-fidelity outputs.',
+                canonical: 'https://www.promptflowing.com/playgrounds'
+            },
+            'vault': {
+                title: 'My Private Prompt Vault | PromptFlow',
+                desc: 'Access, manage, and copy all of your purchased and unlocked premium prompt templates in your secure private vault.',
+                canonical: 'https://www.promptflowing.com/vault'
+            },
+            'creators': {
+                title: 'Sell Premium AI Prompts & Make Money | PromptFlow Creators',
+                desc: 'Join our global marketplace as an AI prompt engineer. Sell your high-fidelity Midjourney, ChatGPT, and Sora prompts to thousands of businesses.',
+                canonical: 'https://www.promptflowing.com/creators'
+            },
+            'admin': {
+                title: 'Store Administration Dashboard | PromptFlow',
+                desc: 'Administrative console for managing PromptFlow sales, views, analytics, and mail dispatch status.',
+                canonical: 'https://www.promptflowing.com/admin'
+            }
+        };
+
+        function updateSeoMetadata(pageId) {
+            const seo = pageSeoData[pageId] || pageSeoData['home'];
+            
+            // 1. Update document title
+            document.title = seo.title;
+            
+            // 2. Update meta description
+            let descEl = document.querySelector('meta[name="description"]');
+            if (!descEl) {
+                descEl = document.createElement('meta');
+                descEl.setAttribute('name', 'description');
+                document.head.appendChild(descEl);
+            }
+            descEl.setAttribute('content', seo.desc);
+            
+            // 3. Update canonical link
+            let canonicalEl = document.querySelector('link[rel="canonical"]');
+            if (!canonicalEl) {
+                canonicalEl = document.createElement('link');
+                canonicalEl.setAttribute('rel', 'canonical');
+                document.head.appendChild(canonicalEl);
+            }
+            canonicalEl.setAttribute('href', seo.canonical);
+        }
+
         window.showPage = function(pageId, e) {
             if (e) e.preventDefault();
             
+            // Update browser address bar using History API (SPA Router)
+            const targetPath = pageId === 'home' ? '/' : '/' + pageId;
+            if (window.location.pathname !== targetPath) {
+                window.history.pushState(null, '', targetPath);
+            }
+            
+            showPageInternal(pageId);
+        };
+
+        window.showPageInternal = function(pageId) {
             // Clear body viewport freezes instantly
             document.body.style.overflow = '';
             
@@ -2279,7 +2368,36 @@
             
             // Unconditional snap scroll to top to prevent stutters or locking
             window.scrollTo(0, 0);
+            
+            // Update SEO Metadata in real-time
+            updateSeoMetadata(pageId);
         };
+
+        // Listen for popstate events (Browser Back/Forward navigation)
+        window.addEventListener('popstate', () => {
+            handleUrlRoute();
+        });
+
+        function handleUrlRoute() {
+            const path = window.location.pathname;
+            let pageId = 'home';
+            if (path === '/popular') pageId = 'popular';
+            else if (path === '/categories') pageId = 'categories';
+            else if (path === '/onedollar') pageId = 'onedollar';
+            else if (path === '/video') pageId = 'video';
+            else if (path === '/free') pageId = 'free';
+            else if (path === '/playgrounds') pageId = 'playgrounds';
+            else if (path === '/vault') pageId = 'vault';
+            else if (path === '/creators') pageId = 'creators';
+            else if (path === '/admin') pageId = 'admin';
+            
+            window.showPageInternal(pageId);
+        }
+
+        // Initialize Router on DOMContentLoaded
+        window.addEventListener('DOMContentLoaded', () => {
+            handleUrlRoute();
+        });
 
         window.showPopularPage = function(e) {
             if(e) e.preventDefault();
@@ -2970,18 +3088,18 @@
             
             // Explicitly map index to unique, verified active videos to prevent ANY repeating or broken files in the grid
             const videoMapping = [
-                'https://res.cloudinary.com/demo/video/upload/w_400,h_500,c_fill/dog.mp4',
-                'https://res.cloudinary.com/demo/video/upload/w_400,h_500,c_fill/sea_turtle.mp4',
-                'https://res.cloudinary.com/demo/video/upload/w_400,h_500,c_fill/forest_bike.mp4',
-                'https://res.cloudinary.com/demo/video/upload/w_400,h_500,c_fill/snow_horses.mp4',
-                'https://res.cloudinary.com/demo/video/upload/w_400,h_500,c_fill/rafting.mp4',
-                'https://res.cloudinary.com/demo/video/upload/w_400,h_500,c_fill/marmots.mp4',
-                'https://res.cloudinary.com/demo/video/upload/w_400,h_500,c_fill/ski_jump.mp4',
-                'https://res.cloudinary.com/demo/video/upload/w_400,h_500,c_fill/what_is_cloudinary_sd.mp4',
-                'https://res.cloudinary.com/demo/video/upload/w_400,h_500,c_fill/cld-sample-video.mp4',
-                'https://res.cloudinary.com/demo/video/upload/w_400,h_500,c_fill/elephants.mp4',
-                'https://res.cloudinary.com/demo/video/upload/w_400,h_500,c_fill/docs/walking_talking.mp4',
-                'https://www.w3schools.com/html/mov_bbb.mp4'
+                'https://assets.mixkit.co/videos/preview/mixkit-womans-hands-decorating-a-handmade-soap-2803-large.mp4', // Product Showcase 360° (Close-up product design)
+                'https://assets.mixkit.co/videos/preview/mixkit-tropical-island-landscape-view-4692-large.mp4',          // Cinematic Drone Flyover (Beautiful aerial scenic)
+                'https://assets.mixkit.co/videos/preview/mixkit-man-dancing-under-changing-lights-1240-large.mp4',       // Social Media Hook Intro (Neon portrait hook)
+                'https://assets.mixkit.co/videos/preview/mixkit-girl-in-neon-sign-1232-large.mp4',                        // Luxury Brand Commercial (Cinematic beauty glow)
+                'https://assets.mixkit.co/videos/preview/mixkit-tree-with-yellow-flowers-1173-large.mp4',                 // Nature Documentary B-Roll (Wildlife / botanical zoom)
+                'https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4',             // Tech Product Launch / Tech reveal
+                'https://assets.mixkit.co/videos/preview/mixkit-a-girl-blowing-a-bubble-gum-at-an-amusement-park-1226-large.mp4', // Fashion Lookbook Walk (Slow-motion stylish model walk)
+                'https://assets.mixkit.co/videos/preview/mixkit-luxury-breakfast-in-a-hotel-15642-large.mp4',              // Real Estate Walkthrough (Panning luxury room/villa interior)
+                'https://assets.mixkit.co/videos/preview/mixkit-chili-pepper-falling-into-red-powder-28392-large.mp4',     // Food Commercial Close-Up (Gourmet food slow-motion macro)
+                'https://assets.mixkit.co/videos/preview/mixkit-family-walking-together-in-nature-39767-large.mp4',          // Fitness Training Montage / Wellness active lifestyle
+                'https://assets.mixkit.co/videos/preview/mixkit-father-and-his-little-daughter-eating-marshmallows-in-nature-39765-large.mp4', // Travel Vlog Transition (Scenic destination vlog)
+                'https://assets.mixkit.co/videos/preview/mixkit-mother-with-her-little-daughter-eating-a-marshmallow-in-nature-39764-large.mp4'  // Corporate Explainer / Clean presentation b-roll
             ];
             
             const videoUrl = videoMapping[i % videoMapping.length];

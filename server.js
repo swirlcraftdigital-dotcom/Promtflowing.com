@@ -7,6 +7,18 @@ const nodemailer = require('nodemailer');
 const app = express();
 app.use(cors());
 
+// Redirect non-www to www and force HTTPS in production for consolidated domain authority (SEO)
+app.use((req, res, next) => {
+    const host = req.headers.host || '';
+    const isLocalhost = host.includes('localhost') || host.includes('127.0.0.1') || host.includes('::1');
+    
+    if (!isLocalhost && host === 'promptflowing.com') {
+        return res.redirect(301, `https://www.promptflowing.com${req.originalUrl}`);
+    }
+    next();
+});
+
+
 // Webhook must be parsed as raw body for Stripe signature verification
 app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res) => {
     const sig = req.headers['stripe-signature'];
@@ -703,14 +715,56 @@ async function sendReceiptEmail(email, items) {
 app.get('/sitemap.xml', (req, res) => {
     res.header('Content-Type', 'application/xml');
     
-    // Standard site sitemap template (removed URL fragment identifier sublinks which GSC rejects)
+    const today = new Date().toISOString().split('T')[0];
     const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>https://www.promptflowing.com/</loc>
-        <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+        <lastmod>${today}</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
+    </url>
+    <url>
+        <loc>https://www.promptflowing.com/popular</loc>
+        <lastmod>${today}</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://www.promptflowing.com/categories</loc>
+        <lastmod>${today}</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://www.promptflowing.com/onedollar</loc>
+        <lastmod>${today}</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://www.promptflowing.com/video</loc>
+        <lastmod>${today}</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://www.promptflowing.com/free</loc>
+        <lastmod>${today}</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://www.promptflowing.com/playgrounds</loc>
+        <lastmod>${today}</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://www.promptflowing.com/creators</loc>
+        <lastmod>${today}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
     </url>
 </urlset>`;
     
@@ -738,6 +792,20 @@ app.get('/.well-known/apple-developer-merchantid-domain-association', (req, res)
         return res.sendFile(rootPath);
     }
     res.status(404).send('Apple Pay domain association file not found. Please place it in the root or .well-known folder.');
+});
+
+// Wildcard fallback handler for clean SPA URL routing (SEO-ready)
+app.get(/.*/, (req, res, next) => {
+    // Skip API, sitemap, robots, checkout, admin reset, and any asset/static file requests
+    if (req.path.startsWith('/api') || 
+        req.path.includes('.') || 
+        req.path === '/sitemap.xml' || 
+        req.path === '/robots.txt' || 
+        req.path === '/checkout.html' || 
+        req.path === '/checkout-simulation.html') {
+        return next();
+    }
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 const PORT = process.env.PORT || 3000;
