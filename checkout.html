@@ -174,8 +174,18 @@
     let cartItems = [];
     let customerEmail = urlParams.get('email') || '';
 
-    try { cartItems = JSON.parse(decodeURIComponent(urlParams.get('cart') || '[]')); }
-    catch(e) { console.error('Cart parse error:', e); }
+    try {
+        const rawCart = urlParams.get('cart') || '[]';
+        // URLSearchParams already handles URL decoding. If a raw '%' exists in titles,
+        // calling decodeURIComponent again will crash with "URI malformed".
+        try {
+            cartItems = JSON.parse(rawCart);
+        } catch (jsonErr) {
+            cartItems = JSON.parse(decodeURIComponent(rawCart));
+        }
+    } catch(e) {
+        console.error('Cart parse error:', e);
+    }
 
     const unlockedIds = cartItems.map(i => i.id).join(',');
 

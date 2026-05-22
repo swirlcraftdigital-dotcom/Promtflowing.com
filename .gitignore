@@ -1,0 +1,15 @@
+# Dependencies
+node_modules/
+
+# Environment variables — NEVER commit Stripe keys
+.env
+.env.local
+.env*.local
+
+# Runtime / test artifacts
+admin_stats.json
+test-image.js
+
+# OS junk
+.DS_Store
+Thumbs.db
