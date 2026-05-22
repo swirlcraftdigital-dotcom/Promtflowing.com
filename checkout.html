@@ -261,7 +261,7 @@
 
     function showSuccess() {
         document.getElementById('successOverlay').classList.remove('hidden');
-        const successUrl = `${window.location.origin}/?checkout_success=true&unlocked=${encodeURIComponent(unlockedIds)}&email=${encodeURIComponent(customerEmail)}`;
+        const successUrl = `${window.location.origin}/?checkout_success=true&unlocked=${encodeURIComponent(unlockedIds)}&unlocked_data=${encodeURIComponent(JSON.stringify(cartItems))}&email=${encodeURIComponent(customerEmail)}`;
         setTimeout(() => { window.location.href = successUrl; }, 3000);
     }
 
