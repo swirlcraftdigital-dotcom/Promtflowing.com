@@ -3880,46 +3880,75 @@
         function checkStripePostPaymentRedirect() {
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.get('checkout_success') === 'true') {
-                const unlockedKeys = urlParams.get('unlocked')?.split(',') || [];
                 const newlyUnlocked = [];
-                
-                unlockedKeys.forEach(id => {
-                    let matchedProd = products.find(p => p.id === id);
-                    
-                    // Video products are generated lazily — reconstruct from ID if not found
-                    if (!matchedProd && id.startsWith('video-')) {
-                        const videoIndex = parseInt(id.replace('video-', ''), 10);
-                        if (!isNaN(videoIndex)) {
-                            matchedProd = generateVideoProduct(videoIndex);
-                            products.push(matchedProd);
-                        }
-                    }
-                    
-                    if (matchedProd) {
-                        const formattedDate = new Date().toLocaleString('en-US', {
-                            month: 'short',
-                            day: 'numeric',
-                            year: 'numeric',
-                            hour: 'numeric',
-                            minute: '2-digit',
-                            hour12: true
-                        });
+                const formattedDate = new Date().toLocaleString('en-US', {
+                    month: 'short',
+                    day: 'numeric',
+                    year: 'numeric',
+                    hour: 'numeric',
+                    minute: '2-digit',
+                    hour12: true
+                });
 
+                // 1. Attempt highly robust full-product payload extraction from URL
+                const rawUnlockedData = urlParams.get('unlocked_data');
+                let parsedItems = [];
+                if (rawUnlockedData) {
+                    try {
+                        parsedItems = JSON.parse(decodeURIComponent(rawUnlockedData));
+                    } catch (e) {
+                        console.error("Failed to parse unlocked_data from URL:", e);
+                    }
+                }
+
+                if (parsedItems && parsedItems.length > 0) {
+                    parsedItems.forEach(item => {
                         const unlockedProduct = {
-                            id: matchedProd.id,
-                            title: matchedProd.title,
-                            type: matchedProd.type,
-                            description: matchedProd.description,
-                            copies: (matchedProd.reviews || 1000) + 10,
-                            prompt: generateBuyerFriendlyPrompt(matchedProd),
+                            id: item.id,
+                            title: item.title,
+                            type: item.type,
+                            description: item.description || '',
+                            copies: (item.reviews || 1000) + 10,
+                            prompt: item.prompt || generateBuyerFriendlyPrompt(item),
                             purchasedAt: formattedDate
                         };
                         if (!stripeUnlockedProducts.some(p => p.id === unlockedProduct.id)) {
                             stripeUnlockedProducts.push(unlockedProduct);
                         }
                         newlyUnlocked.push(unlockedProduct);
-                    }
-                });
+                    });
+                } else {
+                    // 2. Fall back to standard ID-based lookup for backward compatibility
+                    const unlockedKeys = urlParams.get('unlocked')?.split(',') || [];
+                    unlockedKeys.forEach(id => {
+                        let matchedProd = products.find(p => p.id === id);
+                        
+                        // Video products are generated lazily — reconstruct from ID if not found
+                        if (!matchedProd && id.startsWith('video-')) {
+                            const videoIndex = parseInt(id.replace('video-', ''), 10);
+                            if (!isNaN(videoIndex)) {
+                                matchedProd = generateVideoProduct(videoIndex);
+                                products.push(matchedProd);
+                            }
+                        }
+                        
+                        if (matchedProd) {
+                            const unlockedProduct = {
+                                id: matchedProd.id,
+                                title: matchedProd.title,
+                                type: matchedProd.type,
+                                description: matchedProd.description || '',
+                                copies: (matchedProd.reviews || 1000) + 10,
+                                prompt: generateBuyerFriendlyPrompt(matchedProd),
+                                purchasedAt: formattedDate
+                            };
+                            if (!stripeUnlockedProducts.some(p => p.id === unlockedProduct.id)) {
+                                stripeUnlockedProducts.push(unlockedProduct);
+                            }
+                            newlyUnlocked.push(unlockedProduct);
+                        }
+                    });
+                }
 
                 if (currentUser) {
                     localStorage.setItem('promptflow_vault_' + currentUser.email, JSON.stringify(stripeUnlockedProducts));
@@ -4029,7 +4058,9 @@
                 type: item.type,
                 price: window.couponApplied ? parseFloat(item.price) * 0.5 : parseFloat(item.price),
                 image: item.image || '',
-                previewPrompt: item.previewPrompt || ''
+                previewPrompt: item.previewPrompt || '',
+                description: item.description || '',
+                features: item.features || []
             }));
 
             const email = (window.currentUser && window.currentUser.email) ? window.currentUser.email : '';

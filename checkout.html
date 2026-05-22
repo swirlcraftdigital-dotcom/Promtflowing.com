@@ -431,7 +431,7 @@
                         <div class="font-bold text-white text-sm">Spinning up sandbox session...</div>
                     </div>`;
             }
-            const successUrl = `${window.location.origin}/?checkout_success=true&unlocked=${encodeURIComponent(unlockedIds)}&email=${encodeURIComponent(customerEmail)}`;
+            const successUrl = `${window.location.origin}/?checkout_success=true&unlocked=${encodeURIComponent(unlockedIds)}&unlocked_data=${encodeURIComponent(JSON.stringify(cartItems))}&email=${encodeURIComponent(customerEmail)}`;
             const cancelUrl = `${window.location.origin}/`;
             const res = await fetch('/api/create-checkout-session', {
                 method: 'POST',
@@ -467,7 +467,7 @@
         icon.className = 'fa-solid fa-circle-notch spin text-sm';
         label.textContent = 'Authorizing…';
 
-        const successUrl = `${window.location.origin}/?checkout_success=true&unlocked=${encodeURIComponent(unlockedIds)}&email=${encodeURIComponent(customerEmail)}`;
+        const successUrl = `${window.location.origin}/?checkout_success=true&unlocked=${encodeURIComponent(unlockedIds)}&unlocked_data=${encodeURIComponent(JSON.stringify(cartItems))}&email=${encodeURIComponent(customerEmail)}`;
 
         try {
             const { error } = await stripe.confirmPayment({
