@@ -350,6 +350,34 @@ function isStripeKeyError(error) {
            msg.includes('no api key');
 }
 
+function checkStripeKeysMatch() {
+    const secretKey = (process.env.STRIPE_SECRET_KEY || '').trim();
+    const publishableKey = (process.env.STRIPE_PUBLISHABLE_KEY || '').trim();
+    
+    if (!secretKey || !publishableKey) return { match: true };
+    if (secretKey === 'your_stripe_secret_key_here' || secretKey.startsWith('mk_')) return { match: true };
+    
+    const getAccountPart = (key) => {
+        const parts = key.split('_');
+        if (parts.length >= 3) {
+            return parts[2].substring(0, 16);
+        }
+        return null;
+    };
+    
+    const secretAcc = getAccountPart(secretKey);
+    const pubAcc = getAccountPart(publishableKey);
+    
+    if (secretAcc && pubAcc && secretAcc !== pubAcc) {
+        return {
+            match: false,
+            secretAccount: `acct_${secretAcc}`,
+            publishableAccount: `acct_${pubAcc}`
+        };
+    }
+    return { match: true };
+}
+
 
 
 app.post('/api/create-checkout-session', async (req, res) => {
@@ -357,6 +385,13 @@ app.post('/api/create-checkout-session', async (req, res) => {
         const stripeKey = (process.env.STRIPE_SECRET_KEY || '').trim();
         const { items, customerEmail, successUrl, cancelUrl } = req.body;
 
+        const keyCheck = checkStripeKeysMatch();
+        if (!keyCheck.match) {
+            console.error(`❌ Stripe Key Mismatch: Publishable belongs to ${keyCheck.publishableAccount}, Secret belongs to ${keyCheck.secretAccount}`);
+            return res.status(400).json({
+                error: `Mismatched Stripe Keys: Your STRIPE_PUBLISHABLE_KEY belongs to account ${keyCheck.publishableAccount}, but your STRIPE_SECRET_KEY belongs to account ${keyCheck.secretAccount}. Please update your environment variables in Render to use matching keys from the same Stripe Dashboard.`
+            });
+        }
 
         // If no key or placeholder/mock key is present, generate a simulated checkout experience
         if (!stripeKey || stripeKey === 'your_stripe_secret_key_here' || stripeKey.startsWith('mk_')) {
@@ -411,6 +446,14 @@ app.post('/api/create-payment-intent', async (req, res) => {
     try {
         const stripeKey = (process.env.STRIPE_SECRET_KEY || '').trim();
         const { items, customerEmail } = req.body;
+
+        const keyCheck = checkStripeKeysMatch();
+        if (!keyCheck.match) {
+            console.error(`❌ Stripe Key Mismatch: Publishable belongs to ${keyCheck.publishableAccount}, Secret belongs to ${keyCheck.secretAccount}`);
+            return res.status(400).json({
+                error: `Mismatched Stripe Keys: Your STRIPE_PUBLISHABLE_KEY belongs to account ${keyCheck.publishableAccount}, but your STRIPE_SECRET_KEY belongs to account ${keyCheck.secretAccount}. Please update your environment variables in Render to use matching keys from the same Stripe Dashboard.`
+            });
+        }
 
         if (!stripeKey || stripeKey === 'your_stripe_secret_key_here' || stripeKey.startsWith('mk_')) {
             return res.status(455).json({ fallbackToSimulated: true });
@@ -566,7 +609,7 @@ app.get('/.well-known/apple-developer-merchantid-domain-association', (req, res)
     
     if (fs.existsSync(wellKnownPath)) {
         res.setHeader('Content-Type', 'text/plain');
-        return res.sendFile(wellKnownPath);
+        return res.sendFile(wellKnownPath, { dotfiles: 'allow' });
     } else if (fs.existsSync(rootPath)) {
         res.setHeader('Content-Type', 'text/plain');
         return res.sendFile(rootPath);

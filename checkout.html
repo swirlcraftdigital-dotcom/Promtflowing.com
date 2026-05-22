@@ -224,7 +224,8 @@
         document.getElementById('orderTotal').textContent = t;
         document.getElementById('orderSubtotal').textContent = t;
         document.getElementById('orderFinalTotal').textContent = t;
-        document.getElementById('btnAmt').textContent = t;
+        const btnAmtEl = document.getElementById('btnAmt');
+        if (btnAmtEl) btnAmtEl.textContent = t;
     }
 
     renderItems();
@@ -377,28 +378,44 @@
 
         } catch(err) {
             console.error('initPayment error:', err);
+            const isMismatch = err.message.includes('Mismatched Stripe Keys');
             document.getElementById('stripe-element-mount').innerHTML = `
-                <div class="text-center text-red-400 py-8 px-4">
-                    <i class="fa-solid fa-triangle-exclamation text-3xl mb-3 block text-amber-500 animate-pulse"></i>
-                    <div class="font-bold mb-1 text-white">Live Payment Connection Interrupted</div>
-                    <div class="text-xs text-slate-500 max-w-xs mx-auto mb-5">${err.message}</div>
+                <div class="text-center text-red-400 py-8 px-4 flex flex-col items-center">
+                    <i class="fa-solid fa-triangle-exclamation text-4xl mb-4 text-amber-500 animate-pulse"></i>
+                    <div class="font-bold mb-2 text-white text-lg">${isMismatch ? 'Stripe Configuration Mismatch' : 'Live Payment Connection Interrupted'}</div>
+                    <div class="text-xs text-slate-400 max-w-md mx-auto mb-6 leading-relaxed">${err.message}</div>
                     
-                    <button onclick="window.triggerSandboxCheckoutFallback()" class="w-full max-w-xs py-3 px-5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs rounded-xl transition-all shadow-md flex items-center justify-center gap-2 mx-auto cursor-pointer">
-                        <i class="fa-solid fa-shield-halved"></i> Launch Sandbox Demo Checkout
+                    ${isMismatch ? `
+                        <div class="bg-slate-950/80 border border-slate-800 rounded-2xl p-5 text-left w-full max-w-md mx-auto mb-6 text-xs text-slate-300 space-y-3 shadow-inner">
+                            <div class="font-bold text-red-400 border-b border-slate-800 pb-2 uppercase tracking-widest text-[10px] flex items-center gap-1.5">
+                                <i class="fa-solid fa-circle-info"></i> How to resolve in Render:
+                            </div>
+                            <p class="leading-relaxed">1. Open your <strong>Render Dashboard</strong> for the web service.</p>
+                            <p class="leading-relaxed">2. Go to the <strong>Environment</strong> tab on the left sidebar.</p>
+                            <p class="leading-relaxed">3. Update the <code>STRIPE_SECRET_KEY</code> and <code>STRIPE_PUBLISHABLE_KEY</code> values to be from the exact same Stripe account.</p>
+                            <p class="leading-relaxed">4. Click <strong>Save Changes</strong> (Render will automatically redeploy the service with matching keys!).</p>
+                        </div>
+                    ` : ''}
+                    
+                    <button onclick="window.triggerSandboxCheckoutFallback()" class="w-full max-w-xs py-3.5 px-6 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs rounded-xl transition-all shadow-lg shadow-blue-500/10 flex items-center justify-center gap-2 mx-auto cursor-pointer hover:scale-[1.01] active:scale-[0.99]">
+                        <i class="fa-solid fa-shield-halved text-sm"></i> Launch Sandbox Demo Checkout
                     </button>
                     
-                    <a href="/" class="inline-block mt-4 text-slate-500 text-xs hover:text-slate-300">← Return to Store Home</a>
+                    <a href="/" class="inline-block mt-5 text-slate-500 text-xs hover:text-slate-400 transition-colors">← Return to Store Home</a>
                 </div>`;
         }
     }
 
     window.triggerSandboxCheckoutFallback = async function() {
         try {
-            document.getElementById('loadingState').innerHTML = `
-                <div class="text-center text-cyan-400 py-10">
-                    <i class="fa-solid fa-circle-notch spin text-3xl mb-4 text-cyan-500"></i>
-                    <div class="font-bold text-white text-sm">Spinning up sandbox session...</div>
-                </div>`;
+            const mount = document.getElementById('stripe-element-mount');
+            if (mount) {
+                mount.innerHTML = `
+                    <div class="text-center text-cyan-400 py-10">
+                        <i class="fa-solid fa-circle-notch spin text-3xl mb-4 text-cyan-500"></i>
+                        <div class="font-bold text-white text-sm">Spinning up sandbox session...</div>
+                    </div>`;
+            }
             const successUrl = `${window.location.origin}/?checkout_success=true&unlocked=${encodeURIComponent(unlockedIds)}&email=${encodeURIComponent(customerEmail)}`;
             const cancelUrl = `${window.location.origin}/`;
             const res = await fetch('/api/create-checkout-session', {
@@ -474,7 +491,8 @@
     if (activeMode === 'simulated') {
         window.triggerSandboxCheckoutFallback();
     } else if (piSecret && redirectStatus === 'succeeded') {
-        document.getElementById('loadingState').classList.add('hidden');
+        const loader = document.getElementById('paymentLoader');
+        if (loader) loader.classList.add('hidden');
         showSuccess();
     } else {
         initPayment();
