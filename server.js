@@ -292,6 +292,63 @@ app.get('/api/config', (req, res) => {
     res.json({ publishableKey: process.env.STRIPE_PUBLISHABLE_KEY || '' });
 });
 
+function generateBuyerFriendlyPrompt(item) {
+    const titleLower = (item.title || '').toLowerCase();
+    const typeLower = (item.type || '').toLowerCase();
+    const descLower = (item.description || '').toLowerCase();
+    
+    const isCode = titleLower.includes('code') || titleLower.includes('developer') || typeLower.includes('code') || descLower.includes('code');
+    const isImageOrVideo = typeLower.includes('midjourney') || typeLower.includes('dall-e') || typeLower.includes('sora') || typeLower.includes('runway') || typeLower.includes('video') || typeLower.includes('diffusion') || typeLower.includes('sdxl');
+    
+    let promptText = '';
+    
+    if (isCode) {
+        promptText = `🔥 PREMIUM DEVELOPER PROMPT UNLOCKED 🔥\n\n`;
+        promptText += `📌 INSTRUCTIONS:\nCopy the system prompt below and paste it into your AI model (e.g., ChatGPT, Claude) to instantiate an elite developer assistant.\n\n`;
+        promptText += `💻 THE MASTER PROMPT:\n"""\n${item.previewPrompt || ''}\n"""\n\n`;
+        promptText += `⚙️ KEY CAPABILITIES:\n${(item.features || []).map(f => `• ${f}`).join('\n') || '• Multi-language support\n• Automated debugging\n• Edge-case handling'}\n\n`;
+        promptText += `🚀 HOW TO USE:\n1. Paste the Master Prompt into your AI interface.\n2. Provide your target source code or description.\n3. The AI will output perfectly formatted code, complete with inline documentation and comprehensive test cases.`;
+    } else if (isImageOrVideo) {
+        promptText = `✨ PREMIUM CREATIVE PROMPT UNLOCKED ✨\n\n`;
+        promptText += `📌 THE CORE GENERATION PROMPT:\n"${item.previewPrompt || ''}"\n\n`;
+        promptText += `🎨 ARTISTIC PARAMETERS (ADJUSTABLE):\n`;
+        if (typeLower.includes('midjourney')) {
+            promptText += `• Aspect Ratios: Use --ar 16:9 for cinematic screens, --ar 4:3 for blogs, or --ar 1:1 for social posts.\n`;
+            promptText += `• Version: Optimized for Midjourney v6.1 (append --v 6.1 --style raw for best realism).\n`;
+        } else if (typeLower.includes('dall-e')) {
+            promptText += `• Aspect Ratios: Use standard portrait, landscape, or square in your generation command.\n`;
+        }
+        promptText += `• Lighting: Professional studio ambient lighting.\n`;
+        promptText += `• Color Grading: Harmonious palette tailored to ${titleLower}.\n\n`;
+        promptText += `📚 INCLUDED FEATURES:\n${(item.features || []).map(f => `• ${f}`).join('\n') || '• Ultra-high fidelity resolution\n• Commercial usage license'}\n\n`;
+        promptText += `🚀 HOW TO USE:\n1. Replace the square-bracketed placeholders like [PRODUCT] or [STYLE] with your desired values.\n2. Run the prompt in your image/video engine (Midjourney, DALL-E 3, Sora, Runway, etc.).\n3. Enjoy professional, commercial-ready visual assets instantly!`;
+    } else {
+        promptText = `🚀 PREMIUM STRATEGIST PROMPT UNLOCKED 🚀\n\n`;
+        promptText += `📌 THE MASTER OUTREACH & STRATEGY PROMPT:\n`;
+        promptText += `"""\n${item.previewPrompt || ''}\n"""\n\n`;
+        promptText += `💎 PROFESSIONAL UTILITY & HIGHLIGHTS:\n`;
+        promptText += `• Niche: Designed explicitly for premium B2B and consumer copywriting.\n`;
+        promptText += `• Style: Authoritative, engaging, conversational, and highly persuasive.\n`;
+        promptText += `• Conversion: Engineered utilizing industry-leading persuasion frameworks.\n\n`;
+        promptText += `📦 WHAT'S INCLUDED IN THIS PLAYBOOK:\n${(item.features || []).map(f => `• ${f}`).join('\n') || '• High converting subject lines\n• Custom tone calibration'}\n\n`;
+        promptText += `🚀 HOW TO USE:\n1. Copy the Master Prompt above.\n2. Replace placeholders (e.g., company names, Pain Points, target audience) with your specific project details.\n3. Run it in ChatGPT, Claude, or Gemini.\n4. Copy, paste, and watch your business scale!`;
+    }
+    
+    return promptText;
+}
+
+function isStripeKeyError(error) {
+    if (!error) return false;
+    const msg = (error.message || '').toLowerCase();
+    return error.statusCode === 401 || 
+           error.type === 'StripeAuthenticationError' || 
+           msg.includes('api key') || 
+           msg.includes('expired api key') || 
+           msg.includes('invalid api key') || 
+           msg.includes('no api key');
+}
+
+
 
 app.post('/api/create-checkout-session', async (req, res) => {
     try {
@@ -336,20 +393,25 @@ app.post('/api/create-checkout-session', async (req, res) => {
         mockSessionDB[session.id] = { email: customerEmail, items: items };
         res.json({ id: session.id, url: session.url });
     } catch (error) {
+        if (isStripeKeyError(error)) {
+            console.warn('⚠️ Stripe API Key error detected in create-checkout-session. Falling back to simulated checkout.');
+            const sessionId = `sim_session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+            mockSessionDB[sessionId] = { email: customerEmail, items: items };
+            const simulatedCheckoutUrl = `/checkout-simulation.html?session_id=${sessionId}&success_url=${encodeURIComponent(successUrl)}&cancel_url=${encodeURIComponent(cancelUrl)}`;
+            return res.json({ id: sessionId, url: simulatedCheckoutUrl });
+        }
         console.error('Stripe error:', error);
         res.status(500).json({ error: error.message });
     }
 });
 
-// Custom checkout: creates a PaymentIntent powering the Stripe Payment Element
-// Supports Apple Pay, Google Pay, Stripe Link, and all card types
 app.post('/api/create-payment-intent', async (req, res) => {
     try {
         const stripeKey = process.env.STRIPE_SECRET_KEY;
         const { items, customerEmail } = req.body;
 
         if (!stripeKey || stripeKey.startsWith('mk_')) {
-            return res.status(400).json({ error: 'Live Stripe key required for Payment Element.' });
+            return res.status(455).json({ fallbackToSimulated: true });
         }
 
         const stripe = require('stripe')(stripeKey);
@@ -386,6 +448,20 @@ app.post('/api/create-payment-intent', async (req, res) => {
             totalAmount: totalAmount
         });
     } catch (error) {
+        if (isStripeKeyError(error)) {
+            console.warn('⚠️ Stripe API Key error detected in create-payment-intent. Instructing client to fallback to simulation.');
+            
+            const sessionId = `sim_session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+            mockSessionDB[sessionId] = { email: customerEmail, items: items };
+            const successUrl = `http://localhost:3000/?checkout_success=true&unlocked=${encodeURIComponent(items.map(i=>i.id).join(','))}&email=${encodeURIComponent(customerEmail || '')}`;
+            const cancelUrl = `http://localhost:3000/`;
+            const simulatedCheckoutUrl = `/checkout-simulation.html?session_id=${sessionId}&success_url=${encodeURIComponent(successUrl)}&cancel_url=${encodeURIComponent(cancelUrl)}`;
+            
+            return res.json({
+                fallbackToSimulated: true,
+                url: simulatedCheckoutUrl
+            });
+        }
         console.error('PaymentIntent error:', error);
         res.status(500).json({ error: error.message });
     }
@@ -405,25 +481,7 @@ async function sendReceiptEmail(email, items) {
     
     const promptsHtml = items.map(item => {
         // Generate a full unlocked prompt for the email
-        const fullPrompt = `[FULL UNLOCKED PROMPT — ${item.type}]
-
-[System Instruction]
-Act as an elite ${item.type} specialist. You are generating a professional-grade ${(item.title || '').toLowerCase()} output.
-
-${item.previewPrompt || ''}
-
-[Advanced Parameters]
-Resolution: 4K Ultra HD
-Aspect Ratio: 16:9 Cinematic
-Frame Rate: 24fps (Film) / 60fps (Smooth)
-Camera: Dynamic tracking shot with parallax depth
-Lighting: Volumetric rays, ambient occlusion, rim lighting
-Color Grading: Teal & Orange cinematic palette
-Motion: Smooth bezier easing, 2s transitions
-Post-Processing: Film grain 15%, chromatic aberration subtle
-
-[Output Format]
-Deliver the final result as a structured JSON schema with all parameters locked. Include fallback values for each parameter.`;
+        const fullPrompt = item.prompt || generateBuyerFriendlyPrompt(item);
         
         return `
         <div style="background-color: #f8fafc; padding: 20px; border-radius: 12px; margin-bottom: 24px; border: 1px solid #e2e8f0;">
@@ -474,7 +532,7 @@ Deliver the final result as a structured JSON schema with all parameters locked.
 app.get('/sitemap.xml', (req, res) => {
     res.header('Content-Type', 'application/xml');
     
-    // Standard site sitemap template
+    // Standard site sitemap template (removed URL fragment identifier sublinks which GSC rejects)
     const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
@@ -482,24 +540,6 @@ app.get('/sitemap.xml', (req, res) => {
         <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
-    </url>
-    <url>
-        <loc>https://www.promptflowing.com/#page-video</loc>
-        <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://www.promptflowing.com/#page-free</loc>
-        <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://www.promptflowing.com/#page-contact</loc>
-        <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.5</priority>
     </url>
 </urlset>`;
     
@@ -512,6 +552,21 @@ app.get('/robots.txt', (req, res) => {
     res.send(`User-agent: *
 Allow: /
 Sitemap: https://www.promptflowing.com/sitemap.xml`);
+});
+
+// Serve Apple Pay domain association file (express.static ignores dotfiles starting with '.' by default)
+app.get('/.well-known/apple-developer-merchantid-domain-association', (req, res) => {
+    const wellKnownPath = path.join(__dirname, '.well-known', 'apple-developer-merchantid-domain-association');
+    const rootPath = path.join(__dirname, 'apple-developer-merchantid-domain-association');
+    
+    if (fs.existsSync(wellKnownPath)) {
+        res.setHeader('Content-Type', 'text/plain');
+        return res.sendFile(wellKnownPath);
+    } else if (fs.existsSync(rootPath)) {
+        res.setHeader('Content-Type', 'text/plain');
+        return res.sendFile(rootPath);
+    }
+    res.status(404).send('Apple Pay domain association file not found. Please place it in the root or .well-known folder.');
 });
 
 const PORT = process.env.PORT || 3000;

@@ -17,6 +17,7 @@
     <meta name="description" content="Unlock over 32 million high-fidelity, expertly engineered AI prompt templates for ChatGPT, Midjourney, Claude, Gemini, and Sora. Optimize copywriting, SEO, web design, vector art, health, and business automation.">
     <meta name="keywords" content="AI Prompts, ChatGPT Prompts, Midjourney Prompts, Sora Video Prompts, Claude 3.5 Sonnet Prompts, Prompt Engineering, SEO Prompts, Web Design Prompts, Copywriting Prompts, Business Prompts, Marketing Prompts">
     <link rel="canonical" href="https://www.promptflowing.com/">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
@@ -383,6 +384,7 @@
                     <a href="#" onclick="showPage('onedollar', event)" class="nav-link text-yellow-400 hover:text-yellow-300 transition-colors font-bold flex items-center gap-1.5"><i class="fa-solid fa-bolt"></i> $1 Prompts</a>
                     <a href="#" onclick="showPage('video', event)" class="nav-link text-fuchsia-400 hover:text-fuchsia-300 transition-colors font-bold flex items-center gap-1.5"><i class="fa-solid fa-video"></i> $2 Video Prompts</a>
                     <a href="#" onclick="showPage('free', event)" class="nav-link text-gray-300 hover:text-white transition-colors font-medium">Free Prompts</a>
+                    <a href="#" onclick="showPage('playgrounds', event)" class="nav-link text-cyan-400 hover:text-cyan-300 font-bold transition-colors flex items-center gap-1.5"><i class="fa-solid fa-wand-magic-sparkles"></i> Instant Demos</a>
                     <a href="#" onclick="showPage('vault', event)" class="nav-link text-gray-300 hover:text-white transition-colors font-medium flex items-center gap-1">My Vault <span id="vaultBadgeCount" class="hidden bg-blue-500 text-white text-[10px] px-1.5 py-0.5 rounded-full font-bold">0</span></a>
                     <a href="#" onclick="showPage('creators', event)" class="nav-link text-emerald-400 hover:text-emerald-300 transition-colors font-bold flex items-center gap-1.5"><i class="fa-solid fa-store"></i> Sell Prompts</a>
                     
@@ -421,6 +423,7 @@
                 <a href="#" onclick="showPage('onedollar', event)" class="block px-3 py-2 text-yellow-400 hover:text-yellow-300 hover:bg-slate-800 rounded-md font-bold"><i class="fa-solid fa-bolt"></i> $1 Prompts</a>
                 <a href="#" onclick="showPage('video', event)" class="block px-3 py-2 text-fuchsia-400 hover:text-fuchsia-300 hover:bg-slate-800 rounded-md font-bold"><i class="fa-solid fa-video"></i> $2 Video Prompts</a>
                 <a href="#" onclick="showPage('free', event)" class="block px-3 py-2 text-gray-300 hover:text-white hover:bg-slate-800 rounded-md">Free Prompts</a>
+                <a href="#" onclick="showPage('playgrounds', event)" class="block px-3 py-2 text-cyan-400 hover:text-cyan-300 hover:bg-slate-800 rounded-md font-bold"><i class="fa-solid fa-wand-magic-sparkles"></i> Instant Demos</a>
                 <a href="#" onclick="showPage('vault', event)" class="block px-3 py-2 text-gray-300 hover:text-white hover:bg-slate-800 rounded-md">My Vault</a>
                 <div id="mobileAuthNavContainer" class="pt-4 border-t border-slate-800 px-3 mt-2">
                     <button onclick="openAuthModal()" class="w-full text-center bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md font-medium transition-colors">Sign In</button>
@@ -786,6 +789,390 @@
                     </button>
                 </div>
             </div>
+        </div>
+
+        <!-- INSTANT PLAYGROUNDS PAGE (PROMOS) -->
+        <div id="page-playgrounds" class="page-view hidden pt-32 pb-20 bg-slate-955 text-slate-100 min-h-screen relative overflow-hidden">
+            <!-- Glowing Grid Background -->
+            <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5 pointer-events-none z-0"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-cyan-900/10 via-transparent to-slate-950 pointer-events-none z-0"></div>
+            
+            <!-- Ambient glowing spots -->
+            <div class="absolute top-[20%] left-[10%] w-[350px] h-[350px] rounded-full bg-cyan-600/10 blur-[130px] pointer-events-none z-0"></div>
+            <div class="absolute bottom-[20%] right-[10%] w-[450px] h-[450px] rounded-full bg-blue-600/10 blur-[150px] pointer-events-none z-0"></div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <!-- Header Section -->
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-bold text-xs mb-6 shadow-[0_0_15px_rgba(34,211,238,0.15)] uppercase tracking-widest">
+                        <i class="fa-solid fa-wand-magic-sparkles animate-pulse"></i> Instant AI Playgrounds
+                    </div>
+                    <h1 class="text-4xl md:text-6xl font-black mb-6 tracking-tight text-white" style="font-family:'Space Grotesk',sans-serif;">
+                        Test Live <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">AI Prompts</span> Instantly
+                    </h1>
+                    <p class="text-lg text-slate-400 leading-relaxed">
+                        Experience the direct capabilities of our professionally engineered prompt frameworks. Tweak parameters, hit generate, and view high-quality sandboxed results inside your browser immediately!
+                    </p>
+                </div>
+
+                <!-- Main Playground Core Tabs & Split Columns -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    
+                    <!-- LEFT COLUMN: Selector Cards (Tabs) -->
+                    <div class="lg:col-span-4 space-y-4">
+                        <div class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2 px-1">Select A Playground</div>
+                        
+                        <!-- Tab 1: Logo Generator -->
+                        <button onclick="switchPlaygroundTab('logo')" id="p-tab-logo" class="w-full text-left p-5 rounded-2xl border bg-slate-900/60 border-cyan-500/30 shadow-[0_0_15px_rgba(34,211,238,0.05)] hover:bg-slate-900 transition-all flex items-center gap-4 group cursor-pointer active-playground-tab">
+                            <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-bezier-curve"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-sm text-white group-hover:text-cyan-400 transition-colors">🎨 Instant Logo Architect</h3>
+                                <p class="text-xs text-slate-400 mt-1 line-clamp-1">Generate vector logo SVGs and prompts dynamically.</p>
+                            </div>
+                        </button>
+
+                        <!-- Tab 2: Photo Restorer -->
+                        <button onclick="switchPlaygroundTab('restore')" id="p-tab-restore" class="w-full text-left p-5 rounded-2xl border bg-slate-900/40 border-slate-800 hover:border-slate-755 hover:bg-slate-900/60 transition-all flex items-center gap-4 group cursor-pointer">
+                            <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-wand-magic"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-sm text-white group-hover:text-blue-400 transition-colors">✨ Instant Photo Restorer</h3>
+                                <p class="text-xs text-slate-400 mt-1 line-clamp-1">Interact with high-end image enhancement sliders.</p>
+                            </div>
+                        </button>
+
+                        <!-- Tab 3: UI/UX Code Architect -->
+                        <button onclick="switchPlaygroundTab('code')" id="p-tab-code" class="w-full text-left p-5 rounded-2xl border bg-slate-900/40 border-slate-800 hover:border-slate-755 hover:bg-slate-900/60 transition-all flex items-center gap-4 group cursor-pointer">
+                            <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-laptop-code"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-sm text-white group-hover:text-purple-400 transition-colors">💻 Instant UI Mockup Builder</h3>
+                                <p class="text-xs text-slate-400 mt-1 line-clamp-1">Simulate visual mockups and frontend code templates.</p>
+                            </div>
+                        </button>
+
+                        <!-- Tab 4: Avatar Portrait Designer -->
+                        <button onclick="switchPlaygroundTab('avatar')" id="p-tab-avatar" class="w-full text-left p-5 rounded-2xl border bg-slate-900/40 border-slate-800 hover:border-slate-755 hover:bg-slate-900/60 transition-all flex items-center gap-4 group cursor-pointer">
+                            <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
+                                <i class="fa-regular fa-user"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-sm text-white group-hover:text-emerald-400 transition-colors">👤 Portrait Avatar Designer</h3>
+                                <p class="text-xs text-slate-400 mt-1 line-clamp-1">Create stunning aesthetic social profile portraits.</p>
+                            </div>
+                        </button>
+                    </div>
+
+                    <!-- RIGHT COLUMN: Playground Work Area -->
+                    <div class="lg:col-span-8">
+                        <div class="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 md:p-8 relative overflow-hidden shadow-2xl backdrop-blur-md">
+                            
+                            <!-- 1. LOGO GENERATOR WORK AREA -->
+                            <div id="play-area-logo" class="play-tab-area block space-y-6">
+                                <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                                    <div>
+                                        <h2 class="text-xl font-bold text-white heading-font">🎨 Dynamic Logo Architect</h2>
+                                        <p class="text-xs text-slate-400 mt-0.5">Outputs highly-detailed vector logo design prompts & live mockups.</p>
+                                    </div>
+                                    <span class="text-[10px] font-bold text-cyan-400 bg-cyan-900/30 border border-cyan-800 px-2.5 py-1 rounded-full uppercase">DALL-E 3 Vector Ready</span>
+                                </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <!-- Inputs -->
+                                    <div class="space-y-4">
+                                        <div>
+                                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Brand / Company Name</label>
+                                            <input type="text" id="logo-input-brand" value="QuantumLabs" class="w-full px-4 py-3 bg-slate-950 border border-slate-850 rounded-xl focus:outline-none focus:border-cyan-500 text-sm text-slate-200 placeholder-slate-700 transition-colors" placeholder="e.g. SwirlCraft">
+                                        </div>
+                                        <div>
+                                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Industry Niche</label>
+                                            <select id="logo-input-niche" class="w-full px-4 py-3 bg-slate-950 border border-slate-850 rounded-xl focus:outline-none focus:border-cyan-500 text-sm text-slate-300 transition-colors">
+                                                <option value="Artificial Intelligence / Technology">AI & Tech</option>
+                                                <option value="Luxury Fashion / Aesthetics">Luxury & Fashion</option>
+                                                <option value="Eco Organic / Sustainable Products">Eco & Organic</option>
+                                                <option value="Gaming / Cyber Esports">Gaming & Esports</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Aesthetic Art Style</label>
+                                            <div class="grid grid-cols-2 gap-2">
+                                                <button onclick="setLogoStyle('minimal')" id="logo-style-minimal" class="logo-style-btn py-2.5 px-3 bg-slate-955 rounded-xl border border-cyan-500/40 text-xs font-semibold text-cyan-400 transition-all text-center">Minimal Lineart</button>
+                                                <button onclick="setLogoStyle('cyber')" id="logo-style-cyber" class="logo-style-btn py-2.5 px-3 bg-slate-955 rounded-xl border border-slate-850 text-xs font-semibold text-slate-400 transition-all text-center">Cyberpunk Neon</button>
+                                                <button onclick="setLogoStyle('royal')" id="logo-style-royal" class="logo-style-btn py-2.5 px-3 bg-slate-955 rounded-xl border border-slate-850 text-xs font-semibold text-slate-400 transition-all text-center">Royal Heraldic</button>
+                                                <button onclick="setLogoStyle('geo')" id="logo-style-geo" class="logo-style-btn py-2.5 px-3 bg-slate-955 rounded-xl border border-slate-850 text-xs font-semibold text-slate-400 transition-all text-center">Tech Geometric</button>
+                                            </div>
+                                        </div>
+                                        
+                                        <button onclick="runLogoPlayground()" class="w-full py-3.5 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white font-bold text-sm rounded-xl transition-all shadow-lg shadow-cyan-500/10 flex items-center justify-center gap-2 hover:scale-[1.01] cursor-pointer">
+                                            <i class="fa-solid fa-play"></i> Generate Custom Prompt & Logo
+                                        </button>
+                                    </div>
+
+                                    <!-- Visual Preview and Live Prompt Output -->
+                                    <div class="flex flex-col gap-4">
+                                        <div class="bg-slate-955 border border-slate-850 rounded-2xl p-4 flex flex-col items-center justify-center min-h-[180px] relative overflow-hidden" id="logo-preview-box">
+                                            <!-- SVG Logo draws dynamically -->
+                                            <div id="logo-vector-target" class="w-full flex items-center justify-center select-none">
+                                                <!-- Default logo SVG -->
+                                                <svg width="120" height="120" viewBox="0 0 100 100" class="transition-transform duration-500 hover:rotate-12">
+                                                    <circle cx="50" cy="50" r="40" fill="none" stroke="url(#cyan-grad)" stroke-width="3" stroke-dasharray="251.2" stroke-dashoffset="0"/>
+                                                    <polygon points="50,25 70,65 30,65" fill="none" stroke="#22d3ee" stroke-width="3" stroke-linejoin="round"/>
+                                                    <text x="50" y="85" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="7" font-weight="bold" text-anchor="middle" letter-spacing="1">QUANTUM</text>
+                                                    <defs>
+                                                        <linearGradient id="cyan-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                            <stop offset="0%" stop-color="#22d3ee" />
+                                                            <stop offset="100%" stop-color="#3b82f6" />
+                                                        </linearGradient>
+                                                    </defs>
+                                                </svg>
+                                            </div>
+                                            <!-- Loading HUD -->
+                                            <div id="logo-loading-hud" class="absolute inset-0 bg-slate-955/90 flex flex-col items-center justify-center hidden">
+                                                <i class="fa-solid fa-circle-notch spin text-3xl text-cyan-400 mb-3"></i>
+                                                <span class="text-xs font-mono text-cyan-400 tracking-wider" id="logo-loading-step">Synthesizing vectors...</span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Copyable Master Prompt -->
+                                        <div class="bg-slate-955 border border-slate-850 rounded-2xl p-4 relative">
+                                            <div class="flex items-center justify-between mb-2">
+                                                <span class="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Master Generation Prompt</span>
+                                                <button onclick="copyPlaygroundPrompt('logo-prompt-text')" class="text-xs text-cyan-500 hover:text-cyan-400 transition-colors font-bold"><i class="fa-regular fa-copy"></i> Copy</button>
+                                            </div>
+                                            <textarea id="logo-prompt-text" readonly class="w-full h-24 bg-transparent border-none text-[11px] text-emerald-400 font-mono focus:outline-none resize-none leading-relaxed">Design a professional minimal lineart logo for QuantumLabs, a Artificial Intelligence / Technology company. Include minimalist geometric icon with clear clean lines, vector edges, pure solid dark slate background, scalable. --ar 1:1 --v 6.1 --style raw</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- 2. PHOTO RESTORER WORK AREA -->
+                            <div id="play-area-restore" class="play-tab-area hidden space-y-6">
+                                <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                                    <div>
+                                        <h2 class="text-xl font-bold text-white heading-font">✨ Photo Restoration Enhancer</h2>
+                                        <p class="text-xs text-slate-400 mt-0.5">Cleans scratches, restores contrast, and simulates high-end colorization.</p>
+                                    </div>
+                                    <span class="text-[10px] font-bold text-blue-400 bg-blue-900/30 border border-blue-800 px-2.5 py-1 rounded-full uppercase">Stable Diffusion & Midjourney</span>
+                                </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <!-- Inputs -->
+                                    <div class="space-y-4">
+                                        <div>
+                                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Select Damaged Template</label>
+                                            <select id="restore-input-template" onchange="changeRestoreTemplate()" class="w-full px-4 py-3 bg-slate-955 border border-slate-850 rounded-xl focus:outline-none focus:border-blue-500 text-sm text-slate-355 transition-colors">
+                                                <option value="portrait">1920s Scratched Family Portrait</option>
+                                                <option value="historic">1940s Historical War Event</option>
+                                                <option value="landscape">Faded Antique Landscape</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Restoration Depth</label>
+                                            <div class="grid grid-cols-3 gap-2">
+                                                <button onclick="setRestoreLevel('light')" id="restore-lvl-light" class="restore-lvl-btn py-2 px-1 bg-slate-955 rounded-xl border border-slate-850 text-xs font-semibold text-slate-450 transition-all text-center">Remove Noise</button>
+                                                <button onclick="setRestoreLevel('deep')" id="restore-lvl-deep" class="restore-lvl-btn py-2 px-1 bg-slate-955 rounded-xl border border-blue-500/40 text-xs font-semibold text-blue-400 transition-all text-center">Sharpen Faces</button>
+                                                <button onclick="setRestoreLevel('color')" id="restore-lvl-color" class="restore-lvl-btn py-2 px-1 bg-slate-955 rounded-xl border border-slate-850 text-xs font-semibold text-slate-450 transition-all text-center">Deep Colorize</button>
+                                            </div>
+                                        </div>
+                                        
+                                        <button onclick="runRestorePlayground()" class="w-full py-3.5 bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-400 hover:to-indigo-400 text-white font-bold text-sm rounded-xl transition-all shadow-lg shadow-blue-500/10 flex items-center justify-center gap-2 hover:scale-[1.01] cursor-pointer">
+                                            <i class="fa-solid fa-wand-magic-sparkles"></i> Process Restored Comparison
+                                        </button>
+                                        
+                                        <div class="text-[10px] text-slate-500 bg-slate-955 border border-slate-850 rounded-xl p-3.5 leading-relaxed">
+                                            <i class="fa-solid fa-circle-info text-blue-400 mr-1.5"></i>
+                                            Drag the vertical separator handle in the preview box to compare the original damaged photo with the restored visual!
+                                        </div>
+                                    </div>
+
+                                    <!-- Visual Preview and Live Prompt Output -->
+                                    <div class="flex flex-col gap-4">
+                                        <!-- Image comparison slider -->
+                                        <div class="bg-slate-955 border border-slate-850 rounded-2xl h-[180px] relative overflow-hidden select-none" id="restore-slider-container">
+                                            <!-- Restored Image (Background) -->
+                                            <img id="restore-img-after" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=450&h=300&fit=crop&q=80" class="absolute inset-0 w-full h-full object-cover">
+                                            
+                                            <!-- Damaged Image (Foreground overlay) -->
+                                            <div id="restore-img-before-wrapper" class="absolute inset-y-0 left-0 overflow-hidden w-1/2 border-r-2 border-white/80 shadow-[0_0_10px_rgba(255,255,255,0.5)]">
+                                                <img id="restore-img-before" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=450&h=300&fit=crop&q=80" class="absolute top-0 left-0 w-full h-full object-cover grayscale brightness-90 sepia" style="filter: grayscale(1) sepia(0.3) contrast(1.1) brightness(0.95) blur(0.5px);">
+                                            </div>
+
+                                            <!-- Drag slider handle -->
+                                            <div id="restore-slider-handle" class="absolute inset-y-0 left-1/2 -ml-3 w-6 flex items-center justify-center pointer-events-none">
+                                                <div class="w-6 h-6 rounded-full bg-white text-slate-900 border border-slate-300 shadow flex items-center justify-center text-[10px] font-bold"><i class="fa-solid fa-arrows-left-right"></i></div>
+                                            </div>
+
+                                            <!-- Loading HUD -->
+                                            <div id="restore-loading-hud" class="absolute inset-0 bg-slate-955/90 flex flex-col items-center justify-center hidden">
+                                                <i class="fa-solid fa-spinner spin text-3xl text-blue-400 mb-3"></i>
+                                                <span class="text-xs font-mono text-blue-400 tracking-wider" id="restore-loading-step">Upscaling pixel density...</span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Copyable Master Prompt -->
+                                        <div class="bg-slate-955 border border-slate-850 rounded-2xl p-4 relative">
+                                            <div class="flex items-center justify-between mb-2">
+                                                <span class="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Master Restoration Prompt</span>
+                                                <button onclick="copyPlaygroundPrompt('restore-prompt-text')" class="text-xs text-blue-500 hover:text-blue-400 transition-colors font-bold"><i class="fa-regular fa-copy"></i> Copy</button>
+                                            </div>
+                                            <textarea id="restore-prompt-text" readonly class="w-full h-24 bg-transparent border-none text-[11px] text-emerald-400 font-mono focus:outline-none resize-none leading-relaxed">Stable Diffusion image restoration of an old scratched family portrait, clean lines, colorized facial details, remove vintage noise and scratches, 4K enhanced depth. --v 6.1 --style raw</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- 3. UI/UX CODE ARCHITECT WORK AREA -->
+                            <div id="play-area-code" class="play-tab-area hidden space-y-6">
+                                <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                                    <div>
+                                        <h2 class="text-xl font-bold text-white heading-font">💻 UI/UX Code Architect</h2>
+                                        <p class="text-xs text-slate-400 mt-0.5">Builds clean web landing components & front-end prompt structures.</p>
+                                    </div>
+                                    <span class="text-[10px] font-bold text-purple-400 bg-purple-900/30 border border-purple-800 px-2.5 py-1 rounded-full uppercase">Claude & ChatGPT HTML5</span>
+                                </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <!-- Inputs -->
+                                    <div class="space-y-4">
+                                        <div>
+                                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Brand Project Name</label>
+                                            <input type="text" id="code-input-brand" value="SaaSify" class="w-full px-4 py-3 bg-slate-955 border border-slate-850 rounded-xl focus:outline-none focus:border-purple-500 text-sm text-slate-200 placeholder-slate-700 transition-colors" placeholder="e.g. SwirlCraft">
+                                        </div>
+                                        <div>
+                                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Target Theme Style</label>
+                                            <select id="code-input-theme" class="w-full px-4 py-3 bg-slate-955 border border-slate-850 rounded-xl focus:outline-none focus:border-purple-500 text-sm text-slate-350 transition-colors">
+                                                <option value="slate">Sleek Dark Mode Slate</option>
+                                                <option value="glass">Pastel Translucent Glassmorphism</option>
+                                                <option value="cyber">Retro Neon Cyberpunk Grid</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Primary Accent Color</label>
+                                            <div class="flex gap-3 px-1 py-1.5">
+                                                <label class="flex items-center gap-1.5 text-xs text-slate-300 cursor-pointer"><input type="radio" name="code-color" value="indigo" checked class="accent-purple-500"> Indigo</label>
+                                                <label class="flex items-center gap-1.5 text-xs text-slate-300 cursor-pointer"><input type="radio" name="code-color" value="emerald" class="accent-emerald-500"> Emerald</label>
+                                                <label class="flex items-center gap-1.5 text-xs text-slate-300 cursor-pointer"><input type="radio" name="code-color" value="rose" class="accent-rose-500"> Sunset Rose</label>
+                                            </div>
+                                        </div>
+                                        
+                                        <button onclick="runCodePlayground()" class="w-full py-3.5 bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-400 hover:to-indigo-400 text-white font-bold text-sm rounded-xl transition-all shadow-lg shadow-purple-500/10 flex items-center justify-center gap-2 hover:scale-[1.01] cursor-pointer">
+                                            <i class="fa-solid fa-terminal"></i> Build Visual Web Mockup
+                                        </button>
+                                    </div>
+
+                                    <!-- Visual Preview and Live Prompt Output -->
+                                    <div class="flex flex-col gap-4">
+                                        <div class="bg-slate-955 border border-slate-850 rounded-2xl flex flex-col items-center justify-center h-[180px] relative overflow-hidden" id="code-preview-box">
+                                            <!-- Dynamic component renders here -->
+                                            <div id="code-mockup-target" class="w-full h-full p-4 flex flex-col justify-between text-left relative z-10 transition-all bg-slate-900">
+                                                <div class="flex justify-between items-center pb-2 border-b border-white/10">
+                                                    <span class="text-xs font-bold text-white tracking-wide flex items-center gap-1.5"><i class="fa-solid fa-cube text-indigo-400"></i> SaaSify</span>
+                                                    <span class="text-[9px] px-2 py-0.5 bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 rounded-full font-bold uppercase">Launch</span>
+                                                </div>
+                                                <div class="py-3">
+                                                    <h4 class="text-xs font-bold text-white leading-snug">The Ultimate Platform to Automate Operations</h4>
+                                                    <p class="text-[10px] text-slate-400 mt-1 line-clamp-2">Manage files, secure transactions, and sync client records in a beautiful web app built for scale.</p>
+                                                </div>
+                                                <div class="flex justify-between items-center pt-2">
+                                                    <span class="text-[9px] text-slate-500">© 2026 SaaSify Inc.</span>
+                                                    <button class="px-3 py-1 bg-indigo-600 hover:bg-indigo-500 text-white text-[10px] rounded-lg font-bold transition-all shadow-sm">Get Started</button>
+                                                </div>
+                                            </div>
+                                            <!-- Loading HUD -->
+                                            <div id="code-loading-hud" class="absolute inset-0 bg-slate-955/90 flex flex-col items-center justify-center hidden">
+                                                <i class="fa-solid fa-circle-notch spin text-3xl text-purple-400 mb-3"></i>
+                                                <span class="text-xs font-mono text-purple-400 tracking-wider" id="code-loading-step">Building visual layout...</span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Copyable Master Prompt -->
+                                        <div class="bg-slate-955 border border-slate-850 rounded-2xl p-4 relative">
+                                            <div class="flex items-center justify-between mb-2">
+                                                <span class="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Master Front-End Prompt</span>
+                                                <button onclick="copyPlaygroundPrompt('code-prompt-text')" class="text-xs text-purple-500 hover:text-purple-400 transition-colors font-bold"><i class="fa-regular fa-copy"></i> Copy</button>
+                                            </div>
+                                            <textarea id="code-prompt-text" readonly class="w-full h-24 bg-transparent border-none text-[11px] text-emerald-400 font-mono focus:outline-none resize-none leading-relaxed">Write a fully responsive HTML5 landing page container for SaaSify, utilizing a sleek dark mode slate layout, with custom indigo primary accent buttons, including semantic headers, pricing CTAs, and SVG cards. Output clean CSS utility structures.</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- 4. AVATAR PORTRAIT WORK AREA -->
+                            <div id="play-area-avatar" class="play-tab-area hidden space-y-6">
+                                <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                                    <div>
+                                        <h2 class="text-xl font-bold text-white heading-font">👤 Portrait & Avatar Designer</h2>
+                                        <p class="text-xs text-slate-400 mt-0.5">Generates clean high-fidelity graphic avatars & artistic headshot prompts.</p>
+                                    </div>
+                                    <span class="text-[10px] font-bold text-emerald-400 bg-emerald-900/30 border border-emerald-800 px-2.5 py-1 rounded-full uppercase">Midjourney & DALL-E 3</span>
+                                </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <!-- Inputs -->
+                                    <div class="space-y-4">
+                                        <div>
+                                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Avatar Gender & Role</label>
+                                            <input type="text" id="avatar-input-role" value="A male developer in spectacles" class="w-full px-4 py-3 bg-slate-955 border border-slate-850 rounded-xl focus:outline-none focus:border-emerald-500 text-sm text-slate-200 placeholder-slate-700 transition-colors" placeholder="e.g. A female digital marketer with a smile">
+                                        </div>
+                                        <div>
+                                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Select Profile Art Style</label>
+                                            <select id="avatar-input-style" class="w-full px-4 py-3 bg-slate-955 border border-slate-850 rounded-xl focus:outline-none focus:border-emerald-500 text-sm text-slate-355 transition-colors">
+                                                <option value="clay">Stunning 3D Claymation Toy Art</option>
+                                                <option value="corporate">Professional Corporate Studio Headshot</option>
+                                                <option value="pixel">8-Bit Retro Gaming Pixel Portrait</option>
+                                                <option value="cyber">Glow Neon Synthwave Character</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <button onclick="runAvatarPlayground()" class="w-full py-3.5 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-bold text-sm rounded-xl transition-all shadow-lg shadow-emerald-500/10 flex items-center justify-center gap-2 hover:scale-[1.01] cursor-pointer">
+                                            <i class="fa-solid fa-camera"></i> Capture Avatar Frame
+                                        </button>
+                                    </div>
+
+                                    <!-- Visual Preview and Live Prompt Output -->
+                                    <div class="flex flex-col gap-4">
+                                        <div class="bg-slate-955 border border-slate-850 rounded-2xl flex flex-col items-center justify-center h-[180px] relative overflow-hidden" id="avatar-preview-box">
+                                            <!-- Avatar Preview Frame -->
+                                            <div id="avatar-target-frame" class="w-full h-full flex items-center justify-center">
+                                                <div class="w-20 h-20 rounded-full border-4 border-emerald-500/20 bg-slate-900 flex items-center justify-center text-4xl text-emerald-400 relative overflow-hidden shadow-lg shadow-emerald-500/5 animate-pulse">
+                                                    <i class="fa-solid fa-user-gear"></i>
+                                                </div>
+                                            </div>
+                                            <!-- Loading HUD -->
+                                            <div id="avatar-loading-hud" class="absolute inset-0 bg-slate-955/90 flex flex-col items-center justify-center hidden">
+                                                <i class="fa-solid fa-circle-notch spin text-3xl text-emerald-400 mb-3"></i>
+                                                <span class="text-xs font-mono text-emerald-400 tracking-wider" id="avatar-loading-step">Rendering face coordinates...</span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Copyable Master Prompt -->
+                                        <div class="bg-slate-955 border border-slate-850 rounded-2xl p-4 relative">
+                                            <div class="flex items-center justify-between mb-2">
+                                                <span class="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Master Portrait Prompt</span>
+                                                <button onclick="copyPlaygroundPrompt('avatar-prompt-text')" class="text-xs text-emerald-500 hover:text-emerald-400 transition-colors font-bold"><i class="fa-regular fa-copy"></i> Copy</button>
+                                            </div>
+                                            <textarea id="avatar-prompt-text" readonly class="w-full h-24 bg-transparent border-none text-[11px] text-emerald-400 font-mono focus:outline-none resize-none leading-relaxed">Midjourney v6 portrait of A male developer in spectacles, designed in stunning 3D Claymation Toy Art, isolated colorful studio backdrop, extremely high detail rendering. --ar 1:1 --v 6.1 --style raw</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
         </div>
 
         </div>
@@ -3288,7 +3675,7 @@
                     type: item.type,
                     copies: (item.reviews || 1000) + 10,
                     description: item.description,
-                    prompt: `[FULL UNLOCKED PROMPT — ${item.type}]\n\n[System Instruction]\nAct as an elite ${item.type} specialist. You are generating a professional-grade ${item.title.toLowerCase()} output.\n\n${item.previewPrompt || ''}\n\n[Advanced Parameters]\nResolution: 4K Ultra HD\nAspect Ratio: 16:9 Cinematic\nFrame Rate: 24fps (Film) / 60fps (Smooth)\nCamera: Dynamic tracking shot with parallax depth\nLighting: Volumetric rays, ambient occlusion, rim lighting\nColor Grading: Teal & Orange cinematic palette\nMotion: Smooth bezier easing, 2s transitions\nPost-Processing: Film grain 15%, chromatic aberration subtle\n\n[Output Format]\nDeliver the final result as a structured JSON schema with all parameters locked. Include fallback values for each parameter.`,
+                    prompt: generateBuyerFriendlyPrompt(item),
                     purchasedAt: formattedDate
                 };
                 if (!stripeUnlockedProducts.some(p => p.id === simulatedItem.id)) {
@@ -3511,7 +3898,7 @@
                             type: matchedProd.type,
                             description: matchedProd.description,
                             copies: (matchedProd.reviews || 1000) + 10,
-                            prompt: `[FULL UNLOCKED PROMPT — ${matchedProd.type}]\n\n[System Instruction]\nAct as an elite ${matchedProd.type} specialist. You are generating a professional-grade ${matchedProd.title.toLowerCase()} output.\n\n${matchedProd.previewPrompt}\n\n[Advanced Parameters]\nResolution: 4K Ultra HD\nAspect Ratio: 16:9 Cinematic\nFrame Rate: 24fps (Film) / 60fps (Smooth)\nCamera: Dynamic tracking shot with parallax depth\nLighting: Volumetric rays, ambient occlusion, rim lighting\nColor Grading: Teal & Orange cinematic palette\nMotion: Smooth bezier easing, 2s transitions\nPost-Processing: Film grain 15%, chromatic aberration subtle\n\n[Output Format]\nDeliver the final result as a structured JSON schema with all parameters locked. Include fallback values for each parameter.`,
+                            prompt: generateBuyerFriendlyPrompt(matchedProd),
                             purchasedAt: formattedDate
                         };
                         if (!stripeUnlockedProducts.some(p => p.id === unlockedProduct.id)) {
@@ -3621,43 +4008,24 @@
         }
 
         async function executeStripeRedirectCheckout() {
-            const backendUrl = "/api/create-checkout-session";
+            // Navigate to our custom checkout page (supports Apple Pay, Google Pay, Link, Card)
+            const cartData = cart.map(item => ({
+                id: item.id,
+                title: item.title + (window.couponApplied ? ' (Promo FLOW50)' : ''),
+                type: item.type,
+                price: window.couponApplied ? parseFloat(item.price) * 0.5 : parseFloat(item.price),
+                image: item.image || '',
+                previewPrompt: item.previewPrompt || ''
+            }));
 
-            window.showToast("Communicating with Stripe secure API backend...", "info");
+            const email = (window.currentUser && window.currentUser.email) ? window.currentUser.email : '';
+            const params = new URLSearchParams({
+                cart: JSON.stringify(cartData),
+                email: email
+            });
 
-            try {
-                const response = await fetch(backendUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        items: cart.map(item => ({
-                            id: item.id,
-                            title: item.title + (window.couponApplied ? ' (Promo FLOW50)' : ''),
-                            type: item.type,
-                            price: window.couponApplied ? parseFloat(item.price) * 0.5 : parseFloat(item.price),
-                            image: item.image,
-                            previewPrompt: item.previewPrompt
-                        })),
-                        customerEmail: window.currentUser ? window.currentUser.email : undefined,
-                        successUrl: window.location.origin + window.location.pathname + '?checkout_success=true&unlocked=' + encodeURIComponent(cart.map(item => item.id).join(',')),
-                        cancelUrl: window.location.origin + window.location.pathname + '?checkout_cancel=true'
-                    })
-                });
-
-                if (!response.ok) {
-                    const errorData = await response.json().catch(() => ({}));
-                    throw new Error(errorData.error || "Invalid server response.");
-                }
-
-                const data = await response.json();
-                
-                // Redirect to the Stripe Checkout URL returned by our backend
-                window.location.href = data.url;
-                
-            } catch (err) {
-                console.error("Stripe Redirect Error:", err);
-                window.showToast(`Stripe Backend Connection Failed: ${err.message}`, "error");
-            }
+            window.toggleCart();
+            window.location.href = 'http://localhost:3000/checkout.html?' + params.toString();
         }
 
         function renderVaultGrid() {
@@ -4626,6 +4994,591 @@
             } catch(e) {
                 console.error("Failed to reset statistics:", e);
             }
+        };
+
+        function generateBuyerFriendlyPrompt(item) {
+            const titleLower = (item.title || '').toLowerCase();
+            const typeLower = (item.type || '').toLowerCase();
+            const descLower = (item.description || '').toLowerCase();
+            
+            const isCode = titleLower.includes('code') || titleLower.includes('developer') || typeLower.includes('code') || descLower.includes('code');
+            const isImageOrVideo = typeLower.includes('midjourney') || typeLower.includes('dall-e') || typeLower.includes('sora') || typeLower.includes('runway') || typeLower.includes('video') || typeLower.includes('diffusion') || typeLower.includes('sdxl');
+            
+            let promptText = '';
+            
+            if (isCode) {
+                promptText = `🔥 PREMIUM DEVELOPER PROMPT UNLOCKED 🔥\n\n`;
+                promptText += `📌 INSTRUCTIONS:\nCopy the system prompt below and paste it into your AI model (e.g., ChatGPT, Claude) to instantiate an elite developer assistant.\n\n`;
+                promptText += `💻 THE MASTER PROMPT:\n"""\n${item.previewPrompt || ''}\n"""\n\n`;
+                promptText += `⚙️ KEY CAPABILITIES:\n${(item.features || []).map(f => `• ${f}`).join('\n') || '• Multi-language support\n• Automated debugging\n• Edge-case handling'}\n\n`;
+                promptText += `🚀 HOW TO USE:\n1. Paste the Master Prompt into your AI interface.\n2. Provide your target source code or description.\n3. The AI will output perfectly formatted code, complete with inline documentation and comprehensive test cases.`;
+            } else if (isImageOrVideo) {
+                promptText = `✨ PREMIUM CREATIVE PROMPT UNLOCKED ✨\n\n`;
+                promptText += `📌 THE CORE GENERATION PROMPT:\n"${item.previewPrompt || ''}"\n\n`;
+                promptText += `🎨 ARTISTIC PARAMETERS (ADJUSTABLE):\n`;
+                if (typeLower.includes('midjourney')) {
+                    promptText += `• Aspect Ratios: Use --ar 16:9 for cinematic screens, --ar 4:3 for blogs, or --ar 1:1 for social posts.\n`;
+                    promptText += `• Version: Optimized for Midjourney v6.1 (append --v 6.1 --style raw for best realism).\n`;
+                } else if (typeLower.includes('dall-e')) {
+                    promptText += `• Aspect Ratios: Use standard portrait, landscape, or square in your generation command.\n`;
+                }
+                promptText += `• Lighting: Professional studio ambient lighting.\n`;
+                promptText += `• Color Grading: Harmonious palette tailored to ${titleLower}.\n\n`;
+                promptText += `📚 INCLUDED FEATURES:\n${(item.features || []).map(f => `• ${f}`).join('\n') || '• Ultra-high fidelity resolution\n• Commercial usage license'}\n\n`;
+                promptText += `🚀 HOW TO USE:\n1. Replace the square-bracketed placeholders like [PRODUCT] or [STYLE] with your desired values.\n2. Run the prompt in your image/video engine (Midjourney, DALL-E 3, Sora, Runway, etc.).\n3. Enjoy professional, commercial-ready visual assets instantly!`;
+            } else {
+                promptText = `🚀 PREMIUM STRATEGIST PROMPT UNLOCKED 🚀\n\n`;
+                promptText += `📌 THE MASTER OUTREACH & STRATEGY PROMPT:\n`;
+                promptText += `"""\n${item.previewPrompt || ''}\n"""\n\n`;
+                promptText += `💎 PROFESSIONAL UTILITY & HIGHLIGHTS:\n`;
+                promptText += `• Niche: Designed explicitly for premium B2B and consumer copywriting.\n`;
+                promptText += `• Style: Authoritative, engaging, conversational, and highly persuasive.\n`;
+                promptText += `• Conversion: Engineered utilizing industry-leading persuasion frameworks.\n\n`;
+                promptText += `📦 WHAT'S INCLUDED IN THIS PLAYBOOK:\n${(item.features || []).map(f => `• ${f}`).join('\n') || '• High converting subject lines\n• Custom tone calibration'}\n\n`;
+                promptText += `🚀 HOW TO USE:\n1. Copy the Master Prompt above.\n2. Replace placeholders (e.g., company names, Pain Points, target audience) with your specific project details.\n3. Run it in ChatGPT, Claude, or Gemini.\n4. Copy, paste, and watch your business scale!`;
+            }
+            
+            return promptText;
+        }
+
+        // --- INSTANT PLAYGROUNDS LOGIC ---
+        let currentLogoStyle = 'minimal';
+        let currentRestoreLvl = 'deep';
+        
+        window.switchPlaygroundTab = function(tabId) {
+            document.querySelectorAll('.play-tab-area').forEach(area => {
+                area.classList.add('hidden');
+                area.classList.remove('block');
+            });
+            document.getElementById('play-area-' + tabId).classList.remove('hidden');
+            document.getElementById('play-area-' + tabId).classList.add('block');
+            
+            document.querySelectorAll('[id^="p-tab-"]').forEach(btn => {
+                btn.classList.remove('active-playground-tab', 'border-cyan-500/30', 'border-blue-500/30', 'border-purple-500/30', 'border-emerald-500/30');
+                btn.classList.add('border-slate-800');
+            });
+            
+            const activeTabBtn = document.getElementById('p-tab-' + tabId);
+            if (activeTabBtn) {
+                activeTabBtn.classList.add('active-playground-tab');
+                activeTabBtn.classList.remove('border-slate-800');
+                if (tabId === 'logo') activeTabBtn.classList.add('border-cyan-500/30');
+                if (tabId === 'restore') activeTabBtn.classList.add('border-blue-500/30');
+                if (tabId === 'code') activeTabBtn.classList.add('border-purple-500/30');
+                if (tabId === 'avatar') activeTabBtn.classList.add('border-emerald-500/30');
+            }
+            
+            if (tabId === 'restore') {
+                setTimeout(initSliderDrag, 100);
+            }
+        };
+
+        window.setLogoStyle = function(styleId) {
+            currentLogoStyle = styleId;
+            document.querySelectorAll('.logo-style-btn').forEach(btn => {
+                btn.classList.remove('border-cyan-500/40', 'text-cyan-400');
+                btn.classList.add('border-slate-850', 'text-slate-400');
+            });
+            const activeBtn = document.getElementById('logo-style-' + styleId);
+            if (activeBtn) {
+                activeBtn.classList.add('border-cyan-500/40', 'text-cyan-400');
+                activeBtn.classList.remove('border-slate-850', 'text-slate-400');
+            }
+            updateLogoPromptText();
+        };
+
+        function updateLogoPromptText() {
+            const brand = document.getElementById('logo-input-brand').value.trim() || 'QuantumLabs';
+            const niche = document.getElementById('logo-input-niche').value;
+            let styleStr = 'minimal lineart';
+            if (currentLogoStyle === 'cyber') styleStr = 'cyberpunk neon glowing';
+            if (currentLogoStyle === 'royal') styleStr = 'royal heraldic gold crest';
+            if (currentLogoStyle === 'geo') styleStr = 'tech geometric clean 3D';
+            
+            const promptText = `Design a professional ${styleStr} logo for ${brand}, a ${niche} company. Include minimalist geometric icon with clean lines, vector edges, pure solid dark slate background, scalable. --ar 1:1 --v 6.1 --style raw`;
+            document.getElementById('logo-prompt-text').value = promptText;
+        }
+
+        window.runLogoPlayground = function() {
+            const brand = document.getElementById('logo-input-brand').value.trim() || 'QuantumLabs';
+            const hud = document.getElementById('logo-loading-hud');
+            const stepText = document.getElementById('logo-loading-step');
+            
+            hud.classList.remove('hidden');
+            
+            const steps = [
+                'Analyzing brand metrics...',
+                'Selecting color contrast ratios...',
+                'Drafting vector anchor paths...',
+                'Polishing typographical alignment...',
+                'Finalizing DALL-E 3 rendering...'
+            ];
+            
+            let i = 0;
+            const interval = setInterval(() => {
+                if (i < steps.length) {
+                    stepText.innerText = steps[i];
+                    i++;
+                } else {
+                    clearInterval(interval);
+                    renderDynamicLogo(brand, currentLogoStyle);
+                    hud.classList.add('hidden');
+                }
+            }, 400);
+        };
+
+        function renderDynamicLogo(brandName, style) {
+            const container = document.getElementById('logo-vector-target');
+            if (!container) return;
+            
+            const initials = brandName.substring(0, 2).toUpperCase();
+            
+            let svgContent = '';
+            
+            if (style === 'minimal') {
+                svgContent = `
+                <svg width="120" height="120" viewBox="0 0 100 100" class="transition-transform duration-500 hover:scale-105">
+                    <circle cx="50" cy="50" r="38" fill="none" stroke="#22d3ee" stroke-width="2"/>
+                    <circle cx="50" cy="50" r="34" fill="none" stroke="#22d3ee" stroke-width="0.5" stroke-dasharray="2 2"/>
+                    <path d="M30 50 L50 30 L70 50 L50 70 Z" fill="none" stroke="#3b82f6" stroke-width="2"/>
+                    <text x="50" y="55" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="12" font-weight="900" text-anchor="middle" letter-spacing="1">${initials}</text>
+                    <text x="50" y="82" fill="#94a3b8" font-family="'Inter', sans-serif" font-size="5" font-weight="bold" text-anchor="middle" letter-spacing="1.5">${brandName.toUpperCase()}</text>
+                </svg>`;
+            } else if (style === 'cyber') {
+                svgContent = `
+                <svg width="120" height="120" viewBox="0 0 100 100" class="transition-transform duration-500 hover:scale-105">
+                    <defs>
+                        <linearGradient id="cyber-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#f43f5e" />
+                            <stop offset="100%" stop-color="#ec4899" />
+                        </linearGradient>
+                        <linearGradient id="neon-blue" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#06b6d4" />
+                            <stop offset="100%" stop-color="#3b82f6" />
+                        </linearGradient>
+                        <filter id="neon-glow">
+                            <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+                            <feMerge>
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    <rect x="15" y="15" width="70" height="70" rx="10" fill="#090d16" stroke="url(#cyber-grad)" stroke-width="2" filter="url(#neon-glow)"/>
+                    <path d="M25 35 L50 20 L75 35 L75 65 L50 80 L25 65 Z" fill="none" stroke="url(#neon-blue)" stroke-width="1.5" stroke-dasharray="40 5"/>
+                    <text x="50" y="54" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="16" font-weight="900" text-anchor="middle" filter="url(#neon-glow)">${initials}</text>
+                    <text x="50" y="70" fill="#ec4899" font-family="'Courier New', monospace" font-size="6" font-weight="bold" text-anchor="middle" letter-spacing="2">${brandName.toUpperCase()}</text>
+                </svg>`;
+            } else if (style === 'royal') {
+                svgContent = `
+                <svg width="120" height="120" viewBox="0 0 100 100" class="transition-transform duration-500 hover:scale-105">
+                    <defs>
+                        <linearGradient id="gold-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#fbbf24" />
+                            <stop offset="50%" stop-color="#f59e0b" />
+                            <stop offset="100%" stop-color="#d97706" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M50 15 C65 15, 75 25, 75 45 C75 65, 50 85, 50 85 C50 85, 25 65, 25 45 C25 25, 35 15, 50 15 Z" fill="#090d16" stroke="url(#gold-grad)" stroke-width="2.5"/>
+                    <path d="M50 22 L55 32 L67 32 L57 39 L61 50 L50 43 L39 50 L43 39 L33 32 L45 32 Z" fill="url(#gold-grad)"/>
+                    <text x="50" y="62" fill="#ffffff" font-family="'Times New Roman', serif" font-size="14" font-weight="bold" text-anchor="middle" letter-spacing="1">${initials}</text>
+                    <text x="50" y="75" fill="url(#gold-grad)" font-family="'Times New Roman', serif" font-size="5" font-weight="bold" text-anchor="middle" letter-spacing="2">EST. 2026</text>
+                </svg>`;
+            } else if (style === 'geo') {
+                svgContent = `
+                <svg width="120" height="120" viewBox="0 0 100 100" class="transition-transform duration-500 hover:scale-105">
+                    <defs>
+                        <linearGradient id="geo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#8b5cf6" />
+                            <stop offset="100%" stop-color="#6366f1" />
+                        </linearGradient>
+                    </defs>
+                    <polygon points="50,15 82,33 82,69 50,87 18,69 18,33" fill="#090d16" stroke="url(#geo-grad)" stroke-width="2"/>
+                    <line x1="50" y1="15" x2="50" y2="87" stroke="url(#geo-grad)" stroke-width="1" stroke-dasharray="2 2"/>
+                    <line x1="18" y1="33" x2="82" y2="69" stroke="url(#geo-grad)" stroke-width="0.5"/>
+                    <line x1="18" y1="69" x2="82" y2="33" stroke="url(#geo-grad)" stroke-width="0.5"/>
+                    <circle cx="50" cy="51" r="18" fill="#0f172a" stroke="#a78bfa" stroke-width="1.5"/>
+                    <text x="50" y="57" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="12" font-weight="bold" text-anchor="middle">${initials}</text>
+                </svg>`;
+            }
+            container.innerHTML = svgContent;
+        }
+
+        let isDraggingSlider = false;
+        
+        window.initSliderDrag = function() {
+            const container = document.getElementById('restore-slider-container');
+            const beforeWrapper = document.getElementById('restore-img-before-wrapper');
+            const handle = document.getElementById('restore-slider-handle');
+            if (!container || !beforeWrapper || !handle) return;
+            
+            function move(x) {
+                const rect = container.getBoundingClientRect();
+                let pos = (x - rect.left) / rect.width;
+                if (pos < 0) pos = 0;
+                if (pos > 1) pos = 1;
+                
+                beforeWrapper.style.width = (pos * 100) + '%';
+                handle.style.left = (pos * 100) + '%';
+            }
+            
+            container.addEventListener('mousedown', (e) => {
+                isDraggingSlider = true;
+                move(e.clientX);
+            });
+            
+            window.addEventListener('mouseup', () => {
+                isDraggingSlider = false;
+            });
+            
+            window.addEventListener('mousemove', (e) => {
+                if (!isDraggingSlider) return;
+                move(e.clientX);
+            });
+            
+            container.addEventListener('touchstart', (e) => {
+                isDraggingSlider = true;
+                if (e.touches && e.touches[0]) {
+                    move(e.touches[0].clientX);
+                }
+            });
+            
+            window.addEventListener('touchend', () => {
+                isDraggingSlider = false;
+            });
+            
+            window.addEventListener('touchmove', (e) => {
+                if (!isDraggingSlider) return;
+                if (e.touches && e.touches[0]) {
+                    move(e.touches[0].clientX);
+                }
+            });
+            
+            beforeWrapper.style.width = '50%';
+            handle.style.left = '50%';
+        };
+
+        window.setRestoreLevel = function(levelId) {
+            currentRestoreLvl = levelId;
+            document.querySelectorAll('.restore-lvl-btn').forEach(btn => {
+                btn.classList.remove('border-blue-500/40', 'text-blue-400');
+                btn.classList.add('border-slate-850', 'text-slate-400');
+            });
+            const activeBtn = document.getElementById('restore-lvl-' + levelId);
+            if (activeBtn) {
+                activeBtn.classList.add('border-blue-500/40', 'text-blue-400');
+                activeBtn.classList.remove('border-slate-850', 'text-slate-400');
+            }
+            updateRestorePromptText();
+        };
+
+        window.changeRestoreTemplate = function() {
+            const template = document.getElementById('restore-input-template').value;
+            const imgBefore = document.getElementById('restore-img-before');
+            const imgAfter = document.getElementById('restore-img-after');
+            
+            if (template === 'portrait') {
+                imgAfter.src = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&h=350&fit=crop&q=80';
+                imgBefore.src = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&h=350&fit=crop&q=80';
+            } else if (template === 'historic') {
+                imgAfter.src = 'https://images.unsplash.com/photo-1447069387593-a5de0862481e?w=500&h=350&fit=crop&q=80';
+                imgBefore.src = 'https://images.unsplash.com/photo-1447069387593-a5de0862481e?w=500&h=350&fit=crop&q=80';
+            } else if (template === 'landscape') {
+                imgAfter.src = 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=500&h=350&fit=crop&q=80';
+                imgBefore.src = 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=500&h=350&fit=crop&q=80';
+            }
+            updateRestorePromptText();
+        };
+
+        function updateRestorePromptText() {
+            const template = document.getElementById('restore-input-template').value;
+            let tempStr = 'an old scratched family portrait';
+            if (template === 'historic') tempStr = 'a historical black & white archive war image';
+            if (template === 'landscape') tempStr = 'a faded antique landscape photograph';
+            
+            let lvlStr = 'remove scratches and sharpen facial details';
+            if (currentRestoreLvl === 'light') lvlStr = 'subtly clear modern visual noise and small cracks';
+            if (currentRestoreLvl === 'color') lvlStr = 'deeply colorize historical layers and restore natural color balancing';
+            
+            const promptText = `Stable Diffusion image restoration playbook. Enhance ${tempStr}, carefully ${lvlStr}, upscale resolution, output realistic grain 4K. --v 6.1 --style raw`;
+            document.getElementById('restore-prompt-text').value = promptText;
+        }
+
+        window.runRestorePlayground = function() {
+            const hud = document.getElementById('restore-loading-hud');
+            const stepText = document.getElementById('restore-loading-step');
+            
+            hud.classList.remove('hidden');
+            
+            const steps = [
+                'Scanning visual defect coordinate grid...',
+                'Filtering high frequency noise cracks...',
+                'Synthesizing missing detail parameters...',
+                'Calibrating RGB neural color arrays...',
+                'Upscaling output resolution...'
+            ];
+            
+            let i = 0;
+            const interval = setInterval(() => {
+                if (i < steps.length) {
+                    stepText.innerText = steps[i];
+                    i++;
+                } else {
+                    clearInterval(interval);
+                    hud.classList.add('hidden');
+                    const beforeImg = document.getElementById('restore-img-before');
+                    if (currentRestoreLvl === 'light') {
+                        beforeImg.style.filter = 'grayscale(0.6) sepia(0.1) blur(0.2px) contrast(1.05)';
+                    } else if (currentRestoreLvl === 'color') {
+                        beforeImg.style.filter = 'grayscale(1) sepia(0.4) contrast(1.1) brightness(0.9) blur(0.8px)';
+                    } else {
+                        beforeImg.style.filter = 'grayscale(0.8) sepia(0.2) contrast(1.1) brightness(0.95) blur(0.4px)';
+                    }
+                }
+            }, 400);
+        };
+
+        window.runCodePlayground = function() {
+            const brand = document.getElementById('code-input-brand').value.trim() || 'SaaSify';
+            const theme = document.getElementById('code-input-theme').value;
+            const colorOption = document.querySelector('input[name="code-color"]:checked')?.value || 'indigo';
+            const hud = document.getElementById('code-loading-hud');
+            const stepText = document.getElementById('code-loading-step');
+            
+            hud.classList.remove('hidden');
+            
+            const steps = [
+                'Compiling clean semantic HTML5 grid...',
+                'Formatting responsive flexbox styles...',
+                'Injecting custom brand typography...',
+                'Optimizing color contrast schemas...'
+            ];
+            
+            let i = 0;
+            const interval = setInterval(() => {
+                if (i < steps.length) {
+                    stepText.innerText = steps[i];
+                    i++;
+                } else {
+                    clearInterval(interval);
+                    renderDynamicCodeMockup(brand, theme, colorOption);
+                    hud.classList.add('hidden');
+                }
+            }, 400);
+        };
+
+        function renderDynamicCodeMockup(brand, theme, color) {
+            const target = document.getElementById('code-mockup-target');
+            if (!target) return;
+            
+            let colorClass = 'indigo-500';
+            let bgBtn = 'bg-indigo-600 hover:bg-indigo-500';
+            if (color === 'emerald') {
+                colorClass = 'emerald-400';
+                bgBtn = 'bg-emerald-600 hover:bg-emerald-500';
+            } else if (color === 'rose') {
+                colorClass = 'rose-400';
+                bgBtn = 'bg-rose-600 hover:bg-rose-500';
+            }
+            
+            let htmlContent = '';
+            
+            if (theme === 'slate') {
+                htmlContent = `
+                <div class="w-full flex justify-between items-center pb-2 border-b border-slate-800">
+                    <span class="text-xs font-bold text-white tracking-wide flex items-center gap-1.5"><i class="fa-solid fa-server text-${colorClass}"></i> ${brand}</span>
+                    <span class="text-[9px] px-2 py-0.5 bg-slate-800 text-slate-300 border border-slate-700 rounded-full font-bold uppercase">PRO</span>
+                </div>
+                <div class="w-full py-3 text-left">
+                    <h4 class="text-xs font-bold text-white leading-relaxed">Secure Cloud Infrastructure Optimized for Modern SaaS</h4>
+                    <p class="text-[10px] text-slate-400 mt-1 line-clamp-2">Deploy dockerized tasks, secure API payloads, and fetch analytics datasets instantly.</p>
+                </div>
+                <div class="w-full flex justify-between items-center pt-2">
+                    <span class="text-[9px] text-slate-500">© 2026 ${brand} Inc.</span>
+                    <button class="px-3 py-1 ${bgBtn} text-white text-[10px] rounded-lg font-bold transition-all shadow-sm">Launch Dashboard</button>
+                </div>`;
+            } else if (theme === 'glass') {
+                htmlContent = `
+                <div class="w-full flex justify-between items-center pb-2 border-b border-white/10 relative z-10">
+                    <span class="text-xs font-bold text-white tracking-wide flex items-center gap-1.5"><i class="fa-solid fa-leaf text-${colorClass}"></i> ${brand}</span>
+                    <span class="text-[9px] px-2 py-0.5 bg-white/10 text-white border border-white/20 rounded-full font-bold uppercase backdrop-blur-md">Active</span>
+                </div>
+                <div class="w-full py-3 text-left relative z-10">
+                    <h4 class="text-xs font-bold text-white leading-relaxed">Translucent Aesthetic Interface Built for Flow</h4>
+                    <p class="text-[10px] text-white/70 mt-1 line-clamp-2">Experience soft pastel gradient ambient blur backgrounds, glass layouts, and responsive elements.</p>
+                </div>
+                <div class="w-full flex justify-between items-center pt-2 relative z-10">
+                    <span class="text-[9px] text-white/40">Powered by SwirlCraft</span>
+                    <button class="px-3 py-1 bg-white/20 hover:bg-white/30 text-white text-[10px] rounded-lg font-bold transition-all border border-white/10 backdrop-blur-md">Explore App</button>
+                </div>
+                <div class="absolute -top-10 -left-10 w-24 h-24 bg-purple-500/20 rounded-full blur-2xl"></div>
+                <div class="absolute -bottom-10 -right-10 w-28 h-28 bg-${color === 'rose' ? 'rose' : 'cyan'}-500/20 rounded-full blur-2xl"></div>`;
+            } else if (theme === 'cyber') {
+                htmlContent = `
+                <div class="w-full flex justify-between items-center pb-2 border-b border-rose-500/20">
+                    <span class="text-xs font-mono text-cyan-400 font-bold tracking-widest flex items-center gap-1.5"><i class="fa-solid fa-bolt text-${colorClass}"></i> ${brand.toUpperCase()}</span>
+                    <span class="text-[8px] px-2 py-0.5 bg-rose-950 text-rose-300 border border-rose-800 rounded-none font-mono uppercase">ONLINE</span>
+                </div>
+                <div class="w-full py-3 text-left font-mono">
+                    <h4 class="text-[11px] font-bold text-white leading-snug tracking-wider">SYSTEM SYNCHRONIZATION ESTABLISHED // 100% COMPLETE</h4>
+                    <p class="text-[9px] text-cyan-500 mt-1 line-clamp-2">> INJECTING CORE SYSTEM PROTOCOLS...\n> AUTHENTICATING DECRYPTED API CHANNELS...</p>
+                </div>
+                <div class="w-full flex justify-between items-center pt-2 font-mono">
+                    <span class="text-[8px] text-slate-500">> LOC_PORT_3000</span>
+                    <button class="px-3 py-1 bg-transparent hover:bg-rose-500/10 text-rose-400 border border-rose-500/50 text-[9px] rounded-none font-bold transition-all shadow-[0_0_10px_rgba(244,63,94,0.15)]">EXECUTE.EXE</button>
+                </div>`;
+            }
+            
+            target.className = `w-full h-full p-4 flex flex-col justify-between text-left relative overflow-hidden transition-all ${theme === 'glass' ? 'bg-white/5 border border-white/10' : theme === 'cyber' ? 'bg-slate-955 border border-rose-500/30' : 'bg-slate-900'}`;
+            target.innerHTML = htmlContent;
+            updateCodePromptText();
+        }
+
+        function updateCodePromptText() {
+            const brand = document.getElementById('code-input-brand').value.trim() || 'SaaSify';
+            const theme = document.getElementById('code-input-theme').value;
+            const colorOption = document.querySelector('input[name="code-color"]:checked')?.value || 'indigo';
+            
+            const promptText = `Write a fully responsive HTML5 landing page container for ${brand}, utilizing a sleek ${theme} layout, with custom ${colorOption} primary accent buttons, including semantic headers, pricing CTAs, and SVG cards. Output clean CSS utility structures.`;
+            document.getElementById('code-prompt-text').value = promptText;
+        }
+
+        // Add event listeners on brand inputs
+        setTimeout(() => {
+            const brandInput = document.getElementById('logo-input-brand');
+            const nicheSelect = document.getElementById('logo-input-niche');
+            if (brandInput) brandInput.addEventListener('input', updateLogoPromptText);
+            if (nicheSelect) nicheSelect.addEventListener('change', updateLogoPromptText);
+
+            const brandIn = document.getElementById('code-input-brand');
+            const themeSel = document.getElementById('code-input-theme');
+            if (brandIn) brandIn.addEventListener('input', updateCodePromptText);
+            if (themeSel) themeSel.addEventListener('change', updateCodePromptText);
+            
+            const colorRadioButtons = document.querySelectorAll('input[name="code-color"]');
+            colorRadioButtons.forEach(btn => btn.addEventListener('change', updateCodePromptText));
+
+            const roleIn = document.getElementById('avatar-input-role');
+            const styleSel = document.getElementById('avatar-input-style');
+            if (roleIn) roleIn.addEventListener('input', updateAvatarPromptText);
+            if (styleSel) styleSel.addEventListener('change', updateAvatarPromptText);
+        }, 1200);
+
+        window.runAvatarPlayground = function() {
+            const hud = document.getElementById('avatar-loading-hud');
+            const stepText = document.getElementById('avatar-loading-step');
+            
+            hud.classList.remove('hidden');
+            
+            const steps = [
+                'Parsing face topology points...',
+                'Generating hair vector textures...',
+                'Coordinating depth vector shades...',
+                'Finalizing SVG asset colors...'
+            ];
+            
+            let i = 0;
+            const interval = setInterval(() => {
+                if (i < steps.length) {
+                    stepText.innerText = steps[i];
+                    i++;
+                } else {
+                    clearInterval(interval);
+                    renderDynamicAvatar();
+                    hud.classList.add('hidden');
+                }
+            }, 400);
+        };
+
+        function renderDynamicAvatar() {
+            const role = document.getElementById('avatar-input-role').value.trim() || 'A male developer in spectacles';
+            const style = document.getElementById('avatar-input-style').value;
+            const target = document.getElementById('avatar-target-frame');
+            if (!target) return;
+            
+            let svgContent = '';
+            
+            if (style === 'clay') {
+                svgContent = `
+                <svg width="100" height="100" viewBox="0 0 100 100" class="transition-transform duration-500 hover:scale-105">
+                    <circle cx="50" cy="50" r="45" fill="#f87171" opacity="0.1"/>
+                    <circle cx="50" cy="45" r="28" fill="#fbcfe8" stroke="#db2777" stroke-width="1.5"/>
+                    <ellipse cx="42" cy="42" rx="4" ry="5" fill="#1e293b"/>
+                    <ellipse cx="58" cy="42" rx="4" ry="5" fill="#1e293b"/>
+                    <path d="M42 55 Q50 60 58 55" fill="none" stroke="#db2777" stroke-width="2" stroke-linecap="round"/>
+                    <circle cx="34" cy="40" r="1.5" fill="#f472b6"/>
+                    <circle cx="66" cy="40" r="1.5" fill="#f472b6"/>
+                    <path d="M50 17 Q50 8 40 10 Q35 15 36 22 L64 22 Q65 15 60 10 Q50 8 50 17 Z" fill="#475569"/>
+                    <text x="50" y="90" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="7" font-weight="900" text-anchor="middle" letter-spacing="0.5">3D CLAYMATION</text>
+                </svg>`;
+            } else if (style === 'corporate') {
+                svgContent = `
+                <svg width="100" height="100" viewBox="0 0 100 100" class="transition-transform duration-500 hover:scale-105">
+                    <circle cx="50" cy="50" r="45" fill="#1e3a8a" opacity="0.2"/>
+                    <circle cx="50" cy="42" r="25" fill="#ffedd5" stroke="#ea580c" stroke-width="1"/>
+                    <path d="M25 80 L35 60 L65 60 L75 80 Z" fill="#1e293b"/>
+                    <path d="M42 60 L50 72 L58 60 Z" fill="#ffffff"/>
+                    <path d="M47 60 L50 78 L53 60 Z" fill="#ea580c"/>
+                    <circle cx="44" cy="40" r="2.5" fill="#1e293b"/>
+                    <circle cx="56" cy="40" r="2.5" fill="#1e293b"/>
+                    <path d="M45 50 Q50 53 55 50" fill="none" stroke="#ea580c" stroke-width="1.5"/>
+                    <text x="50" y="92" fill="#ffffff" font-family="'Inter', sans-serif" font-size="6" font-weight="bold" text-anchor="middle" letter-spacing="1">STUDIO HEADSHOT</text>
+                </svg>`;
+            } else if (style === 'pixel') {
+                svgContent = `
+                <svg width="100" height="100" viewBox="0 0 100 100" class="transition-transform duration-500 hover:scale-105" shape-rendering="crispEdges">
+                    <rect x="0" y="0" width="100" height="100" fill="#0f172a" rx="15"/>
+                    <rect x="35" y="25" width="30" height="30" fill="#fed7aa"/>
+                    <rect x="35" y="20" width="30" height="8" fill="#78350f"/>
+                    <rect x="40" y="35" width="5" height="5" fill="#0f172a"/>
+                    <rect x="55" y="35" width="5" height="5" fill="#0f172a"/>
+                    <rect x="45" y="45" width="10" height="5" fill="#e11d48"/>
+                    <rect x="25" y="55" width="50" height="25" fill="#0284c7"/>
+                    <text x="50" y="90" fill="#ffffff" font-family="'Courier New', monospace" font-size="7" font-weight="black" text-anchor="middle">8-BIT PIXEL ART</text>
+                </svg>`;
+            } else if (style === 'cyber') {
+                svgContent = `
+                <svg width="100" height="100" viewBox="0 0 100 100" class="transition-transform duration-500 hover:scale-105">
+                    <defs>
+                        <linearGradient id="cyber-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#090d16" />
+                            <stop offset="100%" stop-color="#1e1b4b" />
+                        </linearGradient>
+                    </defs>
+                    <circle cx="50" cy="50" r="45" fill="url(#cyber-bg)" stroke="#ec4899" stroke-width="1.5"/>
+                    <circle cx="50" cy="43" r="23" fill="#ec4899" opacity="0.1" stroke="#06b6d4" stroke-width="1"/>
+                    <path d="M35 35 L48 30 L52 30 L65 35 L62 48 L38 48 Z" fill="none" stroke="#ec4899" stroke-width="1.5"/>
+                    <circle cx="45" cy="40" r="2" fill="#06b6d4"/>
+                    <circle cx="55" cy="40" r="2" fill="#06b6d4"/>
+                    <path d="M46 44 L54 44" stroke="#ec4899" stroke-width="1.5"/>
+                    <path d="M25 75 C25 65, 35 60, 50 60 C65 60, 75 65, 75 75 Z" fill="#090d16" stroke="#06b6d4" stroke-width="1"/>
+                    <text x="50" y="91" fill="#ec4899" font-family="'Courier New', monospace" font-size="6" font-weight="bold" text-anchor="middle" letter-spacing="1">SYNTHWAVE // GLOW</text>
+                </svg>`;
+            }
+            
+            target.innerHTML = svgContent;
+            updateAvatarPromptText();
+        }
+
+        function updateAvatarPromptText() {
+            const role = document.getElementById('avatar-input-role').value.trim() || 'A male developer in spectacles';
+            const style = document.getElementById('avatar-input-style').value;
+            let styleStr = 'stunning 3D Claymation Toy Art';
+            if (style === 'corporate') styleStr = 'Professional Corporate Studio Headshot';
+            if (style === 'pixel') styleStr = '8-Bit Retro Gaming Pixel Portrait';
+            if (style === 'cyber') styleStr = 'Glow Neon Synthwave Character';
+            
+            const promptText = `Midjourney v6 portrait of ${role}, designed in ${styleStr}, isolated colorful studio backdrop, extremely high detail rendering. --ar 1:1 --v 6.1 --style raw`;
+            document.getElementById('avatar-prompt-text').value = promptText;
+        }
+
+        window.copyPlaygroundPrompt = function(elementId) {
+            const copyText = document.getElementById(elementId);
+            if (!copyText) return;
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(copyText.value);
+            window.showToast("Prompt copied to clipboard!", "success");
         };
 
         // Nav scroll glow

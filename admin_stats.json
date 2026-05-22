@@ -1,10 +1,28 @@
 {
-  "views": 19,
-  "sales": 0,
+  "views": 42,
+  "sales": 1,
   "revenue": 0,
-  "emailLogs": [],
-  "recentSales": [],
+  "emailLogs": [
+    {
+      "email": "test_buyer@promptflow.ai",
+      "subject": "✨ Your PromptFlow Purchase — Premium Prompts Unlocked!",
+      "itemsCount": 1,
+      "timestamp": "5/21/2026, 8:18:19 PM",
+      "status": "Dispatched Successfully"
+    }
+  ],
+  "recentSales": [
+    {
+      "email": "test_buyer@promptflow.ai",
+      "itemsCount": 1,
+      "itemsSummary": "Stripe Live Connection Verification Sandbox Prompt (Claude 3 Opus)",
+      "amount": 0,
+      "timestamp": "5/21/2026, 8:18:19 PM"
+    }
+  ],
   "productClicks": {
-    "cat-426-gen-3": 1
+    "cat-426-gen-3": 1,
+    "prod-dalle-logo-design": 1,
+    "cat-119-gen-1": 1
   }
 }

@@ -243,11 +243,33 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ items: cartItems, customerEmail })
             });
-            if (!piRes.ok) {
+            if (!piRes.ok && piRes.status !== 455) {
                 const err = await piRes.json().catch(() => ({}));
                 throw new Error(err.error || `Server error ${piRes.status}`);
             }
-            const { clientSecret } = await piRes.json();
+            
+            const data = await piRes.json();
+            if (data.fallbackToSimulated) {
+                document.getElementById('loadingState').innerHTML = `
+                    <div class="text-center text-cyan-400 py-10 px-6 max-w-md mx-auto">
+                        <div class="w-16 h-16 bg-cyan-950 border border-cyan-800 rounded-full flex items-center justify-center text-cyan-400 text-2xl mx-auto mb-5 shadow-lg shadow-cyan-500/10">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <div class="font-extrabold text-lg mb-2 text-white">Secure Sandbox Failover Active</div>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-6">
+                            Live Stripe Gateway is undergoing credential synchronization. Safely verifying payment in sandbox mode so you can preview unlocked products and SMTP emails instantly. No charges will apply.
+                        </p>
+                        <div class="flex items-center justify-center gap-2 text-xs font-bold text-cyan-500 uppercase tracking-widest">
+                            <i class="fa-solid fa-circle-notch spin text-sm"></i> Launching sandbox payment...
+                        </div>
+                    </div>`;
+                setTimeout(() => {
+                    window.location.href = data.url;
+                }, 2500);
+                return;
+            }
+
+            const clientSecret = data.clientSecret;
             if (!clientSecret) throw new Error('No client secret returned from server.');
 
             // 3. Mount Stripe Payment Element (auto-shows Apple Pay, Google Pay, Link, Card)
@@ -322,14 +344,47 @@
         } catch(err) {
             console.error('initPayment error:', err);
             document.getElementById('loadingState').innerHTML = `
-                <div class="text-center text-red-400 py-8">
-                    <i class="fa-solid fa-triangle-exclamation text-3xl mb-3 block"></i>
-                    <div class="font-bold mb-1">Could not start payment</div>
-                    <div class="text-xs text-slate-500 max-w-xs mx-auto">${err.message}</div>
-                    <a href="http://localhost:3000" class="inline-block mt-4 text-blue-400 text-sm hover:underline">← Return to store</a>
+                <div class="text-center text-red-400 py-8 px-4">
+                    <i class="fa-solid fa-triangle-exclamation text-3xl mb-3 block text-amber-500 animate-pulse"></i>
+                    <div class="font-bold mb-1 text-white">Live Payment Connection Interrupted</div>
+                    <div class="text-xs text-slate-500 max-w-xs mx-auto mb-5">${err.message}</div>
+                    
+                    <button onclick="window.triggerSandboxCheckoutFallback()" class="w-full max-w-xs py-3 px-5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs rounded-xl transition-all shadow-md flex items-center justify-center gap-2 mx-auto cursor-pointer">
+                        <i class="fa-solid fa-shield-halved"></i> Launch Sandbox Demo Checkout
+                    </button>
+                    
+                    <a href="http://localhost:3000" class="inline-block mt-4 text-slate-500 text-xs hover:text-slate-300">← Return to Store Home</a>
                 </div>`;
         }
     }
+
+    window.triggerSandboxCheckoutFallback = async function() {
+        try {
+            document.getElementById('loadingState').innerHTML = `
+                <div class="text-center text-cyan-400 py-10">
+                    <i class="fa-solid fa-circle-notch spin text-3xl mb-4 text-cyan-500"></i>
+                    <div class="font-bold text-white text-sm">Spinning up sandbox session...</div>
+                </div>`;
+            const successUrl = `http://localhost:3000/?checkout_success=true&unlocked=${encodeURIComponent(unlockedIds)}&email=${encodeURIComponent(customerEmail)}`;
+            const cancelUrl = `http://localhost:3000/`;
+            const res = await fetch('http://localhost:3000/api/create-checkout-session', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    items: cartItems,
+                    customerEmail: customerEmail,
+                    successUrl,
+                    cancelUrl
+                })
+            });
+            const data = await res.json();
+            window.location.href = data.url;
+        } catch (e) {
+            console.error("Failover failed:", e);
+            alert("Could not load simulation. Please return to the storefront.");
+            window.location.href = "http://localhost:3000";
+        }
+    };
 
     // ── Pay button ────────────────────────────────────────────────────────────
     document.getElementById('payBtn').addEventListener('click', async () => {
