@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        if (window.location.hostname === 'promptflowing.com') {
+            window.location.replace('https://www.promptflowing.com' + window.location.pathname + window.location.search);
+        }
+    </script>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-8ST4XWNEYP"></script>
     <script>
@@ -2471,10 +2476,10 @@
                 navDropdown.appendChild(navFragment);
             }
 
-            // 3. Render 700 categories into the base grid as usual
+            // 3. Render top 16 popular categories on the homepage for extremely fast performance
             if (container) {
                 const fragment = document.createDocumentFragment();
-                categories.forEach((cat) => {
+                categories.slice(0, 16).forEach((cat) => {
                     const colors = getColorClasses(cat.color);
                     const el = document.createElement('a');
                     el.href = `#featured`;
@@ -4447,6 +4452,7 @@
         }
 
         function initSalesPopups() {
+            if (window.innerWidth < 768) return;
             let popup = document.getElementById('salesActivityPopup');
             if (!popup) {
                 popup = document.createElement('div');
@@ -4501,6 +4507,7 @@
         }
 
         function initExitIntentRescue() {
+            if (window.innerWidth < 768) return;
             let shown = false;
             document.addEventListener('mouseleave', (e) => {
                 if (shown) return;
