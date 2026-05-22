@@ -113,14 +113,8 @@
         <!-- RIGHT PANEL: Stripe Payment Element -->
         <div class="w-full md:w-7/12 p-6 md:p-10 flex flex-col justify-center bg-slate-900 relative">
 
-            <!-- LOADING STATE -->
-            <div id="loadingState" class="flex flex-col items-center justify-center py-16 gap-4">
-                <i class="fa-solid fa-circle-notch spin text-blue-500 text-3xl"></i>
-                <p class="text-sm text-slate-400">Preparing secure payment form…</p>
-            </div>
-
-            <!-- PAYMENT FORM (hidden until Stripe element is ready) -->
-            <div id="paymentForm" class="hidden">
+            <!-- PAYMENT FORM (renders instantly, no blocking loaders) -->
+            <div id="paymentForm" class="w-full">
                 <h2 class="text-2xl font-bold text-white heading-font mb-1">Complete Payment</h2>
                 <p class="text-xs text-slate-400 mb-6">Apple Pay, Google Pay, Link, and all major cards accepted.</p>
 
@@ -131,15 +125,20 @@
                 </div>
 
                 <!-- Stripe Payment Element mounts here -->
-                <div id="stripe-element-mount" class="mb-6">
-                    <div id="payment-element"></div>
+                <div id="stripe-element-mount" class="mb-6 min-h-[200px] flex flex-col justify-center relative">
+                    <div id="payment-element">
+                        <div class="flex flex-col items-center justify-center py-12 gap-3 text-slate-400">
+                            <i class="fa-solid fa-circle-notch spin text-indigo-500 text-3xl"></i>
+                            <span class="text-[10px] font-bold tracking-widest uppercase text-slate-500">Loading secure gateways...</span>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Pay button — disabled until element fires 'ready' -->
+                <!-- Pay button — starts in initializing state and enables when ready -->
                 <button id="payBtn" disabled
                     class="w-full py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold rounded-xl transition-all shadow-lg shadow-blue-500/10 flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-[0.99] cursor-pointer">
-                    <i id="payIcon" class="fa-solid fa-lock text-sm"></i>
-                    <span id="payLabel">Pay <span id="btnAmt">now</span></span>
+                    <i id="payIcon" class="fa-solid fa-circle-notch spin text-sm"></i>
+                    <span id="payLabel">Initializing secure checkout...</span>
                 </button>
 
                 <div class="text-center mt-4">
@@ -255,15 +254,7 @@
 
     async function initPayment() {
         try {
-            // 1. Fetch publishable key from our server (reads from .env)
-            const cfgRes = await fetch('/api/config');
-            if (!cfgRes.ok) throw new Error(`Config endpoint returned ${cfgRes.status}`);
-            const { publishableKey } = await cfgRes.json();
-            if (!publishableKey) throw new Error('Stripe publishable key not set in .env (STRIPE_PUBLISHABLE_KEY).');
-
-            stripe = Stripe(publishableKey);
-
-            // 2. Create PaymentIntent on our server
+            // 1. Fetch both publishableKey and clientSecret in ONE single roundtrip request to save 1-2s of latency
             const piRes = await fetch('/api/create-payment-intent', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -276,7 +267,7 @@
             
             const data = await piRes.json();
             if (data.fallbackToSimulated) {
-                document.getElementById('loadingState').innerHTML = `
+                document.getElementById('stripe-element-mount').innerHTML = `
                     <div class="text-center text-cyan-400 py-10 px-6 max-w-md mx-auto">
                         <div class="w-16 h-16 bg-cyan-950 border border-cyan-800 rounded-full flex items-center justify-center text-cyan-400 text-2xl mx-auto mb-5 shadow-lg shadow-cyan-500/10">
                             <i class="fa-solid fa-shield-halved"></i>
@@ -295,10 +286,13 @@
                 return;
             }
 
-            const clientSecret = data.clientSecret;
+            const { clientSecret, publishableKey } = data;
+            if (!publishableKey) throw new Error('Stripe publishable key not set in .env.');
             if (!clientSecret) throw new Error('No client secret returned from server.');
 
-            // 3. Mount Stripe Payment Element (auto-shows Apple Pay, Google Pay, Link, Card)
+            stripe = Stripe(publishableKey);
+
+            // 2. Mount Stripe Payment Element (auto-shows Apple Pay, Google Pay, Link, Card)
             elements = stripe.elements({
                 clientSecret,
                 appearance: {
@@ -350,17 +344,24 @@
             // Enable Pay button only when element is fully ready
             paymentEl.on('ready', () => {
                 elementReady = true;
-                document.getElementById('loadingState').classList.add('hidden');
-                document.getElementById('paymentForm').classList.remove('hidden');
-                document.getElementById('payBtn').disabled = false;
+                const payBtn = document.getElementById('payBtn');
+                payBtn.disabled = false;
+                
+                // Re-enable and update lock icons and labels
+                const payIcon = document.getElementById('payIcon');
+                payIcon.className = 'fa-solid fa-lock text-sm';
+                
+                const payLabel = document.getElementById('payLabel');
+                const totalAmt = document.getElementById('orderTotal').textContent || 'now';
+                payLabel.innerHTML = `Pay <span id="btnAmt">${totalAmt}</span>`;
                 console.log('Stripe Payment Element ready ✓');
             });
 
             paymentEl.on('loaderror', (ev) => {
                 console.error('Element load error:', ev);
-                document.getElementById('loadingState').innerHTML = `
+                document.getElementById('stripe-element-mount').innerHTML = `
                     <div class="text-center text-red-400 py-8">
-                        <i class="fa-solid fa-triangle-exclamation text-3xl mb-3 block"></i>
+                        <i class="fa-solid fa-triangle-exclamation text-3xl mb-3 block text-amber-500"></i>
                         <div class="font-bold mb-1">Payment form failed to load</div>
                         <div class="text-xs text-slate-500 max-w-xs mx-auto">${ev.error?.message || 'Unknown Stripe error'}</div>
                         <a href="/" class="inline-block mt-4 text-blue-400 text-sm hover:underline">← Return to store</a>
@@ -369,7 +370,7 @@
 
         } catch(err) {
             console.error('initPayment error:', err);
-            document.getElementById('loadingState').innerHTML = `
+            document.getElementById('stripe-element-mount').innerHTML = `
                 <div class="text-center text-red-400 py-8 px-4">
                     <i class="fa-solid fa-triangle-exclamation text-3xl mb-3 block text-amber-500 animate-pulse"></i>
                     <div class="font-bold mb-1 text-white">Live Payment Connection Interrupted</div>

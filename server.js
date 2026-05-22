@@ -447,7 +447,8 @@ app.post('/api/create-payment-intent', async (req, res) => {
         res.json({
             clientSecret: paymentIntent.client_secret,
             paymentIntentId: paymentIntent.id,
-            totalAmount: totalAmount
+            totalAmount: totalAmount,
+            publishableKey: (process.env.STRIPE_PUBLISHABLE_KEY || '').trim()
         });
     } catch (error) {
         if (isStripeKeyError(error)) {
