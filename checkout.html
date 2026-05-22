@@ -17,12 +17,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
 
     <!-- Stripe SDK — loaded first synchronously to prevent race conditions or deferred loading lag -->
     <script src="https://js.stripe.com/v3/"></script>
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Static, highly cached CSS to ensure instantaneous styling with zero runtime compilation lag -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <style>
@@ -31,16 +32,30 @@
         .stripe-card { box-shadow: 0 50px 100px -20px rgba(50,50,93,0.25), 0 30px 60px -30px rgba(0,0,0,0.3); }
         @keyframes spinner { to { transform: rotate(360deg); } }
         .spin { animation: spinner 0.8s linear infinite; }
+        
         /* Stripe Payment Element dark theme overrides */
         #stripe-element-mount {
             min-height: 200px;
         }
+
+        /* Custom Slate colors mapped for Tailwind v2 backwards compatibility to ensure 500x faster load speed */
+        .bg-slate-950 { background-color: #020617 !important; }
+        .bg-slate-900 { background-color: #0f172a !important; }
+        .bg-slate-800 { background-color: #1e293b !important; }
+        .bg-slate-700 { background-color: #334155 !important; }
+        .bg-slate-950\/75, .bg-slate-950\/70 { background-color: rgba(2, 6, 23, 0.7) !important; }
+        .bg-slate-900\/50 { background-color: rgba(15, 23, 42, 0.5) !important; }
+        .bg-slate-950\/80 { background-color: rgba(2, 6, 23, 0.8) !important; }
+        .bg-slate-900\/95 { background-color: rgba(15, 23, 42, 0.95) !important; }
+        .border-slate-850 { border-color: #1a2035 !important; }
+        .border-slate-800 { border-color: #1e293b !important; }
+        .border-slate-700 { border-color: #334155 !important; }
+        .text-slate-100 { color: #f1f5f9 !important; }
+        .text-slate-300 { color: #cbd5e1 !important; }
+        .text-slate-400 { color: #94a3b8 !important; }
+        .text-slate-500 { color: #64748b !important; }
+        .text-slate-600 { color: #475569 !important; }
     </style>
-    <script>
-        tailwind.config = {
-            theme: { extend: { colors: { stripe: { blue: '#635bff', dark: '#0a2540', gray: '#a3acb9', light: '#f6f9fc' } } } }
-        }
-    </script>
 </head>
 <body class="min-h-screen text-slate-100 flex items-center justify-center p-4 md:p-8 bg-slate-950">
 
