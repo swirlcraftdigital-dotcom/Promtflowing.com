@@ -27,32 +27,48 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res)
         return res.status(400).send(`Webhook Error: ${err.message}`);
     }
 
-    if (event.type === 'checkout.session.completed') {
-        const session = event.data.object;
+    if (event.type === 'checkout.session.completed' || event.type === 'payment_intent.succeeded') {
+        const obj = event.data.object;
+        const id = obj.id;
+        
+        console.log(`Webhook received: processing successful payment ${id} of type ${event.type}`);
         
         // Lookup items from in-memory DB first, then fall back to Stripe metadata
-        let purchasedItems = mockSessionDB[session.id] || {};
+        let purchasedItems = mockSessionDB[id] || {};
         
-        if (!purchasedItems.items && session.metadata && session.metadata.items) {
+        if (!purchasedItems.items && obj.metadata && obj.metadata.items) {
             try {
                 purchasedItems = {
-                    email: session.metadata.customerEmail || session.customer_details?.email,
-                    items: JSON.parse(session.metadata.items)
+                    email: obj.metadata.customerEmail || obj.receipt_email || (obj.customer_details && obj.customer_details.email),
+                    items: JSON.parse(obj.metadata.items)
                 };
             } catch (e) {
                 console.error('Failed to parse items from metadata:', e);
             }
         }
         
-        const customerEmail = session.customer_details?.email || session.customer_email || purchasedItems.email || null;
+        const customerEmail = obj.receipt_email || (obj.customer_details && obj.customer_details.email) || obj.customer_email || purchasedItems.email || null;
+        const itemsList = purchasedItems.items || [];
 
         if (customerEmail && customerEmail !== 'customer@example.com') {
-            console.log(`Payment successful for session ${session.id}. Dispatching receipt to ${customerEmail} in background...`);
-            sendReceiptEmail(customerEmail, purchasedItems.items || []).catch(err => {
+            console.log(`Payment successful for ${id}. Dispatching receipt to ${customerEmail} in background...`);
+            
+            // 1. Send receipt email
+            sendReceiptEmail(customerEmail, itemsList).catch(err => {
                 console.error("Error sending background receipt email:", err);
             });
+            
+            // 2. Persist to server-side user vault
+            unlockPromptsForUser(customerEmail, itemsList);
+            
+            // 3. Track sale in admin stats
+            let totalPaid = 0;
+            itemsList.forEach(item => {
+                totalPaid += parseFloat(item.price) || 0;
+            });
+            trackSaleInternal(customerEmail, itemsList, totalPaid);
         } else {
-            console.log(`Payment successful for session ${session.id}. No customer email available — skipping receipt.`);
+            console.log(`Payment successful for ${id}. No customer email available — skipping receipt.`);
         }
     }
 
@@ -275,6 +291,9 @@ app.post('/api/trigger-simulated-receipt', async (req, res) => {
         console.log(`Triggering simulated receipt email for ${email}...`);
         await sendReceiptEmail(email, items || []);
         
+        // Unconditionally save to persistent server-side vault
+        unlockPromptsForUser(email, items || []);
+
         // Accumulate total items price for e-commerce sale tracking
         let totalPaid = 0;
         (items || []).forEach(item => {
@@ -514,8 +533,77 @@ app.post('/api/create-payment-intent', async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+// --- PERSISTENT USER VAULT DATABASE ---
+const vaultsFilePath = path.join(__dirname, 'vaults.json');
 
+function loadVaults() {
+    if (fs.existsSync(vaultsFilePath)) {
+        try {
+            const raw = fs.readFileSync(vaultsFilePath, 'utf8');
+            return JSON.parse(raw);
+        } catch (e) {
+            console.error("Failed to load user vaults:", e);
+        }
+    }
+    return {};
+}
 
+function saveVaults(vaults) {
+    try {
+        fs.writeFileSync(vaultsFilePath, JSON.stringify(vaults, null, 2), 'utf8');
+    } catch (e) {
+        console.error("Failed to save user vaults:", e);
+    }
+}
+
+function unlockPromptsForUser(email, items) {
+    if (!email || !items || items.length === 0) return;
+    const emailLower = email.toLowerCase().trim();
+    const vaults = loadVaults();
+    if (!vaults[emailLower]) {
+        vaults[emailLower] = [];
+    }
+    
+    const formattedDate = new Date().toLocaleString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+    });
+
+    items.forEach(item => {
+        if (!vaults[emailLower].some(p => p.id === item.id)) {
+            const unlockedProduct = {
+                id: item.id,
+                title: item.title,
+                type: item.type,
+                description: item.description || '',
+                copies: (item.reviews !== undefined ? item.reviews : 1000) + 10,
+                prompt: item.prompt || generateBuyerFriendlyPrompt(item),
+                purchasedAt: formattedDate
+            };
+            vaults[emailLower].push(unlockedProduct);
+        }
+    });
+    
+    saveVaults(vaults);
+    console.log(`Successfully unlocked ${items.length} prompts for user ${emailLower} on server.`);
+}
+
+app.get('/api/user-vault', (req, res) => {
+    const email = req.query.email;
+    if (!email) {
+        return res.status(400).json({ error: "Email query parameter is required." });
+    }
+    
+    const emailLower = email.toLowerCase().trim();
+    const vaults = loadVaults();
+    const userVault = vaults[emailLower] || [];
+    
+    res.json({ vault: userVault });
+});
 
 app.get('/api/get-session-items/:id', (req, res) => {
     const session = mockSessionDB[req.params.id];

@@ -3970,6 +3970,7 @@
 
                 window.history.replaceState({}, document.title, window.location.pathname);
                 window.showToast("Payment successful! Premium prompts added to your Vault!", "success");
+                window.syncUserVault();
             }
         }
 
@@ -4088,6 +4089,32 @@
             }
         }
 
+        window.syncUserVault = async function() {
+            if (!currentUser) return;
+            try {
+                const res = await fetch(`/api/user-vault?email=${encodeURIComponent(currentUser.email)}`);
+                if (res.ok) {
+                    const data = await res.json();
+                    const serverVault = data.vault || [];
+                    
+                    let updated = false;
+                    serverVault.forEach(item => {
+                        if (!stripeUnlockedProducts.some(p => p.id === item.id)) {
+                            stripeUnlockedProducts.push(item);
+                            updated = true;
+                        }
+                    });
+                    
+                    if (updated || stripeUnlockedProducts.length > 0) {
+                        localStorage.setItem('promptflow_vault_' + currentUser.email, JSON.stringify(stripeUnlockedProducts));
+                        renderVaultGrid();
+                    }
+                }
+            } catch (err) {
+                console.error("Failed to sync user vault with server:", err);
+            }
+        };
+
         // --- AUTH & MISC ---
         window.openAuthModal = function() {
             const modal = document.getElementById('authModal');
@@ -4166,6 +4193,7 @@
                 }
                 
                 renderVaultGrid();
+                window.syncUserVault();
                 updateAuthNavbar();
                 window.closeAuthModal();
                 window.showToast(`Welcome, ${name}! Logged in successfully.`, "success");
@@ -4614,6 +4642,8 @@
                         localStorage.setItem('promptflow_vault_' + currentUser.email, JSON.stringify(stripeUnlockedProducts));
                         renderVaultGrid();
                     }
+                    // Fetch latest from server-side persistent vault
+                    window.syncUserVault();
                 } else {
                     stripeUnlockedProducts = [];
                 }
