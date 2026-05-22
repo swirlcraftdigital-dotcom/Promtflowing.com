@@ -1,5 +1,5 @@
 {
-  "views": 42,
+  "views": 52,
   "sales": 1,
   "revenue": 0,
   "emailLogs": [
@@ -23,6 +23,7 @@
   "productClicks": {
     "cat-426-gen-3": 1,
     "prod-dalle-logo-design": 1,
-    "cat-119-gen-1": 1
+    "cat-119-gen-1": 1,
+    "prod-mj-architecture": 5
   }
 }

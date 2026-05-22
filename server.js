@@ -410,7 +410,7 @@ app.post('/api/create-payment-intent', async (req, res) => {
         const stripeKey = (process.env.STRIPE_SECRET_KEY || '').trim();
         const { items, customerEmail } = req.body;
 
-        if (!stripeKey || stripeKey.startsWith('mk_')) {
+        if (!stripeKey || stripeKey === 'your_stripe_secret_key_here' || stripeKey.startsWith('mk_')) {
             return res.status(455).json({ fallbackToSimulated: true });
         }
 
