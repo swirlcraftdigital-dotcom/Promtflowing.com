@@ -42,7 +42,7 @@
             <div>
                 <!-- Brand logo and status -->
                 <div class="flex items-center justify-between mb-8">
-                    <a href="http://localhost:3000" class="flex items-center gap-2 group">
+                    <a href="/" class="flex items-center gap-2 group">
                         <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-all">
                             <i class="fa-solid fa-bolt text-white text-lg"></i>
                         </div>
@@ -127,7 +127,7 @@
                 </button>
 
                 <div class="text-center mt-4">
-                    <a href="http://localhost:3000" class="text-xs text-slate-500 hover:text-slate-400 transition-colors">
+                    <a href="/" class="text-xs text-slate-500 hover:text-slate-400 transition-colors">
                         ← Cancel and return to store
                     </a>
                 </div>
@@ -218,7 +218,7 @@
 
     function showSuccess() {
         document.getElementById('successOverlay').classList.remove('hidden');
-        const successUrl = `http://localhost:3000/?checkout_success=true&unlocked=${encodeURIComponent(unlockedIds)}&email=${encodeURIComponent(customerEmail)}`;
+        const successUrl = `${window.location.origin}/?checkout_success=true&unlocked=${encodeURIComponent(unlockedIds)}&email=${encodeURIComponent(customerEmail)}`;
         setTimeout(() => { window.location.href = successUrl; }, 3000);
     }
 
@@ -230,7 +230,7 @@
     async function initPayment() {
         try {
             // 1. Fetch publishable key from our server (reads from .env)
-            const cfgRes = await fetch('http://localhost:3000/api/config');
+            const cfgRes = await fetch('/api/config');
             if (!cfgRes.ok) throw new Error(`Config endpoint returned ${cfgRes.status}`);
             const { publishableKey } = await cfgRes.json();
             if (!publishableKey) throw new Error('Stripe publishable key not set in .env (STRIPE_PUBLISHABLE_KEY).');
@@ -238,7 +238,7 @@
             stripe = Stripe(publishableKey);
 
             // 2. Create PaymentIntent on our server
-            const piRes = await fetch('http://localhost:3000/api/create-payment-intent', {
+            const piRes = await fetch('/api/create-payment-intent', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ items: cartItems, customerEmail })
@@ -337,7 +337,7 @@
                         <i class="fa-solid fa-triangle-exclamation text-3xl mb-3 block"></i>
                         <div class="font-bold mb-1">Payment form failed to load</div>
                         <div class="text-xs text-slate-500 max-w-xs mx-auto">${ev.error?.message || 'Unknown Stripe error'}</div>
-                        <a href="http://localhost:3000" class="inline-block mt-4 text-blue-400 text-sm hover:underline">← Return to store</a>
+                        <a href="/" class="inline-block mt-4 text-blue-400 text-sm hover:underline">← Return to store</a>
                     </div>`;
             });
 
@@ -353,7 +353,7 @@
                         <i class="fa-solid fa-shield-halved"></i> Launch Sandbox Demo Checkout
                     </button>
                     
-                    <a href="http://localhost:3000" class="inline-block mt-4 text-slate-500 text-xs hover:text-slate-300">← Return to Store Home</a>
+                    <a href="/" class="inline-block mt-4 text-slate-500 text-xs hover:text-slate-300">← Return to Store Home</a>
                 </div>`;
         }
     }
@@ -365,9 +365,9 @@
                     <i class="fa-solid fa-circle-notch spin text-3xl mb-4 text-cyan-500"></i>
                     <div class="font-bold text-white text-sm">Spinning up sandbox session...</div>
                 </div>`;
-            const successUrl = `http://localhost:3000/?checkout_success=true&unlocked=${encodeURIComponent(unlockedIds)}&email=${encodeURIComponent(customerEmail)}`;
-            const cancelUrl = `http://localhost:3000/`;
-            const res = await fetch('http://localhost:3000/api/create-checkout-session', {
+            const successUrl = `${window.location.origin}/?checkout_success=true&unlocked=${encodeURIComponent(unlockedIds)}&email=${encodeURIComponent(customerEmail)}`;
+            const cancelUrl = `${window.location.origin}/`;
+            const res = await fetch('/api/create-checkout-session', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -382,7 +382,7 @@
         } catch (e) {
             console.error("Failover failed:", e);
             alert("Could not load simulation. Please return to the storefront.");
-            window.location.href = "http://localhost:3000";
+            window.location.href = "/";
         }
     };
 
@@ -401,7 +401,7 @@
         icon.className = 'fa-solid fa-circle-notch spin text-sm';
         label.textContent = 'Authorizing…';
 
-        const successUrl = `http://localhost:3000/?checkout_success=true&unlocked=${encodeURIComponent(unlockedIds)}&email=${encodeURIComponent(customerEmail)}`;
+        const successUrl = `${window.location.origin}/?checkout_success=true&unlocked=${encodeURIComponent(unlockedIds)}&email=${encodeURIComponent(customerEmail)}`;
 
         try {
             const { error } = await stripe.confirmPayment({

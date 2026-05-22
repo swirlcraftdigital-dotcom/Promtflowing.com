@@ -4025,7 +4025,7 @@
             });
 
             window.toggleCart();
-            window.location.href = 'http://localhost:3000/checkout.html?' + params.toString();
+            window.location.href = window.location.origin + '/checkout.html?' + params.toString();
         }
 
         function renderVaultGrid() {

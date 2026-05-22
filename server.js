@@ -453,8 +453,10 @@ app.post('/api/create-payment-intent', async (req, res) => {
             
             const sessionId = `sim_session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
             mockSessionDB[sessionId] = { email: customerEmail, items: items };
-            const successUrl = `http://localhost:3000/?checkout_success=true&unlocked=${encodeURIComponent(items.map(i=>i.id).join(','))}&email=${encodeURIComponent(customerEmail || '')}`;
-            const cancelUrl = `http://localhost:3000/`;
+            const protocol = req.headers['x-forwarded-proto'] || req.protocol;
+            const origin = `${protocol}://${req.get('host')}`;
+            const successUrl = `${origin}/?checkout_success=true&unlocked=${encodeURIComponent(items.map(i=>i.id).join(','))}&email=${encodeURIComponent(customerEmail || '')}`;
+            const cancelUrl = `${origin}/`;
             const simulatedCheckoutUrl = `/checkout-simulation.html?session_id=${sessionId}&success_url=${encodeURIComponent(successUrl)}&cancel_url=${encodeURIComponent(cancelUrl)}`;
             
             return res.json({
