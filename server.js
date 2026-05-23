@@ -1,3 +1,4 @@
+
 const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '.env') });
 const express = require('express');
@@ -711,12 +712,36 @@ async function sendReceiptEmail(email, items) {
     }
 }
 
-// Dynamic Sitemap for SEO crawling
+// Dynamic Sitemap for SEO crawling (Programmatic SEO Category integration)
 app.get('/sitemap.xml', (req, res) => {
     res.header('Content-Type', 'application/xml');
     
     const today = new Date().toISOString().split('T')[0];
-    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+    
+    // Base arrays identical to index.html for 100% matched category slugs
+    const baseNiches = ['SaaS', 'Weight Loss', 'E-commerce', 'Health & Wellness', 'Legal', 'Diet & Nutrition', 'Real Estate', 'Mental Health', 'Education', 'Fitness', 'Finance', 'Meditation', 'Crypto', 'Gaming', 'Travel', 'Food', 'Music', 'Art', 'Automotive', 'Cybersecurity', 'Cloud', 'AI', 'Robotics', 'Space', 'Wealth Building', 'Passive Income', 'Side Hustles', 'Dating & Romance', 'Making Money Online', 'Personal Growth'];
+    const baseFunctions = ['Marketing', 'Sales', 'Design', 'Development', 'Support', 'HR', 'Operations', 'SEO', 'Copywriting', 'Analytics', 'Strategy', 'Planning', 'Research', 'Automation', 'Social Media', 'Email', 'Video', 'Audio', 'UX/UI', 'QA', 'Tricks', 'Mastery', 'Secrets', 'Companionship', 'Success', 'Blueprints'];
+    
+    function slugify(text) {
+        return text.toString().toLowerCase()
+            .replace(/\s+/g, '-')
+            .replace(/[^\w\-]+/g, '')
+            .replace(/\-\-+/g, '-')
+            .replace(/^-+/, '')
+            .replace(/-+$/, '');
+    }
+    
+    const sitemapCategories = [];
+    for (let i = 0; i < baseNiches.length; i++) {
+        for (let j = 0; j < baseFunctions.length; j++) {
+            sitemapCategories.push(`${baseNiches[i]} ${baseFunctions[j]}`);
+            sitemapCategories.push(`Advanced ${baseNiches[i]} ${baseFunctions[j]}`);
+            if (sitemapCategories.length >= 700) break;
+        }
+        if (sitemapCategories.length >= 700) break;
+    }
+    
+    let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>https://www.promptflowing.com/</loc>
@@ -765,9 +790,20 @@ app.get('/sitemap.xml', (req, res) => {
         <lastmod>${today}</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
-    </url>
-</urlset>`;
+    </url>\n`;
+
+    // Append 700 Programmatic Niche Landing Pages
+    sitemapCategories.forEach(catName => {
+        const slug = slugify(catName);
+        sitemap += `    <url>
+        <loc>https://www.promptflowing.com/categories/${slug}</loc>
+        <lastmod>${today}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>\n`;
+    });
     
+    sitemap += `</urlset>`;
     res.send(sitemap);
 });
 
