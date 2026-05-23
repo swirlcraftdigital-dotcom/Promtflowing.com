@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -2236,6 +2237,16 @@
         };
 
         // --- CLIENT-SIDE SEO ROUTER (SPA HISTORY API) ---
+        function slugify(text) {
+            return text.toString().toLowerCase()
+                .trim()
+                .replace(/\s+/g, '-')
+                .replace(/[^\w\-]+/g, '')
+                .replace(/\-\-+/g, '-')
+                .replace(/^-+/, '')
+                .replace(/-+$/, '');
+        }
+
         const pageSeoData = {
             'home': {
                 title: 'PromptFlow | Premium AI Prompts Marketplace (ChatGPT, Midjourney & Sora)',
@@ -2326,7 +2337,7 @@
             showPageInternal(pageId);
         };
 
-        window.showPageInternal = function(pageId) {
+        window.showPageInternal = function(pageId, skipSeo = false) {
             // Clear body viewport freezes instantly
             document.body.style.overflow = '';
             
@@ -2370,7 +2381,9 @@
             window.scrollTo(0, 0);
             
             // Update SEO Metadata in real-time
-            updateSeoMetadata(pageId);
+            if (!skipSeo) {
+                updateSeoMetadata(pageId);
+            }
         };
 
         // Listen for popstate events (Browser Back/Forward navigation)
@@ -2380,6 +2393,36 @@
 
         function handleUrlRoute() {
             const path = window.location.pathname;
+            
+            // Programmatic SEO category route interceptor
+            if (path.startsWith('/categories/')) {
+                const slug = path.replace('/categories/', '');
+                const matchedCategory = categories.find(cat => slugify(cat.name) === slug);
+                if (matchedCategory) {
+                    let categoryProducts = products.filter(p => p.category === matchedCategory.id);
+                    if (categoryProducts.length === 0) {
+                        categoryProducts = generateDummyProducts(matchedCategory);
+                    }
+                    renderProducts(categoryProducts);
+                    
+                    document.getElementById('productGridTitle').textContent = `${matchedCategory.name} Prompts`;
+                    document.getElementById('productGridDesc').textContent = `Explore top-rated AI prompt collections specifically for ${matchedCategory.name}.`;
+                    
+                    window.showPageInternal('popular', true);
+                    
+                    const title = `Best ${matchedCategory.name} AI Prompts (ChatGPT & Midjourney) | PromptFlow`;
+                    const desc = `Browse high-fidelity, advanced ${matchedCategory.name} prompts optimized for ChatGPT, Midjourney, and Claude. Supercharge your professional ${matchedCategory.name.toLowerCase()} workflows.`;
+                    const canonical = `https://www.promptflowing.com/categories/${slug}`;
+                    
+                    document.title = title;
+                    let descEl = document.querySelector('meta[name="description"]');
+                    if (descEl) descEl.setAttribute('content', desc);
+                    let canonicalEl = document.querySelector('link[rel="canonical"]');
+                    if (canonicalEl) canonicalEl.setAttribute('href', canonical);
+                    return;
+                }
+            }
+
             let pageId = 'home';
             if (path === '/popular') pageId = 'popular';
             else if (path === '/categories') pageId = 'categories';
@@ -2454,7 +2497,24 @@
             document.getElementById('productGridTitle').textContent = `${category.name} Prompts`;
             document.getElementById('productGridDesc').textContent = `Explore top-rated AI prompt collections specifically for ${category.name}.`;
             
-            window.showPage('popular');
+            const slug = slugify(category.name);
+            const targetPath = `/categories/${slug}`;
+            if (window.location.pathname !== targetPath) {
+                window.history.pushState(null, '', targetPath);
+            }
+            
+            window.showPageInternal('popular', true); // skipSeo = true
+            
+            // Set dynamic metadata for this programmatic category
+            const title = `Best ${category.name} AI Prompts (ChatGPT & Midjourney) | PromptFlow`;
+            const desc = `Browse high-fidelity, advanced ${category.name} prompts optimized for ChatGPT, Midjourney, and Claude. Supercharge your professional ${category.name.toLowerCase()} workflows.`;
+            const canonical = `https://www.promptflowing.com/categories/${slug}`;
+            
+            document.title = title;
+            let descEl = document.querySelector('meta[name="description"]');
+            if (descEl) descEl.setAttribute('content', desc);
+            let canonicalEl = document.querySelector('link[rel="canonical"]');
+            if (canonicalEl) canonicalEl.setAttribute('href', canonical);
         }
 
         function resetFilters(e) {
@@ -3088,18 +3148,18 @@
             
             // Explicitly map index to unique, verified active videos to prevent ANY repeating or broken files in the grid
             const videoMapping = [
-                'https://assets.mixkit.co/videos/preview/mixkit-womans-hands-decorating-a-handmade-soap-2803-large.mp4', // Product Showcase 360° (Close-up product design)
-                'https://assets.mixkit.co/videos/preview/mixkit-tropical-island-landscape-view-4692-large.mp4',          // Cinematic Drone Flyover (Beautiful aerial scenic)
-                'https://assets.mixkit.co/videos/preview/mixkit-man-dancing-under-changing-lights-1240-large.mp4',       // Social Media Hook Intro (Neon portrait hook)
-                'https://assets.mixkit.co/videos/preview/mixkit-girl-in-neon-sign-1232-large.mp4',                        // Luxury Brand Commercial (Cinematic beauty glow)
-                'https://assets.mixkit.co/videos/preview/mixkit-tree-with-yellow-flowers-1173-large.mp4',                 // Nature Documentary B-Roll (Wildlife / botanical zoom)
-                'https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4',             // Tech Product Launch / Tech reveal
-                'https://assets.mixkit.co/videos/preview/mixkit-a-girl-blowing-a-bubble-gum-at-an-amusement-park-1226-large.mp4', // Fashion Lookbook Walk (Slow-motion stylish model walk)
-                'https://assets.mixkit.co/videos/preview/mixkit-luxury-breakfast-in-a-hotel-15642-large.mp4',              // Real Estate Walkthrough (Panning luxury room/villa interior)
-                'https://assets.mixkit.co/videos/preview/mixkit-chili-pepper-falling-into-red-powder-28392-large.mp4',     // Food Commercial Close-Up (Gourmet food slow-motion macro)
-                'https://assets.mixkit.co/videos/preview/mixkit-family-walking-together-in-nature-39767-large.mp4',          // Fitness Training Montage / Wellness active lifestyle
-                'https://assets.mixkit.co/videos/preview/mixkit-father-and-his-little-daughter-eating-marshmallows-in-nature-39765-large.mp4', // Travel Vlog Transition (Scenic destination vlog)
-                'https://assets.mixkit.co/videos/preview/mixkit-mother-with-her-little-daughter-eating-a-marshmallow-in-nature-39764-large.mp4'  // Corporate Explainer / Clean presentation b-roll
+                'https://res.cloudinary.com/demo/video/upload/cld-sample-video.mp4',          // Product Showcase 360° (Rotating 3D model)
+                'https://res.cloudinary.com/demo/video/upload/forest_bike.mp4',               // Cinematic Drone Flyover (Scenic forest panning)
+                'https://res.cloudinary.com/demo/video/upload/ski_jump.mp4',                  // Social Media Hook Intro (Slow-motion ski jump action)
+                'https://res.cloudinary.com/demo/video/upload/snow_horses.mp4',               // Luxury Brand Commercial (Majestic white horses in slow motion)
+                'https://res.cloudinary.com/demo/video/upload/elephants.mp4',                 // Nature Documentary B-Roll (Wild savanna elephants)
+                'https://res.cloudinary.com/demo/video/upload/what_is_cloudinary_sd.mp4',     // Tech Product Launch (Modern SaaS UI & tech explainer animations)
+                'https://res.cloudinary.com/demo/video/upload/docs/walking_talking.mp4',      // Fashion Lookbook Walk (Models walking & conversing)
+                'https://res.cloudinary.com/demo/video/upload/snow_deer.mp4',                 // Real Estate Walkthrough (Beautiful mountain scenic with grazing deer)
+                'https://res.cloudinary.com/demo/video/upload/marmots.mp4',                   // Food Commercial Close-Up (Cute macro wild animal b-roll)
+                'https://res.cloudinary.com/demo/video/upload/rafting.mp4',                   // Fitness Training Montage (High-intensity white-water rafting)
+                'https://res.cloudinary.com/demo/video/upload/sea_turtle.mp4',                // Travel Vlog Transition (Scenic underwater ocean reef glide)
+                'https://res.cloudinary.com/demo/video/upload/dog.mp4'                         // Corporate Explainer (Friendly golden retriever zoom)
             ];
             
             const videoUrl = videoMapping[i % videoMapping.length];
@@ -3213,7 +3273,8 @@
             listToRender.forEach(cat => {
                 const colors = getColorClasses(cat.color);
                 const el = document.createElement('a');
-                el.href = `#featured`;
+                const slug = slugify(cat.name);
+                el.href = `/categories/${slug}`;
                 el.className = `flex flex-col p-6 rounded-2xl border-2 transition-all duration-300 cursor-pointer bg-white ${colors.split(' ').filter(c => !c.startsWith('bg-')).join(' ')}`;
                 el.innerHTML = `
                     <div class="w-12 h-12 rounded-xl bg-slate-50 flex items-center justify-center text-2xl mb-4 text-inherit shadow-sm">
@@ -5782,4 +5843,4 @@
 
     </script>
 </body>
-</html>
+</html>     
