@@ -3145,20 +3145,20 @@
             const photoId = posterPhotoIds[i % posterPhotoIds.length];
             const imageUrl = `https://images.unsplash.com/${photoId}?w=600&h=800&fit=crop&auto=format&q=80`;
             
-            // Explicitly map index to unique, verified active videos to prevent ANY repeating or broken files in the grid
+            // Explicitly map index to unique, verified Mixkit CDN videos — each exactly matches its product title
             const videoMapping = [
-                'https://res.cloudinary.com/demo/video/upload/cld-sample-video.mp4',          // Product Showcase 360° (Rotating 3D model)
-                'https://res.cloudinary.com/demo/video/upload/forest_bike.mp4',               // Cinematic Drone Flyover (Scenic forest panning)
-                'https://res.cloudinary.com/demo/video/upload/ski_jump.mp4',                  // Social Media Hook Intro (Slow-motion ski jump action)
-                'https://res.cloudinary.com/demo/video/upload/snow_horses.mp4',               // Luxury Brand Commercial (Majestic white horses in slow motion)
-                'https://res.cloudinary.com/demo/video/upload/elephants.mp4',                 // Nature Documentary B-Roll (Wild savanna elephants)
-                'https://res.cloudinary.com/demo/video/upload/what_is_cloudinary_sd.mp4',     // Tech Product Launch (Modern SaaS UI & tech explainer animations)
-                'https://res.cloudinary.com/demo/video/upload/docs/walking_talking.mp4',      // Fashion Lookbook Walk (Models walking & conversing)
-                'https://res.cloudinary.com/demo/video/upload/snow_deer.mp4',                 // Real Estate Walkthrough (Beautiful mountain scenic with grazing deer)
-                'https://res.cloudinary.com/demo/video/upload/marmots.mp4',                   // Food Commercial Close-Up (Cute macro wild animal b-roll)
-                'https://res.cloudinary.com/demo/video/upload/rafting.mp4',                   // Fitness Training Montage (High-intensity white-water rafting)
-                'https://res.cloudinary.com/demo/video/upload/sea_turtle.mp4',                // Travel Vlog Transition (Scenic underwater ocean reef glide)
-                'https://res.cloudinary.com/demo/video/upload/dog.mp4'                         // Corporate Explainer (Friendly golden retriever zoom)
+                'https://assets.mixkit.co/videos/3649/3649-720.mp4',   // Product Showcase 360° — detailed luxury wristwatch product showcase
+                'https://assets.mixkit.co/videos/5564/5564-720.mp4',   // Cinematic Drone Flyover — European countryside cinematic drone flyover
+                'https://assets.mixkit.co/videos/50484/50484-720.mp4', // Social Media Hook Intro — trendy teen being recorded dancing for social media
+                'https://assets.mixkit.co/videos/74/74-720.mp4',       // Luxury Brand Commercial — sleek red sports car luxury commercial
+                'https://assets.mixkit.co/videos/11054/11054-720.mp4', // Nature Documentary B-Roll — herd of lions walking in the wild
+                'https://assets.mixkit.co/videos/47048/47048-720.mp4', // Tech Product Launch — close-up electronic circuit board tech reveal
+                'https://assets.mixkit.co/videos/809/809-720.mp4',     // Fashion Lookbook Walk — fashion model posing in front of multiple mirrors
+                'https://assets.mixkit.co/videos/41184/41184-720.mp4', // Real Estate Walkthrough — interior design ideas browsing for home
+                'https://assets.mixkit.co/videos/12171/12171-720.mp4', // Food Commercial Close-Up — parmesan cheese sprinkled on spaghetti bolognese close-up
+                'https://assets.mixkit.co/videos/52088/52088-720.mp4', // Fitness Training Montage — young muscular man swings battle ropes in gym
+                'https://assets.mixkit.co/videos/5371/5371-720.mp4',   // Travel Vlog Transition — beautiful beach surrounded by nature seen from above
+                'https://assets.mixkit.co/videos/46679/46679-720.mp4'  // Corporate Explainer — brainstorming in the boardroom with the boss
             ];
             
             const videoUrl = videoMapping[i % videoMapping.length];
