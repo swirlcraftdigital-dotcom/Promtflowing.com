@@ -535,13 +535,61 @@
                             </button>
                         </div>
 
-                        <!-- Trust signals -->
-                        <div class="flex flex-wrap items-center justify-center gap-6 text-sm text-slate-500 font-medium">
-                            <span class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500"></i> Tested for Midjourney v6</span>
-                            <span class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500"></i> ChatGPT-4o Optimized</span>
-                            <span class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500"></i> Instant Vault Access</span>
-                            <span class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500"></i> 32M+ Prompts</span>
+                        <!-- Trust signals - AI Models ticker -->
+                        <div class="relative overflow-hidden w-full max-w-4xl mx-auto" style="mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);">
+                            <div class="flex gap-8 text-sm text-slate-400 font-medium" style="width: max-content; animation: aiModelsTicker 40s linear infinite;" id="aiModelsTicker">
+                                <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> GPT-5.5 &mdash; all-purpose AI</span>
+                                <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> GPT-5.5 Thinking &mdash; reasoning</span>
+                                <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> GPT-5.5 Pro &mdash; advanced research</span>
+                                <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> Claude Opus 4.7 &mdash; writing</span>
+                                <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> Claude Sonnet 4.6 &mdash; coding</span>
+                                <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> Gemini 3.5 Flash &mdash; fast answers</span>
+                                <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> Gemini 3.5 Pro &mdash; multimodal</span>
+                                <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> Grok 4.3 &mdash; general chat</span>
+                                <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> Grok Build &mdash; coding</span>
+                                <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> DeepSeek R1 &mdash; reasoning</span>
+                                <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> Qwen &mdash; open-source coding</span>
+                                <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> Llama 4 &mdash; open-source AI</span>
+                                <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> Mistral Large &mdash; fast business AI</span>
+                                <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> Kimi / Moonshot &mdash; long documents</span>
+                                <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> Command R &mdash; business search</span>
+                                <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> GPT Image 2 &mdash; images</span>
+                                <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> GPT Image 1.5 &mdash; images</span>
+                                <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> Google Veo &mdash; video</span>
+                                <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> Runway &mdash; video</span>
+                                <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> Kling &mdash; video</span>
+                                <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> Pika &mdash; video</span>
+                                <!-- Duplicate for seamless loop -->
+                                <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> GPT-5.5 &mdash; all-purpose AI</span>
+                                <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> GPT-5.5 Thinking &mdash; reasoning</span>
+                                <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> GPT-5.5 Pro &mdash; advanced research</span>
+                                <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> Claude Opus 4.7 &mdash; writing</span>
+                                <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> Claude Sonnet 4.6 &mdash; coding</span>
+                                <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> Gemini 3.5 Flash &mdash; fast answers</span>
+                                <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> Gemini 3.5 Pro &mdash; multimodal</span>
+                                <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> Grok 4.3 &mdash; general chat</span>
+                                <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> Grok Build &mdash; coding</span>
+                                <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> DeepSeek R1 &mdash; reasoning</span>
+                                <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> Qwen &mdash; open-source coding</span>
+                                <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> Llama 4 &mdash; open-source AI</span>
+                                <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> Mistral Large &mdash; fast business AI</span>
+                                <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> Kimi / Moonshot &mdash; long documents</span>
+                                <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> Command R &mdash; business search</span>
+                                <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> GPT Image 2 &mdash; images</span>
+                                <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> GPT Image 1.5 &mdash; images</span>
+                                <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> Google Veo &mdash; video</span>
+                                <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> Runway &mdash; video</span>
+                                <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> Kling &mdash; video</span>
+                                <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> Pika &mdash; video</span>
+                            </div>
                         </div>
+                        <style>
+                            @keyframes aiModelsTicker {
+                                0% { transform: translateX(0); }
+                                100% { transform: translateX(-50%); }
+                            }
+                            #aiModelsTicker:hover { animation-play-state: paused; }
+                        </style>
                     </div>
                 </div>
             </div>
