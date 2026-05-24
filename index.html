@@ -216,13 +216,64 @@
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #0f172a; }
         ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #3b82f6, #8b5cf6); border-radius: 99px; }
+        /* ── Logo Marquee Filter Reset ── */
+        #logoTicker img {
+            filter: none !important;
+            background: transparent !important;
+            opacity: 0.9;
+        }
+
+        /* ── Typing Cursor Blink Animation ── */
+        @keyframes blinkCursor {
+            50% { opacity: 0; }
+        }
+        .typing-cursor, .bundle-typing-cursor, .brand-typing-cursor {
+            animation: blinkCursor 0.8s infinite;
+            font-weight: 300;
+            margin-left: 4px;
+            display: inline-block;
+        }
 
         /* ── Modal display ── */
-        #cartModal, #promptDetailModal, #authModal, #stripeConfigModal, #stripeSuccessModal { display: none; }
+        #promptDetailModal, #authModal, #stripeConfigModal, #stripeSuccessModal { display: none; }
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        #cartModal.open, #promptDetailModal.open, #authModal.open, #stripeConfigModal.open, #stripeSuccessModal.open { display: flex; }
+        #promptDetailModal.open, #authModal.open, #stripeConfigModal.open, #stripeSuccessModal.open { display: flex; }
+
+        /* ── Page transition ── */
+        .page-fade-in {
+            animation: pageFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes pageFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ── Cart Drawer Overrides ── */
+        #cartModal {
+            display: flex !important;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+        #cartModal.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        #cartModal > div {
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateX(100%);
+        }
+        #cartModal.open > div {
+            transform: translateX(0);
+        }
 
         /* ── Cinematic parallax pan ── */
         @keyframes cinematicPan {
@@ -363,15 +414,12 @@
     </script>
 </head>
 <body class="bg-slate-50 text-slate-800">
-    <!-- Interactive Mouse/Touch Antigravity Canvas Animation -->
-    <canvas id="interactiveCanvas" class="fixed inset-0 z-0 pointer-events-none w-full h-full opacity-60"></canvas>
-
     <!-- Navigation -->
     <nav class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-slate-950/80 backdrop-blur-xl border-b border-white/5" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <!-- Logo -->
-                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="showPage('home', event)">
+                <div class="flex-shrink-0 flex items-center cursor-pointer mr-6 lg:mr-10" onclick="showPage('home', event)">
                     <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 via-indigo-500 to-purple-600 flex items-center justify-center text-white font-black text-xl mr-3 shadow-lg shadow-indigo-500/30">
                         <i class="fa-solid fa-bolt"></i>
                     </div>
@@ -379,7 +427,7 @@
                 </div>
 
                 <!-- Desktop Menu -->
-                <div class="hidden md:flex items-center space-x-8">
+                <div class="hidden md:flex items-center space-x-5 lg:space-x-8 ml-8 lg:ml-12">
                     <a href="/" onclick="showPage('home', event)" class="nav-link text-gray-300 hover:text-white transition-colors font-medium">Home</a>
                     <a href="/popular" onclick="showPopularPage(event)" class="nav-link text-gray-300 hover:text-white transition-colors font-medium">Popular</a>
                     <div class="relative group h-full flex items-center">
@@ -485,7 +533,7 @@
         <!-- HOME PAGE -->
         <div id="page-home" class="page-view block relative z-30">
             <!-- Hero Section -->
-            <div class="hero-bg min-h-screen flex items-center relative z-20 pt-20 pb-32">
+            <div id="hero-interactive-section" class="hero-bg min-h-screen flex items-center relative z-20 pt-20 pb-32">
                 <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
                     <div class="absolute top-1/4 left-10 w-96 h-96 bg-blue-600 rounded-full mix-blend-multiply filter blur-3xl opacity-15 animate-blob"></div>
                     <div class="absolute top-1/3 right-10 w-96 h-96 bg-purple-600 rounded-full mix-blend-multiply filter blur-3xl opacity-15 animate-blob animation-delay-2000"></div>
@@ -493,6 +541,8 @@
                     <!-- Grid overlay -->
                     <div class="absolute inset-0 opacity-5" style="background-image: linear-gradient(rgba(99,102,241,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(99,102,241,0.5) 1px, transparent 1px); background-size: 60px 60px;"></div>
                 </div>
+                <!-- Interactive Mouse/Touch Antigravity Canvas Animation (Confined to Hero Section!) -->
+                <canvas id="interactiveCanvas" class="absolute inset-0 z-10 pointer-events-none w-full h-full opacity-70"></canvas>
 
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-30 w-full">
                     <div class="text-center max-w-5xl mx-auto">
@@ -516,13 +566,13 @@
                         </div>
 
                         <!-- Main headline -->
-                        <h1 class="text-6xl md:text-8xl font-black text-white mb-6 leading-[1.05] tracking-tight" style="font-family: 'Space Grotesk', sans-serif;">
-                            Master AI with<br>
-                            <span class="gradient-text">Precision Prompts</span>
+                        <h1 class="text-6xl md:text-8xl font-black text-white mb-6 leading-[1.05] tracking-tight min-h-[130px] md:min-h-[195px] select-none" style="font-family: 'Space Grotesk', sans-serif;">
+                            <span id="typed-line-1"></span><br>
+                            <span id="typed-line-2" class="gradient-text"></span><span class="typing-cursor text-indigo-500">|</span>
                         </h1>
 
-                        <p class="text-xl md:text-2xl text-slate-400 mb-12 max-w-3xl mx-auto leading-relaxed font-light">
-                            Unlock the full potential of <span class="text-slate-200 font-medium">Midjourney</span>, <span class="text-slate-200 font-medium">ChatGPT</span>, <span class="text-slate-200 font-medium">Sora</span> & more. Curated, tested, high-converting prompts for design, marketing, coding & creativity.
+                        <p class="text-xl md:text-2xl text-slate-400 mb-12 max-w-4xl mx-auto leading-relaxed font-light">
+                            Unlock the full potential of <span class="text-slate-200 font-medium">ChatGPT</span>, <span class="text-slate-200 font-medium">Claude 3.5</span>, <span class="text-slate-200 font-medium">Midjourney v6</span>, <span class="text-slate-200 font-medium">Gemini</span>, <span class="text-slate-200 font-medium">Sora</span>, <span class="text-slate-200 font-medium">DeepSeek</span> & more. Curated, tested, high-converting prompts for design, marketing, coding & creativity.
                         </p>
 
                         <!-- CTA Buttons -->
@@ -580,7 +630,6 @@
                                 <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> Google Veo &mdash; video</span>
                                 <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> Runway &mdash; video</span>
                                 <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> Kling &mdash; video</span>
-                                <span class="flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-500"></i> Pika &mdash; video</span>
                             </div>
                         </div>
                         <style>
@@ -593,6 +642,191 @@
                     </div>
                 </div>
             </div>
+
+            <!-- SEAMLESS DARK MODE TRANSITION ZONE (Bridges Hero and Stats Sections) -->
+            <div class="w-full relative z-30 pt-20 pb-16 border-t border-slate-900/60 overflow-visible" style="background: linear-gradient(to bottom, #060911 0%, #090d1c 50%, #020617 100%);">
+                <!-- INTERACTIVE FLOATING ZERO-GRAVITY BRAND BUBBLES (Google Antigravity style) -->
+                <div id="brand-bubbles-section" class="w-full max-w-[94%] mx-auto mt-6 mb-16 relative z-30 px-4">
+                    <div class="text-center mb-8">
+                        <h3 class="text-lg md:text-xl font-bold tracking-wider text-slate-300 uppercase font-mono">
+                            <i class="fa-solid fa-wand-magic-sparkles text-indigo-400 mr-2 animate-pulse"></i><span id="typed-brand-engines"></span><span class="brand-typing-cursor text-indigo-500">|</span>
+                        </h3>
+                    </div>
+                    
+                    <div class="flex flex-wrap justify-center md:justify-between items-center gap-5 md:gap-7 relative py-6">
+                        <!-- ChatGPT bubble -->
+                        <div class="antigravity-bubble group" style="animation-delay: 0.0s;">
+                            <div class="w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center bg-slate-950/95 border border-slate-800/80 shadow-[0_8px_30px_rgba(0,0,0,0.5)] backdrop-blur-xl hover:border-emerald-500/50 hover:shadow-[0_0_25px_rgba(16,165,129,0.25)] transition-all duration-300 relative cursor-pointer">
+                                <svg class="w-7 h-7 md:w-8 md:h-8" viewBox="0 0 24 24" fill="#10A37F" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.872zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.667zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1638a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z"/>
+                                </svg>
+                                <span class="absolute -top-9 bg-slate-900 text-[10px] text-emerald-400 font-extrabold px-2.5 py-1 rounded-lg border border-emerald-500/20 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none whitespace-nowrap shadow-xl">ChatGPT</span>
+                            </div>
+                        </div>
+
+                        <!-- Midjourney bubble -->
+                        <div class="antigravity-bubble group" style="animation-delay: 0.5s;">
+                            <div class="w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center bg-slate-950/95 border border-slate-800/80 shadow-[0_8px_30px_rgba(0,0,0,0.5)] backdrop-blur-xl hover:border-purple-500/50 hover:shadow-[0_0_25px_rgba(159,122,234,0.25)] transition-all duration-300 relative cursor-pointer">
+                                <svg class="w-7 h-7 md:w-8 md:h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="12" cy="12" r="9" stroke="#A78BFA" stroke-width="1.5" stroke-dasharray="3 2" class="animate-[spin_20s_linear_infinite]"/>
+                                    <path d="M12 7v10M9 10l3-3 3 3M8 14l4 2.5 4-2.5" stroke="#A78BFA" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span class="absolute -top-9 bg-slate-900 text-[10px] text-purple-400 font-extrabold px-2.5 py-1 rounded-lg border border-purple-500/20 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none whitespace-nowrap shadow-xl">Midjourney v6</span>
+                            </div>
+                        </div>
+
+                        <!-- Anthropic Claude bubble -->
+                        <div class="antigravity-bubble group" style="animation-delay: 1.0s;">
+                            <div class="w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center bg-slate-950/95 border border-slate-800/80 shadow-[0_8px_30px_rgba(0,0,0,0.5)] backdrop-blur-xl hover:border-amber-500/50 hover:shadow-[0_0_25px_rgba(245,158,11,0.25)] transition-all duration-300 relative cursor-pointer">
+                                <svg class="w-7 h-7 md:w-8 md:h-8" viewBox="0 0 24 24" fill="#D97706" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M17.3041 3.541h-3.6718l6.696 16.918H24Zm-10.6082 0L0 20.459h3.7442l1.3693-3.5527h7.0052l1.3693 3.5528h3.7442L10.5363 3.5409Zm-.3712 10.2232 2.2914-5.9456 2.2914 5.9456Z"/>
+                                </svg>
+                                <span class="absolute -top-9 bg-slate-900 text-[10px] text-amber-500 font-extrabold px-2.5 py-1 rounded-lg border border-amber-500/20 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none whitespace-nowrap shadow-xl">Claude 3.5</span>
+                            </div>
+                        </div>
+
+                        <!-- Gemini bubble -->
+                        <div class="antigravity-bubble group" style="animation-delay: 1.5s;">
+                            <div class="w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center bg-slate-950/95 border border-slate-800/80 shadow-[0_8px_30px_rgba(0,0,0,0.5)] backdrop-blur-xl hover:border-blue-500/50 hover:shadow-[0_0_25px_rgba(59,130,246,0.25)] transition-all duration-300 relative cursor-pointer">
+                                <svg class="w-7 h-7 md:w-8 md:h-8" viewBox="0 0 24 24" fill="#3B82F6" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 0C12 6.627 6.627 12 0 12C6.627 12 12 17.627 12 24C12 17.627 17.627 12 24 12C17.627 12 12 6.627 12 0Z"/>
+                                </svg>
+                                <span class="absolute -top-9 bg-slate-900 text-[10px] text-blue-400 font-extrabold px-2.5 py-1 rounded-lg border border-blue-500/20 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none whitespace-nowrap shadow-xl">Gemini 1.5</span>
+                            </div>
+                        </div>
+
+                        <!-- DeepSeek bubble -->
+                        <div class="antigravity-bubble group" style="animation-delay: 2.0s;">
+                            <div class="w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center bg-slate-950/95 border border-slate-800/80 shadow-[0_8px_30px_rgba(0,0,0,0.5)] backdrop-blur-xl hover:border-blue-600/50 hover:shadow-[0_0_25px_rgba(37,99,235,0.25)] transition-all duration-300 relative cursor-pointer">
+                                <svg class="w-7 h-7 md:w-8 md:h-8" viewBox="0 0 24 24" fill="#2563EB" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M23.748 4.651c-.254-.124-.364.113-.512.233-.051.04-.094.09-.137.137-.372.397-.806.657-1.373.626-.829-.046-1.537.214-2.163.848-.133-.782-.575-1.248-1.247-1.548-.352-.155-.708-.311-.955-.65-.172-.24-.219-.509-.305-.774-.055-.16-.11-.323-.293-.35-.2-.031-.278.136-.356.276-.313.572-.434 1.202-.422 1.84.027 1.436.633 2.58 1.838 3.393.137.094.172.187.129.323-.082.28-.18.553-.266.833-.055.179-.137.218-.328.14a5.5 5.5 0 0 1-1.737-1.179c-.857-.828-1.631-1.743-2.597-2.46a12 12 0 0 0-.689-.47c-.985-.957.13-1.743.387-1.836.27-.098.094-.433-.778-.428-.872.003-1.67.295-2.687.685a3 3 0 0 1-.465.136 9.6 9.6 0 0 0-2.883-.101c-1.885.21-3.39 1.1-4.497 2.622C.082 8.776-.231 10.854.152 13.02c.403 2.284 1.568 4.175 3.36 5.653 1.857 1.533 3.997 2.284 6.438 2.14 1.482-.085 3.132-.284 4.994-1.86.47.234.962.328 1.78.398.629.058 1.235-.031 1.705-.129.735-.155.684-.836.418-.961-2.155-1.004-1.682-.595-2.112-.926 1.095-1.295 2.768-3.598 3.284-6.733.05-.346.115-.834.108-1.114-.004-.171.035-.238.23-.257a4.2 4.2 0 0 0 1.545-.475c1.397-.763 1.96-2.016 2.093-3.517.02-.23-.004-.467-.247-.588M11.58 18.168c-2.088-1.642-3.101-2.183-3.52-2.16-.39.024-.32.472-.234.763.09.288.207.487.371.74.114.167.192.416-.113.603-.673.416-1.842-.14-1.897-.168-1.361-.801-2.5-1.86-3.301-3.306-.775-1.393-1.225-2.888-1.299-4.482-.02-.385.094-.522.477-.592a4.7 4.7 0 0 1 1.53-.038c2.131.311 3.946 1.264 5.467 2.774.868.86 1.525 1.887 2.202 2.89.72 1.066 1.494 2.082 2.48 2.915.348.291.626.513.892.677-.802.09-2.14.109-3.055-.615zm1.001-6.44a.306.306 0 0 1 .415-.287.3.3 0 0 1 .113.074.3.3 0 0 1 .086.214c0 .17-.136.307-.308.307a.303.303 0 0 1-.306-.307m3.11 1.596c-.2.081-.4.151-.591.16a1.25 1.25 0 0 1-.798-.254c-.274-.23-.47-.358-.551-.758a1.7 1.7 0 0 1 .015-.588c.07-.327-.007-.537-.238-.727-.188-.156-.426-.199-.689-.199a.6.6 0 0 1-.254-.078.253.253 0 0 1-.114-.358 1 1 0 0 1 .192-.21c.356-.202.767-.136 1.146.016.352.144.618.408 1.001.782.392.451.462.576.685.915.176.264.336.536.446.848.066.194-.02.353-.25.45"/>
+                                </svg>
+                                <span class="absolute -top-9 bg-slate-900 text-[10px] text-blue-500 font-extrabold px-2.5 py-1 rounded-lg border border-blue-500/20 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none whitespace-nowrap shadow-xl">DeepSeek R1</span>
+                            </div>
+                        </div>
+
+                        <!-- Meta Llama bubble -->
+                        <div class="antigravity-bubble group" style="animation-delay: 2.5s;">
+                            <div class="w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center bg-slate-950/95 border border-slate-800/80 shadow-[0_8px_30px_rgba(0,0,0,0.5)] backdrop-blur-xl hover:border-cyan-500/50 hover:shadow-[0_0_25px_rgba(6,182,212,0.25)] transition-all duration-300 relative cursor-pointer">
+                                <svg class="w-7 h-7 md:w-8 md:h-8" viewBox="0 0 24 24" fill="#06B6D4" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6.915 4.03c-1.968 0-3.683 1.28-4.871 3.113C.704 9.208 0 11.883 0 14.449c0 .706.07 1.369.21 1.973a6.624 6.624 0 0 0 .265.86 5.297 5.297 0 0 0 .371.761c.696 1.159 1.818 1.927 3.593 1.927 1.497 0 2.633-.671 3.965-2.444.76-1.012 1.144-1.626 2.663-4.32l.756-1.339.186-.325c.061.1.121.196.183.3l2.152 3.595c.724 1.21 1.665 2.556 2.47 3.314 1.046.987 1.992 1.22 3.06 1.22 1.075 0 1.876-.355 2.455-.843a3.743 3.743 0 0 0 .81-.973c.542-.939.861-2.127.861-3.745 0-2.72-.681-5.357-2.084-7.45-1.282-1.912-2.957-2.93-4.716-2.93-1.047 0-2.088.467-3.053 1.308-.652.57-1.257 1.29-1.82 2.05-.69-.875-1.335-1.547-1.958-2.056-1.182-.966-2.315-1.303-3.454-1.303zm10.16 2.053c1.147 0 2.188.758 2.992 1.999 1.132 1.748 1.647 4.195 1.647 6.4 0 1.548-.368 2.9-1.839 2.9-.58 0-1.027-.23-1.664-1.004-.496-.601-1.343-1.878-2.832-4.358l-.617-1.028a44.908 44.908 0 0 0-1.255-1.98c.07-.109.141-.224.211-.327 1.12-1.667 2.118-2.602 3.358-2.602zm-10.201.553c1.265 0 2.058.791 2.675 1.446.307.327.737.871 1.234 1.579l-1.02 1.566c-.757 1.163-1.882 3.017-2.837 4.338-1.191 1.649-1.81 1.817-2.486 1.817-.524 0-1.038-.237-1.383-.794-.263-.426-.464-1.13-.464-2.046 0-2.221.63-4.535 1.66-6.088.454-.687.964-1.226 1.533-1.533a2.264 2.264 0 0 1 1.088-.285z"/>
+                                </svg>
+                                <span class="absolute -top-9 bg-slate-900 text-[10px] text-cyan-400 font-extrabold px-2.5 py-1 rounded-lg border border-cyan-500/20 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none whitespace-nowrap shadow-xl">Llama 3.1</span>
+                            </div>
+                        </div>
+
+                        <!-- xAI Grok bubble -->
+                        <div class="antigravity-bubble group" style="animation-delay: 3.0s;">
+                            <div class="w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center bg-slate-950/95 border border-slate-800/80 shadow-[0_8px_30px_rgba(0,0,0,0.5)] backdrop-blur-xl hover:border-white/50 hover:shadow-[0_0_25px_rgba(255,255,255,0.15)] transition-all duration-300 relative cursor-pointer">
+                                <svg class="w-7 h-7 md:w-8 md:h-8" viewBox="0 0 24 24" fill="#FFFFFF" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                                </svg>
+                                <span class="absolute -top-9 bg-slate-900 text-[10px] text-white font-extrabold px-2.5 py-1 rounded-lg border border-white/20 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none whitespace-nowrap shadow-xl">Grok 2.0</span>
+                            </div>
+                        </div>
+
+                        <!-- Mistral Large bubble -->
+                        <div class="antigravity-bubble group" style="animation-delay: 3.5s;">
+                            <div class="w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center bg-slate-950/95 border border-slate-800/80 shadow-[0_8px_30px_rgba(0,0,0,0.5)] backdrop-blur-xl hover:border-orange-500/50 hover:shadow-[0_0_25px_rgba(253,90,36,0.25)] transition-all duration-300 relative cursor-pointer">
+                                <svg class="w-7 h-7 md:w-8 md:h-8" viewBox="0 0 24 24" fill="#FD5A24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M17.143 3.429v3.428h-3.429v3.429h-3.428V6.857H6.857V3.43H3.43v13.714H0v3.428h10.286v-3.428H6.857v-3.429h3.429v3.429h3.429v-3.429h-3.428v-3.429h-3.428v3.428H24v-3.428h-3.43V3.429z"/>
+                                </svg>
+                                <span class="absolute -top-9 bg-slate-900 text-[10px] text-orange-400 font-extrabold px-2.5 py-1 rounded-lg border border-orange-500/20 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none whitespace-nowrap shadow-xl">Mistral Large</span>
+                            </div>
+                        </div>
+
+                        <!-- Runway bubble -->
+                        <div class="antigravity-bubble group" style="animation-delay: 4.0s;">
+                            <div class="w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center bg-slate-950/95 border border-slate-800/80 shadow-[0_8px_30px_rgba(0,0,0,0.5)] backdrop-blur-xl hover:border-orange-500/50 hover:shadow-[0_0_25px_rgba(249,115,22,0.25)] transition-all duration-300 relative cursor-pointer">
+                                <svg class="w-7 h-7 md:w-8 md:h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="12" cy="12" r="10" stroke="#FF6B00" stroke-width="2"/>
+                                    <path d="M12 6v12M6 12h12" stroke="#FF6B00" stroke-width="2"/>
+                                </svg>
+                                <span class="absolute -top-9 bg-slate-900 text-[10px] text-orange-500 font-extrabold px-2.5 py-1 rounded-lg border border-orange-500/20 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none whitespace-nowrap shadow-xl">Runway Gen-3</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <style>
+                    @keyframes antigravity-bob {
+                        0%, 100% {
+                            transform: translateY(0px);
+                        }
+                        50% {
+                            transform: translateY(-16px);
+                        }
+                    }
+                    .antigravity-bubble {
+                        animation: antigravity-bob 4.5s ease-in-out infinite;
+                    }
+                </style>
+
+                <!-- ELITE LIFETIME MASTER BUNDLE CARD (CRO SALES ACCELERATOR) -->
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-24 mb-16 relative z-30 overflow-visible">
+                    <div id="elite-bundle-card" class="relative group/bundle overflow-visible z-30">
+                        <!-- Background Neon Pulse Aura (Perfect Symmetrical 3D Soft Glow) -->
+                        <div class="absolute -inset-2 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 rounded-[32px] blur-2xl opacity-35 group-hover/bundle:opacity-55 transition duration-1000"></div>
+                        
+                        <div class="relative bg-slate-950/85 border border-indigo-500/30 rounded-[32px] p-6 md:p-10 backdrop-blur-3xl text-left shadow-2xl flex flex-col md:flex-row gap-8 items-center">
+                            <!-- Left side: highlights and bullet points -->
+                            <div class="w-full md:w-7/12">
+                                <div class="flex items-center gap-2 mb-4">
+                                    <span class="bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-wider flex items-center gap-1 shadow-lg shadow-amber-500/20">
+                                        <i class="fa-solid fa-crown"></i> Best Value Offer
+                                    </span>
+                                    <span class="bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                                        One-Time Payment
+                                    </span>
+                                </div>
+                                
+                                <h3 class="text-2xl md:text-3xl font-extrabold text-white heading-font mb-3 min-h-[32px] md:min-h-[38px] select-none">
+                                    <span id="typed-bundle-text"></span><span class="bundle-typing-cursor text-indigo-500">|</span>
+                                </h3>
+                                <p class="text-slate-400 text-sm mb-6 leading-relaxed">Unlock our entire master library of 32M+ expert prompt parameters instantly. Gain lifetime rights, future upgrades, and premium private community resources today.</p>
+                                
+                                <!-- List of ultimate bundle features -->
+                                <ul class="space-y-2.5 text-xs text-slate-300">
+                                    <li class="flex items-center gap-2.5">
+                                        <i class="fa-solid fa-circle-check text-emerald-400 text-sm"></i>
+                                        <span><strong>Lifetime Unlimited Vault Access</strong> to all current and future prompts</span>
+                                    </li>
+                                    <li class="flex items-center gap-2.5">
+                                        <i class="fa-solid fa-circle-check text-emerald-400 text-sm"></i>
+                                        <span><strong>All AI Engine Models Supported</strong> (ChatGPT, Midjourney v6, Sora)</span>
+                                    </li>
+                                    <li class="flex items-center gap-2.5">
+                                        <i class="fa-solid fa-circle-check text-emerald-400 text-sm"></i>
+                                        <span><strong>Weekly Library Updates</strong> added directly to your Vault forever</span>
+                                    </li>
+                                    <li class="flex items-center gap-2.5">
+                                        <i class="fa-solid fa-circle-check text-emerald-400 text-sm"></i>
+                                        <span><strong>24/7 Premium Customer Support</strong> with custom prompt optimization requests</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <!-- Right side: Pricing and Instant purchase button -->
+                            <div class="w-full md:w-5/12 bg-slate-900/60 border border-slate-800 rounded-2xl p-6 text-center flex flex-col justify-center items-center shadow-inner relative overflow-hidden">
+                                <div class="absolute -top-10 -right-10 w-24 h-24 bg-indigo-500/10 rounded-full blur-xl pointer-events-none"></div>
+                                
+                                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block mb-1">TOTAL BUNDLE VALUE: <span class="line-through text-slate-500">$397.00</span></span>
+                                <div class="flex items-baseline justify-center gap-1.5 mb-2">
+                                    <span class="text-xs font-bold text-rose-500 bg-rose-500/10 px-2 py-0.5 rounded border border-rose-500/20 uppercase tracking-wider mr-1.5">-95%</span>
+                                    <span class="text-5xl font-black text-white heading-font">$19.00</span>
+                                </div>
+                                <p class="text-[10px] text-emerald-400 font-semibold tracking-wider uppercase mb-5 flex items-center gap-1"><i class="fa-solid fa-shield-halved"></i> 100% SECURE TRANSACTION</p>
+                                
+                                <button onclick="window.buyLifetimeBundle()" class="w-full py-3.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:via-indigo-500 hover:to-purple-500 text-white font-bold rounded-xl transition-all shadow-lg shadow-indigo-500/30 hover:scale-[1.02] active:scale-[0.98] cursor-pointer flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-bolt"></i> Get Lifetime Access
+                                </button>
+                                
+                                <span class="text-[10px] text-slate-500 mt-3 block">Backed by 14-Day Money-Back Guarantee</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- END OF SEAMLESS DARK MODE TRANSITION ZONE -->
 
             <!-- Live Stats Counter Section -->
             <section class="bg-slate-950 border-y border-slate-800/50 py-16 relative z-20">
@@ -679,6 +913,127 @@
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="categoryGrid">
                         <!-- Categories will be injected here via JS -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Verified Review Masonry (Testimonials) -->
+            <section class="py-24 bg-white border-t border-slate-100 relative z-20">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                        <span class="text-xs uppercase tracking-widest text-blue-600 font-bold bg-blue-50 px-4 py-2 rounded-full border border-blue-200">💬 Customer Love</span>
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4 mt-4 heading-font">Praise from Elite AI Creators</h2>
+                        <p class="text-lg text-slate-600 max-w-2xl mx-auto">See how agencies, startup founders, and designers are saving hundreds of hours weekly with our precision prompt systems.</p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- Testimonial 1 -->
+                        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center gap-1.5 text-amber-400 mb-4 text-sm">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                </div>
+                                <p class="text-slate-600 text-sm italic leading-relaxed">"The Midjourney architecture prompt pack is an absolute game-changer. I whipped up pitch-deck interior drafts for a client in 20 minutes, and they signed the contract the next day! Unbelievable value."</p>
+                            </div>
+                            <div class="flex items-center gap-3 mt-6 pt-4 border-t border-slate-200">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&q=80" class="w-10 h-10 rounded-full object-cover" alt="Marcus V.">
+                                <div>
+                                    <h4 class="font-bold text-slate-900 text-sm">Marcus Vance</h4>
+                                    <span class="text-xs text-slate-500">Creative Lead at Apex Design</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Testimonial 2 -->
+                        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center gap-1.5 text-amber-400 mb-4 text-sm">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                </div>
+                                <p class="text-slate-600 text-sm italic leading-relaxed">"I was skeptical about the business plan and sales copy generators, but they saved me at least 15 hours of baseline research. Claude structured a VC-ready deck that felt completely custom. 10/10."</p>
+                            </div>
+                            <div class="flex items-center gap-3 mt-6 pt-4 border-t border-slate-200">
+                                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&h=100&fit=crop&q=80" class="w-10 h-10 rounded-full object-cover" alt="Sophia Chen">
+                                <div>
+                                    <h4 class="font-bold text-slate-900 text-sm">Sophia Chen</h4>
+                                    <span class="text-xs text-slate-500">Founder, Saasify.io</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Testimonial 3 -->
+                        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center gap-1.5 text-amber-400 mb-4 text-sm">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                </div>
+                                <p class="text-slate-600 text-sm italic leading-relaxed">"Getting the Elite Lifetime Bundle was the best $19 I've spent all year. Lifetime updates and direct access to their prompt engineering Discord is insane. They've customized 3 marketing prompts for me already!"</p>
+                            </div>
+                            <div class="flex items-center gap-3 mt-6 pt-4 border-t border-slate-200">
+                                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&q=80" class="w-10 h-10 rounded-full object-cover" alt="Liam O'Connor">
+                                <div>
+                                    <h4 class="font-bold text-slate-900 text-sm">Liam O'Connor</h4>
+                                    <span class="text-xs text-slate-500">Marketing Director, BrandFlow Agency</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sleek FAQ Accordion Panel -->
+            <section class="py-24 bg-slate-950 border-t border-slate-900 relative z-20">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                        <span class="section-tag mb-4 inline-flex items-center gap-1.5"><i class="fa-solid fa-circle-question text-indigo-400"></i> Clear Answers</span>
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-white heading-font mb-4">Frequently Asked Questions</h2>
+                        <p class="text-sm text-slate-400 max-w-xl mx-auto">Get answers to our most popular questions about prompt parameter libraries, licensing, and Stripe connection security.</p>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <!-- FAQ Item 1 -->
+                        <div class="bg-slate-900/60 border border-slate-800 rounded-2xl overflow-hidden transition-all duration-300">
+                            <button onclick="window.toggleFaq('faq-1')" class="w-full px-6 py-5 text-left flex items-center justify-between text-white font-bold hover:bg-slate-900 transition-colors focus:outline-none">
+                                <span>What is PromptFlow and what do I get upon purchase?</span>
+                                <i id="faq-1-icon" class="fa-solid fa-chevron-down text-slate-505 transition-transform"></i>
+                            </button>
+                            <div id="faq-1" class="hidden px-6 pb-5 text-sm text-slate-400 leading-relaxed border-t border-slate-850 pt-4">
+                                PromptFlow is an elite prompt engineering repository containing over 32 million high-fidelity instructions and hyperparameter templates. When you purchase a prompt pack, you instantly unlock the raw engineered instructions, parameters, and variable definitions (such as Midjourney camera models, lighting types, aspect ratios, or Claude system roles) directly inside your Vault.
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ Item 2 -->
+                        <div class="bg-slate-900/60 border border-slate-800 rounded-2xl overflow-hidden transition-all duration-300">
+                            <button onclick="window.toggleFaq('faq-2')" class="w-full px-6 py-5 text-left flex items-center justify-between text-white font-bold hover:bg-slate-900 transition-colors focus:outline-none">
+                                <span>Are these prompts verified for commercial usage?</span>
+                                <i id="faq-2-icon" class="fa-solid fa-chevron-down text-slate-505 transition-transform"></i>
+                            </button>
+                            <div id="faq-2" class="hidden px-6 pb-5 text-sm text-slate-400 leading-relaxed border-t border-slate-850 pt-4">
+                                Yes! Every premium prompt listed on PromptFlow includes full unrestricted commercial rights. You own 100% of the output text, code, templates, and imagery generated, allowing you to use them in client deliverables, advertisements, books, courses, SaaS platforms, or business branding without any licensing fees.
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ Item 3 -->
+                        <div class="bg-slate-900/60 border border-slate-800 rounded-2xl overflow-hidden transition-all duration-300">
+                            <button onclick="window.toggleFaq('faq-3')" class="w-full px-6 py-5 text-left flex items-center justify-between text-white font-bold hover:bg-slate-900 transition-colors focus:outline-none">
+                                <span>How secure is the checkout process?</span>
+                                <i id="faq-3-icon" class="fa-solid fa-chevron-down text-slate-505 transition-transform"></i>
+                            </button>
+                            <div id="faq-3" class="hidden px-6 pb-5 text-sm text-slate-400 leading-relaxed border-t border-slate-850 pt-4">
+                                We leverage Stripe, the global leader in payment processing, to handle all checkout connections. Your card details are processed with AES 256-bit secure encryption and direct tokenization via Stripe Elements. PromptFlow servers never store nor view your raw payment credentials.
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ Item 4 -->
+                        <div class="bg-slate-900/60 border border-slate-800 rounded-2xl overflow-hidden transition-all duration-300">
+                            <button onclick="window.toggleFaq('faq-4')" class="w-full px-6 py-5 text-left flex items-center justify-between text-white font-bold hover:bg-slate-900 transition-colors focus:outline-none">
+                                <span>What is the 100% Money-Back Guarantee policy?</span>
+                                <i id="faq-4-icon" class="fa-solid fa-chevron-down text-slate-505 transition-transform"></i>
+                            </button>
+                            <div id="faq-4" class="hidden px-6 pb-5 text-sm text-slate-400 leading-relaxed border-t border-slate-850 pt-4">
+                                We stand 100% behind the caliber of our prompts. If a purchased prompt fails to produce the expected results or doesn't deliver the value we promised, simply message our support desk within 14 days of purchase, and we will issue a full, prompt refund. No questions asked.
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -1675,12 +2030,12 @@
     </footer>
 
     <!-- Cart Modal (Overlay) -->
-    <div id="cartModal" class="fixed inset-0 z-[60] bg-slate-900/50 backdrop-blur-sm justify-end">
-        <div class="bg-white w-full max-w-md h-full flex flex-col shadow-2xl animate-[slideInRight_0.3s_ease-out]">
+    <div id="cartModal" class="fixed inset-0 z-[60] bg-slate-950/40 backdrop-blur-sm justify-end">
+        <div class="bg-slate-950/95 backdrop-blur-2xl w-full max-w-md h-full flex flex-col shadow-2xl border-l border-slate-800 text-slate-100">
             <!-- Header -->
-            <div class="flex items-center justify-between p-6 border-b border-slate-100">
-                <h2 class="text-2xl font-bold text-slate-900">Your Cart</h2>
-                <button onclick="toggleCart()" class="p-2 text-slate-400 hover:text-slate-600 transition-colors rounded-full hover:bg-slate-100">
+            <div class="flex items-center justify-between p-6 border-b border-slate-800">
+                <h2 class="text-2xl font-bold text-white heading-font">Your Shopping Cart</h2>
+                <button onclick="toggleCart()" class="p-2 text-slate-400 hover:text-white transition-colors rounded-full hover:bg-slate-800/50">
                     <i class="fa-solid fa-times text-xl"></i>
                 </button>
             </div>
@@ -1693,34 +2048,58 @@
                 </div>
                 
                 <div id="emptyCartMsg" class="flex flex-col items-center justify-center h-full text-slate-400 p-6">
-                    <i class="fa-solid fa-basket-shopping text-5xl mb-4 opacity-50"></i>
-                    <p class="text-lg font-medium">Your cart is empty</p>
-                    <button onclick="toggleCart()" class="mt-4 text-blue-600 hover:text-blue-800 font-medium">Continue Browsing</button>
+                    <i class="fa-solid fa-basket-shopping text-5xl mb-4 opacity-50 text-indigo-400"></i>
+                    <p class="text-lg font-medium text-slate-300">Your cart is empty</p>
+                    <button onclick="toggleCart()" class="mt-4 text-blue-400 hover:text-blue-300 font-medium">Continue Browsing</button>
                 </div>
             </div>
 
             <!-- Footer / Checkout -->
-            <div class="border-t border-slate-100 p-6 bg-slate-50">
+            <div class="border-t border-slate-800 p-6 bg-slate-950">
+                <!-- Cart Urgency Timer Block -->
+                <div id="cartTimerBlock" class="mb-4 bg-blue-500/10 border border-blue-500/20 text-blue-400 p-3 rounded-xl text-xs flex gap-2.5 items-center">
+                    <i class="fa-solid fa-hourglass-half animate-pulse text-sm"></i>
+                    <div>
+                        <span class="font-bold text-white">Cart reserved!</span> Your discount coupon <span class="font-bold text-yellow-400">FLOW50</span> expires in <span id="cartTimerClock" class="font-mono font-bold text-white">05:00</span>
+                    </div>
+                </div>
+                
+                <!-- One-Click Order Bump -->
+                <div id="cartUpsellRow" class="bg-gradient-to-r from-blue-500/10 to-indigo-500/10 border border-indigo-500/30 rounded-xl p-3.5 mb-4 hidden">
+                    <div class="flex items-start gap-3">
+                        <div class="w-10 h-10 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-sm shrink-0 border border-indigo-500/30">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        </div>
+                        <div class="flex-grow min-w-0">
+                            <h4 class="text-xs font-bold text-white flex items-center justify-between">Order Bump <span class="bg-emerald-500 text-slate-950 font-bold px-1.5 py-0.5 rounded text-[8px] uppercase tracking-wider">60% Off</span></h4>
+                            <p class="text-[10px] text-slate-400 mt-0.5 truncate">Add 'Cold Email outreach template pack' for just $1.99!</p>
+                            <button onclick="window.addUpsellToCart()" class="mt-2 text-xs font-bold text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-1 cursor-pointer">
+                                <i class="fa-solid fa-plus-circle"></i> Add to Order
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Sleek High-Converting Coupon Code Input -->
                 <div class="mb-4">
-                    <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Have a promo code?</label>
+                    <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Have a promo code?</label>
                     <div class="flex gap-2">
-                        <input type="text" id="couponInput" placeholder="Enter promo code (e.g. FLOW50)" class="flex-1 px-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500 uppercase font-semibold">
-                        <button onclick="window.applyCoupon()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-bold transition-colors">Apply</button>
+                        <input type="text" id="couponInput" placeholder="Enter promo code (e.g. FLOW50)" class="flex-1 px-3 py-2 text-sm bg-slate-900 border border-slate-800 rounded-lg focus:outline-none focus:border-blue-500 uppercase font-semibold text-white">
+                        <button onclick="window.applyCoupon()" class="px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-lg text-sm font-bold transition-colors shadow cursor-pointer">Apply</button>
                     </div>
                     <div id="couponMessage" class="text-xs mt-1.5 hidden"></div>
                 </div>
 
                 <div class="flex justify-between items-center mb-2 text-sm hidden" id="discountRow">
-                    <span class="font-medium text-slate-500">Discount (50% Off)</span>
-                    <span class="font-bold text-rose-500" id="discountAmount">-$0.00</span>
+                    <span class="font-medium text-slate-400">Discount (50% Off)</span>
+                    <span class="font-bold text-rose-400" id="discountAmount">-$0.00</span>
                 </div>
                 <div class="flex justify-between items-center mb-4 text-lg">
-                    <span class="font-medium text-slate-600">Subtotal</span>
-                    <span class="font-bold text-slate-900" id="cartTotal">$0.00</span>
+                    <span class="font-medium text-slate-300">Subtotal</span>
+                    <span class="font-black text-white" id="cartTotal">$0.00</span>
                 </div>
-                <p class="text-sm text-slate-500 mb-6">Taxes calculated at checkout.</p>
-                <button onclick="checkout()" class="w-full py-4 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-bold text-lg transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed" id="checkoutBtn" disabled>
+                <p class="text-[11px] text-slate-500 mb-6">Guaranteed 256-bit secure checkout powered by Stripe Elements.</p>
+                <button onclick="checkout()" class="w-full py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-xl font-bold text-lg transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-blue-500/10 cursor-pointer" id="checkoutBtn" disabled>
                     Secure Checkout <i class="fa-solid fa-lock ml-2"></i>
                 </button>
             </div>
@@ -1864,7 +2243,7 @@
             <p class="text-slate-400 text-sm mt-1 mb-6">Your payment was authorized successfully. Your prompts have been added to your dashboard.</p>
             
             <div class="bg-slate-950 p-4 rounded-xl border border-slate-850 text-left text-xs mb-4 leading-relaxed text-slate-300 space-y-1">
-                <span class="text-green-400 font-bold block mb-1">📧 digital_delivery@promptflow.ai</span>
+                <span class="text-green-400 font-bold block mb-1">📧 digital_delivery@promptflowing.com</span>
                 <p>The complete, premium product files and documentation have been compiled and dispatched to your email address.</p>
             </div>
 
@@ -2228,6 +2607,10 @@
             const logoText = document.getElementById('logoText');
             if (!nav || !logoText) return;
             let lastScrollY = window.scrollY;
+            
+            // State-tracking variables to prevent infinite daily DOM layouts and queries on every scroll tick
+            let wasScrolled = null;
+            let lastHomePageState = null;
 
             window.addEventListener('scroll', () => {
                 const currentScrollY = window.scrollY;
@@ -2242,24 +2625,33 @@
                 }
                 lastScrollY = currentScrollY;
 
-                if (!isHomePage || isScrolled) {
-                    nav.className = "fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-200";
-                    logoText.classList.remove('text-white');
-                    logoText.classList.add('text-slate-900');
-                    
-                    document.querySelectorAll('nav .nav-link').forEach(el => {
-                        el.classList.remove('text-gray-300', 'hover:text-white');
-                        el.classList.add('text-slate-600', 'hover:text-blue-600');
-                    });
-                } else {
-                    nav.className = "fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-slate-950/90 backdrop-blur-md border-b border-slate-800";
-                    logoText.classList.remove('text-slate-900');
-                    logoText.classList.add('text-white');
-                    
-                    document.querySelectorAll('nav .nav-link').forEach(el => {
-                        el.classList.remove('text-slate-600', 'hover:text-blue-600');
-                        el.classList.add('text-gray-300', 'hover:text-white');
-                    });
+                // Only execute costly DOM updates and class changes when scrolled or page states transition
+                if (isScrolled !== wasScrolled || isHomePage !== lastHomePageState) {
+                    wasScrolled = isScrolled;
+                    lastHomePageState = isHomePage;
+
+                    // Toggle native 'scrolled' class on navbar
+                    nav.classList.toggle('scrolled', isScrolled);
+
+                    if (!isHomePage || isScrolled) {
+                        nav.className = "fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-200 scrolled";
+                        logoText.classList.remove('text-white');
+                        logoText.classList.add('text-slate-900');
+                        
+                        document.querySelectorAll('nav .nav-link').forEach(el => {
+                            el.classList.remove('text-gray-300', 'hover:text-white');
+                            el.classList.add('text-slate-600', 'hover:text-blue-600');
+                        });
+                    } else {
+                        nav.className = "fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-slate-950/90 backdrop-blur-md border-b border-slate-800";
+                        logoText.classList.remove('text-slate-900');
+                        logoText.classList.add('text-white');
+                        
+                        document.querySelectorAll('nav .nav-link').forEach(el => {
+                            el.classList.remove('text-slate-600', 'hover:text-blue-600');
+                            el.classList.add('text-gray-300', 'hover:text-white');
+                        });
+                    }
                 }
 
                 // Endlessly load more video prompts on scroll (Infinite Scroll)
@@ -2275,7 +2667,7 @@
                         }
                     }
                 }
-            });
+            }, { passive: true });
         }
 
         window.toggleMobileMenu = function() {
@@ -2397,13 +2789,13 @@
             
             document.querySelectorAll('.page-view').forEach(page => {
                 page.classList.add('hidden');
-                page.classList.remove('block');
+                page.classList.remove('block', 'page-fade-in');
             });
 
             const target = document.getElementById('page-' + pageId);
             if (target) {
                 target.classList.remove('hidden');
-                target.classList.add('block');
+                target.classList.add('block', 'page-fade-in');
             }
             
             if (pageId === 'free') renderFreeProducts();
@@ -3682,6 +4074,84 @@
             window.updateCartUI();
         };
 
+        let cartTimerSeconds = 5 * 60;
+        let cartTimerInterval = null;
+
+        function startCartTimer() {
+            if (cartTimerInterval) clearInterval(cartTimerInterval);
+            cartTimerSeconds = 5 * 60;
+            const clockEl = document.getElementById('cartTimerClock');
+            if (!clockEl) return;
+            
+            function tick() {
+                if (cartTimerSeconds <= 0) {
+                    clearInterval(cartTimerInterval);
+                    clockEl.textContent = 'Expired';
+                    return;
+                }
+                cartTimerSeconds--;
+                const m = Math.floor(cartTimerSeconds / 60);
+                const s = cartTimerSeconds % 60;
+                clockEl.textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+            }
+            tick();
+            cartTimerInterval = setInterval(tick, 1000);
+        }
+
+        window.addUpsellToCart = function() {
+            const upsellItem = {
+                id: 'prod-chatgpt-sales-email',
+                title: 'High-Converting Sales & Outreach Email Campaign',
+                type: 'ChatGPT 5.5',
+                price: 1.99,
+                rating: '4.8',
+                reviews: 23104,
+                image: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=600&h=400&fit=crop&auto=format&q=80',
+                description: 'A battle-tested outreach sequence optimized for high response rates.'
+            };
+            window.addToCart(upsellItem);
+            window.showToast("Order Bump added! 🚀", "success");
+        };
+
+        window.buyLifetimeBundle = function() {
+            if (!currentUser) {
+                window.showToast("Please sign in or create an account to secure the Elite Bundle!", "warning");
+                window.toggleAuthModal();
+                return;
+            }
+            const bundleProduct = {
+                id: 'prod-lifetime-bundle',
+                title: 'Elite Lifetime AI Prompts Master Bundle',
+                type: 'All-in-One Lifetime Pack',
+                price: 19.00,
+                rating: '4.95',
+                reviews: 48920,
+                image: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=600&h=400&fit=crop&auto=format&q=80',
+                description: 'Ultimate VIP master access across all current and future prompts.'
+            };
+            cart = [bundleProduct];
+            window.updateCartUI();
+            window.toggleCart();
+            setTimeout(() => {
+                window.checkout();
+            }, 300);
+        };
+
+        window.toggleFaq = function(id) {
+            const body = document.getElementById(id);
+            const icon = document.getElementById(id + '-icon');
+            if (body && icon) {
+                const isHidden = body.classList.contains('hidden');
+                if (isHidden) {
+                    body.classList.remove('hidden');
+                    icon.classList.add('rotate-180');
+                } else {
+                    body.classList.add('hidden');
+                    icon.classList.remove('rotate-180');
+                }
+            }
+        };
+
         window.updateCartUI = function() {
             const count = cart.length;
             const cartCountEl = document.getElementById('cartCount');
@@ -3694,6 +4164,18 @@
             const emptyMsg = document.getElementById('emptyCartMsg');
             
             if (!itemsContainer || !emptyMsg) return;
+
+            // Check and display One-Click Order Bump
+            const hasUpsell = cart.some(item => item.id === 'prod-chatgpt-sales-email');
+            const hasBundle = cart.some(item => item.id === 'prod-lifetime-bundle');
+            const upsellRow = document.getElementById('cartUpsellRow');
+            if (upsellRow) {
+                if (hasUpsell || hasBundle) {
+                    upsellRow.classList.add('hidden');
+                } else {
+                    upsellRow.classList.remove('hidden');
+                }
+            }
 
             if (count === 0) {
                 if (btn) btn.disabled = true;
@@ -3713,14 +4195,15 @@
                 const itemPrice = parseFloat(item.price) || 0;
                 total += itemPrice;
                 const el = document.createElement('div');
-                el.className = 'flex items-center gap-4 bg-slate-50 p-3 rounded-xl border border-slate-100';
+                el.className = 'flex items-center gap-4 bg-slate-900/60 p-3 rounded-xl border border-slate-800/80';
                 el.innerHTML = `
-                    <img src="${item.image}" class="w-16 h-16 rounded-lg object-cover" alt="${item.title}">
-                    <div class="flex-1 min-w-0 text-slate-800">
-                        <h4 class="text-sm font-bold truncate text-slate-800">${item.title}</h4>
-                        <div class="text-sm font-medium text-slate-500 mt-1">$${itemPrice.toFixed(2)}</div>
+                    <img src="${item.image}" class="w-16 h-16 rounded-lg object-cover border border-slate-800" alt="${item.title}">
+                    <div class="flex-1 min-w-0 text-slate-100">
+                        <h4 class="text-sm font-bold truncate text-white">${item.title}</h4>
+                        <div class="text-[10px] text-indigo-400 font-semibold tracking-wider uppercase mt-0.5">${item.type}</div>
+                        <div class="text-sm font-black text-slate-300 mt-1">$${itemPrice.toFixed(2)}</div>
                     </div>
-                    <button onclick="window.removeFromCart('${item.id}')" class="p-2 text-slate-400 hover:text-red-500 transition-colors">
+                    <button onclick="window.removeFromCart('${item.id}')" class="p-2 text-slate-400 hover:text-red-400 transition-colors focus:outline-none">
                         <i class="fa-solid fa-trash-can"></i>
                     </button>
                 `;
@@ -3745,6 +4228,17 @@
         };
 
         window.toggleCart = function() {
+            const modal = document.getElementById('cartModal');
+            if (!modal) return;
+            modal.classList.toggle('open');
+            document.body.style.overflow = modal.classList.contains('open') ? 'hidden' : '';
+            
+            if (modal.classList.contains('open')) {
+                startCartTimer();
+            } else {
+                if (cartTimerInterval) clearInterval(cartTimerInterval);
+            }
+        };t = function() {
             const modal = document.getElementById('cartModal');
             if (!modal) return;
             modal.classList.toggle('open');
@@ -4551,58 +5045,121 @@
         });
 
         // --- INTERACTIVE MOUSE CANVAS ANIMATION ---
+        // --- INTERACTIVE MOUSE CANVAS & ZERO-GRAVITY ELEMENT PHYSICS ENGINE ---
         function initInteractiveCanvas() {
             const canvas = document.getElementById('interactiveCanvas');
             if (!canvas) return;
+            const heroSection = document.getElementById('hero-interactive-section');
             const ctx = canvas.getContext('2d');
 
-            let width = canvas.width = window.innerWidth;
-            let height = canvas.height = window.innerHeight;
+            let width = canvas.width = heroSection ? heroSection.offsetWidth : window.innerWidth;
+            let height = canvas.height = heroSection ? heroSection.offsetHeight : window.innerHeight;
 
             const particles = [];
-            const particleCount = Math.min(100, Math.floor((width * height) / 12000));
-            const connectionDistance = 110;
-            const mouse = { x: null, y: null, targetX: null, targetY: null, radius: 180, active: false };
+            const particleCount = 65; // Optimized rich density for gorgeous stargaze swarm (silky smooth scroll performance)
+            const connectionDistance = 100;
+            const connectionDistanceSq = connectionDistance * connectionDistance;
+            
+            // Shared high-precision mouse tracking state
+            const mouse = { 
+                x: null, 
+                y: null, 
+                targetX: null, 
+                targetY: null, 
+                radius: 400, 
+                active: false 
+            };
 
             class Particle {
                 constructor() {
                     this.x = Math.random() * width;
                     this.y = Math.random() * height;
-                    this.vx = (Math.random() - 0.5) * 0.6;
-                    this.vy = (Math.random() - 0.5) * 0.6;
+                    
+                    // Zero-gravity base float velocities
+                    this.baseVx = (Math.random() - 0.5) * 0.35;
+                    this.baseVy = (Math.random() - 0.7) * 0.45; // Subtle upward float bias
+                    
+                    // Current velocities (momentum-driven)
+                    this.vx = this.baseVx;
+                    this.vy = this.baseVy;
+                    
                     this.radius = Math.random() * 2.5 + 1.2;
-                    this.color = Math.random() > 0.5 ? 'rgba(59, 130, 246, ' : 'rgba(139, 92, 246, '; // Blue or Violet
+                    
+                    const colors = [
+                        'rgba(59, 130, 246, ',  // Indigo Blue
+                        'rgba(139, 92, 246, ', // Cyber Violet
+                        'rgba(6, 182, 212, ',  // Aurora Cyan
+                        'rgba(16, 185, 129, '  // Vibrant Emerald
+                    ];
+                    this.color = colors[Math.floor(Math.random() * colors.length)];
                     this.alpha = Math.random() * 0.5 + 0.3;
                 }
 
                 update() {
+                    // Update position using dynamic momentum
                     this.x += this.vx;
                     this.y += this.vy;
 
-                    if (this.x < 0 || this.x > width) this.vx *= -1;
-                    if (this.y < 0 || this.y > height) this.vy *= -1;
+                    // Standard drag to decay momentum back to base float speed
+                    this.vx = this.vx * 0.94 + this.baseVx * 0.06;
+                    this.vy = this.vy * 0.94 + this.baseVy * 0.06;
 
+                    // Bounce horizontal edges
+                    if (this.x < 0) {
+                        this.x = 0;
+                        this.vx *= -1;
+                    } else if (this.x > width) {
+                        this.x = width;
+                        this.vx *= -1;
+                    }
+                    
+                    // Infinite lift wrap: when it hits the top edge, seamlessly spawn at the bottom
+                    if (this.y < 0) {
+                        this.y = height;
+                        this.x = Math.random() * width;
+                        this.vx = this.baseVx;
+                        this.vy = this.baseVy;
+                    } else if (this.y > height) {
+                        this.y = 0;
+                        this.vx = this.baseVx;
+                        this.vy = this.baseVy;
+                    }
+
+                    // Orbital swirling gravity swarm around the cursor (Google Antigravity style)
                     if (mouse.active && mouse.x !== null) {
                         const dx = mouse.x - this.x;
                         const dy = mouse.y - this.y;
                         const dist = Math.sqrt(dx * dx + dy * dy);
 
-                        if (dist < mouse.radius) {
+                        if (dist < mouse.radius && dist > 0) {
                             const force = (mouse.radius - dist) / mouse.radius;
-                            this.x += (dx / dist) * force * 0.9;
-                            this.y += (dy / dist) * force * 0.9;
+                            // Kinetic pull towards the cursor coordinates
+                            const pull = force * 0.18;
+                            this.vx += (dx / dist) * pull;
+                            this.vy += (dy / dist) * pull;
+
+                            // Orbital swirling tangent component
+                            const tangentX = -dy / dist;
+                            const tangentY = dx / dist;
+                            const swirl = force * 0.22;
+                            this.vx += tangentX * swirl;
+                            this.vy += tangentY * swirl;
                         }
                     }
                 }
 
                 draw() {
+                    // Fast hardware-accelerated outer halo glow (avoiding extremely slow Gaussian blur drop-shadows)
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius * 2.2, 0, Math.PI * 2);
+                    ctx.fillStyle = this.color + (this.alpha * 0.15) + ')';
+                    ctx.fill();
+
+                    // Core star
                     ctx.beginPath();
                     ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
                     ctx.fillStyle = this.color + this.alpha + ')';
-                    ctx.shadowBlur = 10;
-                    ctx.shadowColor = this.color === 'rgba(59, 130, 246, ' ? '#3b82f6' : '#8b5cf6';
                     ctx.fill();
-                    ctx.shadowBlur = 0;
                 }
             }
 
@@ -4610,31 +5167,54 @@
                 particles.push(new Particle());
             }
 
-            mouse.x = width / 2;
-            mouse.y = height / 2;
-            mouse.targetX = width / 2;
-            mouse.targetY = height / 2;
-
             function updateMousePosition() {
                 if (mouse.targetX !== null && mouse.x !== null) {
-                    mouse.x += (mouse.targetX - mouse.x) * 0.08;
-                    mouse.y += (mouse.targetY - mouse.y) * 0.08;
+                    mouse.x += (mouse.targetX - mouse.x) * 0.12;
+                    mouse.y += (mouse.targetY - mouse.y) * 0.12;
                 }
             }
 
+            // Confine mouse/touch interaction box to hero container
             window.addEventListener('mousemove', (e) => {
-                mouse.targetX = e.clientX;
-                mouse.targetY = e.clientY;
-                mouse.active = true;
+                if (!heroSection) return;
+                const rect = heroSection.getBoundingClientRect();
+                
+                if (e.clientX >= rect.left && e.clientX <= rect.right &&
+                    e.clientY >= rect.top && e.clientY <= rect.bottom) {
+                    
+                    mouse.targetX = e.clientX - rect.left;
+                    mouse.targetY = e.clientY - rect.top;
+                    
+                    if (mouse.x === null) {
+                        mouse.x = mouse.targetX;
+                        mouse.y = mouse.targetY;
+                    }
+                    mouse.active = true;
+                } else {
+                    mouse.active = false;
+                }
             });
 
             window.addEventListener('touchmove', (e) => {
-                if (e.touches.length > 0) {
-                    mouse.targetX = e.touches[0].clientX;
-                    mouse.targetY = e.touches[0].clientY;
+                if (!heroSection || e.touches.length === 0) return;
+                const rect = heroSection.getBoundingClientRect();
+                const t = e.touches[0];
+                
+                if (t.clientX >= rect.left && t.clientX <= rect.right &&
+                    t.clientY >= rect.top && t.clientY <= rect.bottom) {
+                    
+                    mouse.targetX = t.clientX - rect.left;
+                    mouse.targetY = t.clientY - rect.top;
+                    
+                    if (mouse.x === null) {
+                        mouse.x = mouse.targetX;
+                        mouse.y = mouse.targetY;
+                    }
                     mouse.active = true;
+                } else {
+                    mouse.active = false;
                 }
-            });
+            }, { passive: true });
 
             window.addEventListener('mouseleave', () => {
                 mouse.active = false;
@@ -4645,21 +5225,23 @@
             });
 
             window.addEventListener('resize', () => {
-                width = canvas.width = window.innerWidth;
-                height = canvas.height = window.innerHeight;
+                if (!heroSection) return;
+                width = canvas.width = heroSection.offsetWidth;
+                height = canvas.height = heroSection.offsetHeight;
             });
 
             function animate() {
                 ctx.clearRect(0, 0, width, height);
                 updateMousePosition();
 
+                // Draw gorgeous mouse aura radial glow
                 if (mouse.active && mouse.x !== null) {
                     const gradient = ctx.createRadialGradient(
                         mouse.x, mouse.y, 10,
                         mouse.x, mouse.y, mouse.radius * 1.5
                     );
-                    gradient.addColorStop(0, 'rgba(59, 130, 246, 0.15)');
-                    gradient.addColorStop(0.3, 'rgba(139, 92, 246, 0.06)');
+                    gradient.addColorStop(0, 'rgba(99, 102, 241, 0.18)');
+                    gradient.addColorStop(0.35, 'rgba(139, 92, 246, 0.08)');
                     gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
                     ctx.beginPath();
                     ctx.arc(mouse.x, mouse.y, mouse.radius * 1.5, 0, Math.PI * 2);
@@ -4667,6 +5249,7 @@
                     ctx.fill();
                 }
 
+                // Render & link starfield particles
                 for (let i = 0; i < particles.length; i++) {
                     particles[i].update();
                     particles[i].draw();
@@ -4674,13 +5257,15 @@
                     for (let j = i + 1; j < particles.length; j++) {
                         const dx = particles[i].x - particles[j].x;
                         const dy = particles[i].y - particles[j].y;
-                        const dist = Math.sqrt(dx * dx + dy * dy);
-
-                        if (dist < connectionDistance) {
+                        
+                        // Performance: check squared distance first to avoid extremely expensive Math.sqrt calls
+                        const distSq = dx * dx + dy * dy;
+                        if (distSq < connectionDistanceSq) {
+                            const dist = Math.sqrt(distSq);
                             ctx.beginPath();
                             ctx.moveTo(particles[i].x, particles[i].y);
                             ctx.lineTo(particles[j].x, particles[j].y);
-                            const alpha = (1 - (dist / connectionDistance)) * 0.15;
+                            const alpha = (1 - (dist / connectionDistance)) * 0.12;
                             ctx.strokeStyle = `rgba(139, 92, 246, ${alpha})`;
                             ctx.lineWidth = 0.8;
                             ctx.stroke();
@@ -4691,7 +5276,7 @@
                 requestAnimationFrame(animate);
             }
 
-            animate();
+            requestAnimationFrame(animate);
         }
 
         // --- CONVERSION RATE OPTIMIZATION (CRO) GROWTH HACKING ROUTINES ---
@@ -4882,6 +5467,119 @@
         // --- DOM INITIALIZATION ---
         document.addEventListener('DOMContentLoaded', () => {
             try {
+                // --- TYPING ANIMATION (Antigravity-style) ---
+                const line1Text = "Master AI with";
+                const line2Text = "Precision Prompts";
+                const el1 = document.getElementById('typed-line-1');
+                const el2 = document.getElementById('typed-line-2');
+                const cursor = document.querySelector('.typing-cursor');
+                
+                let i = 0;
+                let j = 0;
+                
+                function typeLine1() {
+                    if (el1 && i < line1Text.length) {
+                        el1.textContent += line1Text.charAt(i);
+                        i++;
+                        setTimeout(typeLine1, 55);
+                    } else {
+                        setTimeout(typeLine2, 200);
+                    }
+                }
+                
+                function typeLine2() {
+                    if (el2 && j < line2Text.length) {
+                        el2.textContent += line2Text.charAt(j);
+                        j++;
+                        setTimeout(typeLine2, 65);
+                    } else {
+                        if (cursor) {
+                            cursor.style.animationDuration = '1.2s';
+                        }
+                    }
+                }
+                
+                setTimeout(typeLine1, 200);
+
+                // --- BUNDLE TITLE TYPING ANIMATION (IntersectionObserver) ---
+                const bundleText = "Elite Lifetime AI Prompts Master Bundle";
+                const bundleEl = document.getElementById('typed-bundle-text');
+                const bundleCursor = document.querySelector('.bundle-typing-cursor');
+                let bundleIdx = 0;
+                let bundleTyped = false;
+                
+                function typeBundleTitle() {
+                    if (bundleEl && bundleIdx < bundleText.length) {
+                        bundleEl.textContent += bundleText.charAt(bundleIdx);
+                        bundleIdx++;
+                        setTimeout(typeBundleTitle, 45);
+                    } else {
+                        if (bundleCursor) {
+                            bundleCursor.style.animationDuration = '1.2s';
+                        }
+                    }
+                }
+                
+                const bundleObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting && !bundleTyped) {
+                            bundleTyped = true;
+                            setTimeout(typeBundleTitle, 150);
+                            bundleObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.15 });
+                
+                const bundleCard = document.getElementById('elite-bundle-card');
+                if (bundleCard) {
+                    bundleObserver.observe(bundleCard);
+                    // Safe fallback in case IntersectionObserver does not fire (e.g. immediate viewport positioning)
+                    setTimeout(() => {
+                        if (!bundleTyped) {
+                            bundleTyped = true;
+                            typeBundleTitle();
+                        }
+                    }, 2000);
+                } else if (bundleEl) {
+                    typeBundleTitle();
+                }
+
+                // --- BRAND ENGINES TYPING ANIMATION (IntersectionObserver) ---
+                const brandText = "Engineered for all leading AI engines";
+                const brandEl = document.getElementById('typed-brand-engines');
+                const brandCursor = document.querySelector('.brand-typing-cursor');
+                let brandIdx = 0;
+                let brandTyped = false;
+                
+                function typeBrandTitle() {
+                    if (brandEl && brandIdx < brandText.length) {
+                        brandEl.textContent += brandText.charAt(brandIdx);
+                        brandIdx++;
+                        setTimeout(typeBrandTitle, 50);
+                    } else {
+                        if (brandCursor) {
+                            brandCursor.style.animationDuration = '1.2s';
+                        }
+                    }
+                }
+                
+                const brandObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting && !brandTyped) {
+                            brandTyped = true;
+                            setTimeout(typeBrandTitle, 150);
+                            brandObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.15 });
+                
+                const brandSection = document.getElementById('brand-bubbles-section');
+                if (brandSection) {
+                    brandObserver.observe(brandSection);
+                } else if (brandEl) {
+                    setTimeout(typeBrandTitle, 500);
+                }
+
                 initInteractiveCanvas();
                 
                 // Load persistent secure user session if present
@@ -4908,6 +5606,16 @@
                 // --- CURATED PREMIUM PRODUCT CATALOG ---
                 // 20 hand-crafted, real-use-case prompts with unique images
                 const curatedProducts = [
+                    {
+                        id: 'prod-lifetime-bundle',
+                        title: 'Elite Lifetime AI Prompts Master Bundle',
+                        category: 'cat-16', type: 'All-in-One Lifetime Pack', price: 19.00, rating: '4.95',
+                        reviews: 48920,
+                        image: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=600&h=400&fit=crop&auto=format&q=80',
+                        description: 'Unlock our entire master library of 32M+ expert prompt parameters instantly. Gain lifetime rights, future upgrades, and premium private community resources today.',
+                        previewPrompt: 'LIFETIME ACCESS KEY ACTIVE',
+                        features: ['Lifetime Unlimited Vault Access', 'All AI Engine Models Supported', 'Weekly Library Updates', 'Discord Priority Mastermind']
+                    },
                     {
                         id: 'prod-mj-architecture',
                         title: 'Hyperrealistic Architecture & Interior Design',
@@ -5299,6 +6007,21 @@
         };
 
         function generateBuyerFriendlyPrompt(item) {
+            if (item.id === 'prod-lifetime-bundle') {
+                return `🌟 ELITE LIFETIME MASTER BUNDLE UNLOCKED 🌟\n\n` +
+                       `Thank you for securing your Lifetime Elite VIP privileges!\n\n` +
+                       `🔑 YOUR VIP LIFETIME CLIENT ACCESS KEY:\n` +
+                       `Access Key: PROMPTFLOW-VIP-LIFETIME-ACCESS\n\n` +
+                       `📚 YOUR ENTIRE MASTER DIRECTORY (32,000,000+ PROMPTS):\n` +
+                       `Click the links below to instantly clone our master Notion directories, Midjourney parameter sheets, and ChatGPT code presets:\n` +
+                       `1. Master Copywriting Directory: https://notion.so/promptflow/copywriting-vault-master\n` +
+                       `2. Midjourney Photographic Bible: https://notion.so/promptflow/midjourney-v6-bible\n` +
+                       `3. Advanced Software Engineer Prompts: https://notion.so/promptflow/developer-presets\n` +
+                       `4. Sora Cinematic Studio Master Directory: https://notion.so/promptflow/sora-cinematic-bible\n\n` +
+                       `💬 24/7 CUSTOM TAILORED WORKFLOW SUPPORT:\n` +
+                       `Need a custom engineered prompt for a specific client deliverable or enterprise workflow? Email our premium engineering desk directly at support@promptflowing.com. We will build and optimize custom prompt blueprints for you within 24 hours!\n\n` +
+                       `🚀 WELCOME TO THE ELITE PROTOCOL!`;
+            }
             const titleLower = (item.title || '').toLowerCase();
             const typeLower = (item.type || '').toLowerCase();
             const descLower = (item.description || '').toLowerCase();
@@ -5883,10 +6606,7 @@
             window.showToast("Prompt copied to clipboard!", "success");
         };
 
-        // Nav scroll glow
-        window.addEventListener('scroll', () => {
-            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
-        }, { passive: true });
+        // Nav scroll glow managed efficiently inside setupScrollListener
 
     </script>
 </body>

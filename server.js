@@ -112,6 +112,7 @@ app.use(express.static(path.join(__dirname)));
 const serverProductsCatalog = {
     'prod-mj-architecture': { title: 'Hyperrealistic Architecture & Interior Design', type: 'Midjourney v6', price: 4.99 },
     'prod-chatgpt-sales-email': { title: 'High-Converting Sales & Outreach Email Campaign', type: 'ChatGPT 5.5', price: 4.99 },
+    'prod-lifetime-bundle': { title: 'Elite Lifetime AI Prompts Master Bundle', type: 'All-in-One Lifetime Pack', price: 19.00 },
     'stripe-live-sandbox-test': { title: 'Stripe Live Connection Verification Sandbox Prompt', type: 'Claude 3 Opus', price: 0.01 }
 };
 
