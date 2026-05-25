@@ -1,8 +1,15 @@
 {
-  "views": 52,
-  "sales": 1,
-  "revenue": 0,
+  "views": 191,
+  "sales": 3,
+  "revenue": 2.99,
   "emailLogs": [
+    {
+      "email": "john@example.com",
+      "subject": "✨ Your PromptFlow Purchase — Premium Prompts Unlocked!",
+      "itemsCount": 2,
+      "timestamp": "5/23/2026, 7:20:13 PM",
+      "status": "Dispatched Successfully"
+    },
     {
       "email": "test_buyer@promptflow.ai",
       "subject": "✨ Your PromptFlow Purchase — Premium Prompts Unlocked!",
@@ -12,6 +19,20 @@
     }
   ],
   "recentSales": [
+    {
+      "email": "john@example.com",
+      "itemsCount": 2,
+      "itemsSummary": "Elite Advanced Education Copywriting Masterclass Prompts Vol. 1 (Midjourney v6), High-Converting Sales & Outreach Email Campaign (ChatGPT 5.5)",
+      "amount": 2.99,
+      "timestamp": "5/23/2026, 7:20:13 PM"
+    },
+    {
+      "email": "john@example.com",
+      "itemsCount": 2,
+      "itemsSummary": "Elite Advanced Education Copywriting Masterclass Prompts Vol. 1 (Midjourney v6), High-Converting Sales & Outreach Email Campaign (ChatGPT 5.5)",
+      "amount": 0,
+      "timestamp": "5/23/2026, 7:20:13 PM"
+    },
     {
       "email": "test_buyer@promptflow.ai",
       "itemsCount": 1,
@@ -24,6 +45,7 @@
     "cat-426-gen-3": 1,
     "prod-dalle-logo-design": 1,
     "cat-119-gen-1": 1,
-    "prod-mj-architecture": 5
+    "prod-mj-architecture": 5,
+    "prod-lifetime-bundle": 1
   }
 }

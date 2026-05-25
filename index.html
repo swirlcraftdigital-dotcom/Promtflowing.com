@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1017430468437677" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>
@@ -343,6 +345,27 @@
         }
         .float-badge { animation: floatBadge 3s ease-in-out infinite; }
 
+        /* ── Floating categories bubbles ── */
+        @keyframes bubbleFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+        .floating-bubble {
+            animation: bubbleFloat 5.2s ease-in-out infinite !important;
+        }
+        .float-delay-1 {
+            animation-duration: 6.2s !important;
+            animation-delay: -1.2s !important;
+        }
+        .float-delay-2 {
+            animation-duration: 5.7s !important;
+            animation-delay: -2.5s !important;
+        }
+        .float-delay-3 {
+            animation-duration: 6.7s !important;
+            animation-delay: -3.8s !important;
+        }
+
         /* ── Section headers ── */
         .section-tag {
             display: inline-flex;
@@ -427,7 +450,7 @@
                 </div>
 
                 <!-- Desktop Menu -->
-                <div class="hidden md:flex items-center space-x-5 lg:space-x-8 ml-8 lg:ml-12">
+                <div class="hidden md:flex items-center space-x-5 lg:space-x-8 ml-16 lg:ml-24">
                     <a href="/" onclick="showPage('home', event)" class="nav-link text-gray-300 hover:text-white transition-colors font-medium">Home</a>
                     <a href="/popular" onclick="showPopularPage(event)" class="nav-link text-gray-300 hover:text-white transition-colors font-medium">Popular</a>
                     <div class="relative group h-full flex items-center">
@@ -571,7 +594,79 @@
                             <span id="typed-line-2" class="gradient-text"></span><span class="typing-cursor text-indigo-500">|</span>
                         </h1>
 
-                        <p class="text-xl md:text-2xl text-slate-400 mb-12 max-w-4xl mx-auto leading-relaxed font-light">
+                        <!-- AI Prompt Generator Container (Moved above paragraph and styled premium) -->
+                        <div class="max-w-3xl mx-auto mb-10 bg-slate-900/75 border border-slate-800/90 rounded-[2rem] p-8 shadow-[0_30px_70px_-15px_rgba(99,102,241,0.35)] backdrop-blur-2xl relative z-20 text-left border-t border-indigo-500/20">
+                            <!-- Premium Ambient Glow Behind Card -->
+                            <div class="absolute -inset-1 rounded-[2.1rem] bg-gradient-to-tr from-indigo-600/20 to-cyan-500/20 blur-xl opacity-75 -z-10 pointer-events-none"></div>
+
+                            <!-- Header & Engine Selectors -->
+                            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
+                                <div class="flex items-center gap-2.5 text-white font-bold text-xs tracking-widest">
+                                    <span class="relative flex h-3 w-3">
+                                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                                        <span class="relative inline-flex rounded-full h-3 w-3 bg-indigo-500"></span>
+                                    </span>
+                                    <span class="text-indigo-300 font-extrabold uppercase">PRECISE AI PROMPT GENERATOR</span>
+                                </div>
+                                <div class="flex items-center gap-2 bg-slate-950/80 border border-slate-800 p-1.5 rounded-2xl shadow-inner">
+                                    <button type="button" onclick="setActivePromptEngine('chatgpt')" id="btn-engine-chatgpt" class="px-4.5 py-2.5 rounded-xl text-xs font-bold transition-all text-white bg-indigo-600/90 shadow-lg flex items-center gap-1.5 cursor-pointer">
+                                        <i class="fa-solid fa-sparkles text-indigo-200"></i> ChatGPT
+                                    </button>
+                                    <button type="button" onclick="setActivePromptEngine('gemini')" id="btn-engine-gemini" class="px-4.5 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-400 hover:text-white flex items-center gap-1.5 cursor-pointer">
+                                        <i class="fa-solid fa-wand-magic-sparkles text-cyan-400"></i> Gemini
+                                    </button>
+                                    <button type="button" onclick="setActivePromptEngine('grok')" id="btn-engine-grok" class="px-4.5 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-400 hover:text-white flex items-center gap-1.5 cursor-pointer">
+                                        <i class="fa-solid fa-bolt text-amber-400"></i> Grok
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Input Row (Larger & More Premium) -->
+                            <div class="relative flex flex-col md:flex-row gap-3.5 items-center">
+                                <div class="relative w-full group">
+                                    <input type="text" id="promptGenInput" placeholder="" class="w-full bg-slate-950/60 border border-slate-800/80 focus:border-indigo-500/80 rounded-2xl py-5 pl-13 pr-10 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all font-medium text-base shadow-inner">
+                                    <div class="absolute left-5 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-indigo-400 transition-colors">
+                                        <i class="fa-solid fa-magnifying-glass-chart text-lg"></i>
+                                    </div>
+                                    <div class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-600">
+                                        <i class="fa-solid fa-keyboard text-xs"></i>
+                                    </div>
+                                </div>
+                                <button type="button" onclick="generateCustomPrompt()" class="w-full md:w-auto px-9 py-5 rounded-2xl bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 hover:from-indigo-500 hover:via-purple-500 hover:to-blue-500 text-white font-bold text-base transition-all flex items-center justify-center gap-2.5 shadow-xl shadow-indigo-600/30 active:scale-95 whitespace-nowrap cursor-pointer hover:shadow-indigo-500/40">
+                                    Generate Prompt <i class="fa-solid fa-bolt-lightning animate-pulse"></i>
+                                </button>
+                            </div>
+
+                            <!-- Payout/Trial Status badge -->
+                            <div class="flex flex-col sm:flex-row gap-3 items-center justify-between text-xs text-slate-500 font-semibold mt-4 px-1">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-slate-400">Free Trial remaining:</span>
+                                    <span id="promptGenTriesBadge" class="bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 px-3 py-1 rounded-xl font-bold">3 runs remaining</span>
+                                </div>
+                                <div class="text-slate-400 hover:text-indigo-400 cursor-pointer flex items-center gap-1.5 transition-colors" onclick="document.getElementById('elite-bundle-card').scrollIntoView({behavior:'smooth'})">
+                                    <span>Unlock unlimited outputs with Lifetime Bundle</span> <i class="fa-solid fa-arrow-right text-[10px] animate-pulse"></i>
+                                </div>
+                            </div>
+
+                            <!-- Prompt output panel -->
+                            <div id="promptGenOutputWrapper" class="hidden mt-6 pt-6 border-t border-slate-800/80 text-left">
+                                <div id="promptGenLoading" class="hidden flex flex-col items-center justify-center py-6 gap-3">
+                                    <div class="w-8 h-8 rounded-full border-2 border-indigo-500 border-t-transparent animate-spin"></div>
+                                    <span class="text-xs text-indigo-400 font-bold tracking-widest uppercase animate-pulse">Optimizing System Prompts...</span>
+                                </div>
+                                <div id="promptGenResult" class="hidden">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <span class="text-xs font-bold text-indigo-400 tracking-wider flex items-center gap-1.5"><i class="fa-solid fa-check-double text-emerald-500 animate-pulse"></i> TAILORED SYSTEM PROMPT</span>
+                                        <button type="button" onclick="copyGeneratedPrompt()" class="text-xs bg-slate-950 hover:bg-slate-800 border border-slate-800 text-white font-bold py-2.5 px-5 rounded-xl flex items-center gap-1.5 transition-all cursor-pointer shadow-sm active:scale-95">
+                                            <i class="fa-solid fa-copy"></i> Copy Prompt
+                                        </button>
+                                    </div>
+                                    <textarea id="promptGenOutputText" readonly class="w-full h-40 bg-slate-950 border border-indigo-950/60 rounded-2xl p-4 text-xs md:text-sm font-mono text-indigo-200 focus:outline-none resize-none leading-relaxed shadow-inner"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="text-xl md:text-2xl text-slate-400 mb-10 max-w-4xl mx-auto leading-relaxed font-light">
                             Unlock the full potential of <span class="text-slate-200 font-medium">ChatGPT</span>, <span class="text-slate-200 font-medium">Claude 3.5</span>, <span class="text-slate-200 font-medium">Midjourney v6</span>, <span class="text-slate-200 font-medium">Gemini</span>, <span class="text-slate-200 font-medium">Sora</span>, <span class="text-slate-200 font-medium">DeepSeek</span> & more. Curated, tested, high-converting prompts for design, marketing, coding & creativity.
                         </p>
 
@@ -865,43 +960,90 @@
                         <p class="text-lg text-slate-600 max-w-2xl mx-auto">Over 22,000 specialized categories designed to supercharge your specific workflow. Use the predictive search above to find your exact niche, or browse our top features below.</p>
                     </div>
 
-                    <!-- Global Advanced Prompt Filter -->
-                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 mb-10 shadow-sm relative z-10">
-                        <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
-                            <button onclick="document.getElementById('advFilterOptions').classList.toggle('hidden'); document.getElementById('advFilterOptions').classList.toggle('flex')" class="flex items-center gap-3 text-slate-800 font-bold w-full md:w-auto text-lg hover:text-blue-600 transition-colors">
-                                <div class="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center text-blue-600"><i class="fa-solid fa-sliders"></i></div> 
-                                Advanced Filter <i class="fa-solid fa-chevron-down text-sm ml-2"></i>
-                            </button>
-                            <div id="advFilterOptions" class="hidden flex-wrap gap-3 w-full justify-end">
-                                <select id="filterAiType" onchange="applyGlobalFilters(false)" class="bg-white border border-slate-200 text-slate-700 rounded-xl px-4 py-2.5 text-sm font-medium focus:ring-2 focus:ring-blue-500 outline-none shadow-sm cursor-pointer hover:border-blue-300 transition-colors">
-                                    <option value="all">All AI Models</option>
-                                    <optgroup label="Text AI">
-                                        <option value="ChatGPT 5.5">ChatGPT 5.5</option>
+                    <!-- Global Premium Filter & Refinement Engine -->
+                    <div class="bg-white border border-slate-200 rounded-3xl p-6 mb-12 shadow-md relative z-10 text-left">
+                        <div class="flex flex-col gap-6">
+                            <!-- Header Row with Toggle -->
+                            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+                                <button onclick="document.getElementById('advFilterOptions').classList.toggle('hidden');" class="flex items-center gap-3 text-slate-800 font-black text-xl hover:text-blue-600 transition-all cursor-pointer">
+                                    <div class="w-11 h-11 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 shadow-sm"><i class="fa-solid fa-filter text-sm"></i></div> 
+                                    Filter & Refine Prompts <i class="fa-solid fa-sliders text-xs ml-2 text-slate-400"></i>
+                                </button>
+                                <div class="text-xs text-slate-500 font-semibold bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-xl">
+                                    Total Index: 32,492,108 curated configurations
+                                </div>
+                            </div>
+
+                            <!-- Expanded Filter Panel -->
+                            <div id="advFilterOptions" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                                <!-- Column 1: AI Model -->
+                                <div>
+                                    <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">AI Model Engine</label>
+                                    <select id="filterAiType" onchange="applyGlobalFilters(false)" class="w-full bg-slate-50 border border-slate-200 text-slate-700 rounded-xl px-3 py-3 text-xs font-semibold focus:ring-1 focus:ring-blue-500 outline-none cursor-pointer hover:border-blue-300 transition-all">
+                                        <option value="all">All Models & Engines</option>
+                                        <option value="ChatGPT 5.5">ChatGPT 5.5 (Reasoning)</option>
+                                        <option value="Claude 3.5 Sonnet">Claude 3.5 Sonnet</option>
                                         <option value="Claude 3 Opus">Claude 3 Opus</option>
-                                        <option value="Gemini 1.5 Pro">Gemini 1.5 Pro</option>
-                                        <option value="Grok 1.5">Grok 1.5</option>
-                                    </optgroup>
-                                    <optgroup label="Image AI">
                                         <option value="Midjourney v6">Midjourney v6</option>
                                         <option value="DALL-E 3">DALL-E 3</option>
                                         <option value="Stable Diffusion">Stable Diffusion</option>
-                                    </optgroup>
-                                    <optgroup label="Video AI">
-                                        <option value="Sora">Sora</option>
-                                        <option value="RunwayML Gen-2">RunwayML Gen-2</option>
-                                        <option value="Pika">Pika</option>
-                                    </optgroup>
-                                </select>
-                                <select id="filterPrice" onchange="applyGlobalFilters(false)" class="bg-white border border-slate-200 text-slate-700 rounded-xl px-4 py-2.5 text-sm font-medium focus:ring-2 focus:ring-blue-500 outline-none shadow-sm cursor-pointer hover:border-blue-300 transition-colors">
-                                    <option value="all">Any Price</option>
-                                    <option value="free">Free</option>
-                                    <option value="under10">Under $10</option>
-                                    <option value="10to50">$10 - $50</option>
-                                    <option value="50to100">$50 - $100</option>
-                                    <option value="100to500">$100 - $500</option>
-                                </select>
-                                <button onclick="applyGlobalFilters()" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-xl text-sm font-bold transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 flex items-center gap-2">
-                                    <i class="fa-solid fa-search"></i> Find Prompts
+                                        <option value="Sora">Sora Cinematic</option>
+                                    </select>
+                                </div>
+
+                                <!-- Column 2: Price -->
+                                <div>
+                                    <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Price Limit</label>
+                                    <select id="filterPrice" onchange="applyGlobalFilters(false)" class="w-full bg-slate-50 border border-slate-200 text-slate-700 rounded-xl px-3 py-3 text-xs font-semibold focus:ring-1 focus:ring-blue-500 outline-none cursor-pointer hover:border-blue-300 transition-all">
+                                        <option value="all">Any Selling Price</option>
+                                        <option value="free">Free ($0.00)</option>
+                                        <option value="under5">Under $5.00</option>
+                                        <option value="under10">Under $10.00</option>
+                                        <option value="premium">Premium Only ($10.00+)</option>
+                                    </select>
+                                </div>
+
+                                <!-- Column 3: Rating/Popularity -->
+                                <div>
+                                    <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Popularity / Rating</label>
+                                    <select id="filterRating" onchange="applyGlobalFilters(false)" class="w-full bg-slate-50 border border-slate-200 text-slate-700 rounded-xl px-3 py-3 text-xs font-semibold focus:ring-1 focus:ring-blue-500 outline-none cursor-pointer hover:border-blue-300 transition-all">
+                                        <option value="all">All Product Ratings</option>
+                                        <option value="4.8">Top Rated (4.8+ ★)</option>
+                                        <option value="bestseller">Best Sellers (20k+ sales)</option>
+                                    </select>
+                                </div>
+
+                                <!-- Column 4: Complexity -->
+                                <div>
+                                    <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Prompt Complexity</label>
+                                    <select id="filterComplexity" onchange="applyGlobalFilters(false)" class="w-full bg-slate-50 border border-slate-200 text-slate-700 rounded-xl px-3 py-3 text-xs font-semibold focus:ring-1 focus:ring-blue-500 outline-none cursor-pointer hover:border-blue-300 transition-all">
+                                        <option value="all">All Difficulties</option>
+                                        <option value="beginner">Beginner (One-Click Copy)</option>
+                                        <option value="intermediate">Intermediate (Context Presets)</option>
+                                        <option value="advanced">Advanced (Multi-Agent/Chaining)</option>
+                                    </select>
+                                </div>
+
+                                <!-- Column 5: Sort By -->
+                                <div>
+                                    <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Sort Results By</label>
+                                    <select id="filterSort" onchange="applyGlobalFilters(false)" class="w-full bg-slate-50 border border-slate-200 text-slate-700 rounded-xl px-3 py-3 text-xs font-semibold focus:ring-1 focus:ring-blue-500 outline-none cursor-pointer hover:border-blue-300 transition-all">
+                                        <option value="popular">Most Popular</option>
+                                        <option value="newest">Newest Arrivals</option>
+                                        <option value="rating">Highest Rated</option>
+                                        <option value="low">Price: Low to High</option>
+                                        <option value="high">Price: High to Low</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <!-- Search Actions Row -->
+                            <div class="flex items-center justify-end gap-3 pt-3 border-t border-slate-100">
+                                <button onclick="resetGlobalFilters()" class="text-xs font-bold text-slate-500 hover:text-slate-800 bg-slate-100 hover:bg-slate-200 px-4 py-2.5 rounded-xl transition-all cursor-pointer">
+                                    Reset Filters
+                                </button>
+                                <button onclick="applyGlobalFilters(true)" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-xl text-xs font-black transition-all shadow-md flex items-center gap-1.5 cursor-pointer">
+                                    Apply & Search <i class="fa-solid fa-magnifying-glass"></i>
                                 </button>
                             </div>
                         </div>
@@ -2276,6 +2418,7 @@
     <script>
         // Global State Variables
         let products = [];
+        let curatedProducts = [];
         const professionalPhotoIds = [
             'photo-1460925895917-afdab827c52f', 'photo-1542744094-3a31f103e35f', 'photo-1551434678-e076c223a692',
             'photo-1531403009284-440f080d1e12', 'photo-1522071820081-009f0129c71c', 'photo-1517245386807-bb43f82c33c4',
@@ -2634,13 +2777,13 @@
                     nav.classList.toggle('scrolled', isScrolled);
 
                     if (!isHomePage || isScrolled) {
-                        nav.className = "fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-200 scrolled";
-                        logoText.classList.remove('text-white');
-                        logoText.classList.add('text-slate-900');
+                        nav.className = "fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-slate-950/95 backdrop-blur-md shadow-sm border-b border-slate-800 scrolled";
+                        logoText.classList.remove('text-slate-900');
+                        logoText.classList.add('text-white');
                         
                         document.querySelectorAll('nav .nav-link').forEach(el => {
-                            el.classList.remove('text-gray-300', 'hover:text-white');
-                            el.classList.add('text-slate-600', 'hover:text-blue-600');
+                            el.classList.remove('text-slate-600', 'hover:text-blue-600');
+                            el.classList.add('text-gray-300', 'hover:text-white');
                         });
                     } else {
                         nav.className = "fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-slate-950/90 backdrop-blur-md border-b border-slate-800";
@@ -3061,7 +3204,14 @@
                 const ribbonFragment = document.createDocumentFragment();
                 generalCategories.forEach(genCat => {
                     const el = document.createElement('button');
-                    el.className = `flex items-center gap-2.5 px-5 py-3 rounded-full border border-slate-200 hover:border-blue-500 hover:bg-blue-50/50 text-slate-800 hover:text-blue-600 transition-all duration-300 font-bold text-sm shadow-sm hover:shadow-md transform hover:-translate-y-0.5 cursor-pointer bg-white group`;
+                    
+                    let floatDelayClass = '';
+                    const idx = generalCategories.indexOf(genCat);
+                    if (idx % 4 === 1) floatDelayClass = 'float-delay-1';
+                    else if (idx % 4 === 2) floatDelayClass = 'float-delay-2';
+                    else if (idx % 4 === 3) floatDelayClass = 'float-delay-3';
+
+                    el.className = `flex items-center gap-2.5 px-5 py-3 rounded-full border border-slate-200 hover:border-blue-500 hover:bg-blue-50/50 text-slate-800 hover:text-blue-600 transition-all duration-300 font-bold text-sm shadow-sm hover:shadow-md transform hover:-translate-y-0.5 cursor-pointer bg-white group floating-bubble ${floatDelayClass}`;
                     el.innerHTML = `
                         <div class="w-5 h-5 rounded flex items-center justify-center bg-slate-100 group-hover:bg-blue-100 text-slate-500 group-hover:text-blue-600 transition-colors">
                             <i class="fa-solid ${genCat.icon} text-xs"></i>
@@ -3124,7 +3274,6 @@
                 });
                 container.appendChild(fragment);
             }
-            
             // Populate footer categories
             const footerCatList = document.getElementById('footerCategoriesList');
             if (footerCatList) {
@@ -3136,13 +3285,14 @@
 
         // --- GLOBAL FILTER LOGIC ---
         function applyGlobalFilters(isCatPage = false) {
-            const aiType = isCatPage ? document.getElementById('filterAiTypeCat').value : document.getElementById('filterAiType').value;
-            const priceRange = isCatPage ? document.getElementById('filterPriceCat').value : document.getElementById('filterPrice').value;
+            const aiType = document.getElementById('filterAiType').value;
+            const priceRange = document.getElementById('filterPrice').value;
+            const ratingOpt = document.getElementById('filterRating').value;
+            const complexity = document.getElementById('filterComplexity').value;
+            const sortOpt = document.getElementById('filterSort').value;
             
-            // Switch to home page if we are on the categories page so the global grid works
-            if (isCatPage) {
-                showPage('home');
-            }
+            // Switch to home page if we are on other views
+            showPage('home');
 
             const catGrid = document.getElementById('categoryGrid');
             if (catGrid) catGrid.classList.add('hidden');
@@ -3155,52 +3305,86 @@
             filteredGrid.innerHTML = `
                 <div class="col-span-full py-32 flex flex-col items-center justify-center text-slate-400">
                     <i class="fa-solid fa-circle-notch fa-spin text-5xl mb-6 text-blue-500"></i>
-                    <p class="text-lg font-medium text-slate-600">Mining the database for exact matches...</p>
+                    <p class="text-lg font-medium text-slate-600">Mining database for custom parameters...</p>
                 </div>
             `;
             
             setTimeout(() => {
                 filteredGrid.innerHTML = '';
                 
-                // Generate 12 products matching filters
-                const filterProducts = Array.from({ length: 12 }, (_, index) => index + 1).map(i => {
-                    let pType = aiType === 'all' ? ['Midjourney v6', 'ChatGPT 5.5', 'Claude 3 Opus', 'Grok 1.5', 'Gemini 1.5 Pro', 'DALL-E 3', 'Stable Diffusion', 'Sora', 'RunwayML Gen-2', 'Pika'][Math.floor(Math.random()*10)] : aiType;
+                // Mine master products array + dynamic generated matching entries
+                let sourceList = [...products];
+                if (sourceList.length < 20) {
+                    sourceList = [...curatedProducts, ...products];
+                }
+
+                let results = sourceList.filter(prod => {
+                    // Match AI engine
+                    if (aiType !== 'all') {
+                        if (!prod.type.toLowerCase().includes(aiType.split(' ')[0].toLowerCase())) {
+                            return false;
+                        }
+                    }
                     
-                    let pPrice = 0;
-                    if (priceRange === 'free') pPrice = 0.00;
-                    else if (priceRange === 'under10') pPrice = (Math.random() * 8.99 + 1.00).toFixed(2);
-                    else if (priceRange === '10to50') pPrice = (Math.random() * 39.99 + 10.00).toFixed(2);
-                    else if (priceRange === '50to100') pPrice = (Math.random() * 49.99 + 50.00).toFixed(2);
-                    else if (priceRange === '100to500') pPrice = (Math.random() * 399.99 + 100.00).toFixed(2);
-                    else pPrice = (Math.random() * 499.99 + 1.00).toFixed(2);
+                    // Match Price Range
+                    const price = parseFloat(prod.price) || 0;
+                    if (priceRange === 'free' && price > 0) return false;
+                    if (priceRange === 'under5' && price >= 5) return false;
+                    if (priceRange === 'under10' && price >= 10) return false;
+                    if (priceRange === 'premium' && price < 10) return false;
 
-                    const baseCategory = categories[Math.floor(Math.random() * categories.length)];
-                    const getDeterministicIndex = (str, salt) => [...(str + String(salt))].reduce((acc, char) => acc + char.charCodeAt(0), 0);
-                    const imageIndex = getDeterministicIndex(baseCategory.id, i) % professionalPhotoIds.length;
-                    const imageUrl = `https://images.unsplash.com/${professionalPhotoIds[imageIndex]}?w=600&h=400&fit=crop&auto=format&q=80`;
+                    // Match Rating / Best Seller
+                    if (ratingOpt === '4.8' && parseFloat(prod.rating) < 4.8) return false;
+                    if (ratingOpt === 'bestseller' && parseInt(prod.reviews) < 15000) return false;
 
-                    return {
-                        id: `filter-gen-${Math.random().toString(36).substr(2, 9)}`,
-                        title: `Elite ${baseCategory.name} ${pType.split(' ')[0]} Prompts`,
-                        category: baseCategory.id,
-                        type: pType,
-                        price: parseFloat(pPrice),
-                        rating: (Math.random() * 0.1 + 4.9).toFixed(1),
-                        reviews: Math.floor(Math.random() * 5000 + 500),
-                        image: imageUrl,
-                        description: `Highly constrained ${pType} persona prompts engineered specifically for ${baseCategory.name}. Bypasses generic outputs entirely.`,
-                        previewPrompt: `[SYS_INJECT: FILTERED_ELITE_PERSONA]\nExecute exact schemas for ${baseCategory.name} using ${pType} optimal structures.\n...`,
-                        features: ['Exact Filter Match', 'JSON/XML Output', 'Lifetime commercial rights']
-                    };
+                    return true;
                 });
-                
+
+                // Generate synthetic matching entries if list is small to showcase search power
+                if (results.length < 6) {
+                    const extraItems = Array.from({ length: 8 }).map((_, i) => {
+                        let pType = aiType === 'all' ? ['Midjourney v6', 'ChatGPT 5.5', 'Claude 3 Opus', 'Grok 1.5'][i % 4] : aiType;
+                        let pPrice = priceRange === 'free' ? 0.00 : priceRange === 'under5' ? 2.99 : priceRange === 'under10' ? 6.99 : 12.00;
+                        const rating = (4.8 + Math.random() * 0.2).toFixed(2);
+                        const reviews = Math.floor(Math.random() * 8000 + 400);
+                        
+                        return {
+                            id: `synthetic-${Date.now()}-${i}`,
+                            title: `Elite ${pType} ${complexity === 'all' ? 'Agent' : complexity} Prompt`,
+                            category: 'cat-2',
+                            type: pType,
+                            price: pPrice,
+                            rating: rating,
+                            reviews: reviews,
+                            image: `https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=600&h=400&fit=crop&auto=format&q=80`,
+                            description: `Optimized system template matching your refined search settings. Fully validated 60fps prompt performance.`,
+                            previewPrompt: `System optimized parameter pipeline.`,
+                            features: ['Instant Download', 'Unlimited Runs', 'Verified Output']
+                        };
+                    });
+                    results = [...results, ...extraItems];
+                }
+
+                // Apply Sorting Order
+                if (sortOpt === 'newest') {
+                    results.sort((a,b) => b.id.localeCompare(a.id));
+                } else if (sortOpt === 'rating') {
+                    results.sort((a,b) => parseFloat(b.rating) - parseFloat(a.rating));
+                } else if (sortOpt === 'low') {
+                    results.sort((a,b) => parseFloat(a.price) - parseFloat(b.price));
+                } else if (sortOpt === 'high') {
+                    results.sort((a,b) => parseFloat(b.price) - parseFloat(a.price));
+                } else {
+                    results.sort((a,b) => b.reviews - a.reviews);
+                }
+
                 const fragment = document.createDocumentFragment();
-                filterProducts.forEach(prod => {
+                results.forEach(prod => {
                     const el = document.createElement('div');
-                    el.className = "bg-white rounded-2xl border-2 border-slate-100 overflow-hidden hover:border-blue-500 transition-all duration-300 shadow-sm hover:shadow-xl group flex flex-col";
+                    el.className = "bg-white rounded-2xl border-2 border-slate-100 overflow-hidden hover:border-blue-500 transition-all duration-300 shadow-sm hover:shadow-xl group flex flex-col relative";
                     el.innerHTML = `
                         <div class="relative overflow-hidden aspect-video bg-slate-100">
-                            <img src="${prod.image}" alt="${prod.title}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" onerror="this.onerror=null; this.src='https://loremflickr.com/600/400/' + encodeURIComponent('${prod.title}'.replace(/Elite |Advanced | Prompts| Vol.*/g, '').split(' ')[0]);">
+                            <img src="${prod.image}" alt="${prod.title}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy">
                             <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-slate-800 shadow-sm border border-slate-200/50 flex items-center gap-1.5">
                                 <i class="fa-solid ${getTypeIcon(prod.type)} ${getTypeColor(prod.type)}"></i> ${prod.type}
                             </div>
@@ -3212,7 +3396,7 @@
                             <h3 class="font-bold text-slate-900 text-lg mb-2 leading-tight">${prod.title}</h3>
                             <p class="text-sm text-slate-500 mb-4 line-clamp-2 flex-grow">${prod.description}</p>
                             <div class="flex items-center justify-between mt-auto pt-4 border-t border-slate-100">
-                                <div class="text-xl font-black text-slate-900">$${prod.price.toFixed(2)}</div>
+                                <div class="text-xl font-black text-slate-900">${prod.price === 0 ? 'FREE' : '$' + parseFloat(prod.price).toFixed(2)}</div>
                                 <button onclick="addToCart('${prod.id}', event)" class="bg-slate-900 hover:bg-blue-600 text-white w-10 h-10 rounded-xl flex items-center justify-center transition-colors shadow-sm relative group/btn z-10">
                                     <i class="fa-solid fa-cart-shopping transition-transform group-hover/btn:scale-110"></i>
                                 </button>
@@ -3223,21 +3407,23 @@
                     
                     if (!products.find(p => p.id === prod.id)) products.push(prod);
                 });
-                
+
                 // Add "Clear Filters" button at the end
                 const clearEl = document.createElement('div');
                 clearEl.className = "col-span-full flex justify-center mt-8";
-                clearEl.innerHTML = `<button onclick="clearGlobalFilters()" class="bg-white border-2 border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-bold py-3 px-8 rounded-xl shadow-sm transition-all"><i class="fa-solid fa-times mr-2"></i> Clear Filters & Return to Categories</button>`;
+                clearEl.innerHTML = `<button onclick="resetGlobalFilters()" class="bg-white border-2 border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-bold py-3 px-8 rounded-xl shadow-sm transition-all cursor-pointer"><i class="fa-solid fa-times mr-2"></i> Reset Filters & Show Categories</button>`;
                 fragment.appendChild(clearEl);
 
                 filteredGrid.appendChild(fragment);
-                
             }, 800);
         }
 
-        function clearGlobalFilters() {
+        window.resetGlobalFilters = function() {
             document.getElementById('filterAiType').value = 'all';
             document.getElementById('filterPrice').value = 'all';
+            document.getElementById('filterRating').value = 'all';
+            document.getElementById('filterComplexity').value = 'all';
+            document.getElementById('filterSort').value = 'popular';
             
             const filteredGrid = document.getElementById('globalFilteredProductsGrid');
             if (filteredGrid) {
@@ -3248,7 +3434,7 @@
             
             const catGrid = document.getElementById('categoryGrid');
             if (catGrid) catGrid.classList.remove('hidden');
-        }
+        };
 
         function renderProducts(productsToRender = null) {
             const displayList = productsToRender || products.slice(0, 12);
@@ -4246,65 +4432,242 @@
         };
 
         // --- DYNAMIC SELLER PORTAL RENDERING ---
+        let creatorProfile = JSON.parse(localStorage.getItem('creatorProfile')) || null;
+
+        window.logoutCreator = function() {
+            creatorProfile = null;
+            localStorage.removeItem('creatorProfile');
+            window.showToast("Logged out from Creator Dashboard.", "info");
+            renderCreatorForm();
+        };
+
+        window.registerCreatorProfile = function(e) {
+            e.preventDefault();
+            const email = document.getElementById('regCreatorEmail').value.trim();
+            const username = document.getElementById('regCreatorUsername').value.trim().replace('@', '');
+            const card = document.getElementById('regCreatorCard').value.trim();
+            const account = document.getElementById('regCreatorAccount').value.trim();
+            
+            if (!email || !username || !card) {
+                window.showToast("Please fill in all mandatory onboarding details.", "error");
+                return;
+            }
+
+            creatorProfile = {
+                email: email,
+                username: username,
+                cardEnding: card.slice(-4) || '4242',
+                account: account || '9988776655',
+                balance: 36.00, // Pre-loaded with simulated sales: $45 total sales revenue * 80% split = $36
+                totalSales: 5,
+                totalViews: 384,
+                totalPayouts: 0,
+                products: []
+            };
+
+            localStorage.setItem('creatorProfile', JSON.stringify(creatorProfile));
+            window.showToast(`Welcome @${username}! Creator Account registered successfully!`, "success");
+            renderCreatorForm();
+        };
+
+        window.initiateInstantCashout = function() {
+            if (!creatorProfile || creatorProfile.balance <= 0) {
+                window.showToast("No payout balance available at the moment.", "warning");
+                return;
+            }
+
+            const btn = document.getElementById('cashoutBtn');
+            if (btn) btn.disabled = true;
+            
+            window.showToast("Contacting Stripe rails for instant transfer...", "info");
+            
+            setTimeout(() => {
+                const amount = creatorProfile.balance;
+                creatorProfile.totalPayouts += amount;
+                creatorProfile.balance = 0;
+                localStorage.setItem('creatorProfile', JSON.stringify(creatorProfile));
+                
+                window.showToast(`Transfer successful! $${amount.toFixed(2)} deposited to card ending in ${creatorProfile.cardEnding}.`, "success");
+                renderCreatorForm();
+            }, 1800);
+        };
+
         function renderCreatorForm() {
             const body = document.getElementById('creatorFormBody');
             if (!body) return;
 
-            if (!currentUser) {
+            if (!creatorProfile) {
                 body.innerHTML = `
-                    <div class="text-center py-10 flex flex-col items-center">
-                        <div class="w-16 h-16 bg-amber-500/10 text-amber-400 rounded-full flex items-center justify-center text-2xl mb-4">
-                            <i class="fa-solid fa-lock"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-slate-800 mb-2">Creator Account Required</h3>
-                        <p class="text-slate-500 text-sm max-w-sm mb-6">You must create an account or sign in to list, publish, and sell prompts on the Creator Marketplace.</p>
-                        <button onclick="window.toggleAuthModal();" class="px-8 py-3 bg-emerald-500 hover:bg-emerald-400 text-white font-bold rounded-xl transition-all shadow-md">
-                            Sign In / Create Account
-                        </button>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-black text-slate-800 mb-6 text-center" style="font-family:'Space Grotesk',sans-serif;">Onboard as a Creator</h3>
+                        <form onsubmit="window.registerCreatorProfile(event)" class="max-w-2xl mx-auto space-y-5">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Email Address</label>
+                                    <input type="email" id="regCreatorEmail" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-slate-850" placeholder="e.g. sales@yourdomain.com">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Pick a Username</label>
+                                    <div class="relative">
+                                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">@</span>
+                                        <input type="text" id="regCreatorUsername" required class="w-full pl-8 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-slate-850" placeholder="creative_mind">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Debit Card details (For Instant Payouts)</label>
+                                    <input type="text" id="regCreatorCard" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-slate-850" placeholder="4242 4242 4242 4242">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Bank Routing & Account Number (Optional)</label>
+                                    <input type="text" id="regCreatorAccount" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-slate-855" placeholder="Routing: 121000248 Acc: 998877">
+                                </div>
+                            </div>
+                            <p class="text-xs text-slate-500 text-center mt-4 leading-relaxed">
+                                By onboarding, you agree to our <strong>80/20 revenue split</strong>. PromptFlow will handle all Stripe payments, refunds, and instant digital delivery. Payouts are cashable instantly anytime.
+                            </p>
+                            <button type="submit" class="w-full py-4 bg-emerald-500 hover:bg-emerald-400 text-white font-bold rounded-xl transition-all shadow-lg shadow-emerald-500/20 text-center cursor-pointer active:scale-95 mt-6">
+                                Create Creator Account & Connect Card 🚀
+                            </button>
+                        </form>
                     </div>
                 `;
             } else {
                 body.innerHTML = `
-                    <form id="promptSubmitForm" onsubmit="window.handlePromptSubmit(event)" class="space-y-6">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="p-2 md:p-8">
+                        <!-- Welcome Header -->
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-slate-100 pb-6 mb-8 gap-4">
                             <div>
-                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Prompt Title</label>
-                                <input type="text" id="creatorPromptTitle" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-slate-800" placeholder="e.g. Photorealistic Architecture Staging">
+                                <h3 class="text-2xl font-black text-slate-800" style="font-family:'Space Grotesk',sans-serif;">@${creatorProfile.username}'s Store Hub</h3>
+                                <p class="text-sm text-slate-500 mt-1 flex items-center gap-1.5"><i class="fa-solid fa-circle-check text-emerald-500"></i> Connect Payout Card: ending in **** ${creatorProfile.cardEnding}</p>
                             </div>
-                            <div>
-                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">AI Engine Model</label>
-                                <select id="creatorPromptType" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-slate-800">
-                                    <option value="ChatGPT 5.5">ChatGPT 5.5</option>
-                                    <option value="Claude 3 Opus">Claude 3 Opus</option>
-                                    <option value="Midjourney v6">Midjourney v6</option>
-                                    <option value="Sora Cinematic">Sora Cinematic</option>
-                                </select>
+                            <button onclick="window.logoutCreator()" class="text-xs font-bold text-red-500 hover:text-red-600 bg-red-50 hover:bg-red-100 px-3.5 py-2 rounded-lg transition-all cursor-pointer">
+                                Log Out Creator
+                            </button>
+                        </div>
+
+                        <!-- Stats Grid -->
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10">
+                            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 text-center shadow-sm">
+                                <div class="text-slate-400 text-[10px] md:text-xs uppercase font-extrabold tracking-widest">Store Views</div>
+                                <div class="text-2xl md:text-3xl font-black text-slate-800 mt-1">${creatorProfile.totalViews}</div>
+                            </div>
+                            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 text-center shadow-sm">
+                                <div class="text-slate-400 text-[10px] md:text-xs uppercase font-extrabold tracking-widest">Total Sales</div>
+                                <div class="text-2xl md:text-3xl font-black text-slate-800 mt-1">${creatorProfile.totalSales}</div>
+                            </div>
+                            <div class="bg-indigo-50/50 border border-indigo-100 rounded-2xl p-5 text-center shadow-sm">
+                                <div class="text-indigo-400 text-[10px] md:text-xs uppercase font-extrabold tracking-widest">Platform Share (20%)</div>
+                                <div class="text-2xl md:text-3xl font-black text-indigo-700 mt-1">$${((creatorProfile.totalSales * 9) * 0.20 + (creatorProfile.totalPayouts * 0.25)).toFixed(2)}</div>
+                            </div>
+                            <div class="bg-emerald-50 border border-emerald-100 rounded-2xl p-5 text-center relative overflow-hidden shadow-sm">
+                                <div class="text-emerald-500 text-[10px] md:text-xs uppercase font-extrabold tracking-widest">Cash Balance (80%)</div>
+                                <div class="text-2xl md:text-3xl font-black text-emerald-700 mt-1">$${creatorProfile.balance.toFixed(2)}</div>
+                                
+                                <!-- Instant Cashout Button -->
+                                <button id="cashoutBtn" onclick="window.initiateInstantCashout()" class="w-full mt-3 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-[10px] font-bold rounded-lg transition-all shadow-md active:scale-95 cursor-pointer flex items-center justify-center gap-1">
+                                    <i class="fa-solid fa-money-bill-transfer"></i> Instant Cash Out
+                                </button>
                             </div>
                         </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Target Category</label>
-                                <select id="creatorPromptCategory" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-slate-800">
-                                    ${categories.map(c => `<option value="${c.id}">${c.name}</option>`).join('')}
-                                </select>
+
+                        <!-- Add Product & Product List Columns -->
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 text-left">
+                            <!-- Submit Form (Left) -->
+                            <div class="lg:col-span-1 border border-slate-200 p-6 rounded-3xl bg-slate-50/50">
+                                <h4 class="text-lg font-black text-slate-800 mb-5" style="font-family:'Space Grotesk',sans-serif;">List A New Prompt</h4>
+                                <form id="promptSubmitForm" onsubmit="window.handlePromptSubmit(event)" class="space-y-4">
+                                    <div>
+                                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Prompt Title</label>
+                                        <input type="text" id="creatorPromptTitle" required class="w-full px-3 py-2.5 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-emerald-500 text-sm text-slate-800" placeholder="e.g. SaaS Copywriter Expert">
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-3">
+                                        <div>
+                                            <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">AI Engine</label>
+                                            <select id="creatorPromptType" required class="w-full px-3 py-2.5 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-emerald-500 text-xs text-slate-800 cursor-pointer">
+                                                <option value="ChatGPT 5.5">ChatGPT 5.5</option>
+                                                <option value="Claude 3 Opus">Claude 3 Opus</option>
+                                                <option value="Midjourney v6">Midjourney v6</option>
+                                                <option value="Sora Cinematic">Sora Cinematic</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Your Price (USD)</label>
+                                            <input type="number" step="0.01" min="0.00" max="99.00" id="creatorPromptPrice" required class="w-full px-3 py-2.5 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-emerald-500 text-sm text-slate-800" placeholder="e.g. 5.99">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Category</label>
+                                        <select id="creatorPromptCategory" required class="w-full px-3 py-2.5 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-emerald-500 text-xs text-slate-800 cursor-pointer">
+                                            ${categories.slice(0, 10).map(c => `<option value="${c.id}">${c.name}</option>`).join('')}
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Brief Description</label>
+                                        <textarea id="creatorPromptDesc" rows="2.5" required class="w-full px-3 py-2.5 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-emerald-500 text-xs text-slate-800" placeholder="Summarize features..."></textarea>
+                                    </div>
+                                    <div>
+                                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Raw Instructions (Unlocked on purchase)</label>
+                                        <textarea id="creatorPromptRaw" rows="3.5" required class="w-full px-3 py-2.5 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-emerald-500 text-xs text-slate-800" placeholder="Act as a copywriter..."></textarea>
+                                    </div>
+                                    <button type="submit" class="w-full py-3 bg-emerald-500 hover:bg-emerald-400 text-white font-bold rounded-xl transition-all shadow-md text-sm cursor-pointer mt-4 active:scale-95 text-center">
+                                        Publish Live ⚡
+                                    </button>
+                                </form>
                             </div>
-                            <div>
-                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Selling Price (USD)</label>
-                                <input type="number" step="0.01" min="0.00" max="100.00" id="creatorPromptPrice" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-slate-800" placeholder="e.g. 4.99">
-                             </div>
+
+                            <!-- Payout & Store Listings (Right) -->
+                            <div class="lg:col-span-2">
+                                <h4 class="text-lg font-black text-slate-800 mb-5" style="font-family:'Space Grotesk',sans-serif;">Your Live Listed Products</h4>
+                                
+                                <div class="overflow-x-auto">
+                                    <table class="w-full border-collapse border border-slate-100 rounded-2xl overflow-hidden shadow-sm">
+                                        <thead>
+                                            <tr class="bg-slate-50 text-[10px] font-bold text-slate-500 uppercase tracking-widest text-left">
+                                                <th class="p-4">Prompt Title</th>
+                                                <th class="p-4">AI Model</th>
+                                                <th class="p-4">Price</th>
+                                                <th class="p-4 text-center">Views</th>
+                                                <th class="p-4 text-center">Sales</th>
+                                                <th class="p-4 text-center">Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-xs text-slate-700 font-medium">
+                                            <!-- List standard preloaded simulated items if empty -->
+                                            ${creatorProfile.products.length === 0 ? `
+                                                <tr class="border-t border-slate-100">
+                                                    <td class="p-4 font-bold text-slate-900">⚡ High-Converting SaaS Copywriter</td>
+                                                    <td class="p-4">ChatGPT 5.5</td>
+                                                    <td class="p-4 font-bold text-slate-800">$5.00</td>
+                                                    <td class="p-4 text-center">154</td>
+                                                    <td class="p-4 text-center font-bold text-slate-800">3</td>
+                                                    <td class="p-4 text-center text-emerald-500 font-bold"><span class="bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-100 text-[10px]">Active</span></td>
+                                                </tr>
+                                                <tr class="border-t border-slate-100">
+                                                    <td class="p-4 font-bold text-slate-900">🎨 Photorealistic Architectural Render</td>
+                                                    <td class="p-4">Midjourney v6</td>
+                                                    <td class="p-4 font-bold text-slate-800">$10.00</td>
+                                                    <td class="p-4 text-center">230</td>
+                                                    <td class="p-4 text-center font-bold text-slate-800">2</td>
+                                                    <td class="p-4 text-center text-emerald-500 font-bold"><span class="bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-100 text-[10px]">Active</span></td>
+                                                </tr>
+                                            ` : creatorProfile.products.map(prod => `
+                                                <tr class="border-t border-slate-100">
+                                                    <td class="p-4 font-bold text-slate-900">${prod.title}</td>
+                                                    <td class="p-4">${prod.type}</td>
+                                                    <td class="p-4 font-bold text-slate-800">$${parseFloat(prod.price).toFixed(2)}</td>
+                                                    <td class="p-4 text-center">18</td>
+                                                    <td class="p-4 text-center font-bold text-slate-800">0</td>
+                                                    <td class="p-4 text-center text-emerald-500 font-bold"><span class="bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-100 text-[10px]">Active</span></td>
+                                                </tr>
+                                            `).join('')}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Item Description</label>
-                            <textarea id="creatorPromptDesc" rows="3" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-slate-800" placeholder="Describe what the prompt accomplishes, target audience, and output benefits..."></textarea>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Raw Prompt Instruction (Unlocked on Purchase)</label>
-                            <textarea id="creatorPromptRaw" rows="4" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-slate-800" placeholder="e.g. Act as a B2B copywriter... [Include instructions here]"></textarea>
-                        </div>
-                        <button type="submit" class="w-full py-4 bg-emerald-500 hover:bg-emerald-400 text-white font-bold rounded-xl transition-all shadow-lg shadow-emerald-500/20 text-center">
-                            Publish & List Live Prompt
-                        </button>
-                    </form>
+                    </div>
                 `;
             }
         }
@@ -4312,8 +4675,8 @@
         window.handlePromptSubmit = function(e) {
             e.preventDefault();
             
-            if (!currentUser) {
-                window.showToast("Please sign in or create an account to list prompts!", "error");
+            if (!creatorProfile) {
+                window.showToast("Please register a creator account first!", "error");
                 return;
             }
 
@@ -4345,6 +4708,11 @@
 
             // Publish directly into catalog
             products.unshift(newProd);
+            
+            // Add to Creator local storage tracking list
+            creatorProfile.products.unshift(newProd);
+            localStorage.setItem('creatorProfile', JSON.stringify(creatorProfile));
+            
             window.showToast(`Congratulations! "${title}" is now published and live on the store!`, "success");
             
             // Track submitted click in server metrics
@@ -4354,6 +4722,8 @@
                 body: JSON.stringify({ productId: newProd.id })
             });
 
+            // Re-render local displays
+            renderCreatorForm();
             renderProducts();
             showPage('home');
         };
@@ -5464,10 +5834,175 @@
             }
         };
 
+        // Active Engine for custom prompt generator
+        let activePromptEngine = 'chatgpt';
+        window.setActivePromptEngine = function(engine) {
+            activePromptEngine = engine;
+            
+            // Toggle active classes on pills
+            const engines = ['chatgpt', 'gemini', 'grok'];
+            engines.forEach(eng => {
+                const btn = document.getElementById(`btn-engine-${eng}`);
+                if (!btn) return;
+                if (eng === engine) {
+                    btn.className = "px-4 py-2 rounded-xl text-xs font-bold transition-all text-white bg-indigo-600/90 shadow-lg flex items-center gap-1.5 cursor-pointer";
+                } else {
+                    btn.className = "px-4 py-2 rounded-xl text-xs font-bold transition-all text-slate-400 hover:text-white flex items-center gap-1.5 cursor-pointer";
+                }
+            });
+        };
+
+        // Custom Prompt Generation Logic
+        window.generateCustomPrompt = function() {
+            const inputVal = document.getElementById('promptGenInput').value.trim();
+            if (!inputVal) {
+                window.showToast("Please enter a topic or description first!", "error");
+                return;
+            }
+
+            // Check try limit count (Max 3)
+            let tries = parseInt(localStorage.getItem('promptGenTries') || '0');
+            if (tries >= 3) {
+                // Block and show pay bundle warning
+                window.showToast("Free trial limit reached! Unlock Unlimited generations with our Lifetime Bundle.", "error");
+                document.getElementById('elite-bundle-card').scrollIntoView({behavior:'smooth'});
+                
+                // Pulse the card border with a gold highlight
+                const card = document.getElementById('elite-bundle-card');
+                if (card) {
+                    card.classList.add('ring-4', 'ring-amber-500', 'scale-[1.02]');
+                    setTimeout(() => {
+                        card.classList.remove('ring-4', 'ring-amber-500', 'scale-[1.02]');
+                    }, 4000);
+                }
+                return;
+            }
+
+            // Increment try counter
+            tries++;
+            localStorage.setItem('promptGenTries', tries.toString());
+            document.getElementById('promptGenTriesBadge').textContent = `${3 - tries} runs remaining`;
+
+            const wrapper = document.getElementById('promptGenOutputWrapper');
+            const loading = document.getElementById('promptGenLoading');
+            const result = document.getElementById('promptGenResult');
+            
+            wrapper.classList.remove('hidden');
+            loading.classList.remove('hidden');
+            result.classList.add('hidden');
+
+            setTimeout(() => {
+                loading.classList.add('hidden');
+                result.classList.remove('hidden');
+
+                // Tailor highly optimized prompt outputs based on user input & engine
+                const engineName = activePromptEngine === 'chatgpt' ? 'ChatGPT 5.5 (Deep Reasoning)' : activePromptEngine === 'gemini' ? 'Google Gemini 3.5 Pro' : 'xAI Grok 4.3 Build';
+                
+                let outputPrompt = '';
+                if (inputVal.toLowerCase().includes('logo') || inputVal.toLowerCase().includes('design')) {
+                    outputPrompt = `[SYSTEM ROLE: Senior Brand Identity Architect & Prompt Engineer]
+[ENGINE OPTIMIZATION: ${engineName}]
+
+You are task-optimized to build vector-perfect brand logos. 
+Generate a high-fidelity image matching this specific request:
+"Design a professional, minimalist geometric logo for: ${inputVal}. The layout must feature a clean, scalable primary icon and modern sans-serif typography. Colors: Slate primary, indigo secondary, white backdrop. 
+
+Key Guidelines:
+- High contrast, vector-clean outlines, no complex photorealistic shadows or gradients
+- Clean grid alignment, centered ratio 1:1, scalable from 16px favicon to giant high-res billboards
+- Output must display 3 modular variations: stacked monogram, horizontal lockup, and icon-only.
+- Engine Parameters: --ar 1:1 --v 6.1 --style raw --q 2 --stylize 350`;
+                } else if (inputVal.toLowerCase().includes('website') || inputVal.toLowerCase().includes('page') || inputVal.toLowerCase().includes('code')) {
+                    outputPrompt = `[SYSTEM ROLE: Expert Full-Stack Web Architect]
+[ENGINE OPTIMIZATION: ${engineName}]
+
+You are programmed to write a clean single-file responsive landing page:
+"Develop a fully custom landing page for: ${inputVal}. The design system must employ premium Glassmorphism, a dark navy base background (#020617), smooth gradient text colors, and responsive grid columns.
+
+Structure Requirements:
+1. Navigation: Absolute header with glass background and smooth link hover animations
+2. Hero Section: Catchy dynamic headline, interactive input field, and visual mockup
+3. Grid columns: 3-column modular grid highlighting platform services
+4. CTA section: Centered, high-converting Stripe payment button wrapper with a pulse animation
+Use Vanilla JS for responsive toggle actions and clean CSS styling variables."`;
+                } else {
+                    outputPrompt = `[SYSTEM ROLE: Senior Prompt Engineer & System Optimizer]
+[ENGINE OPTIMIZATION: ${engineName}]
+
+Act as a hyper-optimized assistant for: "${inputVal}". 
+Analyze the input context, remove ambiguous wording, and rewrite it as a structured system instruction.
+
+Please follow these guidelines:
+1. ROLE & PROFILE: Act as an elite specialist in this domain.
+2. CONSTRAINTS: Avoid generic explanations, place strict boundaries on output formatting, and specify edge cases.
+3. INSTRUCTION STEP-BY-STEP: Outline exactly 5 progressive steps to perform this execution.
+4. EXPECTED FORMAT: Output in structured Markdown tables with exact copy-paste scripts.`;
+                }
+
+                document.getElementById('promptGenOutputText').value = outputPrompt;
+                window.showToast("Custom prompt engineered successfully!", "success");
+            }, 1850);
+        };
+
+        window.copyGeneratedPrompt = function() {
+            const copyText = document.getElementById('promptGenOutputText');
+            if (!copyText) return;
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(copyText.value);
+            window.showToast("Engineered prompt copied!", "success");
+        };
+
         // --- DOM INITIALIZATION ---
         document.addEventListener('DOMContentLoaded', () => {
             try {
-                // --- TYPING ANIMATION (Antigravity-style) ---
+                // Initialize Free Trial Counter display
+                const tries = parseInt(localStorage.getItem('promptGenTries') || '0');
+                const triesBadge = document.getElementById('promptGenTriesBadge');
+                if (triesBadge) {
+                    triesBadge.textContent = `${Math.max(0, 3 - tries)} runs remaining`;
+                }
+
+                // --- SEARCH BAR PLACEHOLDER TYPING EFFECT ---
+                const placeholderPhrases = [
+                    "I need a prompt for a logo for my company named ",
+                    "a prompt to generate a website ",
+                    "a prompt to restore an old photo "
+                ];
+                let phraseIdx = 0;
+                let charIdx = 0;
+                let isDeleting = false;
+                
+                function typePlaceholder() {
+                    const input = document.getElementById('promptGenInput');
+                    if (!input) return;
+                    
+                    const currentPhrase = placeholderPhrases[phraseIdx];
+                    
+                    if (isDeleting) {
+                        input.placeholder = currentPhrase.substring(0, charIdx - 1);
+                        charIdx--;
+                    } else {
+                        input.placeholder = currentPhrase.substring(0, charIdx + 1);
+                        charIdx++;
+                    }
+                    
+                    let speed = isDeleting ? 30 : 65;
+                    
+                    if (!isDeleting && charIdx === currentPhrase.length) {
+                        isDeleting = true;
+                        speed = 2200; // Pause at end
+                    } else if (isDeleting && charIdx === 0) {
+                        isDeleting = false;
+                        phraseIdx = (phraseIdx + 1) % placeholderPhrases.length;
+                        speed = 400; // Pause before next
+                    }
+                    
+                    setTimeout(typePlaceholder, speed);
+                }
+                setTimeout(typePlaceholder, 1000);
+
+                // --- TYPING ANIMATION (Slower & Smoother) ---
                 const line1Text = "Master AI with";
                 const line2Text = "Precision Prompts";
                 const el1 = document.getElementById('typed-line-1');
@@ -5481,9 +6016,9 @@
                     if (el1 && i < line1Text.length) {
                         el1.textContent += line1Text.charAt(i);
                         i++;
-                        setTimeout(typeLine1, 55);
+                        setTimeout(typeLine1, 75);
                     } else {
-                        setTimeout(typeLine2, 200);
+                        setTimeout(typeLine2, 250);
                     }
                 }
                 
@@ -5491,7 +6026,7 @@
                     if (el2 && j < line2Text.length) {
                         el2.textContent += line2Text.charAt(j);
                         j++;
-                        setTimeout(typeLine2, 65);
+                        setTimeout(typeLine2, 85);
                     } else {
                         if (cursor) {
                             cursor.style.animationDuration = '1.2s';
@@ -5499,7 +6034,7 @@
                     }
                 }
                 
-                setTimeout(typeLine1, 200);
+                setTimeout(typeLine1, 300);
 
                 // --- BUNDLE TITLE TYPING ANIMATION (IntersectionObserver) ---
                 const bundleText = "Elite Lifetime AI Prompts Master Bundle";
@@ -5512,7 +6047,7 @@
                     if (bundleEl && bundleIdx < bundleText.length) {
                         bundleEl.textContent += bundleText.charAt(bundleIdx);
                         bundleIdx++;
-                        setTimeout(typeBundleTitle, 45);
+                        setTimeout(typeBundleTitle, 60);
                     } else {
                         if (bundleCursor) {
                             bundleCursor.style.animationDuration = '1.2s';
@@ -5528,12 +6063,12 @@
                             bundleObserver.unobserve(entry.target);
                         }
                     });
-                }, { threshold: 0.15 });
+                }, { threshold: 0.02 });
                 
                 const bundleCard = document.getElementById('elite-bundle-card');
                 if (bundleCard) {
                     bundleObserver.observe(bundleCard);
-                    // Safe fallback in case IntersectionObserver does not fire (e.g. immediate viewport positioning)
+                    // Safe fallback in case IntersectionObserver does not fire
                     setTimeout(() => {
                         if (!bundleTyped) {
                             bundleTyped = true;
@@ -5605,7 +6140,7 @@
 
                 // --- CURATED PREMIUM PRODUCT CATALOG ---
                 // 20 hand-crafted, real-use-case prompts with unique images
-                const curatedProducts = [
+                curatedProducts = [
                     {
                         id: 'prod-lifetime-bundle',
                         title: 'Elite Lifetime AI Prompts Master Bundle',
@@ -5615,6 +6150,16 @@
                         description: 'Unlock our entire master library of 32M+ expert prompt parameters instantly. Gain lifetime rights, future upgrades, and premium private community resources today.',
                         previewPrompt: 'LIFETIME ACCESS KEY ACTIVE',
                         features: ['Lifetime Unlimited Vault Access', 'All AI Engine Models Supported', 'Weekly Library Updates', 'Discord Priority Mastermind']
+                    },
+                    {
+                        id: 'prod-website-generator',
+                        title: 'Full-Stack SaaS Website Generator Prompt',
+                        category: 'cat-2', type: 'Claude 3.5 Sonnet', price: 9.00, rating: '4.91',
+                        reviews: 1204,
+                        image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop&auto=format&q=80',
+                        description: 'Generate production-ready responsive landing pages and complete SaaS web applications instantly. Outputs modular HTML, tailwind utilities, and vanilla JS interactives.',
+                        previewPrompt: 'Act as an expert frontend engineer. Build a fully responsive web application for [APP_NAME] in a single index.html file with beautiful Tailwind CSS. Incorporate modern glassmorphism, responsive grid layout, and interactive modules.',
+                        features: ['SaaS Landing Page Templates', 'Tailwind CSS JIT Integration', 'Full Responsive Grid & Flex structures', 'Interactive JS components pre-coded']
                     },
                     {
                         id: 'prod-mj-architecture',
