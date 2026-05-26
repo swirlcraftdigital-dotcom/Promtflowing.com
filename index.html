@@ -106,6 +106,7 @@
     ]
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/assets/ai_platform_data.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Secure Stripe official SDK library -->
@@ -465,6 +466,24 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <div class="relative group h-full flex items-center">
+                        <a href="/chatgpt-prompts" onclick="window.showPage('chatgpt-prompts', event)" class="nav-link text-gray-300 hover:text-white transition-colors font-medium flex items-center gap-1 h-full py-4">AI Platforms <i class="fa-solid fa-chevron-down text-[10px]"></i></a>
+                        <!-- Dropdown Menu -->
+                        <div class="absolute left-0 top-full w-[240px] bg-slate-950 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 border border-slate-900 transform origin-top -translate-y-2 group-hover:translate-y-0 z-[100] p-2 space-y-1">
+                            <a href="/chatgpt-prompts" onclick="window.showPage('chatgpt-prompts', event)" class="block px-3 py-2 text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-905 rounded-lg transition-all"><i class="fa-solid fa-comment text-indigo-400 mr-2"></i> ChatGPT Prompts</a>
+                            <a href="/ai-video-prompts" onclick="window.showPage('ai-video-prompts', event)" class="block px-3 py-2 text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-905 rounded-lg transition-all"><i class="fa-solid fa-video text-pink-400 mr-2"></i> AI Video Prompts</a>
+                            <a href="/ai-image-prompts" onclick="window.showPage('ai-image-prompts', event)" class="block px-3 py-2 text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-905 rounded-lg transition-all"><i class="fa-solid fa-image text-emerald-400 mr-2"></i> AI Image Prompts</a>
+                            <a href="/prompt-engineering" onclick="window.showPage('prompt-engineering', event)" class="block px-3 py-2 text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-905 rounded-lg transition-all"><i class="fa-solid fa-graduation-cap text-cyan-400 mr-2"></i> Prompt Engineering</a>
+                            <a href="/ai-tools" onclick="window.showPage('ai-tools', event)" class="block px-3 py-2 text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-905 rounded-lg transition-all"><i class="fa-solid fa-screwdriver-wrench text-amber-400 mr-2"></i> AI Directory & Tools</a>
+                            <a href="/ai-agents" onclick="window.showPage('ai-agents', event)" class="block px-3 py-2 text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-905 rounded-lg transition-all"><i class="fa-solid fa-robot text-purple-400 mr-2"></i> AI Agents Hub</a>
+                            <a href="/ai-for-business" onclick="window.showPage('ai-for-business', event)" class="block px-3 py-2 text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-905 rounded-lg transition-all"><i class="fa-solid fa-briefcase text-blue-400 mr-2"></i> AI For Business</a>
+                            <a href="/ai-website-builder" onclick="window.showPage('ai-website-builder', event)" class="block px-3 py-2 text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-905 rounded-lg transition-all"><i class="fa-solid fa-code text-teal-400 mr-2"></i> AI Web Developer</a>
+                            <a href="/free-ai-generators" onclick="window.showPage('free-ai-generators', event)" class="block px-3 py-2 text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-905 rounded-lg transition-all"><i class="fa-solid fa-wand-magic-sparkles text-violet-400 mr-2"></i> Free Generators</a>
+                            <a href="/industries" onclick="window.showPage('industries', event)" class="block px-3 py-2 text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-905 rounded-lg transition-all"><i class="fa-solid fa-city text-rose-400 mr-2"></i> Industries Directory</a>
+                        </div>
+                    </div>
+                    
                     <a href="/onedollar" onclick="showPage('onedollar', event)" class="nav-link text-yellow-400 hover:text-yellow-300 transition-colors font-bold flex items-center gap-1.5"><i class="fa-solid fa-bolt"></i> $1 Prompts</a>
                     <a href="/video" onclick="showPage('video', event)" class="nav-link text-fuchsia-400 hover:text-fuchsia-300 transition-colors font-bold flex items-center gap-1.5"><i class="fa-solid fa-video"></i> $2 Video Prompts</a>
                     <a href="/free" onclick="showPage('free', event)" class="nav-link text-gray-300 hover:text-white transition-colors font-medium">Free Prompts</a>
@@ -504,6 +523,21 @@
                 <a href="/" onclick="showPage('home', event)" class="block px-3 py-2 text-gray-300 hover:text-white hover:bg-slate-800 rounded-md">Home</a>
                 <a href="/popular" onclick="showPopularPage(event)" class="block px-3 py-2 text-gray-300 hover:text-white hover:bg-slate-800 rounded-md">Popular</a>
                 <a href="/categories" onclick="showPage('categories', event)" class="block px-3 py-2 text-gray-300 hover:text-white hover:bg-slate-800 rounded-md">Categories</a>
+                <!-- AI Platform Hubs Mobile segment -->
+                <div class="px-3 py-1 text-[10px] font-bold text-slate-500 uppercase tracking-widest border-t border-slate-800/60 mt-2">AI Platforms</div>
+                <div class="grid grid-cols-2 gap-1 px-3 pb-2">
+                    <a href="/chatgpt-prompts" onclick="window.showPage('chatgpt-prompts', event)" class="text-[11px] py-1.5 text-slate-400 hover:text-white transition-colors"><i class="fa-solid fa-comment text-indigo-400 mr-1"></i> ChatGPT</a>
+                    <a href="/ai-video-prompts" onclick="window.showPage('ai-video-prompts', event)" class="text-[11px] py-1.5 text-slate-400 hover:text-white transition-colors"><i class="fa-solid fa-video text-pink-400 mr-1"></i> AI Video</a>
+                    <a href="/ai-image-prompts" onclick="window.showPage('ai-image-prompts', event)" class="text-[11px] py-1.5 text-slate-400 hover:text-white transition-colors"><i class="fa-solid fa-image text-emerald-400 mr-1"></i> AI Image</a>
+                    <a href="/prompt-engineering" onclick="window.showPage('prompt-engineering', event)" class="text-[11px] py-1.5 text-slate-400 hover:text-white transition-colors"><i class="fa-solid fa-graduation-cap text-cyan-400 mr-1"></i> Engineering</a>
+                    <a href="/ai-tools" onclick="window.showPage('ai-tools', event)" class="text-[11px] py-1.5 text-slate-400 hover:text-white transition-colors"><i class="fa-solid fa-screwdriver-wrench text-amber-400 mr-1"></i> Directory</a>
+                    <a href="/ai-agents" onclick="window.showPage('ai-agents', event)" class="text-[11px] py-1.5 text-slate-400 hover:text-white transition-colors"><i class="fa-solid fa-robot text-purple-400 mr-1"></i> AI Agents</a>
+                    <a href="/ai-for-business" onclick="window.showPage('ai-for-business', event)" class="text-[11px] py-1.5 text-slate-400 hover:text-white transition-colors"><i class="fa-solid fa-briefcase text-blue-400 mr-1"></i> Business</a>
+                    <a href="/ai-website-builder" onclick="window.showPage('ai-website-builder', event)" class="text-[11px] py-1.5 text-slate-400 hover:text-white transition-colors"><i class="fa-solid fa-code text-teal-400 mr-1"></i> Web Dev</a>
+                    <a href="/free-ai-generators" onclick="window.showPage('free-ai-generators', event)" class="text-[11px] py-1.5 text-slate-400 hover:text-white transition-colors"><i class="fa-solid fa-wand-magic-sparkles text-violet-400 mr-1"></i> Generators</a>
+                    <a href="/industries" onclick="window.showPage('industries', event)" class="text-[11px] py-1.5 text-slate-400 hover:text-white transition-colors"><i class="fa-solid fa-city text-rose-400 mr-1"></i> Industries</a>
+                </div>
+                <div class="border-t border-slate-800/60 my-1"></div>
                 <a href="/onedollar" onclick="showPage('onedollar', event)" class="block px-3 py-2 text-yellow-400 hover:text-yellow-300 hover:bg-slate-800 rounded-md font-bold"><i class="fa-solid fa-bolt"></i> $1 Prompts</a>
                 <a href="/video" onclick="showPage('video', event)" class="block px-3 py-2 text-fuchsia-400 hover:text-fuchsia-300 hover:bg-slate-800 rounded-md font-bold"><i class="fa-solid fa-video"></i> $2 Video Prompts</a>
                 <a href="/free" onclick="showPage('free', event)" class="block px-3 py-2 text-gray-300 hover:text-white hover:bg-slate-800 rounded-md">Free Prompts</a>
@@ -554,6 +588,131 @@
         </div>
 
         <!-- HOME PAGE -->
+        <!-- SEO PROGRAMMATIC PLATFORM HUB & TOOLS VIEW -->
+        <div id="page-seo-hub" class="page-view hidden min-h-screen pt-32 pb-20 bg-[#060911] text-white relative overflow-hidden">
+            <!-- Background Glows -->
+            <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
+                <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-900/10 rounded-full filter blur-3xl opacity-50"></div>
+                <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-900/10 rounded-full filter blur-3xl opacity-50"></div>
+            </div>
+            
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <!-- Breadcrumbs -->
+                <nav id="seo-breadcrumbs" class="flex items-center gap-2 text-xs font-semibold text-slate-400 mb-6 bg-slate-950/40 px-4 py-2.5 rounded-xl border border-slate-900/60 w-fit backdrop-blur-sm"></nav>
+                
+                <!-- Header Section -->
+                <div class="mb-10 text-left">
+                    <h1 id="seo-h1" class="text-3xl sm:text-5xl font-black tracking-tight mb-4 bg-gradient-to-r from-white via-slate-100 to-indigo-400 bg-clip-text text-transparent"></h1>
+                    <div id="seo-intro" class="text-base sm:text-lg text-slate-400 leading-relaxed font-light space-y-4 max-w-4xl"></div>
+                </div>
+
+                <!-- Google AdSense - Top Ad Slot -->
+                <div class="my-8 bg-slate-950/60 border border-slate-900 p-4 rounded-2xl text-center relative overflow-hidden backdrop-blur-sm">
+                    <div class="absolute top-2 left-3 text-[10px] uppercase tracking-widest text-slate-600 font-bold">Advertisement</div>
+                    <div class="py-6 flex items-center justify-center gap-2 text-xs font-bold text-slate-500">
+                        <i class="fa-solid fa-rectangle-ad text-lg text-indigo-500/50"></i> Sponsored Placement (Auto AdSlot: Below Header)
+                    </div>
+                </div>
+
+                <!-- Dynamic Content Workspace Grid (Main Content & Sidebar) -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Main Left Column -->
+                    <div class="lg:col-span-2 space-y-8 text-left">
+                        <!-- Dynamic Subcategories Grid (Hubs only) -->
+                        <div id="seo-subcategories-container" class="hidden space-y-6">
+                            <h2 class="text-xl sm:text-2xl font-extrabold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-cubes text-indigo-400"></i> Explore Specialized Categories
+                            </h2>
+                            <div id="seo-subcategories-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+                        </div>
+
+                        <!-- Dynamic Prompts Grid (Lists only) -->
+                        <div id="seo-prompts-container" class="hidden space-y-6">
+                            <h2 class="text-xl sm:text-2xl font-extrabold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-list-check text-indigo-400"></i> High-Fidelity Copy-Ready Prompt Collection
+                            </h2>
+                            <div id="seo-prompts-grid" class="space-y-4"></div>
+                        </div>
+
+                        <!-- Dynamic Interactive Generator Tool (Generators only) -->
+                        <div id="seo-generator-container" class="hidden">
+                            <div class="bg-black/80 border border-slate-900 rounded-3xl p-6 sm:p-8 shadow-[0_30px_60px_rgba(0,0,0,0.8)] backdrop-blur-2xl relative">
+                                <div class="absolute -inset-0.5 rounded-[1.9rem] bg-gradient-to-tr from-indigo-500/10 to-cyan-500/10 blur-xl opacity-60 -z-10 pointer-events-none"></div>
+                                <h2 class="text-xl sm:text-2xl font-extrabold text-white mb-6 flex items-center gap-2">
+                                    <i class="fa-solid fa-wand-magic-sparkles text-indigo-400 animate-pulse"></i> Interactive Prompt Customizer
+                                </h2>
+                                <div id="seo-generator-form" class="space-y-4 mb-6"></div>
+                                <button type="button" id="seo-generator-btn" class="w-full py-4 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 text-white font-extrabold text-sm transition-all shadow-lg active:scale-98 cursor-pointer flex items-center justify-center gap-2 mb-6">
+                                    <i class="fa-solid fa-bolt"></i> Generate Tailored AI Prompt
+                                </button>
+                                <div class="bg-slate-950 border border-slate-900 rounded-2xl p-5 relative">
+                                    <span class="text-[10px] font-bold tracking-wider text-indigo-400 uppercase block mb-2">CUSTOM OUTPUT BUNDLE</span>
+                                    <pre id="seo-generator-output" class="text-xs sm:text-sm font-mono text-emerald-400 whitespace-pre-wrap select-all leading-relaxed bg-[#020205] p-4 rounded-xl max-h-60 overflow-y-auto border border-slate-950">Fill out variables above to preview output...</pre>
+                                    <button type="button" id="seo-copy-generator-btn" class="absolute right-4 bottom-4 px-4 py-2 rounded-lg bg-white hover:bg-slate-100 text-black text-xs font-bold transition-all shadow active:scale-95 cursor-pointer flex items-center gap-1.5">
+                                        <i class="fa-solid fa-copy"></i> Copy Output
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Comparative Tools Grid (Tools Hubs only) -->
+                        <div id="seo-tools-container" class="hidden space-y-6">
+                            <h2 class="text-xl sm:text-2xl font-extrabold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-award text-indigo-400"></i> AI Tools Comparison Matrix
+                            </h2>
+                            <div id="seo-tools-grid" class="space-y-4"></div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Sidebar (Premium CTR Tools & AdSlots) -->
+                    <div class="space-y-8 text-left">
+                        <!-- Lifetime Bundle Promo Card -->
+                        <div class="bg-gradient-to-br from-indigo-950/40 to-slate-950 border border-indigo-900/30 rounded-3xl p-6 relative overflow-hidden backdrop-blur-sm">
+                            <div class="absolute -right-16 -top-16 w-32 h-32 bg-indigo-500/10 rounded-full filter blur-xl"></div>
+                            <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 tracking-wide uppercase">RECOMMENDED BUNDLE</span>
+                            <h3 class="text-lg font-black text-white mt-3 mb-2">Elite Lifetime Prompt Pack</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed mb-4">Unlock over 22,000 premium prompt systems, templates, and frameworks with lifetime commercial updates. One-time payment, direct download.</p>
+                            <button type="button" onclick="document.getElementById('elite-bundle-card').scrollIntoView({behavior:'smooth'})" class="w-full py-3 rounded-xl bg-white hover:bg-slate-100 text-black font-extrabold text-xs transition-all shadow-md active:scale-95 cursor-pointer flex items-center justify-center gap-1.5">
+                                <i class="fa-solid fa-gem"></i> Unlock Unlimited Prompts ($19)
+                            </button>
+                        </div>
+
+                        <!-- Google AdSense - Sidebar Ad Slot -->
+                        <div class="bg-slate-950/60 border border-slate-900 p-4 rounded-2xl text-center relative overflow-hidden backdrop-blur-sm">
+                            <div class="absolute top-2 left-3 text-[10px] uppercase tracking-widest text-slate-600 font-bold">Advertisement</div>
+                            <div class="py-20 flex flex-col items-center justify-center gap-2 text-xs font-bold text-slate-500">
+                                <i class="fa-solid fa-rectangle-ad text-lg text-indigo-500/50"></i> Sponsored Placement (Auto AdSlot: Sidebar)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Google AdSense - Middle Ad Slot -->
+                <div class="my-8 bg-slate-950/60 border border-slate-900 p-4 rounded-2xl text-center relative overflow-hidden backdrop-blur-sm">
+                    <div class="absolute top-2 left-3 text-[10px] uppercase tracking-widest text-slate-600 font-bold">Advertisement</div>
+                    <div class="py-6 flex items-center justify-center gap-2 text-xs font-bold text-slate-500">
+                        <i class="fa-solid fa-rectangle-ad text-lg text-indigo-500/50"></i> Sponsored Placement (Auto AdSlot: In-Content)
+                    </div>
+                </div>
+
+                <!-- FAQ Section -->
+                <div id="seo-faq-container" class="mt-12 space-y-6 text-left border-t border-slate-900 pt-10">
+                    <h2 class="text-xl sm:text-2xl font-extrabold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-circle-question text-indigo-400"></i> Frequently Asked Questions
+                    </h2>
+                    <div id="seo-faq-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+                </div>
+
+                <!-- Related Links -->
+                <div id="seo-related-container" class="mt-12 space-y-6 text-left border-t border-slate-900 pt-10">
+                    <h2 class="text-xl sm:text-2xl font-extrabold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-circle-nodes text-indigo-400"></i> Related AI Resources
+                    </h2>
+                    <div id="seo-related-grid" class="flex flex-wrap gap-2.5"></div>
+                </div>
+            </div>
+        </div>
+
         <div id="page-home" class="page-view block relative z-30">
             <!-- Hero Section -->
             <div id="hero-interactive-section" class="hero-bg min-h-screen flex items-center relative z-20 pt-20 pb-32">
@@ -2917,15 +3076,24 @@
         }
 
         window.showPage = function(pageId, e) {
-            if (e) e.preventDefault();
+            // Support parameter order swap safely (e.g. showPage(e, 'home') or showPage('home', e))
+            if (pageId && typeof pageId === 'object' && pageId.preventDefault) {
+                const temp = pageId;
+                pageId = e;
+                e = temp;
+            }
+            if (e && e.preventDefault) e.preventDefault();
             
-            // Update browser address bar using History API (SPA Router)
-            const targetPath = pageId === 'home' ? '/' : '/' + pageId;
+            let targetPath = '/';
+            if (pageId && pageId !== 'home') {
+                targetPath = '/' + String(pageId).replace(/^\//, '');
+            }
+            
             if (window.location.pathname !== targetPath) {
                 window.history.pushState(null, '', targetPath);
             }
             
-            showPageInternal(pageId);
+            handleUrlRoute();
         };
 
         window.showPageInternal = function(pageId, skipSeo = false) {
@@ -2985,6 +3153,12 @@
         function handleUrlRoute() {
             const path = window.location.pathname;
             
+            // Programmatic SEO platforms hub & tools interceptor
+            if (window.AI_PLATFORM_DATA && window.AI_PLATFORM_DATA[path]) {
+                window.renderSeoHubPage(path);
+                return;
+            }
+            
             // Programmatic SEO category route interceptor
             if (path.startsWith('/categories/')) {
                 const slug = path.replace('/categories/', '');
@@ -3026,6 +3200,238 @@
             else if (path === '/admin') pageId = 'admin';
             
             window.showPageInternal(pageId);
+        }
+
+        // Global Dynamic SEO Hub & Tools Renderer
+        window.renderSeoHubPage = function(path) {
+            const pageData = window.AI_PLATFORM_DATA[path];
+            if (!pageData) return;
+            
+            // 1. Update Title, Meta Description, Canonical tag
+            document.title = pageData.title;
+            let descEl = document.querySelector('meta[name="description"]');
+            if (descEl) descEl.setAttribute('content', pageData.metaDescription);
+            let canonicalEl = document.querySelector('link[rel="canonical"]');
+            if (canonicalEl) canonicalEl.setAttribute('href', `https://www.promptflowing.com${path}`);
+            
+            // 2. Render Breadcrumbs
+            const breadcrumbsContainer = document.getElementById('seo-breadcrumbs');
+            const pathParts = path.split('/').filter(Boolean);
+            let breadcrumbsHtml = `<a href="/" onclick="window.showPage(event, 'home')" class="hover:text-white transition-colors">Home</a>`;
+            let runningPath = '';
+            pathParts.forEach((part, index) => {
+                runningPath += `/${part}`;
+                const name = part.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+                breadcrumbsHtml += ` <span class="text-slate-600">/</span> `;
+                if (index === pathParts.length - 1) {
+                    breadcrumbsHtml += `<span class="text-slate-300 font-medium">${name}</span>`;
+                } else {
+                    breadcrumbsHtml += `<a href="${runningPath}" onclick="window.showPage(event, '${runningPath.slice(1)}')" class="hover:text-white transition-colors">${name}</a>`;
+                }
+            });
+            breadcrumbsContainer.innerHTML = breadcrumbsHtml;
+            
+            // 3. Render Header
+            document.getElementById('seo-h1').textContent = pageData.h1;
+            document.getElementById('seo-intro').innerHTML = pageData.intro.split('\n\n').map(p => `<p class="leading-relaxed mb-4">${p}</p>`).join('');
+            
+            // 4. Hide all dynamic sections by default
+            document.getElementById('seo-subcategories-container').classList.add('hidden');
+            document.getElementById('seo-prompts-container').classList.add('hidden');
+            document.getElementById('seo-generator-container').classList.add('hidden');
+            document.getElementById('seo-tools-container').classList.add('hidden');
+            
+            // 5. Render specific content type based on the page configuration
+            if (pageData.subcategories && pageData.subcategories.length > 0) {
+                // Subcategory Hub Layout
+                document.getElementById('seo-subcategories-container').classList.remove('hidden');
+                const grid = document.getElementById('seo-subcategories-grid');
+                grid.innerHTML = pageData.subcategories.map(sub => `
+                    <a href="${sub.path}" onclick="window.showPage(event, '${sub.path.slice(1)}')" class="block p-6 rounded-2xl bg-slate-950/60 border border-slate-900 hover:border-indigo-500/40 hover:bg-slate-900/40 transition-all group relative overflow-hidden">
+                        <div class="absolute -right-10 -bottom-10 w-24 h-24 bg-indigo-500/5 rounded-full filter blur-xl group-hover:bg-indigo-500/10 transition-colors"></div>
+                        <h3 class="text-lg font-bold text-white mb-2 flex items-center justify-between">
+                            ${sub.name}
+                            <i class="fa-solid fa-arrow-right text-xs text-slate-500 group-hover:text-indigo-400 group-hover:translate-x-1 transition-all"></i>
+                        </h3>
+                        <p class="text-xs text-slate-400 leading-relaxed">${sub.desc}</p>
+                    </a>
+                `).join('');
+            } else if (pageData.isGenerator) {
+                // Interactive Generator Tool Layout
+                document.getElementById('seo-generator-container').classList.remove('hidden');
+                const form = document.getElementById('seo-generator-form');
+                form.innerHTML = pageData.generatorConfig.fields.map(field => {
+                    if (field.type === 'select') {
+                        return `
+                            <div class="flex flex-col gap-1.5 text-left">
+                                <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">${field.label}</label>
+                                <select id="${field.id}" class="w-full bg-slate-950 border border-slate-900 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-indigo-500 transition-colors">
+                                    ${field.options.map(opt => `<option value="${opt}">${opt}</option>`).join('')}
+                                </select>
+                            </div>
+                        `;
+                    } else {
+                        return `
+                            <div class="flex flex-col gap-1.5 text-left">
+                                <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">${field.label}</label>
+                                <input type="text" id="${field.id}" placeholder="${field.placeholder}" class="w-full bg-slate-950 border border-slate-900 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-indigo-500 transition-colors">
+                            </div>
+                        `;
+                    }
+                }).join('');
+                
+                // Configure direct buttons
+                document.getElementById('seo-generator-btn').onclick = () => {
+                    const inputs = {};
+                    pageData.generatorConfig.fields.forEach(f => {
+                        inputs[f.id] = document.getElementById(f.id).value || f.placeholder || '';
+                    });
+                    const output = pageData.generatorConfig.formula(inputs);
+                    document.getElementById('seo-generator-output').textContent = output;
+                };
+                
+                document.getElementById('seo-copy-generator-btn').onclick = () => {
+                    const text = document.getElementById('seo-generator-output').textContent;
+                    navigator.clipboard.writeText(text);
+                    window.showToast("Generated Prompt copied to clipboard!", "success");
+                };
+                
+                // Trigger initial generation
+                document.getElementById('seo-generator-btn').click();
+                
+            } else if (pageData.prompts && pageData.prompts.length > 0) {
+                // Copy-Ready Prompts Collection Layout
+                document.getElementById('seo-prompts-container').classList.remove('hidden');
+                const grid = document.getElementById('seo-prompts-grid');
+                grid.innerHTML = pageData.prompts.map((prompt, idx) => `
+                    <div class="p-6 rounded-2xl bg-slate-950/60 border border-slate-900 hover:border-slate-800 transition-all text-left space-y-4 relative group">
+                        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-900 pb-3">
+                            <div>
+                                <h3 class="text-base font-bold text-white flex items-center gap-1.5">
+                                    <i class="fa-solid fa-code text-indigo-400"></i> ${prompt.title}
+                                </h3>
+                                <p class="text-[11px] text-slate-500 mt-0.5">Best For: <span class="text-slate-300 font-medium">${prompt.bestFor}</span></p>
+                            </div>
+                            <div class="flex items-center gap-1">
+                                ${prompt.models.map(m => `
+                                    <span class="px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 text-[9px] font-bold uppercase tracking-wider">
+                                        ${m}
+                                    </span>
+                                `).join('')}
+                            </div>
+                        </div>
+                        <div class="relative bg-[#020205] border border-slate-900 rounded-xl p-4 overflow-hidden">
+                            <pre id="prompt-text-${idx}" class="text-xs sm:text-sm font-mono text-slate-300 whitespace-pre-wrap select-all leading-relaxed">${prompt.prompt}</pre>
+                            <button type="button" onclick="window.copyPromptText('prompt-text-${idx}')" class="absolute right-3.5 bottom-3.5 px-3 py-1.5 rounded-lg bg-white hover:bg-slate-100 text-black text-[10px] font-extrabold transition-all shadow active:scale-95 cursor-pointer flex items-center gap-1">
+                                <i class="fa-solid fa-copy"></i> Copy
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+                
+            } else if (pageData.tools && pageData.tools.length > 0) {
+                // Comparative Tools Matrix Layout
+                document.getElementById('seo-tools-container').classList.remove('hidden');
+                const grid = document.getElementById('seo-tools-grid');
+                grid.innerHTML = pageData.tools.map(tool => `
+                    <div class="p-6 rounded-2xl bg-slate-950/60 border border-slate-900 hover:border-slate-800 transition-all text-left space-y-4">
+                        <div class="flex items-center justify-between border-b border-slate-900 pb-3">
+                            <h3 class="text-lg font-bold text-white">${tool.name}</h3>
+                            <span class="px-2.5 py-1 rounded bg-amber-500/10 text-amber-300 border border-amber-500/20 text-[10px] font-bold">
+                                Rating: ${tool.rating}
+                            </span>
+                        </div>
+                        <p class="text-xs text-slate-400 leading-relaxed">${tool.desc}</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                            <div class="bg-emerald-950/10 border border-emerald-950/30 rounded-xl p-3.5">
+                                <span class="text-[10px] font-bold tracking-wider text-emerald-400 uppercase block mb-1">PROS</span>
+                                <ul class="text-[11px] text-slate-300 space-y-1">
+                                    ${tool.pros.map(p => `<li>• ${p}</li>`).join('')}
+                                </ul>
+                            </div>
+                            <div class="bg-rose-950/10 border border-rose-950/30 rounded-xl p-3.5">
+                                <span class="text-[10px] font-bold tracking-wider text-rose-400 uppercase block mb-1">CONS</span>
+                                <ul class="text-[11px] text-slate-300 space-y-1">
+                                    ${tool.cons.map(c => `<li>• ${c}</li>`).join('')}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            // 6. Render Dynamic FAQ Section
+            const faqGrid = document.getElementById('seo-faq-grid');
+            faqGrid.innerHTML = pageData.faqs.map(faq => `
+                <div class="p-5 rounded-2xl bg-slate-950/40 border border-slate-900/60 hover:border-slate-900 transition-all text-left">
+                    <h4 class="text-sm font-bold text-slate-200 mb-2 flex items-start gap-1.5">
+                        <i class="fa-solid fa-circle-check text-indigo-400 mt-0.5"></i> ${faq.q}
+                    </h4>
+                    <p class="text-xs text-slate-400 leading-relaxed font-light">${faq.a}</p>
+                </div>
+            `).join('');
+            
+            // 7. Render Related Links
+            const relatedGrid = document.getElementById('seo-related-grid');
+            const allPaths = Object.keys(window.AI_PLATFORM_DATA);
+            const parentPath = path.substring(0, path.lastIndexOf('/')) || '/';
+            const dynamicRelated = allPaths.filter(p => p.startsWith(parentPath) && p !== path).slice(0, 8);
+            
+            relatedGrid.innerHTML = dynamicRelated.map(p => `
+                <a href="${p}" onclick="window.showPage(event, '${p.slice(1)}')" class="px-3.5 py-2 rounded-xl bg-slate-950/60 border border-slate-900 hover:border-indigo-500/40 hover:text-indigo-300 text-xs font-semibold text-slate-400 transition-all">
+                    ${partNamePrettify(p)}
+                </a>
+            `).join('');
+            
+            // 8. Inject Structured Schema Data
+            let existSchema = document.getElementById('seo-schema-json');
+            if (existSchema) existSchema.remove();
+            
+            const schema = {
+                "@context": "https://schema.org",
+                "@graph": [
+                    {
+                        "@type": "BreadcrumbList",
+                        "itemListElement": pathParts.map((part, index) => ({
+                            "@type": "ListItem",
+                            "position": index + 1,
+                            "name": capitalizeWords(part),
+                            "item": `https://www.promptflowing.com${path.split('/').slice(0, index + 2).join('/')}`
+                        }))
+                    },
+                    {
+                        "@type": "FAQPage",
+                        "mainEntity": pageData.faqs.map(faq => ({
+                            "@type": "Question",
+                            "name": faq.q,
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": faq.a
+                            }
+                        }))
+                    }
+                ]
+            };
+            
+            const script = document.createElement('script');
+            script.id = 'seo-schema-json';
+            script.type = 'application/ld+json';
+            script.text = JSON.stringify(schema);
+            document.head.appendChild(script);
+            
+            // 9. Show Page
+            window.showPageInternal('seo-hub', true);
+        };
+        
+        window.copyPromptText = function(elementId) {
+            const text = document.getElementById(elementId).textContent;
+            navigator.clipboard.writeText(text);
+            window.showToast("Prompt copied to clipboard!", "success");
+        };
+
+        function partNamePrettify(p) {
+            const last = p.substring(p.lastIndexOf('/') + 1);
+            return last.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
         }
 
         // Initialize Router on DOMContentLoaded

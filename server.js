@@ -792,6 +792,39 @@ app.get('/sitemap.xml', (req, res) => {
         <priority>0.6</priority>
     </url>\n`;
 
+    // Append 103 Programmatic Platform Hub & Subpage URLs
+    const platformBranches = {
+        "/chatgpt-prompts/": ["business", "marketing", "sales", "email", "social-media", "seo", "youtube", "resume", "students", "productivity"],
+        "/ai-video-prompts/": ["sora-prompts", "runway-prompts", "veo-prompts", "kling-prompts", "pika-prompts", "cinematic-camera-movements", "product-commercials", "youtube-shorts-prompts"],
+        "/ai-image-prompts/": ["midjourney-prompts", "dalle-prompts", "stable-diffusion-prompts", "logo-prompts", "product-photography-prompts", "realistic-portrait-prompts", "instagram-post-prompts"],
+        "/prompt-engineering/": ["what-is-prompt-engineering", "prompt-formulas", "system-prompts", "few-shot-prompts", "negative-prompts", "how-to-write-better-prompts", "prompt-templates", "common-prompt-mistakes"],
+        "/ai-tools/": ["best-ai-video-generators", "best-ai-image-generators", "best-ai-writing-tools", "best-ai-coding-tools", "best-ai-website-builders", "best-ai-logo-generators", "best-ai-resume-builders", "free-ai-tools", "ai-tools-for-small-business", "ai-tools-for-youtube"],
+        "/ai-agents/": ["what-are-ai-agents", "business-automation", "customer-support", "sales-agents", "research-agents", "coding-agents", "workflow-automation", "no-code-ai-agents", "agentic-ai-examples"],
+        "/ai-for-business/": ["marketing", "customer-service", "sales", "hr", "legal-documents", "real-estate", "ecommerce", "restaurants", "consultants", "agencies"],
+        "/ai-website-builder/": ["prompts", "html-css-prompts", "landing-page-prompts", "shopify-prompts", "wordpress-prompts", "saas-landing-page-prompts", "portfolio-website-prompts", "cursor-prompts", "code-debugging-prompts"],
+        "/free-ai-generators/": ["logo-prompt-generator", "video-prompt-generator", "image-prompt-generator", "youtube-title-generator", "instagram-caption-generator", "business-name-generator", "seo-title-generator", "meta-description-generator", "product-description-generator", "email-subject-line-generator"],
+        "/industries/": ["real-estate-ai-prompts", "fitness-ai-prompts", "restaurants-ai-prompts", "ecommerce-ai-prompts", "law-firm-ai-prompts", "dental-ai-prompts", "med-spa-ai-prompts", "coaches-ai-prompts", "photographers-ai-prompts", "insurance-ai-prompts", "cleaning-business-ai-prompts", "roofing-ai-prompts", "plumbing-ai-prompts"]
+    };
+
+    Object.keys(platformBranches).forEach(branch => {
+        const mainHub = branch.slice(0, -1);
+        sitemap += `    <url>
+        <loc>https://www.promptflowing.com${mainHub}</loc>
+        <lastmod>${today}</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.85</priority>
+    </url>\n`;
+        
+        platformBranches[branch].forEach(sub => {
+            sitemap += `    <url>
+        <loc>https://www.promptflowing.com${branch}${sub}</loc>
+        <lastmod>${today}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.80</priority>
+    </url>\n`;
+        });
+    });
+
     // Append 700 Programmatic Niche Landing Pages
     sitemapCategories.forEach(catName => {
         const slug = slugify(catName);
@@ -812,6 +845,19 @@ app.get('/robots.txt', (req, res) => {
     res.header('Content-Type', 'text/plain');
     res.send(`User-agent: *
 Allow: /
+
+# Prevent search engines from crawling duplicate stripe backup directories
+Disallow: /promptflow-stripe-fixed/
+Disallow: /promptflow-stripe-fixed-v2/
+Disallow: /promptflow-stripe-fixed-v3/
+
+# Avoid indexing transaction-only checkouts or testing states
+Disallow: /checkout.html
+Disallow: /checkout-simulation.html
+
+# Prevent duplicate parameter index crawling (e.g., search queries)
+Disallow: /*?*
+
 Sitemap: https://www.promptflowing.com/sitemap.xml`);
 });
 
