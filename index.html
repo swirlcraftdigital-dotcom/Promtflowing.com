@@ -570,23 +570,7 @@
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-30 w-full">
                     <div class="text-center max-w-5xl mx-auto">
 
-                        <!-- Flash sale badge -->
-                        <div class="mb-8 float-badge">
-                            <div class="inline-flex flex-wrap items-center justify-center gap-3 bg-slate-900/80 border border-indigo-500/30 px-5 py-2.5 rounded-2xl shadow-[0_0_40px_rgba(99,102,241,0.2)] text-xs md:text-sm font-semibold max-w-xl mx-auto backdrop-blur-xl">
-                                <span class="text-amber-400 flex items-center gap-1.5"><i class="fa-solid fa-fire animate-pulse"></i> Flash Sale: 50% OFF</span>
-                                <span class="text-slate-600">|</span>
-                                <span class="text-slate-300">Code <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 font-extrabold">FLOW50</span></span>
-                                <span class="text-slate-600">|</span>
-                                <span class="text-white bg-slate-800 border border-slate-700 px-2.5 py-1 rounded-lg font-mono text-[11px] flex items-center gap-1">
-                                    Ends In: <span id="promoCountdown" class="text-emerald-400 font-bold ml-1">02:45:00</span>
-                                </span>
-                            </div>
-                        </div>
 
-                        <!-- Category tag -->
-                        <div class="mb-6">
-                            <span class="section-tag"><i class="fa-solid fa-sparkles text-indigo-400"></i> Elevate Your AI Outputs</span>
-                        </div>
 
                         <!-- Main headline -->
                         <h1 class="text-6xl md:text-8xl font-black text-white mb-6 leading-[1.05] tracking-tight min-h-[130px] md:min-h-[195px] select-none" style="font-family: 'Space Grotesk', sans-serif;">
@@ -594,59 +578,87 @@
                             <span id="typed-line-2" class="gradient-text"></span><span class="typing-cursor text-indigo-500">|</span>
                         </h1>
 
-                        <!-- AI Prompt Generator Container (Moved above paragraph and styled premium) -->
-                        <div class="max-w-3xl mx-auto mb-10 bg-slate-900/75 border border-slate-800/90 rounded-[2rem] p-8 shadow-[0_30px_70px_-15px_rgba(99,102,241,0.35)] backdrop-blur-2xl relative z-20 text-left border-t border-indigo-500/20">
-                            <!-- Premium Ambient Glow Behind Card -->
-                            <div class="absolute -inset-1 rounded-[2.1rem] bg-gradient-to-tr from-indigo-600/20 to-cyan-500/20 blur-xl opacity-75 -z-10 pointer-events-none"></div>
+                        <p class="text-xl md:text-2xl text-slate-400 mb-10 max-w-4xl mx-auto leading-relaxed font-light">
+                            Unlock the full potential of <span class="text-slate-200 font-medium">ChatGPT</span>, <span class="text-slate-200 font-medium">Claude 3.5</span>, <span class="text-slate-200 font-medium">Midjourney v6</span>, <span class="text-slate-200 font-medium">Gemini</span>, <span class="text-slate-200 font-medium">Sora</span>, <span class="text-slate-200 font-medium">DeepSeek</span> & more. Curated, tested, high-converting prompts for design, marketing, coding & creativity.
+                        </p>
 
-                            <!-- Header & Engine Selectors -->
-                            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
-                                <div class="flex items-center gap-2.5 text-white font-bold text-xs tracking-widest">
-                                    <span class="relative flex h-3 w-3">
-                                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-                                        <span class="relative inline-flex rounded-full h-3 w-3 bg-indigo-500"></span>
-                                    </span>
-                                    <span class="text-indigo-300 font-extrabold uppercase">PRECISE AI PROMPT GENERATOR</span>
-                                </div>
-                                <div class="flex items-center gap-2 bg-slate-950/80 border border-slate-800 p-1.5 rounded-2xl shadow-inner">
+                        <!-- AI Prompt Generator Container (Solid Black Redesign) -->
+                        <div class="max-w-3xl mx-auto mb-10 bg-black border border-slate-900 rounded-[2rem] p-8 shadow-[0_40px_80px_rgba(0,0,0,0.8)] backdrop-blur-2xl relative z-20 text-left">
+                            <!-- Premium Ambient Glo                            <!-- Engine Selectors (Centered & Modern - Wrap list of all AI Models) -->
+                            <div class="flex justify-center mb-6 px-1">
+                                <div class="flex flex-wrap items-center justify-center gap-2 bg-[#09090b] border border-slate-900 p-2 rounded-2xl shadow-inner max-w-full">
+                                    <!-- ChatGPT -->
                                     <button type="button" onclick="setActivePromptEngine('chatgpt')" id="btn-engine-chatgpt" class="px-4.5 py-2.5 rounded-xl text-xs font-bold transition-all text-white bg-indigo-600/90 shadow-lg flex items-center gap-1.5 cursor-pointer">
-                                        <i class="fa-solid fa-sparkles text-indigo-200"></i> ChatGPT
+                                        <svg class="w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.872zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.667zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1638a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z"/>
+                                        </svg>
+                                        ChatGPT
                                     </button>
+                                    
+                                    <!-- Claude -->
+                                    <button type="button" onclick="setActivePromptEngine('claude')" id="btn-engine-claude" class="px-4.5 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-400 hover:text-white flex items-center gap-1.5 cursor-pointer">
+                                        <svg class="w-4 h-4 text-amber-500" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M17.3041 3.541h-3.6718l6.696 16.918H24Zm-10.6082 0L0 20.459h3.7442l1.3693-3.5527h7.0052l1.3693 3.5528h3.7442L10.5363 3.5409Zm-.3712 10.2232 2.2914-5.9456 2.2914 5.9456Z"/>
+                                        </svg>
+                                        Claude
+                                    </button>
+
+                                    <!-- Gemini -->
                                     <button type="button" onclick="setActivePromptEngine('gemini')" id="btn-engine-gemini" class="px-4.5 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-400 hover:text-white flex items-center gap-1.5 cursor-pointer">
-                                        <i class="fa-solid fa-wand-magic-sparkles text-cyan-400"></i> Gemini
+                                        <svg class="w-4 h-4 text-indigo-400" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M12 0c.28 0 .55.18.66.44l3.18 7.72 7.72 3.18c.26.11.44.38.44.66s-.18.55-.44.66l-7.72 3.18-3.18 7.72c-.11.26-.38.44-.66.44s-.55-.18-.66-.44l-3.18-7.72-7.72-3.18c-.26-.11-.44-.38-.44-.66s.18-.55.44-.66l7.72-3.18 3.18-7.72c.11-.26.38-.44.66-.44z"/>
+                                        </svg>
+                                        Gemini
                                     </button>
+
+                                    <!-- Midjourney -->
+                                    <button type="button" onclick="setActivePromptEngine('midjourney')" id="btn-engine-midjourney" class="px-4.5 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-400 hover:text-white flex items-center gap-1.5 cursor-pointer">
+                                        <svg class="w-4 h-4 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                                            <circle cx="12" cy="12" r="9" stroke-dasharray="3 2" />
+                                            <path d="M12 7v10M9 10l3-3 3 3M8 14l4 2.5 4-2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        Midjourney
+                                    </button>
+
+                                    <!-- Sora -->
+                                    <button type="button" onclick="setActivePromptEngine('sora')" id="btn-engine-sora" class="px-4.5 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-400 hover:text-white flex items-center gap-1.5 cursor-pointer">
+                                        <svg class="w-4 h-4 text-rose-500" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M16 16v1.5c0 .83-.67 1.5-1.5 1.5h-11C2.67 19 2 18.33 2 17.5v-11C2 5.67 2.67 5 3.5 5h11c.83 0 1.5.67 1.5 1.5V8l5.5-4v16l-5.5-4z"/>
+                                        </svg>
+                                        Sora
+                                    </button>
+
+                                    <!-- Grok -->
                                     <button type="button" onclick="setActivePromptEngine('grok')" id="btn-engine-grok" class="px-4.5 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-400 hover:text-white flex items-center gap-1.5 cursor-pointer">
-                                        <i class="fa-solid fa-bolt text-amber-400"></i> Grok
+                                        <svg class="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                                        </svg>
+                                        Grok
+                                    </button>
+
+                                    <!-- DeepSeek -->
+                                    <button type="button" onclick="setActivePromptEngine('deepseek')" id="btn-engine-deepseek" class="px-4.5 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-400 hover:text-white flex items-center gap-1.5 cursor-pointer">
+                                        <svg class="w-4 h-4 text-blue-500" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                                        </svg>
+                                        DeepSeek
                                     </button>
                                 </div>
                             </div>
 
-                            <!-- Input Row (Larger & More Premium) -->
-                            <div class="relative flex flex-col md:flex-row gap-3.5 items-center">
-                                <div class="relative w-full group">
-                                    <input type="text" id="promptGenInput" placeholder="" class="w-full bg-slate-950/60 border border-slate-800/80 focus:border-indigo-500/80 rounded-2xl py-5 pl-13 pr-10 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all font-medium text-base shadow-inner">
-                                    <div class="absolute left-5 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-indigo-400 transition-colors">
-                                        <i class="fa-solid fa-magnifying-glass-chart text-lg"></i>
-                                    </div>
-                                    <div class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-600">
-                                        <i class="fa-solid fa-keyboard text-xs"></i>
-                                    </div>
+                            <!-- Input Row (Cutting-Edge Black Search Bar with Thick Padding & White Up-Arrow) -->
+                            <div class="relative w-full group">
+                                <input type="text" id="promptGenInput" placeholder="" class="w-full bg-black border-2 border-slate-800/80 hover:border-slate-700 focus:border-indigo-500 rounded-2xl py-[25px] pl-14 pr-18 text-white placeholder-slate-500 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 transition-all font-semibold text-base shadow-[0_4px_30px_rgba(0,0,0,0.8)]">
+                                <div class="absolute left-5 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-indigo-400 transition-colors">
+                                    <i class="fa-solid fa-magnifying-glass text-lg"></i>
                                 </div>
-                                <button type="button" onclick="generateCustomPrompt()" class="w-full md:w-auto px-9 py-5 rounded-2xl bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 hover:from-indigo-500 hover:via-purple-500 hover:to-blue-500 text-white font-bold text-base transition-all flex items-center justify-center gap-2.5 shadow-xl shadow-indigo-600/30 active:scale-95 whitespace-nowrap cursor-pointer hover:shadow-indigo-500/40">
-                                    Generate Prompt <i class="fa-solid fa-bolt-lightning animate-pulse"></i>
+                                <button type="button" onclick="generateCustomPrompt()" class="absolute right-3.5 top-1/2 -translate-y-1/2 w-12 h-12 rounded-xl bg-white hover:bg-slate-100 text-black transition-all flex items-center justify-center shadow-lg active:scale-95 cursor-pointer" title="Generate Prompt">
+                                    <i class="fa-solid fa-arrow-up text-base"></i>
                                 </button>
                             </div>
 
-                            <!-- Payout/Trial Status badge -->
-                            <div class="flex flex-col sm:flex-row gap-3 items-center justify-between text-xs text-slate-500 font-semibold mt-4 px-1">
-                                <div class="flex items-center gap-2">
-                                    <span class="text-slate-400">Free Trial remaining:</span>
-                                    <span id="promptGenTriesBadge" class="bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 px-3 py-1 rounded-xl font-bold">3 runs remaining</span>
-                                </div>
-                                <div class="text-slate-400 hover:text-indigo-400 cursor-pointer flex items-center gap-1.5 transition-colors" onclick="document.getElementById('elite-bundle-card').scrollIntoView({behavior:'smooth'})">
-                                    <span>Unlock unlimited outputs with Lifetime Bundle</span> <i class="fa-solid fa-arrow-right text-[10px] animate-pulse"></i>
-                                </div>
-                            </div>
+                            <!-- Hidden placeholders for seamless JavaScript engine compatibility -->
+                            <span id="promptGenTriesBadge" class="hidden"></span>
 
                             <!-- Prompt output panel -->
                             <div id="promptGenOutputWrapper" class="hidden mt-6 pt-6 border-t border-slate-800/80 text-left">
@@ -665,10 +677,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <p class="text-xl md:text-2xl text-slate-400 mb-10 max-w-4xl mx-auto leading-relaxed font-light">
-                            Unlock the full potential of <span class="text-slate-200 font-medium">ChatGPT</span>, <span class="text-slate-200 font-medium">Claude 3.5</span>, <span class="text-slate-200 font-medium">Midjourney v6</span>, <span class="text-slate-200 font-medium">Gemini</span>, <span class="text-slate-200 font-medium">Sora</span>, <span class="text-slate-200 font-medium">DeepSeek</span> & more. Curated, tested, high-converting prompts for design, marketing, coding & creativity.
-                        </p>
 
                         <!-- CTA Buttons -->
                         <div class="flex flex-col sm:flex-row justify-center gap-4 mb-12">
@@ -743,8 +751,9 @@
                 <!-- INTERACTIVE FLOATING ZERO-GRAVITY BRAND BUBBLES (Google Antigravity style) -->
                 <div id="brand-bubbles-section" class="w-full max-w-[94%] mx-auto mt-6 mb-16 relative z-30 px-4">
                     <div class="text-center mb-8">
-                        <h3 class="text-lg md:text-xl font-bold tracking-wider text-slate-300 uppercase font-mono">
-                            <i class="fa-solid fa-wand-magic-sparkles text-indigo-400 mr-2 animate-pulse"></i><span id="typed-brand-engines"></span><span class="brand-typing-cursor text-indigo-500">|</span>
+                        <h3 class="text-xs md:text-sm font-bold tracking-widest text-slate-400 uppercase font-mono flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-wand-magic-sparkles text-indigo-400 animate-pulse"></i>
+                            <span id="typed-brand-engines"></span><span class="brand-typing-cursor text-indigo-500">|</span>
                         </h3>
                     </div>
                     
@@ -5840,14 +5849,14 @@
             activePromptEngine = engine;
             
             // Toggle active classes on pills
-            const engines = ['chatgpt', 'gemini', 'grok'];
+            const engines = ['chatgpt', 'claude', 'gemini', 'midjourney', 'sora', 'grok', 'deepseek'];
             engines.forEach(eng => {
                 const btn = document.getElementById(`btn-engine-${eng}`);
                 if (!btn) return;
                 if (eng === engine) {
-                    btn.className = "px-4 py-2 rounded-xl text-xs font-bold transition-all text-white bg-indigo-600/90 shadow-lg flex items-center gap-1.5 cursor-pointer";
+                    btn.className = "px-4.5 py-2.5 rounded-xl text-xs font-bold transition-all text-white bg-indigo-600/90 shadow-lg flex items-center gap-1.5 cursor-pointer";
                 } else {
-                    btn.className = "px-4 py-2 rounded-xl text-xs font-bold transition-all text-slate-400 hover:text-white flex items-center gap-1.5 cursor-pointer";
+                    btn.className = "px-4.5 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-400 hover:text-white flex items-center gap-1.5 cursor-pointer";
                 }
             });
         };

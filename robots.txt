@@ -1,3 +1,16 @@
 User-agent: *
 Allow: /
+
+# Prevent search engines from crawling duplicate stripe backup directories
+Disallow: /promptflow-stripe-fixed/
+Disallow: /promptflow-stripe-fixed-v2/
+Disallow: /promptflow-stripe-fixed-v3/
+
+# Avoid indexing transaction-only checkouts or testing states
+Disallow: /checkout.html
+Disallow: /checkout-simulation.html
+
+# Prevent duplicate parameter index crawling (e.g., search queries)
+Disallow: /*?*
+
 Sitemap: https://www.promptflowing.com/sitemap.xml
