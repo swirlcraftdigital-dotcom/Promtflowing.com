@@ -107,6 +107,7 @@
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/assets/ai_platform_data.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Secure Stripe official SDK library -->
@@ -5811,137 +5812,136 @@
             if (e.target === e.currentTarget) window.toggleCart();
         });
 
-        // --- INTERACTIVE MOUSE CANVAS ANIMATION ---
-        // --- INTERACTIVE MOUSE CANVAS & ZERO-GRAVITY ELEMENT PHYSICS ENGINE ---
+        // --- INTERACTIVE THREE.JS 3D ANTI-GRAVITY PARTICLE FIELD ---
         function initInteractiveCanvas() {
             const canvas = document.getElementById('interactiveCanvas');
             if (!canvas) return;
-            const heroSection = document.getElementById('hero-interactive-section');
-            const ctx = canvas.getContext('2d');
 
-            let width = canvas.width = heroSection ? heroSection.offsetWidth : window.innerWidth;
-            let height = canvas.height = heroSection ? heroSection.offsetHeight : window.innerHeight;
+            // Make sure the canvas is styled correctly to act as the full background of the hero
+            canvas.style.position = 'absolute';
+            canvas.style.top = '0';
+            canvas.style.left = '0';
+            canvas.style.width = '100%';
+            canvas.style.height = '100%';
+            canvas.style.pointerEvents = 'none';
 
-            const particles = [];
-            const particleCount = 65; // Optimized rich density for gorgeous stargaze swarm (silky smooth scroll performance)
-            const connectionDistance = 100;
-            const connectionDistanceSq = connectionDistance * connectionDistance;
+            const heroSection = document.getElementById('hero-interactive-section') || canvas.parentElement;
             
-            // Shared high-precision mouse tracking state
-            const mouse = { 
-                x: null, 
-                y: null, 
-                targetX: null, 
-                targetY: null, 
-                radius: 400, 
-                active: false 
-            };
+            // WebGL Renderer Setup
+            const renderer = new THREE.WebGLRenderer({
+                canvas: canvas,
+                antialias: true,
+                alpha: true,
+                powerPreference: "high-performance"
+            });
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-            class Particle {
-                constructor() {
-                    this.x = Math.random() * width;
-                    this.y = Math.random() * height;
-                    
-                    // Zero-gravity base float velocities
-                    this.baseVx = (Math.random() - 0.5) * 0.35;
-                    this.baseVy = (Math.random() - 0.7) * 0.45; // Subtle upward float bias
-                    
-                    // Current velocities (momentum-driven)
-                    this.vx = this.baseVx;
-                    this.vy = this.baseVy;
-                    
-                    this.radius = Math.random() * 2.5 + 1.2;
-                    
-                    const colors = [
-                        'rgba(59, 130, 246, ',  // Indigo Blue
-                        'rgba(139, 92, 246, ', // Cyber Violet
-                        'rgba(6, 182, 212, ',  // Aurora Cyan
-                        'rgba(16, 185, 129, '  // Vibrant Emerald
-                    ];
-                    this.color = colors[Math.floor(Math.random() * colors.length)];
-                    this.alpha = Math.random() * 0.5 + 0.3;
-                }
+            let width = heroSection ? heroSection.offsetWidth : window.innerWidth;
+            let height = heroSection ? heroSection.offsetHeight : window.innerHeight;
+            renderer.setSize(width, height);
 
-                update() {
-                    // Update position using dynamic momentum
-                    this.x += this.vx;
-                    this.y += this.vy;
+            // Scene and Camera Setup
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 1000);
+            camera.position.z = 250;
+            camera.position.y = 80;
+            camera.lookAt(new THREE.Vector3(0, 0, 0));
 
-                    // Standard drag to decay momentum back to base float speed
-                    this.vx = this.vx * 0.94 + this.baseVx * 0.06;
-                    this.vy = this.vy * 0.94 + this.baseVy * 0.06;
+            // Particle Field Setup
+            const particleCount = 7500;
+            const geometry = new THREE.BufferGeometry();
+            
+            const positions = new Float32Array(particleCount * 3);
+            const initialPositions = new Float32Array(particleCount * 3);
+            const colors = new Float32Array(particleCount * 3);
+            const phases = new Float32Array(particleCount);
+            const speeds = new Float32Array(particleCount);
+            
+            // Vibrant Premium AI palettes
+            const palette = [
+                new THREE.Color('#3b82f6'), // Indigo Blue
+                new THREE.Color('#8b5cf6'), // Cyber Violet
+                new THREE.Color('#06b6d4'), // Aurora Cyan
+                new THREE.Color('#ec4899')  // Futuristic Pink
+            ];
 
-                    // Bounce horizontal edges
-                    if (this.x < 0) {
-                        this.x = 0;
-                        this.vx *= -1;
-                    } else if (this.x > width) {
-                        this.x = width;
-                        this.vx *= -1;
-                    }
-                    
-                    // Infinite lift wrap: when it hits the top edge, seamlessly spawn at the bottom
-                    if (this.y < 0) {
-                        this.y = height;
-                        this.x = Math.random() * width;
-                        this.vx = this.baseVx;
-                        this.vy = this.baseVy;
-                    } else if (this.y > height) {
-                        this.y = 0;
-                        this.vx = this.baseVx;
-                        this.vy = this.baseVy;
-                    }
-
-                    // Orbital swirling gravity swarm around the cursor (Google Antigravity style)
-                    if (mouse.active && mouse.x !== null) {
-                        const dx = mouse.x - this.x;
-                        const dy = mouse.y - this.y;
-                        const dist = Math.sqrt(dx * dx + dy * dy);
-
-                        if (dist < mouse.radius && dist > 0) {
-                            const force = (mouse.radius - dist) / mouse.radius;
-                            // Kinetic pull towards the cursor coordinates
-                            const pull = force * 0.18;
-                            this.vx += (dx / dist) * pull;
-                            this.vy += (dy / dist) * pull;
-
-                            // Orbital swirling tangent component
-                            const tangentX = -dy / dist;
-                            const tangentY = dx / dist;
-                            const swirl = force * 0.22;
-                            this.vx += tangentX * swirl;
-                            this.vy += tangentY * swirl;
-                        }
-                    }
-                }
-
-                draw() {
-                    // Fast hardware-accelerated outer halo glow (avoiding extremely slow Gaussian blur drop-shadows)
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.radius * 2.2, 0, Math.PI * 2);
-                    ctx.fillStyle = this.color + (this.alpha * 0.15) + ')';
-                    ctx.fill();
-
-                    // Core star
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                    ctx.fillStyle = this.color + this.alpha + ')';
-                    ctx.fill();
-                }
-            }
+            const gridCols = 100;
+            const gridRows = 75;
+            const spacingX = 6.0;
+            const spacingY = 4.8;
+            const startX = -((gridCols - 1) * spacingX) / 2;
+            const startY = -((gridRows - 1) * spacingY) / 2;
 
             for (let i = 0; i < particleCount; i++) {
-                particles.push(new Particle());
+                const col = i % gridCols;
+                const row = Math.floor(i / gridCols);
+
+                // Arrange in a soft horizontal 3D plane
+                const posX = startX + col * spacingX + (Math.random() - 0.5) * 2;
+                const posY = (Math.random() - 0.5) * 15; // thin layered cloud
+                const posZ = startY + row * spacingY + (Math.random() - 0.5) * 2;
+
+                positions[i * 3] = posX;
+                positions[i * 3 + 1] = posY;
+                positions[i * 3 + 2] = posZ;
+
+                initialPositions[i * 3] = posX;
+                initialPositions[i * 3 + 1] = posY;
+                initialPositions[i * 3 + 2] = posZ;
+
+                // Color gradient based on coordinates and index
+                const colorIdx = Math.floor(Math.random() * palette.length);
+                const color = palette[colorIdx];
+                colors[i * 3] = color.r;
+                colors[i * 3 + 1] = color.g;
+                colors[i * 3 + 2] = color.b;
+
+                phases[i] = Math.random() * Math.PI * 2;
+                speeds[i] = 0.4 + Math.random() * 0.8;
             }
 
-            function updateMousePosition() {
-                if (mouse.targetX !== null && mouse.x !== null) {
-                    mouse.x += (mouse.targetX - mouse.x) * 0.12;
-                    mouse.y += (mouse.targetY - mouse.y) * 0.12;
-                }
-            }
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
-            // Confine mouse/touch interaction box to hero container
+            // Custom Round Glowing Particle Texture
+            const createParticleTexture = () => {
+                const canvas = document.createElement('canvas');
+                canvas.width = 64;
+                canvas.height = 64;
+                const ctx = canvas.getContext('2d');
+                const grad = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
+                grad.addColorStop(0, 'rgba(255, 255, 255, 1)');
+                grad.addColorStop(0.25, 'rgba(255, 255, 255, 0.8)');
+                grad.addColorStop(0.55, 'rgba(255, 255, 255, 0.15)');
+                grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+                ctx.fillStyle = grad;
+                ctx.fillRect(0, 0, 64, 64);
+                return new THREE.CanvasTexture(canvas);
+            };
+
+            const material = new THREE.PointsMaterial({
+                size: 2.8,
+                map: createParticleTexture(),
+                transparent: true,
+                vertexColors: true,
+                blending: THREE.AdditiveBlending,
+                depthWrite: false
+            });
+
+            const particleSystem = new THREE.Points(geometry, material);
+            scene.add(particleSystem);
+
+            // High Precision Mouse Attraction & Parallax Tracking state
+            const mouse = {
+                x: 0,
+                y: 0,
+                targetX: 0,
+                targetY: 0,
+                active: false,
+                worldPosition: new THREE.Vector3()
+            };
+
+            // Capture mouse coordinates and normalize
             window.addEventListener('mousemove', (e) => {
                 if (!heroSection) return;
                 const rect = heroSection.getBoundingClientRect();
@@ -5949,13 +5949,9 @@
                 if (e.clientX >= rect.left && e.clientX <= rect.right &&
                     e.clientY >= rect.top && e.clientY <= rect.bottom) {
                     
-                    mouse.targetX = e.clientX - rect.left;
-                    mouse.targetY = e.clientY - rect.top;
-                    
-                    if (mouse.x === null) {
-                        mouse.x = mouse.targetX;
-                        mouse.y = mouse.targetY;
-                    }
+                    // Normalize mouse to -1 to 1 range
+                    mouse.targetX = ((e.clientX - rect.left) / width) * 2 - 1;
+                    mouse.targetY = -((e.clientY - rect.top) / height) * 2 + 1;
                     mouse.active = true;
                 } else {
                     mouse.active = false;
@@ -5970,80 +5966,113 @@
                 if (t.clientX >= rect.left && t.clientX <= rect.right &&
                     t.clientY >= rect.top && t.clientY <= rect.bottom) {
                     
-                    mouse.targetX = t.clientX - rect.left;
-                    mouse.targetY = t.clientY - rect.top;
-                    
-                    if (mouse.x === null) {
-                        mouse.x = mouse.targetX;
-                        mouse.y = mouse.targetY;
-                    }
+                    mouse.targetX = ((t.clientX - rect.left) / width) * 2 - 1;
+                    mouse.targetY = -((t.clientY - rect.top) / height) * 2 + 1;
                     mouse.active = true;
                 } else {
                     mouse.active = false;
                 }
             }, { passive: true });
 
-            window.addEventListener('mouseleave', () => {
-                mouse.active = false;
-            });
-
-            window.addEventListener('touchend', () => {
-                mouse.active = false;
-            });
+            window.addEventListener('mouseleave', () => { mouse.active = false; });
+            window.addEventListener('touchend', () => { mouse.active = false; });
 
             window.addEventListener('resize', () => {
                 if (!heroSection) return;
-                width = canvas.width = heroSection.offsetWidth;
-                height = canvas.height = heroSection.offsetHeight;
+                width = heroSection.offsetWidth;
+                height = heroSection.offsetHeight;
+                
+                camera.aspect = width / height;
+                camera.updateProjectionMatrix();
+                
+                renderer.setSize(width, height);
             });
 
-            function animate() {
-                ctx.clearRect(0, 0, width, height);
-                updateMousePosition();
+            // Smoothly updates normalized mouse coords with easing
+            function updateMouse() {
+                mouse.x += (mouse.targetX - mouse.x) * 0.08;
+                mouse.y += (mouse.targetY - mouse.y) * 0.08;
 
-                // Draw gorgeous mouse aura radial glow
-                if (mouse.active && mouse.x !== null) {
-                    const gradient = ctx.createRadialGradient(
-                        mouse.x, mouse.y, 10,
-                        mouse.x, mouse.y, mouse.radius * 1.5
-                    );
-                    gradient.addColorStop(0, 'rgba(99, 102, 241, 0.18)');
-                    gradient.addColorStop(0.35, 'rgba(139, 92, 246, 0.08)');
-                    gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
-                    ctx.beginPath();
-                    ctx.arc(mouse.x, mouse.y, mouse.radius * 1.5, 0, Math.PI * 2);
-                    ctx.fillStyle = gradient;
-                    ctx.fill();
+                // Project normalized screen position to 3D plane coordinates
+                if (mouse.active) {
+                    mouse.worldPosition.set(mouse.x * 240, mouse.y * 140, 0);
+                } else {
+                    // Slowly return to center when mouse leaves
+                    mouse.targetX += (0 - mouse.targetX) * 0.05;
+                    mouse.targetY += (0 - mouse.targetY) * 0.05;
+                    mouse.worldPosition.set(mouse.x * 240, mouse.y * 140, 0);
                 }
-
-                // Render & link starfield particles
-                for (let i = 0; i < particles.length; i++) {
-                    particles[i].update();
-                    particles[i].draw();
-
-                    for (let j = i + 1; j < particles.length; j++) {
-                        const dx = particles[i].x - particles[j].x;
-                        const dy = particles[i].y - particles[j].y;
-                        
-                        // Performance: check squared distance first to avoid extremely expensive Math.sqrt calls
-                        const distSq = dx * dx + dy * dy;
-                        if (distSq < connectionDistanceSq) {
-                            const dist = Math.sqrt(distSq);
-                            ctx.beginPath();
-                            ctx.moveTo(particles[i].x, particles[i].y);
-                            ctx.lineTo(particles[j].x, particles[j].y);
-                            const alpha = (1 - (dist / connectionDistance)) * 0.12;
-                            ctx.strokeStyle = `rgba(139, 92, 246, ${alpha})`;
-                            ctx.lineWidth = 0.8;
-                            ctx.stroke();
-                        }
-                    }
-                }
-
-                requestAnimationFrame(animate);
             }
 
-            requestAnimationFrame(animate);
+            let clock = new THREE.Clock();
+
+            // Main Render and Physics Animation Loop
+            function animate() {
+                requestAnimationFrame(animate);
+
+                const time = clock.getElapsedTime();
+                updateMouse();
+
+                // Parallax Camera Depth and Easing
+                camera.position.x += (mouse.x * 55 - camera.position.x) * 0.05;
+                camera.position.y += ((mouse.y * 35 + 80) - camera.position.y) * 0.05;
+                camera.lookAt(new THREE.Vector3(0, -10, 0));
+
+                const posAttribute = geometry.attributes.position;
+                const posArray = posAttribute.array;
+
+                for (let i = 0; i < particleCount; i++) {
+                    const idx = i * 3;
+                    const initX = initialPositions[idx];
+                    const initY = initialPositions[idx + 1];
+                    const initZ = initialPositions[idx + 2];
+
+                    // 1. Noise-based soft 3D Wave Field Motion (sine & cosine combinations)
+                    const waveAmplitude = 18;
+                    const waveSpeed = 0.9;
+                    const frequencyX = 0.007;
+                    const frequencyZ = 0.009;
+
+                    let baseWaveY = Math.sin(initX * frequencyX + time * waveSpeed * speeds[i] + phases[i]) * waveAmplitude;
+                    baseWaveY += Math.cos(initZ * frequencyZ + time * waveSpeed * 0.8 + phases[i]) * (waveAmplitude * 0.7);
+                    
+                    // Add micro-noise details
+                    baseWaveY += Math.sin((initX + initZ) * 0.03 + time * 1.5) * 3;
+
+                    // 2. Cursor attraction / warp / pull physics (Floaty anti-gravity warp effect)
+                    const dx = initX - mouse.worldPosition.x;
+                    // Project mouse coordinates onto horizontal wave field Z plane
+                    const dz = initZ - mouse.worldPosition.z; 
+                    const distance = Math.sqrt(dx * dx + dz * dz);
+
+                    const warpRadius = 90;
+                    let targetY = baseWaveY;
+                    let targetX = initX;
+                    let targetZ = initZ;
+
+                    if (distance < warpRadius) {
+                        // Soft attraction force (inverse linear relation)
+                        const force = (warpRadius - distance) / warpRadius;
+                        
+                        // Anti-gravity warp: pull them upwards and slightly towards the mouse center
+                        targetY += force * 52; // Massive antigravity float height warp
+                        targetX += (mouse.worldPosition.x - initX) * force * 0.35; // gentle pull
+                        targetZ += (mouse.worldPosition.z - initZ) * force * 0.35; // gentle pull
+                    }
+
+                    // Apply smooth physics easing back to base or warped target states
+                    posArray[idx] += (targetX - posArray[idx]) * 0.09;
+                    posArray[idx + 1] += (targetY - posArray[idx + 1]) * 0.09;
+                    posArray[idx + 2] += (targetZ - posArray[idx + 2]) * 0.09;
+                }
+
+                // Tell Three.js positions have changed so GPU updates buffer
+                posAttribute.needsUpdate = true;
+
+                renderer.render(scene, camera);
+            }
+
+            animate();
         }
 
         // --- CONVERSION RATE OPTIMIZATION (CRO) GROWTH HACKING ROUTINES ---

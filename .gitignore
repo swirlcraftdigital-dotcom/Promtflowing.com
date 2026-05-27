@@ -8,6 +8,7 @@ node_modules/
 
 # Runtime / test artifacts
 admin_stats.json
+vaults.json
 test-image.js
 
 # OS junk
